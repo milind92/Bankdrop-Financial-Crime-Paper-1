@@ -1,0 +1,222 @@
+﻿source,entity_type,entity,hit_count
+6. The X Wave Market,payment_rail,escrow,56
+7. Meta Banklogs,country_region,USA,50
+(no_source),payment_rail,escrow,30
+6. The X Wave Market,country_region,USA,22
+5. CardPro,payment_rail,wire,21
+5. CardPro,bank,Citibank,19
+10. Tor Shop,country_region,USA,17
+11. Legit Market,country_region,USA,17
+3. Pitch,payment_rail,Telegram,16
+(no_source),payment_rail,Tor,15
+1. Dread,country_region,USA,14
+5. CardPro,payment_rail,Telegram,13
+6. The X Wave Market,payment_rail,BTC,13
+6. The X Wave Market,payment_rail,bank transfer,12
+2. Altenen,payment_rail,Telegram,11
+3. Pitch,payment_rail,Bitcoin,11
+1. Dread,payment_rail,escrow,10
+3. Pitch,payment_rail,Tor,10
+(no_source),payment_rail,multisig,10
+7. Meta Banklogs,bank,Suntrust,10
+(no_source),country_region,Russian,9
+(no_source),payment_rail,Telegram,9
+11. Legit Market,bank,Wells Fargo,9
+3. Pitch,payment_rail,escrow,9
+6. The X Wave Market,payment_rail,Coinbase,9
+7. Meta Banklogs,bank,Chase,9
+10. Tor Shop,bank,Albert,8
+11. Legit Market,bank,Chase,7
+3. Pitch,payment_rail,Coinbase,7
+3. Pitch,payment_rail,direct deposit,7
+7. Meta Banklogs,payment_rail,Bitcoin,7
+7. Meta Banklogs,bank,Wells Fargo,7
+(no_source),country_region,Australia,6
+3. Pitch,country_region,India,6
+7. Meta Banklogs,bank,Albert,6
+(no_source),country_region,Chinese,5
+10. Tor Shop,payment_rail,Coinbase,5
+17.  XmrBazaar,payment_rail,escrow,5
+3. Pitch,payment_rail,ACH,5
+3. Pitch,payment_rail,wire,5
+3. Pitch,payment_rail,BTC,5
+3. Pitch,payment_rail,CashApp,5
+5. CardPro,country_region,USA,5
+6. The X Wave Market,payment_rail,wire,5
+7. Meta Banklogs,bank,USAA,5
+7. Meta Banklogs,bank,RBC,5
+7. Meta Banklogs,country_region,Canada,5
+7. Meta Banklogs,bank,Woodforest,5
+(no_source),country_region,New Zealand,4
+1. Dread,country_region,Canada,4
+10. Tor Shop,bank,Regions,4
+10. Tor Shop,bank,Suntrust,4
+11. Legit Market,payment_rail,BTC,4
+11. Legit Market,payment_rail,debit card,4
+11. Legit Market,bank,RBC,4
+11. Legit Market,country_region,Canada,4
+15. Tenebris,country_region,USA,4
+3. Pitch,country_region,USA,4
+6. The X Wave Market,country_region,Australia,4
+6. The X Wave Market,payment_rail,debit card,4
+6. The X Wave Market,bank,Chase,4
+7. Meta Banklogs,country_region,Australian,4
+7. Meta Banklogs,bank,Citi,4
+7. Meta Banklogs,bank,BBT,4
+(no_source),country_region,Australian,3
+10. Tor Shop,bank,PNC,3
+10. Tor Shop,bank,Chase,3
+10. Tor Shop,bank,Commonwealth,3
+10. Tor Shop,country_region,Australian,3
+11. Legit Market,bank,Citi,3
+11. Legit Market,bank,Bank of America,3
+11. Legit Market,bank,PNC,3
+15. Tenebris,payment_rail,wire,3
+2. Altenen,payment_rail,CashApp,3
+2. Altenen,payment_rail,Western Union,3
+3. Pitch,payment_rail,Monero,3
+3. Pitch,payment_rail,Western Union,3
+(no_source),payment_rail,Bitcoin,3
+6. The X Wave Market,payment_rail,Western Union,3
+6. The X Wave Market,bank,Wells Fargo,3
+6. The X Wave Market,bank,Citi,3
+6. The X Wave Market,bank,Truist,3
+6. The X Wave Market,payment_rail,Chime,3
+7. Meta Banklogs,bank,Commonwealth,3
+7. Meta Banklogs,payment_rail,debit card,3
+7. Meta Banklogs,bank,Citizens,3
+7. Meta Banklogs,bank,Punjab National Bank,3
+7. Meta Banklogs,bank,Simmons Bank,3
+7. Meta Banklogs,bank,South State Bank,3
+7. Meta Banklogs,bank,United Bank,3
+7. Meta Banklogs,bank,Washington Federal,3
+7. Meta Banklogs,bank,Western Alliance,3
+(no_source),country_region,Spanish,3
+(no_source),country_region,United States,2
+(no_source),country_region,USA,2
+1. Dread,country_region,United States,2
+1. Dread,country_region,Australia,2
+1. Dread,payment_rail,ACH,2
+1. Dread,payment_rail,BTC,2
+10. Tor Shop,payment_rail,Greendot,2
+10. Tor Shop,bank,Bank of America,2
+10. Tor Shop,bank,Citi,2
+10. Tor Shop,payment_rail,debit card,2
+10. Tor Shop,bank,Citibank,2
+11. Legit Market,payment_rail,Telegram,2
+15. Tenebris,payment_rail,prepaid card,2
+17.  XmrBazaar,payment_rail,multisig,2
+2. Altenen,payment_rail,Chime,2
+2. Altenen,country_region,USA,2
+2. Altenen,payment_rail,Bitcoin,2
+2. Altenen,payment_rail,BTC,2
+3. Pitch,payment_rail,debit card,2
+3. Pitch,bank,Bank of America,2
+3. Pitch,bank,Chase,2
+3. Pitch,payment_rail,Chime,2
+3. Pitch,country_region,Russian,2
+5. CardPro,payment_rail,ACH,2
+5. CardPro,payment_rail,escrow,2
+6. The X Wave Market,payment_rail,Bitcoin,2
+6. The X Wave Market,payment_rail,virtual card,2
+7. Meta Banklogs,payment_rail,ACH,2
+7. Meta Banklogs,payment_rail,virtual card,2
+7. Meta Banklogs,payment_rail,Tor,2
+7. Meta Banklogs,bank,Citibank,2
+7. Meta Banklogs,bank,PNC,2
+1. Dread,payment_rail,Telegram,1
+1. Dread,bank,Truist,1
+1. Dread,bank,Chase,1
+1. Dread,country_region,Spain,1
+1. Dread,payment_rail,USDT,1
+1. Dread,bank,Citizens,1
+10. Tor Shop,payment_rail,bank transfer,1
+10. Tor Shop,bank,Sutton,1
+10. Tor Shop,payment_rail,ACH,1
+10. Tor Shop,payment_rail,virtual card,1
+10. Tor Shop,bank,BBT,1
+10. Tor Shop,payment_rail,BTC,1
+11. Legit Market,bank,USAA,1
+11. Legit Market,payment_rail,direct deposit,1
+11. Legit Market,payment_rail,wire,1
+11. Legit Market,payment_rail,Tor,1
+14. Lonely Road,country_region,Australian,1
+14. Lonely Road,payment_rail,Tor,1
+15. Tenebris,payment_rail,ACH,1
+15. Tenebris,payment_rail,BTC,1
+15. Tenebris,payment_rail,XMR,1
+15. Tenebris,payment_rail,CashApp,1
+15. Tenebris,payment_rail,Chime,1
+15. Tenebris,payment_rail,escrow,1
+15. Tenebris,bank,Wells Fargo,1
+15. Tenebris,bank,Chase,1
+15. Tenebris,bank,Citi,1
+15. Tenebris,payment_rail,Tor,1
+17.  XmrBazaar,payment_rail,wire,1
+17.  XmrBazaar,payment_rail,bank transfer,1
+17.  XmrBazaar,payment_rail,XMR,1
+2. Altenen,payment_rail,Coinbase,1
+2. Altenen,bank,Chase,1
+2. Altenen,country_region,China,1
+2. Altenen,bank,RBC,1
+2. Altenen,payment_rail,debit card,1
+2. Altenen,payment_rail,USDT,1
+2. Altenen,payment_rail,wire,1
+3. Pitch,bank,Suntrust,1
+3. Pitch,payment_rail,bank transfer,1
+3. Pitch,country_region,Canada,1
+3. Pitch,bank,PNC,1
+3. Pitch,bank,Woodforest,1
+3. Pitch,payment_rail,Greendot,1
+3. Pitch,bank,Wells Fargo,1
+3. Pitch,bank,Truist,1
+3. Pitch,bank,Regions,1
+3. Pitch,bank,Sutton,1
+3. Pitch,country_region,South Africa,1
+3. Pitch,payment_rail,XMR,1
+3. Pitch,payment_rail,USDT,1
+3. Pitch,payment_rail,MoneyGram,1
+3. Pitch,country_region,United States,1
+(no_source),bank,Bank of America,1
+(no_source),bank,Wells Fargo,1
+(no_source),bank,Chase,1
+(no_source),payment_rail,Monero,1
+(no_source),payment_rail,USDT,1
+4. Caders Heven,payment_rail,BTC,1
+4. Caders Heven,payment_rail,Monero,1
+4. Caders Heven,payment_rail,Tor,1
+4. Caders Heven,payment_rail,escrow,1
+5. CardPro,country_region,Canada,1
+5. CardPro,country_region,Russia,1
+5. CardPro,country_region,Russian,1
+6. The X Wave Market,payment_rail,Tor,1
+6. The X Wave Market,bank,Westpac,1
+6. The X Wave Market,bank,Commonwealth,1
+6. The X Wave Market,country_region,United States,1
+6. The X Wave Market,payment_rail,CashApp,1
+6. The X Wave Market,bank,Bank of America,1
+6. The X Wave Market,bank,Regions,1
+6. The X Wave Market,bank,Albert,1
+6. The X Wave Market,country_region,Russian,1
+6. The X Wave Market,payment_rail,XMR,1
+6. The X Wave Market,payment_rail,MoneyGram,1
+6. The X Wave Market,country_region,Australian,1
+6. The X Wave Market,bank,USAA,1
+6. The X Wave Market,country_region,Canada,1
+7. Meta Banklogs,payment_rail,Monero,1
+7. Meta Banklogs,payment_rail,escrow,1
+7. Meta Banklogs,bank,Sutton,1
+7. Meta Banklogs,payment_rail,Coinbase,1
+7. Meta Banklogs,bank,Regions,1
+7. Meta Banklogs,payment_rail,Greendot,1
+8. Secure ccSeller,payment_rail,Bitcoin,1
+8. Secure ccSeller,payment_rail,USDT,1
+8. Secure ccSeller,payment_rail,escrow,1
+9. Deep Shop,bank,Commonwealth,1
+9. Deep Shop,payment_rail,Telegram,1
+9. Deep Shop,bank,Chase,1
+9. Deep Shop,bank,PNC,1
+9. Deep Shop,bank,RBC,1
+(no_source),country_region,Russia,1
+(no_source),bank,Regions,1
+(no_source),payment_rail,prepaid card,1

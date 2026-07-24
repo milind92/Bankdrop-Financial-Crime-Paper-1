@@ -1,0 +1,273 @@
+﻿source,keyword,file_count,hit_count
+(no_source),australia_nz,4,14
+(no_source),bank_drop,5,18
+(no_source),bank_log,4,16
+(no_source),bec,4,13
+(no_source),canada,0,0
+(no_source),cashout,8,24
+(no_source),crypto,2,16
+(no_source),email_access,1,15
+(no_source),escrow_trust,2,50
+(no_source),fullz_identity,4,13
+(no_source),mule,2,3
+(no_source),scam_market_risk,2,18
+(no_source),telegram,5,9
+(no_source),tutorial_training,6,22
+(no_source),usa,6,12
+(no_source),vulnerable_groups,2,16
+1. Dread,australia_nz,2,5
+1. Dread,bank_drop,6,9
+1. Dread,bank_log,6,16
+1. Dread,bec,0,0
+1. Dread,canada,3,4
+1. Dread,cashout,7,12
+1. Dread,crypto,3,10
+1. Dread,email_access,2,5
+1. Dread,escrow_trust,4,10
+1. Dread,fullz_identity,1,1
+1. Dread,mule,1,4
+1. Dread,scam_market_risk,5,8
+1. Dread,telegram,1,1
+1. Dread,tutorial_training,4,9
+1. Dread,usa,13,23
+1. Dread,vulnerable_groups,0,0
+10. Tor Shop,australia_nz,2,6
+10. Tor Shop,bank_drop,15,46
+10. Tor Shop,bank_log,3,6
+10. Tor Shop,bec,0,0
+10. Tor Shop,canada,0,0
+10. Tor Shop,cashout,10,21
+10. Tor Shop,crypto,5,9
+10. Tor Shop,email_access,4,6
+10. Tor Shop,escrow_trust,0,0
+10. Tor Shop,fullz_identity,19,45
+10. Tor Shop,mule,0,0
+10. Tor Shop,scam_market_risk,2,3
+10. Tor Shop,telegram,0,0
+10. Tor Shop,tutorial_training,12,29
+10. Tor Shop,usa,10,35
+10. Tor Shop,vulnerable_groups,0,0
+11. Legit Market,australia_nz,0,0
+11. Legit Market,bank_drop,9,34
+11. Legit Market,bank_log,11,56
+11. Legit Market,bec,0,0
+11. Legit Market,canada,1,8
+11. Legit Market,cashout,5,22
+11. Legit Market,crypto,4,6
+11. Legit Market,email_access,3,4
+11. Legit Market,escrow_trust,2,3
+11. Legit Market,fullz_identity,2,3
+11. Legit Market,mule,0,0
+11. Legit Market,scam_market_risk,4,8
+11. Legit Market,telegram,1,2
+11. Legit Market,tutorial_training,3,9
+11. Legit Market,usa,15,48
+11. Legit Market,vulnerable_groups,0,0
+12. TORCH Tor Search,australia_nz,0,0
+12. TORCH Tor Search,bank_drop,0,0
+12. TORCH Tor Search,bank_log,0,0
+12. TORCH Tor Search,bec,0,0
+12. TORCH Tor Search,canada,0,0
+12. TORCH Tor Search,cashout,0,0
+12. TORCH Tor Search,crypto,0,0
+12. TORCH Tor Search,email_access,0,0
+12. TORCH Tor Search,escrow_trust,0,0
+12. TORCH Tor Search,fullz_identity,0,0
+12. TORCH Tor Search,mule,0,0
+12. TORCH Tor Search,scam_market_risk,0,0
+12. TORCH Tor Search,telegram,0,0
+12. TORCH Tor Search,tutorial_training,0,0
+12. TORCH Tor Search,usa,0,0
+12. TORCH Tor Search,vulnerable_groups,0,0
+13. Bank Logs,australia_nz,0,0
+13. Bank Logs,bank_drop,0,0
+13. Bank Logs,bank_log,0,0
+13. Bank Logs,bec,0,0
+13. Bank Logs,canada,0,0
+13. Bank Logs,cashout,0,0
+13. Bank Logs,crypto,0,0
+13. Bank Logs,email_access,0,0
+13. Bank Logs,escrow_trust,0,0
+13. Bank Logs,fullz_identity,0,0
+13. Bank Logs,mule,0,0
+13. Bank Logs,scam_market_risk,0,0
+13. Bank Logs,telegram,0,0
+13. Bank Logs,tutorial_training,0,0
+13. Bank Logs,usa,0,0
+13. Bank Logs,vulnerable_groups,0,0
+14. Lonely Road,australia_nz,1,1
+14. Lonely Road,bank_drop,0,0
+14. Lonely Road,bank_log,0,0
+14. Lonely Road,bec,0,0
+14. Lonely Road,canada,0,0
+14. Lonely Road,cashout,0,0
+14. Lonely Road,crypto,0,0
+14. Lonely Road,email_access,0,0
+14. Lonely Road,escrow_trust,0,0
+14. Lonely Road,fullz_identity,0,0
+14. Lonely Road,mule,0,0
+14. Lonely Road,scam_market_risk,0,0
+14. Lonely Road,telegram,0,0
+14. Lonely Road,tutorial_training,0,0
+14. Lonely Road,usa,0,0
+14. Lonely Road,vulnerable_groups,0,0
+15. Tenebris,australia_nz,0,0
+15. Tenebris,bank_drop,1,1
+15. Tenebris,bank_log,3,14
+15. Tenebris,bec,0,0
+15. Tenebris,canada,0,0
+15. Tenebris,cashout,4,15
+15. Tenebris,crypto,4,19
+15. Tenebris,email_access,1,3
+15. Tenebris,escrow_trust,1,1
+15. Tenebris,fullz_identity,0,0
+15. Tenebris,mule,2,3
+15. Tenebris,scam_market_risk,4,13
+15. Tenebris,telegram,0,0
+15. Tenebris,tutorial_training,3,21
+15. Tenebris,usa,2,7
+15. Tenebris,vulnerable_groups,0,0
+17.  XmrBazaar,australia_nz,0,0
+17.  XmrBazaar,bank_drop,1,1
+17.  XmrBazaar,bank_log,0,0
+17.  XmrBazaar,bec,0,0
+17.  XmrBazaar,canada,0,0
+17.  XmrBazaar,cashout,1,1
+17.  XmrBazaar,crypto,2,7
+17.  XmrBazaar,email_access,0,0
+17.  XmrBazaar,escrow_trust,1,7
+17.  XmrBazaar,fullz_identity,0,0
+17.  XmrBazaar,mule,0,0
+17.  XmrBazaar,scam_market_risk,0,0
+17.  XmrBazaar,telegram,0,0
+17.  XmrBazaar,tutorial_training,1,4
+17.  XmrBazaar,usa,0,0
+17.  XmrBazaar,vulnerable_groups,0,0
+2. Altenen,australia_nz,0,0
+2. Altenen,bank_drop,0,0
+2. Altenen,bank_log,5,11
+2. Altenen,bec,0,0
+2. Altenen,canada,1,1
+2. Altenen,cashout,6,18
+2. Altenen,crypto,4,10
+2. Altenen,email_access,2,2
+2. Altenen,escrow_trust,1,1
+2. Altenen,fullz_identity,9,19
+2. Altenen,mule,0,0
+2. Altenen,scam_market_risk,3,4
+2. Altenen,telegram,6,12
+2. Altenen,tutorial_training,4,15
+2. Altenen,usa,6,8
+2. Altenen,vulnerable_groups,0,0
+3. Pitch,australia_nz,1,20
+3. Pitch,bank_drop,6,14
+3. Pitch,bank_log,9,23
+3. Pitch,bec,0,0
+3. Pitch,canada,3,3
+3. Pitch,cashout,13,51
+3. Pitch,crypto,9,68
+3. Pitch,email_access,8,16
+3. Pitch,escrow_trust,10,15
+3. Pitch,fullz_identity,6,10
+3. Pitch,mule,2,9
+3. Pitch,scam_market_risk,10,38
+3. Pitch,telegram,10,17
+3. Pitch,tutorial_training,13,61
+3. Pitch,usa,7,15
+3. Pitch,vulnerable_groups,0,0
+4. Caders Heven,australia_nz,0,0
+4. Caders Heven,bank_drop,6,18
+4. Caders Heven,bank_log,6,6
+4. Caders Heven,bec,0,0
+4. Caders Heven,canada,0,0
+4. Caders Heven,cashout,0,0
+4. Caders Heven,crypto,1,3
+4. Caders Heven,email_access,0,0
+4. Caders Heven,escrow_trust,1,1
+4. Caders Heven,fullz_identity,8,14
+4. Caders Heven,mule,0,0
+4. Caders Heven,scam_market_risk,0,0
+4. Caders Heven,telegram,0,0
+4. Caders Heven,tutorial_training,0,0
+4. Caders Heven,usa,0,0
+4. Caders Heven,vulnerable_groups,0,0
+5. CardPro,australia_nz,0,0
+5. CardPro,bank_drop,0,0
+5. CardPro,bank_log,1,1
+5. CardPro,bec,0,0
+5. CardPro,canada,1,1
+5. CardPro,cashout,4,65
+5. CardPro,crypto,3,15
+5. CardPro,email_access,0,0
+5. CardPro,escrow_trust,1,2
+5. CardPro,fullz_identity,1,1
+5. CardPro,mule,1,3
+5. CardPro,scam_market_risk,3,7
+5. CardPro,telegram,4,14
+5. CardPro,tutorial_training,1,1
+5. CardPro,usa,2,24
+5. CardPro,vulnerable_groups,0,0
+6. The X Wave Market,australia_nz,2,7
+6. The X Wave Market,bank_drop,8,29
+6. The X Wave Market,bank_log,4,6
+6. The X Wave Market,bec,0,0
+6. The X Wave Market,canada,1,1
+6. The X Wave Market,cashout,16,52
+6. The X Wave Market,crypto,9,40
+6. The X Wave Market,email_access,4,8
+6. The X Wave Market,escrow_trust,26,56
+6. The X Wave Market,fullz_identity,14,43
+6. The X Wave Market,mule,0,0
+6. The X Wave Market,scam_market_risk,3,6
+6. The X Wave Market,telegram,0,0
+6. The X Wave Market,tutorial_training,9,77
+6. The X Wave Market,usa,13,46
+6. The X Wave Market,vulnerable_groups,0,0
+7. Meta Banklogs,australia_nz,3,8
+7. Meta Banklogs,bank_drop,11,72
+7. Meta Banklogs,bank_log,11,26
+7. Meta Banklogs,bec,0,0
+7. Meta Banklogs,canada,2,10
+7. Meta Banklogs,cashout,6,13
+7. Meta Banklogs,crypto,4,17
+7. Meta Banklogs,email_access,8,11
+7. Meta Banklogs,escrow_trust,1,2
+7. Meta Banklogs,fullz_identity,12,35
+7. Meta Banklogs,mule,0,0
+7. Meta Banklogs,scam_market_risk,2,4
+7. Meta Banklogs,telegram,0,0
+7. Meta Banklogs,tutorial_training,5,16
+7. Meta Banklogs,usa,25,102
+7. Meta Banklogs,vulnerable_groups,0,0
+8. Secure ccSeller,australia_nz,0,0
+8. Secure ccSeller,bank_drop,0,0
+8. Secure ccSeller,bank_log,0,0
+8. Secure ccSeller,bec,0,0
+8. Secure ccSeller,canada,0,0
+8. Secure ccSeller,cashout,0,0
+8. Secure ccSeller,crypto,1,3
+8. Secure ccSeller,email_access,0,0
+8. Secure ccSeller,escrow_trust,1,1
+8. Secure ccSeller,fullz_identity,1,1
+8. Secure ccSeller,mule,0,0
+8. Secure ccSeller,scam_market_risk,0,0
+8. Secure ccSeller,telegram,0,0
+8. Secure ccSeller,tutorial_training,0,0
+8. Secure ccSeller,usa,0,0
+8. Secure ccSeller,vulnerable_groups,0,0
+9. Deep Shop,australia_nz,1,1
+9. Deep Shop,bank_drop,0,0
+9. Deep Shop,bank_log,9,34
+9. Deep Shop,bec,0,0
+9. Deep Shop,canada,1,1
+9. Deep Shop,cashout,1,2
+9. Deep Shop,crypto,0,0
+9. Deep Shop,email_access,1,2
+9. Deep Shop,escrow_trust,0,0
+9. Deep Shop,fullz_identity,0,0
+9. Deep Shop,mule,0,0
+9. Deep Shop,scam_market_risk,0,0
+9. Deep Shop,telegram,1,1
+9. Deep Shop,tutorial_training,1,3
+9. Deep Shop,usa,2,2
+9. Deep Shop,vulnerable_groups,0,0

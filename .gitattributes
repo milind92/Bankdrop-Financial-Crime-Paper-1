@@ -1,0 +1,8 @@
+# Keep code and documentation stable across Windows and GitHub runners.
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+*.yml text eol=lf
+*.cff text eol=lf

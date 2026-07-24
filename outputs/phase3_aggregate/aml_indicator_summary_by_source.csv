@@ -1,0 +1,51 @@
+﻿aml_indicator,label,source,note_count,hit_count
+bank_log_plus_email_access,Bank log packaged with email/cookie access,3. Pitch,5,12
+bank_log_plus_email_access,Bank log packaged with email/cookie access,2. Altenen,3,4
+bank_log_plus_email_access,Bank log packaged with email/cookie access,10. Tor Shop,2,3
+bank_log_plus_email_access,Bank log packaged with email/cookie access,11. Legit Market,2,4
+bank_log_plus_email_access,Bank log packaged with email/cookie access,9. Deep Shop,2,12
+bank_log_plus_email_access,Bank log packaged with email/cookie access,(no_source),1,1
+bank_log_plus_email_access,Bank log packaged with email/cookie access,8. Secure ccSeller,1,1
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,4. Caders Heven,9,16
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,3. Pitch,7,30
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,10. Tor Shop,3,3
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,2. Altenen,3,4
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,5. CardPro,3,4
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,1. Dread,2,2
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,15. Tenebris,2,5
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,6. The X Wave Market,2,2
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,9. Deep Shop,2,5
+crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,17.  XmrBazaar,1,2
+domestic_account_preference,Jurisdiction-specific bank or account reference,7. Meta Banklogs,36,363
+domestic_account_preference,Jurisdiction-specific bank or account reference,1. Dread,17,70
+domestic_account_preference,Jurisdiction-specific bank or account reference,10. Tor Shop,13,81
+domestic_account_preference,Jurisdiction-specific bank or account reference,3. Pitch,13,26
+domestic_account_preference,Jurisdiction-specific bank or account reference,11. Legit Market,12,30
+domestic_account_preference,Jurisdiction-specific bank or account reference,5. CardPro,11,66
+domestic_account_preference,Jurisdiction-specific bank or account reference,6. The X Wave Market,6,31
+domestic_account_preference,Jurisdiction-specific bank or account reference,8. Secure ccSeller,5,10
+domestic_account_preference,Jurisdiction-specific bank or account reference,(no_source),3,10
+domestic_account_preference,Jurisdiction-specific bank or account reference,4. Caders Heven,2,2
+domestic_account_preference,Jurisdiction-specific bank or account reference,14. Lonely Road,1,1
+domestic_account_preference,Jurisdiction-specific bank or account reference,15. Tenebris,1,11
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,6. The X Wave Market,41,221
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,11. Legit Market,20,49
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,1. Dread,15,64
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,3. Pitch,11,75
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,9. Deep Shop,7,14
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,(no_source),2,44
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,5. CardPro,2,6
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,15. Tenebris,1,2
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,17.  XmrBazaar,1,14
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,4. Caders Heven,1,1
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,7. Meta Banklogs,1,1
+escrow_or_exit_scam_risk,Escrow or exit-scam discourse,8. Secure ccSeller,1,1
+mule_or_account_holder_recruitment,Mule or account-holder recruitment,2. Altenen,3,4
+mule_or_account_holder_recruitment,Mule or account-holder recruitment,3. Pitch,3,7
+mule_or_account_holder_recruitment,Mule or account-holder recruitment,1. Dread,2,2
+mule_or_account_holder_recruitment,Mule or account-holder recruitment,(no_source),1,2
+telegram_sales_or_proof,"Telegram used for vendor proof, negotiation, or sales",2. Altenen,8,13
+telegram_sales_or_proof,"Telegram used for vendor proof, negotiation, or sales",1. Dread,7,14
+telegram_sales_or_proof,"Telegram used for vendor proof, negotiation, or sales",3. Pitch,4,17
+telegram_sales_or_proof,"Telegram used for vendor proof, negotiation, or sales",5. CardPro,2,5
+telegram_sales_or_proof,"Telegram used for vendor proof, negotiation, or sales",(no_source),1,1

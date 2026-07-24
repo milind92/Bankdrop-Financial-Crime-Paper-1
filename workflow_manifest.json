@@ -1,0 +1,228 @@
+{
+  "project": {
+    "title": "Bankdrop Financial Crime Paper 1",
+    "repository": "https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1",
+    "repository_visibility": "public",
+    "version": "1.0.0",
+    "repository_purpose": "Privacy-clean transparency and reproducibility support for deterministic Phase 1-4 analysis and completed aggregate human validation.",
+    "empirical_scope": "Deterministic Phases 1-4 only. No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis is included.",
+    "authorship_status": "Final author names, order, affiliations, identifiers, and contribution statements will be supplied by the authors."
+  },
+  "data_boundary": {
+    "corpus_type": "Controlled research vault containing Markdown notes and PNG screenshots",
+    "interpretive_boundary": "Observed online content, not a transaction ledger",
+    "raw_data_included_in_repository": false,
+    "excluded_sensitive_materials": [
+      "raw notes",
+      "screenshots",
+      "raw OCR text",
+      "direct excerpts",
+      "record-level coding",
+      "evidence packets",
+      "coder workbooks",
+      "rationales",
+      "record-level adjudication",
+      "identifiers",
+      "handles",
+      "URLs",
+      "payment or account-like identifiers",
+      "local paths",
+      "archive bundles"
+    ]
+  },
+  "corpus_counts": {
+    "markdown_notes": 999,
+    "source_groups": 16,
+    "image_references": 1140,
+    "existing_or_local_image_references": 1048,
+    "unique_png_screenshots_ocr_processed": 1043,
+    "unique_local_image_content_hashes": 1037,
+    "ocr_cache_reused_rows": 6,
+    "screened_combined_records": 999,
+    "unique_combined_text_hashes": 479,
+    "exact_duplicate_groups": 34,
+    "exact_duplicate_excess": 520,
+    "zero_combined_word_records": 68
+  },
+  "phases": [
+    {
+      "phase": "Phase 1",
+      "name": "Markdown baseline",
+      "script": "code/phase1_markdown_baseline/run_phase1.py",
+      "llm_used": false,
+      "repository_outputs": [
+        "outputs/phase1_aggregate/source_summary.csv",
+        "outputs/phase1_aggregate/keyword_summary_by_source.csv",
+        "outputs/phase1_aggregate/entity_summary_by_source.csv",
+        "outputs/phase1_aggregate/top_price_amounts.csv",
+        "outputs/phase1_aggregate/phase1_summary.json",
+        "outputs/phase1_aggregate/PHASE1_CHECKPOINT_SUMMARY.md"
+      ]
+    },
+    {
+      "phase": "Phase 2",
+      "name": "Local image OCR",
+      "script": "code/phase2_image_ocr/run_phase2_ocr.py",
+      "llm_used": false,
+      "repository_outputs": [
+        "outputs/phase2_aggregate/ocr_summary_by_source.csv",
+        "outputs/phase2_aggregate/PHASE2_CHECKPOINT_SUMMARY.md"
+      ]
+    },
+    {
+      "phase": "Phase 3",
+      "name": "Deterministic typology coding",
+      "script": "code/phase3_typology_coding/run_phase3_typology.py",
+      "llm_used": false,
+      "substantive_typology_codes": 12,
+      "collection_quality_flags": 1,
+      "aml_indicator_candidates": 6,
+      "repository_outputs": [
+        "outputs/phase3_aggregate/CODEBOOK_PHASE3.md",
+        "outputs/phase3_aggregate/PHASE3_ANALYTIC_OVERVIEW.md",
+        "outputs/phase3_aggregate/PHASE3_CHECKPOINT_SUMMARY.md",
+        "outputs/phase3_aggregate/typology_summary.csv",
+        "outputs/phase3_aggregate/typology_summary_by_source.csv",
+        "outputs/phase3_aggregate/criminal_objective_summary.csv",
+        "outputs/phase3_aggregate/aml_indicator_summary_by_source.csv"
+      ]
+    },
+    {
+      "phase": "Phase 4",
+      "name": "Deterministic financial-crime analysis",
+      "script": "code/phase4_financial_crime_analysis/run_phase4_analysis.py",
+      "llm_used": false,
+      "repository_outputs": [
+        "outputs/phase4_aggregate/FINANCIAL_CRIME_ANALYSIS_REPORT.md",
+        "outputs/phase4_aggregate/PHASE4_CHECKPOINT_SUMMARY.md",
+        "outputs/phase4_aggregate/financial_crime_findings.csv",
+        "outputs/phase4_aggregate/aml_red_flags_summary.csv",
+        "outputs/phase4_aggregate/source_profile_summary.csv",
+        "outputs/phase4_aggregate/run_metadata.json"
+      ]
+    }
+  ],
+  "screening_audit": {
+    "public_aggregate": "outputs/analysis_audit/corpus_screening_audit_summary.csv",
+    "explicit_exclusion_log_available": false,
+    "pre_analysis_deduplication_applied": false,
+    "eligible_unique_analytic_records": null,
+    "interpretation": "Unique text hashes support duplicate sensitivity only and are not a verified eligible-record denominator."
+  },
+  "validation": {
+    "protocol_id": "BD-HUMAN-ICR-20260722-R2",
+    "completion_date": "2026-07-23",
+    "status": "Completed blinded independent human coding followed by separate consensus adjudication.",
+    "coders": [
+      "Ausma",
+      "Milind"
+    ],
+    "coder_count": 2,
+    "coordinator_count": 0,
+    "evidence_packet_count": 351,
+    "assessed_target_count": 18,
+    "decision_category_count": 5,
+    "paired_case_target_units": 1036,
+    "exact_agreements": 977,
+    "disagreements": 59,
+    "agreement_percent": 94.3,
+    "cohen_kappa": 0.909,
+    "krippendorff_alpha_nominal": 0.909,
+    "binary_subset_units": 841,
+    "binary_subset_exact_agreements": 812,
+    "binary_subset_agreement_percent": 96.6,
+    "binary_subset_cohen_kappa": 0.93,
+    "adjudicated_disagreements": 59,
+    "consensus_cases": 59,
+    "no_consensus_cases": 0,
+    "final_consensus": {
+      "present": 13,
+      "absent": 16,
+      "ambiguous": 30,
+      "insufficient_evidence": 0,
+      "out_of_scope": 0
+    },
+    "public_completion_record": "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
+    "public_aggregate_results": "outputs/human_validation/human_icr_aggregate_summary.csv",
+    "public_sampling_summary": "outputs/human_validation/validation_code_summary.csv",
+    "controlled_records_in_github": false
+  },
+  "repository_release": {
+    "public_scope": [
+      "deterministic Phase 1-4 code",
+      "Phase 1-4 aggregate results",
+      "codebook and analysis plan",
+      "data-collection protocol",
+      "human-validation protocol",
+      "aggregate ICR and adjudication results",
+      "workflow manifest",
+      "verifier and tests",
+      "reproducibility instructions",
+      "data availability and controlled-access documents",
+      "ethics privacy and security safeguards",
+      "AI authoring-assistance disclosure",
+      "citation metadata",
+      "all-rights-reserved notice",
+      "changelog",
+      "GitHub Actions integrity checks"
+    ],
+    "explicitly_excluded": [
+      "manuscript drafts",
+      "submission materials",
+      "literature-review materials",
+      "Phase 3b",
+      "Phase 4b",
+      "Phase 5",
+      "LLM-assisted empirical analysis",
+      "raw data",
+      "screenshots",
+      "record-level evidence",
+      "coder workbooks",
+      "record-level adjudication"
+    ],
+    "rights": "No reuse licence; all rights reserved.",
+    "required_documents": [
+      "README.md",
+      "CHANGELOG.md",
+      "CITATION.cff",
+      "LICENSE.md",
+      "DATA_AVAILABILITY.md",
+      "ETHICS_AND_SAFETY.md",
+      "SECURITY.md",
+      "REPRODUCIBILITY.md",
+      "docs/ANALYSIS_PLAN.md",
+      "docs/DATA_COLLECTION_PROTOCOL.md",
+      "docs/HUMAN_VALIDATION_PROTOCOL.md",
+      "docs/CONTROLLED_AUDIT_ACCESS.md",
+      "docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md",
+      "reproducibility/CONTROLLED_RERUN.md",
+      "reproducibility/REPOSITORY_INTEGRITY.md"
+    ]
+  },
+  "ai_authoring_assistance": {
+    "status": "Author-provided repository disclosure recorded 2026-07-25.",
+    "tool": "OpenAI Codex",
+    "disclosure": "OpenAI Codex was used as an assistive tool to support the development and organisation of the project’s GitHub repository, including assistance with code, testing, workflow orchestration, documentation, and reproducibility safeguards. It was also used to support the preparation and formatting of the workbook used for the intercoder reliability assessment. Codex did not generate coding responses, independently classify or interpret the evidence, assess coder agreement, resolve disagreements, or participate in the adjudication process. All coding, intercoder reliability assessments, resolution of discrepancies, interpretation of findings, verification of outputs, and final methodological and substantive decisions were undertaken by the named authors. The authors critically reviewed and validated all AI-assisted outputs and retain full responsibility for the accuracy, integrity, and conclusions of the research. Codex was not treated as an author and did not perform literature discovery, citation checking, or the drafting or editing of the manuscript or submission materials.",
+    "included_support": [
+      "GitHub repository development and organisation",
+      "code",
+      "testing",
+      "workflow orchestration",
+      "documentation",
+      "reproducibility safeguards",
+      "preparation and formatting of the intercoder-reliability workbook"
+    ],
+    "excluded_roles": [
+      "coding responses",
+      "independent evidence classification or interpretation",
+      "coder-agreement assessment",
+      "discrepancy resolution",
+      "adjudication",
+      "literature discovery",
+      "citation checking",
+      "manuscript drafting or editing",
+      "submission-material drafting or editing"
+    ],
+    "author_responsibility": "Named authors retain responsibility for the human coding, reliability assessment, adjudication, interpretation, output verification, and final decisions."
+  }
+}

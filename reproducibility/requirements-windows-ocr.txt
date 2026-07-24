@@ -1,0 +1,7 @@
+# Phase 2 Windows OCR dependencies
+# Python 3.11.15 was used for the recorded analysis run.
+winrt-runtime==3.2.1
+winrt-Windows.Storage==3.2.1
+winrt-Windows.Graphics.Imaging==3.2.1
+winrt-Windows.Media.Ocr==3.2.1
+winrt-Windows.Globalization==3.2.1

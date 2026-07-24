@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it using the metadata below."
+title: "Bankdrop Financial Crime Paper 1"
+abstract: "Public privacy-clean repository containing deterministic Phase 1-4 analysis code, aggregate outputs, and aggregate human-validation results for a controlled financial-crime research corpus."
+version: "1.0.0"
+date-released: 2026-07-25
+type: software
+license: "LicenseRef-All-Rights-Reserved"
+authors:
+  - name: "Bank Drop Project authors"
+keywords:
+  - financial crime
+  - money laundering
+  - reproducibility
+  - human validation
+  - controlled access
+repository-code: "https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1"

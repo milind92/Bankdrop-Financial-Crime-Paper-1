@@ -1,0 +1,4 @@
+# Data-free repository audit environment
+# Requires CPython 3.11.
+# Third-party packages: none.
+# code/verify_repository.py uses only the Python standard library.

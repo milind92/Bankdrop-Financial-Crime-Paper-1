@@ -1,0 +1,48 @@
+# Raw and record-level research material
+data/raw/
+data/screenshots/
+work/bank_drop_project/
+**/corpus_index.csv
+**/image_references.csv
+**/keyword_counts_long.csv
+**/entity_mentions_long.csv
+**/price_mentions.csv
+**/ocr_image_results.csv
+**/ocr_joined_to_notes.csv
+**/ocr_text_by_image.csv
+**/ocr_text_by_note.csv
+**/combined_corpus_with_ocr.csv
+**/typology_coding_long.csv
+**/aml_indicator_coding_long.csv
+**/evidence_snippets.csv
+**/validation_sample_index.csv
+**/blinded_coder_sheet_template.csv
+**/adjudication_sheet_template.csv
+**/file_inventory.csv
+**/phase_inventory.csv
+**/controlled_audit/
+**/source_handoffs/
+
+# Images and archive bundles
+*.png
+*.jpg
+*.jpeg
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+
+# Python and local tooling
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+tmp*/
+_plain_temp/
+
+# Local environment
+.env
+.DS_Store
+Thumbs.db
