@@ -11,8 +11,6 @@ The empirical workflow contains four deterministic phases:
 3. Phase 3: deterministic typology coding.
 4. Phase 4: deterministic financial-crime analysis.
 
-No Phase 3b, Phase 4b, Phase 5, LLM-assisted empirical analysis, manuscript draft, literature review, cover letter, title page, or submission package is included. Phase 2 uses OCR, which is not an LLM stage.
-
 Blinded human inter-coder reliability and subsequent adjudication were completed by Ausma and Milind on 23 July 2026. Publication-safe overall results are available in [Human ICR Completion](outputs/human_validation/HUMAN_ICR_COMPLETION.md), with agreement intervals, kappa, binary Gwet AC1, and adjudication totals by target in [Human ICR Results by Target](outputs/human_validation/HUMAN_ICR_BY_TARGET.md). Coder workbooks, evidence packets, rationales, and record-level adjudication material remain controlled and are not published.
 
 The repository also includes publication-safe deterministic derived analyses for exact-text duplicate sensitivity, source-normalized typology reporting, typology co-occurrence with source-stratified and leave-one-source-out stability, AML-candidate overlap, exploratory functional grouping, source concentration, and leave-one-source-out sensitivity. These are descriptive post-processing outputs, not a Phase 5 or LLM-assisted empirical analysis.
