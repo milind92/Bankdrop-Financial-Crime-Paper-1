@@ -24,11 +24,28 @@ The orchestrator executes:
 
 It refuses a missing vault, an output directory inside the vault, or complete controlled outputs inside the public checkout.
 
+## Deterministic Derived Aggregates
+
+After the controlled Phase 3 output is available:
+
+```powershell
+python .\code\derived_analysis\build_derived_analysis.py `
+  --source-dir (Join-Path $env:BANK_DROP_OUTPUTS_DIR "phase3_typology_coding") `
+  --output-dir (Join-Path $env:BANK_DROP_OUTPUTS_DIR "derived_analysis")
+```
+
+This step writes only grouped descriptive outputs. The exact-text-unique population remains a sensitivity population until the final eligibility and evidence-unit audit is locked.
+
 ## Public Aggregate Export
 
 ```powershell
-python .\code\export_public_release.py --source $env:BANK_DROP_OUTPUTS_DIR --repository . --dry-run
-python .\code\export_public_release.py --source $env:BANK_DROP_OUTPUTS_DIR --repository .
+python .\code\export_public_release.py `
+  --source-output-root $env:BANK_DROP_OUTPUTS_DIR `
+  --repository-root . `
+  --dry-run
+python .\code\export_public_release.py `
+  --source-output-root $env:BANK_DROP_OUTPUTS_DIR `
+  --repository-root .
 ```
 
 Review the dry-run inventory before copying. The exporter never walks the controlled tree and copies only named aggregate files.

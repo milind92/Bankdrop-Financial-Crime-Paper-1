@@ -110,6 +110,13 @@ class PipelineGuardrailTests(unittest.TestCase):
 
 
 class PublicExporterTests(unittest.TestCase):
+    def test_exact_text_aggregate_fields_are_allowlisted(self) -> None:
+        self.assertFalse(exporter.field_is_blocked("exact_text_unique_denominator_n"))
+        self.assertFalse(exporter.field_is_blocked("unique_combined_text_hashes_n"))
+        self.assertFalse(exporter.field_is_blocked("exact_text_unique_sensitivity"))
+        self.assertFalse(exporter.field_is_blocked("final_insufficient_evidence"))
+        self.assertTrue(exporter.field_is_blocked("combined_text"))
+
     def make_roots(self, temporary: str) -> tuple[Path, Path]:
         root = Path(temporary)
         controlled = root / "controlled"

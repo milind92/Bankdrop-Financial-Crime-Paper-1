@@ -3,8 +3,8 @@
     "title": "Bankdrop Financial Crime Paper 1",
     "repository": "https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1",
     "repository_visibility": "public",
-    "version": "1.0.0",
-    "repository_purpose": "Privacy-clean transparency and reproducibility support for deterministic Phase 1-4 analysis and completed aggregate human validation.",
+    "version": "1.1.0",
+    "repository_purpose": "Privacy-clean transparency and reproducibility support for deterministic Phase 1-4 analysis, publication-safe derived aggregate analyses, and completed aggregate human validation.",
     "empirical_scope": "Deterministic Phases 1-4 only. No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis is included.",
     "authorship_status": "Final author names, order, affiliations, identifiers, and contribution statements will be supplied by the authors."
   },
@@ -145,12 +145,22 @@
     "public_completion_record": "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
     "public_aggregate_results": "outputs/human_validation/human_icr_aggregate_summary.csv",
     "public_sampling_summary": "outputs/human_validation/validation_code_summary.csv",
-    "controlled_records_in_github": false
+    "controlled_records_in_github": false,
+    "public_target_results": "outputs/human_validation/human_icr_by_target.csv",
+    "public_target_report": "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
+    "target_interval_methods": {
+      "agreement": "Wilson 95% score interval",
+      "cohen_kappa": "1000-replicate deterministic paired-unit percentile bootstrap within target",
+      "binary_gwet_ac1": "1000-replicate deterministic paired-unit percentile bootstrap within target",
+      "scope": "Validation-sample uncertainty only; not corpus or market prevalence."
+    },
+    "public_target_metadata": "outputs/human_validation/human_icr_target_metadata.json"
   },
   "repository_release": {
     "public_scope": [
       "deterministic Phase 1-4 code",
       "Phase 1-4 aggregate results",
+      "publication-safe deterministic derived aggregate analyses",
       "codebook and analysis plan",
       "data-collection protocol",
       "human-validation protocol",
@@ -196,7 +206,9 @@
       "docs/CONTROLLED_AUDIT_ACCESS.md",
       "docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md",
       "reproducibility/CONTROLLED_RERUN.md",
-      "reproducibility/REPOSITORY_INTEGRITY.md"
+      "reproducibility/REPOSITORY_INTEGRITY.md",
+      "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
+      "outputs/human_validation/HUMAN_ICR_BY_TARGET.md"
     ]
   },
   "ai_authoring_assistance": {
@@ -224,5 +236,30 @@
       "submission-material drafting or editing"
     ],
     "author_responsibility": "Named authors retain responsibility for the human coding, reliability assessment, adjudication, interpretation, output verification, and final decisions."
+  },
+  "derived_analysis": {
+    "status": "Completed deterministic descriptive post-processing of controlled Phase 3 outputs; not a Phase 5 or LLM-assisted empirical stage.",
+    "script": "code/derived_analysis/build_derived_analysis.py",
+    "llm_used": false,
+    "populations": {
+      "full_screened": 999,
+      "exact_text_unique_sensitivity": 479,
+      "exact_text_unique_status": "Duplicate-sensitivity denominator only; not a verified final eligible population."
+    },
+    "outputs": [
+      "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
+      "outputs/derived_analysis/derived_analysis_metadata.json",
+      "outputs/derived_analysis/duplicate_sensitivity.csv",
+      "outputs/derived_analysis/typology_cooccurrence.csv",
+      "outputs/derived_analysis/typology_cooccurrence_by_source.csv",
+      "outputs/derived_analysis/typology_cooccurrence_leave_one_source_out.csv",
+      "outputs/derived_analysis/typology_source_normalized.csv",
+      "outputs/derived_analysis/typology_aml_crosswalk.csv",
+      "outputs/derived_analysis/service_chain_grouping.csv",
+      "outputs/derived_analysis/source_concentration.csv",
+      "outputs/derived_analysis/source_leave_one_out.csv"
+    ],
+    "metadata": "outputs/derived_analysis/derived_analysis_metadata.json",
+    "interpretation_boundary": "Co-occurrence, source concentration, AML-candidate overlap, and exploratory functional groupings are descriptive of captured records and do not establish sequence, common actors, transactions, causation, a completed service chain, or market prevalence."
   }
 }

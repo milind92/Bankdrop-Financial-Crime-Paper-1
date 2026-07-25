@@ -66,4 +66,4 @@ The 1,036 denominator is a count of paired case-target coding units, not screens
 
 The detailed record remains outside GitHub under controlled governance. It contains the two frozen independent workbooks, codebook and evidence packets, the reproducible ICR calculation, per-code tables, all 59 disagreement records, the completed adjudication workbook, sign-offs, and SHA-256 manifest. None of those record-level materials should be copied into the public repository.
 
-The publication-safe machine-readable counterpart to this document is `human_icr_aggregate_summary.csv`.
+The publication-safe machine-readable counterpart to this document is `human_icr_aggregate_summary.csv`. Target-level agreement intervals, reliability coefficients, and aggregate adjudication outcomes are reported separately in `human_icr_by_target.csv` and `HUMAN_ICR_BY_TARGET.md`. The file-level provenance record is `human_icr_target_metadata.json`. These grouped outputs and hashes contain no Case IDs, Packet IDs, coder-level decisions, rationales, evidence, or signatures.

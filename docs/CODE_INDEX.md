@@ -8,6 +8,7 @@
 | `code/export_public_release.py` | Copies only explicitly allowlisted aggregate outputs and rejects note-level fields and local paths. |
 | `code/verify_repository.py` | Performs the data-free integrity, privacy, manifest, schema, and human-ICR audit. |
 | `code/human_validation/summarize_human_validation.py` | Summarises two completed human coding workbooks in controlled storage; only aggregate results may be exported. |
+| `code/human_validation/build_public_icr_by_target.py` | Produces the publication-safe per-target ICR table and report from controlled aggregate reliability and adjudication inputs. |
 
 ## Phase 1: Markdown Baseline
 
@@ -40,6 +41,12 @@
 |---|---|
 | `code/phase4_financial_crime_analysis/run_phase4_analysis.py` | Produces aggregate financial-crime findings and source profiles. |
 | `code/phase4_financial_crime_analysis/METHODS_PHASE4.md` | Documents the Phase 4 synthesis boundary. |
+
+## Deterministic Derived Analysis
+
+| File | Purpose |
+|---|---|
+| `code/derived_analysis/build_derived_analysis.py` | Builds publication-safe duplicate sensitivity, source-normalized typology, co-occurrence source-stability, AML-candidate overlap, exploratory functional grouping, source concentration, and leave-one-source-out tables from controlled Phase 3 outputs. |
 
 ## Excluded Work
 

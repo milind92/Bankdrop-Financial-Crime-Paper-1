@@ -57,6 +57,8 @@ The completed deterministic screen evaluated all 999 combined note records. The 
 - the final manuscript must disclose this implementation boundary and may not claim that the prospective primary-denominator procedure was completed;
 - any later eligibility or evidence-unit audit that changes the denominator requires a complete deterministic rerun and a documented deviation.
 
+Publication-safe deterministic post-processing now reports the full 999-record screen beside a 479-record exact-combined-text-hash sensitivity population. The added tables cover source-normalized typology reporting, typology co-occurrence, source-stratified and leave-one-source-out co-occurrence stability, AML-candidate overlap, duplicate sensitivity, exploratory functional unions, source concentration, and leave-one-source-out counts. This implementation does not resolve the prospective primary-denominator decision, near-duplicate treatment, image-hash deduplication, modality sensitivity, or a final eligibility/exclusion log.
+
 ## Analysis Populations
 
 | Population | Definition | Purpose |
@@ -244,6 +246,10 @@ The final analysis must use the locked post-validation codebook and a complete r
 - weighted estimates where the holdout used unequal sampling probabilities.
 
 Do not mechanically “correct” full-corpus counts using a small unweighted validation rate. If design-based adjustment is attempted, specify the estimator, stratum weights, clustering, assumptions, and uncertainty, and retain the observed validated-rule counts as the primary transparent result.
+
+### Completed Human-ICR Reporting
+
+The repository now includes publication-safe target-level human ICR results for all 18 assessed targets. Each row reports the paired-unit denominator, exact agreement with a Wilson 95% interval, Cohen’s kappa with a deterministic paired-unit bootstrap interval, nominal Krippendorff’s alpha, binary-subset kappa and Gwet AC1, and aggregate adjudication outcomes. These intervals describe the controlled validation sample only. Original independent decisions remain frozen, and the 59 consensus decisions were not substituted into the reliability calculation.
 
 ## Statistical Inference Boundary
 

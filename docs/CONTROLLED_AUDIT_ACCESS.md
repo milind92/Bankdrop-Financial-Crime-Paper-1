@@ -6,7 +6,7 @@ This document explains how a qualified reviewer may request limited audit access
 
 ## Material Held Outside GitHub
 
-Controlled material includes raw notes, screenshots, OCR text, source identifiers, record-level coding, evidence packets, coder workbooks, rationales, adjudication rows, signatures, hashes, and local inventories.
+Controlled material includes raw notes, screenshots, OCR text, source identifiers, record-level coding, evidence packets, coder workbooks, rationales, adjudication rows, signatures, record- or evidence-level hashes, and local inventories. Public metadata may retain only file-level SHA-256 values for version verification of controlled aggregate-generation inputs.
 
 ## Access Process
 
