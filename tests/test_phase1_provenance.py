@@ -33,7 +33,7 @@ class CanonicalNoteIdentityTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             vault = Path(temporary) / "vault"
             decomposed_folder = "Cafe\u0301"
-            note = vault / decomposed_folder / "note.md"
+            note = vault / "Collected Data" / decomposed_folder / "note.md"
             note.parent.mkdir(parents=True)
             note.write_text("Evidence", encoding="utf-8")
 
@@ -45,7 +45,7 @@ class CanonicalNoteIdentityTests(unittest.TestCase):
             )
             self.assertEqual(len(records), 1)
             record = records[0]
-            expected_path = f"{unicodedata.normalize('NFC', decomposed_folder)}/note.md"
+            expected_path = f"Collected Data/{unicodedata.normalize('NFC', decomposed_folder)}/note.md"
             self.assertEqual(record.relative_path, expected_path)
             self.assertNotIn("\\", record.relative_path)
             self.assertEqual(

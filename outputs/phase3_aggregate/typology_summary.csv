@@ -1,14 +1,13 @@
 ﻿code,label,criminal_objective,note_count,hit_count,high_rule_match_intensity_notes,medium_rule_match_intensity_notes,low_rule_match_intensity_notes
-bank_log_sale,Compromised bank log sale or discussion,Reference bank-log or associated account-access material,182,1108,29,121,32
-escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse","Reference escrow, trust, reputation, or scam-risk discourse",134,764,54,60,20
-fullz_identity_package,Fullz or identity package,Reference identity packages or credentials relevant to KYC or account access,128,499,6,95,27
-crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,"Reference cryptocurrency payment, conversion, or obfuscation contexts",127,603,33,70,24
-bank_drop_sale,Bank drop sale or bank-drop infrastructure,Reference bank-drop or receiving-account material,121,748,14,87,20
-cashout_laundering_service,Cash-out or laundering service,"Reference cash-out, laundering, or conversion services",120,422,4,87,29
-jurisdiction_localisation,Jurisdiction-specific bank or account reference,"Reference jurisdiction-specific banks, accounts, drops, or logs",120,701,57,41,22
-tutorial_training_recruitment,"Tutorial, guide, or training content","Reference tutorial, guide, method, or training content",107,493,31,52,24
-telegram_off_platform,Telegram or private-channel coordination reference,Reference Telegram or private channels in market-related content,87,252,5,48,34
-email_access_takeover,Email-access-enabled account takeover,"Reference email, recovery, or session access alongside account access",64,223,14,37,13
-mule_recruitment,Mule recruitment or account-holder solicitation,Reference mule or account-holder recruitment and solicitation,10,16,0,4,6
-market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",Describe data-access constraints affecting evidence collection,9,24,1,6,2
-vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,Reference possible exploitation of financially or migration-vulnerable people,1,6,1,0,0
+bank_log_sale,Compromised bank log sale or discussion,Reference bank-log or associated account-access material,178,1090,28,120,30
+crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,"Reference cryptocurrency payment, conversion, or obfuscation contexts",126,592,32,70,24
+fullz_identity_package,Fullz or identity package,Reference identity packages or credentials relevant to KYC or account access,124,485,6,91,27
+escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse","Reference escrow, trust, reputation, or scam-risk discourse",121,640,50,54,17
+cashout_laundering_service,Cash-out or laundering service,"Reference cash-out, laundering, or conversion services",118,418,4,85,29
+jurisdiction_localisation,Jurisdiction-specific bank or account reference,"Reference jurisdiction-specific banks, accounts, drops, or logs",117,691,56,40,21
+bank_drop_sale,Bank drop sale or bank-drop infrastructure,Reference bank-drop or receiving-account material,116,719,13,84,19
+tutorial_training_recruitment,"Tutorial, guide, or training content","Reference tutorial, guide, method, or training content",104,484,30,50,24
+telegram_off_platform,Telegram or private-channel coordination reference,Reference Telegram or private channels in market-related content,82,243,5,47,30
+email_access_takeover,Email-access-enabled account takeover,"Reference email, recovery, or session access alongside account access",62,217,13,37,12
+mule_recruitment,Mule recruitment or account-holder solicitation,Reference mule or account-holder recruitment and solicitation,9,14,0,3,6
+market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",Describe data-access constraints affecting evidence collection,5,9,0,4,1

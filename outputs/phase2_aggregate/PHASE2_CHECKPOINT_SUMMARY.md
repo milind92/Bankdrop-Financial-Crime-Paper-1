@@ -10,7 +10,7 @@ Phase 2 verified Phase 1 image paths and hashes, then used the local Windows OCR
 - Unique local image paths OCR attempted or reused: 1043
 - Unique local image content hashes: 1037
 - OCR image rows: 1043
-- Cache-reused image rows: 6
+- Cache-reused image rows: 1043
 - Joined image-reference rows: 1140
 - OCR status counts: {'ok': 1043}
 

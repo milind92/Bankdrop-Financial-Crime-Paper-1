@@ -1,8 +1,8 @@
 """
 Phase 2 image OCR for the Bank Drop Project.
 
-Uses the local Windows OCR engine through the Python ``winrt-*`` packages. The
-script verifies Phase 1 image provenance, keys reusable OCR by image content and
+Uses the local Windows OCR engine through the Python ``winrt-*`` packages, or
+replays a complete provenance-matched cache when ``BANK_DROP_OCR_CACHE_ONLY=1``. The script verifies Phase 1 image provenance, keys reusable OCR by image content and
 OCR configuration, and joins de-duplicated OCR evidence back to notes.
 """
 
@@ -340,8 +340,12 @@ async def main() -> None:
         raise FileNotFoundError(f"Missing Phase 1 image references: {IMAGE_REFS_CSV}")
     if not VAULT.exists():
         raise FileNotFoundError(f"Missing extracted vault: {VAULT}")
-    if OcrEngine is None:
-        raise RuntimeError(f"Windows OCR dependencies are unavailable: {WINRT_IMPORT_ERROR}")
+    cache_only = os.environ.get("BANK_DROP_OCR_CACHE_ONLY", "").strip() == "1"
+    if OcrEngine is None and not cache_only:
+        raise RuntimeError(
+            f"Windows OCR dependencies are unavailable: {WINRT_IMPORT_ERROR}. "
+            "Set BANK_DROP_OCR_CACHE_ONLY=1 only when a complete, provenance-matched OCR cache is present."
+        )
 
     image_refs = read_csv(IMAGE_REFS_CSV)
     corpus_rows = read_csv(CORPUS_INDEX_CSV) if CORPUS_INDEX_CSV.exists() else []
@@ -362,15 +366,24 @@ async def main() -> None:
                 raise RuntimeError(f"Conflicting hashes for image path: {resolved.relative_path}")
             unique_images[resolved.relative_path] = resolved
 
-    engine = OcrEngine.try_create_from_user_profile_languages()
-    if engine is None:
-        raise RuntimeError("Windows OCR engine is unavailable for the current user profile languages.")
-    ocr_configuration = build_ocr_configuration(engine)
-    ocr_config_sha256 = stable_json_sha256(ocr_configuration)
-    language = engine_language(engine)
-
     ocr_csv = PHASE2_OUTPUT / "ocr_text_by_image.csv"
     existing_rows = read_csv(ocr_csv) if ocr_csv.exists() else []
+    engine = None
+    if cache_only:
+        config_hashes = {row.get("ocr_config_sha256", "").strip() for row in existing_rows if row.get("ocr_config_sha256", "").strip()}
+        if len(config_hashes) != 1:
+            raise RuntimeError("Cache-only OCR requires one consistent nonblank OCR configuration hash.")
+        ocr_config_sha256 = next(iter(config_hashes))
+        languages = {row.get("ocr_language", "").strip() for row in existing_rows if row.get("ocr_language", "").strip()}
+        language = next(iter(languages)) if len(languages) == 1 else "cache-recorded"
+        ocr_configuration = {"mode": "cache_only", "source_ocr_config_sha256": ocr_config_sha256}
+    else:
+        engine = OcrEngine.try_create_from_user_profile_languages()
+        if engine is None:
+            raise RuntimeError("Windows OCR engine is unavailable for the current user profile languages.")
+        ocr_configuration = build_ocr_configuration(engine)
+        ocr_config_sha256 = stable_json_sha256(ocr_configuration)
+        language = engine_language(engine)
     reusable_cache = build_reusable_ocr_cache(existing_rows)
     rows_by_path: dict[str, dict[str, object]] = {}
 
@@ -394,6 +407,11 @@ async def main() -> None:
             error = ""
             cache_reused = 1
         else:
+            if cache_only:
+                raise RuntimeError(
+                    "Cache-only OCR has no provenance-matched row for "
+                    f"{resolved.relative_path} ({resolved.sha256})."
+                )
             try:
                 text = await ocr_image(resolved.path, engine)
                 post_ocr_sha256 = file_sha256(resolved.path)

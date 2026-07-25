@@ -46,3 +46,7 @@ python .\code\export_public_release.py `
 The public checkout cannot reconstruct the controlled corpus or independently reproduce source-level counts. Aggregate human-validation and deterministic derived results can be checked for internal consistency, but the public repository does not include coder-level or note-level data. The 479-record exact-text-unique sensitivity population is not a verified final eligible population.
 
 No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical pathway is included.
+
+### Portable OCR cache replay
+
+Phase 2 generation uses Windows Media OCR. On another operating system, a controlled complete cache produced with the recorded OCR configuration may be replayed by setting `BANK_DROP_OCR_CACHE_ONLY=1`. Replay fails if any eligible image lacks a matching image SHA-256 and OCR-configuration SHA-256; it never silently substitutes a different OCR engine. The raw cache remains controlled and is not published.

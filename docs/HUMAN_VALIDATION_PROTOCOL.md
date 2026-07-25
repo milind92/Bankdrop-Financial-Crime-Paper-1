@@ -1,4 +1,6 @@
-﻿# Human Validation Protocol
+> **Status update (25 July 2026):** The 23 July human-validation release is withdrawn. Fourteen internal project documents entered the original sample, accounting for 59 paired case-target units. A fresh sample and independent coding from the corrected 980-note corpus are required. See `outputs/human_validation/HUMAN_VALIDATION_STATUS.md`.
+
+# Human Validation Protocol
 
 ## Status And Purpose
 
@@ -8,7 +10,7 @@ The empirical validation pathway is no-LLM. No LLM output may be shown to coders
 
 ## Completed Implementation And Deviation Record
 
-The blinded human ICR and post-ICR adjudication stages were completed on 23 July 2026 under protocol `BD-HUMAN-ICR-20260722-R2`.
+The blinded human ICR and post-ICR adjudication stages were completed on 23 July 2026.
 
 - Coders: Ausma and Milind.
 - Coordinator: none.

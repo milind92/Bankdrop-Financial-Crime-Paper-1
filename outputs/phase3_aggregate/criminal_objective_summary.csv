@@ -1,13 +1,12 @@
 ﻿criminal_objective,note_count,hit_count
-Reference bank-log or associated account-access material,182,1108
-"Reference escrow, trust, reputation, or scam-risk discourse",134,764
-Reference identity packages or credentials relevant to KYC or account access,128,499
-"Reference cryptocurrency payment, conversion, or obfuscation contexts",127,603
-Reference bank-drop or receiving-account material,121,748
-"Reference cash-out, laundering, or conversion services",120,422
-"Reference jurisdiction-specific banks, accounts, drops, or logs",120,701
-"Reference tutorial, guide, method, or training content",107,493
-Reference Telegram or private channels in market-related content,87,252
-"Reference email, recovery, or session access alongside account access",64,223
-Reference mule or account-holder recruitment and solicitation,10,16
-Reference possible exploitation of financially or migration-vulnerable people,1,6
+Reference bank-log or associated account-access material,178,1090
+"Reference cryptocurrency payment, conversion, or obfuscation contexts",126,592
+Reference identity packages or credentials relevant to KYC or account access,124,485
+"Reference escrow, trust, reputation, or scam-risk discourse",121,640
+"Reference cash-out, laundering, or conversion services",118,418
+"Reference jurisdiction-specific banks, accounts, drops, or logs",117,691
+Reference bank-drop or receiving-account material,116,719
+"Reference tutorial, guide, method, or training content",104,484
+Reference Telegram or private channels in market-related content,82,243
+"Reference email, recovery, or session access alongside account access",62,217
+Reference mule or account-holder recruitment and solicitation,9,14

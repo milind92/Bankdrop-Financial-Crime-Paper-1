@@ -3,7 +3,7 @@
 
 The script reads controlled Phase 3 record-level outputs but writes only
 grouped counts and descriptive statistics. It deliberately distinguishes the
-999-record full deterministic screen from an exact-combined-text-hash
+980-record full deterministic screen from an exact-combined-text-hash
 sensitivity population. The latter is not asserted to be a final eligible
 analytic population.
 """

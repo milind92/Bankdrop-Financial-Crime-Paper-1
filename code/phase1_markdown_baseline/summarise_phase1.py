@@ -82,20 +82,23 @@ def main() -> None:
         ["source", "entity_type", "entity", "hit_count"],
     )
 
-    amount_values = []
+    amounts_by_currency: dict[str, list[float]] = defaultdict(list)
     amount_counter = Counter()
+    currency_counter = Counter()
     source_price_counter = Counter()
     for row in prices:
         amount = float(row["amount"])
-        amount_values.append(amount)
-        amount_counter[amount] += 1
+        currency = row["currency"]
+        amounts_by_currency[currency].append(amount)
+        amount_counter[(currency, amount)] += 1
+        currency_counter[currency] += 1
         source_price_counter[row["source"] or "(no_source)"] += 1
 
     top_price_rows = [
-        {"amount": f"{amount:.2f}", "mention_count": count}
-        for amount, count in amount_counter.most_common(50)
+        {"currency": currency, "amount": f"{amount:.8f}".rstrip("0").rstrip("."), "mention_count": count}
+        for (currency, amount), count in amount_counter.most_common(50)
     ]
-    write_csv(PHASE1_OUTPUT / "top_price_amounts.csv", top_price_rows, ["amount", "mention_count"])
+    write_csv(PHASE1_OUTPUT / "top_price_amounts.csv", top_price_rows, ["currency", "amount", "mention_count"])
 
     image_exists = Counter(row["image_exists_in_vault_root"] for row in images)
     overall = {
@@ -107,8 +110,11 @@ def main() -> None:
         "price_mention_count": len(prices),
         "entity_mention_rows": len(entities),
         "keyword_rows": len(keywords),
-        "min_price": min(amount_values) if amount_values else None,
-        "max_price": max(amount_values) if amount_values else None,
+        "price_mentions_by_currency": dict(currency_counter.most_common()),
+        "price_range_by_currency": {
+            currency: {"min": min(values), "max": max(values)}
+            for currency, values in sorted(amounts_by_currency.items())
+        },
     }
 
     source_note_counts = Counter(row["source"] or "(no_source)" for row in corpus)

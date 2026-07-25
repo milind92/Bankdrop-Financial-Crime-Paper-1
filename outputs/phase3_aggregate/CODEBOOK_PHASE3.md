@@ -9,7 +9,7 @@ Deterministic regex-based coding. No LLM or external API was used.
   - `\bbank\s+logs?\b`
   - `\baccount\s+logs?\b`
   - `\blogz\b`
-  - `bank\s+logins?`
+  - `\bbank\s+logins?\b`
   - `logs?\s+with\s+(?:email|cookie|cookies|access)`
 
 ## bank_drop_sale
@@ -20,19 +20,19 @@ Deterministic regex-based coding. No LLM or external API was used.
   - `\bbankdrop\b`
   - `\bdrop\s+account\b`
   - `\bdrop\s+shop\b`
-  - `fresh\s+bank\s+drop`
+  - `\bfresh\s+bank\s+drop\b`
 
 ## fullz_identity_package
 - Label: Fullz or identity package
 - Criminal objective: Reference identity packages or credentials relevant to KYC or account access
 - Patterns:
   - `\bfullz\b`
-  - `identity package`
-  - `stolen credentials?`
-  - `synthetic id`
-  - `personal identifiable information`
+  - `\bidentity package\b`
+  - `\bstolen credentials?\b`
+  - `\bsynthetic id\b`
+  - `\bpersonal identifiable information\b`
   - `\bPII\b`
-  - `credit report`
+  - `\bcredit report\b`
 
 ## email_access_takeover
 - Label: Email-access-enabled account takeover
@@ -86,14 +86,14 @@ Deterministic regex-based coding. No LLM or external API was used.
 - Label: Escrow, trust, reputation, or scam-risk discourse
 - Criminal objective: Reference escrow, trust, reputation, or scam-risk discourse
 - Patterns:
-  - `escrow`
-  - `multisig`
-  - `multi-signature`
-  - `finali[sz]e early`
-  - `exit scam`
-  - `trusted vendor`
-  - `vouch`
-  - `red flag`
+  - `\bescrow\b`
+  - `\bmultisig\b`
+  - `\bmulti-signature\b`
+  - `\bfinali[sz]e early\b`
+  - `\bexit scam\b`
+  - `\btrusted vendor\b`
+  - `\bvouch\b`
+  - `\bred flag\b`
   - `\bscam(?:mer|med|s)?\b`
 
 ## tutorial_training_recruitment

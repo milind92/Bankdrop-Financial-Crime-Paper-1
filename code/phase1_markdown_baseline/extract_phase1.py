@@ -208,7 +208,7 @@ def infer_source(relative_path: str, config: dict) -> str:
         if parts[index : index + len(root_parts)] == root_parts:
             source_index = index + len(root_parts)
             if source_index < len(parts) - 1:
-                return parts[source_index]
+                return re.sub(r"\s+", " ", parts[source_index]).strip()
     return ""
 
 
@@ -242,36 +242,49 @@ def compile_patterns(patterns: dict[str, str]) -> dict[str, re.Pattern[str]]:
 
 
 def extract_price_mentions(record: NoteRecord) -> list[dict[str, str]]:
+    """Extract currency-labelled fiat-symbol and cryptocurrency amounts."""
     rows: list[dict[str, str]] = []
-    pattern = re.compile(r"(?<![A-Za-z])\$\s?([0-9][0-9,]*(?:\.\d{1,2})?)")
-    for match in pattern.finditer(record.text):
-        amount = float(match.group(1).replace(",", ""))
-        if amount < 1 or amount > 10_000_000:
-            continue
-        start = max(0, match.start() - 100)
-        end = min(len(record.text), match.end() + 100)
-        context = " ".join(record.text[start:end].split())
-        rows.append(
-            {
+    patterns = (
+        (re.compile(r"(?<!\w)(?:(USD|AUD|CAD|NZD)\s*)?(\$)\s*([0-9][0-9,]*(?:\.\d{1,2})?)(?:\s*(USD|AUD|CAD|NZD))?(?!\w)", re.IGNORECASE), "dollar"),
+        (re.compile(r"(?<![\w.])([0-9]+(?:\.[0-9]+)?)\s*(BTC|XMR|USDT|bitcoin|monero)\b", re.IGNORECASE), "crypto"),
+    )
+    for pattern, kind in patterns:
+        for match in pattern.finditer(record.text):
+            if kind == "dollar":
+                amount_text = match.group(3)
+                currency = (match.group(1) or match.group(4) or "UNSPECIFIED_DOLLAR").upper()
+            else:
+                amount_text = match.group(1)
+                raw_currency = match.group(2).upper()
+                currency = {"BITCOIN": "BTC", "MONERO": "XMR"}.get(raw_currency, raw_currency)
+            amount = float(amount_text.replace(",", ""))
+            if amount <= 0 or amount > 10_000_000:
+                continue
+            start = max(0, match.start() - 100)
+            end = min(len(record.text), match.end() + 100)
+            rows.append({
                 "note_id": record.note_id,
                 "legacy_note_id": record.legacy_note_id,
                 "relative_path": record.relative_path,
                 "legacy_relative_path": record.legacy_relative_path,
                 "source": record.source,
                 "collection_date": record.collection_date,
-                "amount": f"{amount:.2f}",
+                "currency": currency,
+                "amount": f"{amount:.8f}".rstrip("0").rstrip("."),
                 "raw_mention": match.group(0),
-                "context": context,
-            }
-        )
+                "context": " ".join(record.text[start:end].split()),
+            })
     return rows
 
 
 def iter_notes(vault: Path, config: dict) -> Iterable[NoteRecord]:
     paths = sorted(vault.rglob("*.md"), key=lambda item: canonical_relative_path(item, vault))
     for path in paths:
-        text = normalise_newlines(path.read_text(encoding="utf-8", errors="replace"))
         relative_path = canonical_relative_path(path, vault)
+        source = infer_source(relative_path, config)
+        if not source:
+            continue
+        text = normalise_newlines(path.read_text(encoding="utf-8", errors="replace"))
         legacy_relative_path = str(path.relative_to(vault))
         yield NoteRecord(
             note_id=note_id_from_relative_path(relative_path),
@@ -279,7 +292,7 @@ def iter_notes(vault: Path, config: dict) -> Iterable[NoteRecord]:
             path=path,
             relative_path=relative_path,
             legacy_relative_path=legacy_relative_path,
-            source=infer_source(relative_path, config),
+            source=source,
             collection_date=extract_date(path.name, config),
             text=text,
             word_count=len(re.findall(r"\b\w+\b", text)),
@@ -476,6 +489,7 @@ def main() -> None:
             "legacy_relative_path",
             "source",
             "collection_date",
+            "currency",
             "amount",
             "raw_mention",
             "context",

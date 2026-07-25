@@ -49,15 +49,15 @@ Where one Markdown note contains multiple underlying posts or listings, the auth
 
 ### Current Implementation Audit
 
-The completed deterministic screen evaluated all 999 combined note records. The controlled aggregate audit found 479 unique combined-text hashes, 34 exact duplicate groups, 520 exact duplicate excess records, and 68 zero-word combined records. No locked inclusion/exclusion log or pre-analysis deduplication was applied before Phase 3 coding. Consequently:
+The completed deterministic screen evaluated all 980 combined note records. The controlled aggregate audit found 463 unique combined-text hashes, 34 exact duplicate groups, 517 exact duplicate excess records, and 65 zero-word combined records. No locked inclusion/exclusion log or pre-analysis deduplication was applied before Phase 3 coding. Consequently:
 
 - existing Phase 3 and 4 counts are full-screened-record descriptive results, not results from a final eligible deduplicated population;
-- 479 unique hashes are a duplicate-sensitivity denominator, not a verified count of unique posts, listings, actors, transactions, or evidence units;
+- 463 unique hashes are a duplicate-sensitivity denominator, not a verified count of unique posts, listings, actors, transactions, or evidence units;
 - zero-word and otherwise unassessable records must not be treated as substantive negatives in a prevalence or classifier-performance claim;
 - the final manuscript must disclose this implementation boundary and may not claim that the prospective primary-denominator procedure was completed;
 - any later eligibility or evidence-unit audit that changes the denominator requires a complete deterministic rerun and a documented deviation.
 
-Publication-safe deterministic post-processing now reports the full 999-record screen beside a 479-record exact-combined-text-hash sensitivity population. The added tables cover source-normalized typology reporting, typology co-occurrence, source-stratified and leave-one-source-out co-occurrence stability, AML-candidate overlap, duplicate sensitivity, exploratory functional unions, source concentration, and leave-one-source-out counts. This implementation does not resolve the prospective primary-denominator decision, near-duplicate treatment, image-hash deduplication, modality sensitivity, or a final eligibility/exclusion log.
+Publication-safe deterministic post-processing now reports the full 980-record screen beside a 463-record exact-combined-text-hash sensitivity population. The added tables cover source-normalized typology reporting, typology co-occurrence, source-stratified and leave-one-source-out co-occurrence stability, AML-candidate overlap, duplicate sensitivity, exploratory functional unions, source concentration, and leave-one-source-out counts. This implementation does not resolve the prospective primary-denominator decision, near-duplicate treatment, image-hash deduplication, modality sensitivity, or a final eligibility/exclusion log.
 
 ## Analysis Populations
 

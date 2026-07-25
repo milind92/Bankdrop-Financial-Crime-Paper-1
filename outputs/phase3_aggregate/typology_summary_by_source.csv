@@ -1,17 +1,4 @@
 ﻿source,code,label,note_count,hit_count
-(no_source),bank_drop_sale,Bank drop sale or bank-drop infrastructure,5,18
-(no_source),telegram_off_platform,Telegram or private-channel coordination reference,5,9
-(no_source),bank_log_sale,Compromised bank log sale or discussion,4,16
-(no_source),fullz_identity_package,Fullz or identity package,4,13
-(no_source),market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",4,15
-(no_source),jurisdiction_localisation,Jurisdiction-specific bank or account reference,3,10
-(no_source),tutorial_training_recruitment,"Tutorial, guide, or training content",3,9
-(no_source),cashout_laundering_service,Cash-out or laundering service,2,4
-(no_source),email_access_takeover,Email-access-enabled account takeover,2,6
-(no_source),escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",2,65
-(no_source),crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,1,11
-(no_source),mule_recruitment,Mule recruitment or account-holder solicitation,1,2
-(no_source),vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,1,6
 1. Dread,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",22,95
 1. Dread,bank_drop_sale,Bank drop sale or bank-drop infrastructure,19,71
 1. Dread,jurisdiction_localisation,Jurisdiction-specific bank or account reference,17,70
@@ -23,7 +10,7 @@
 1. Dread,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,10,53
 1. Dread,email_access_takeover,Email-access-enabled account takeover,3,5
 1. Dread,mule_recruitment,Mule recruitment or account-holder solicitation,2,2
-10. Tor Shop,bank_drop_sale,Bank drop sale or bank-drop infrastructure,32,182
+10. Tor Shop,bank_drop_sale,Bank drop sale or bank-drop infrastructure,32,179
 10. Tor Shop,bank_log_sale,Compromised bank log sale or discussion,29,84
 10. Tor Shop,fullz_identity_package,Fullz or identity package,24,80
 10. Tor Shop,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,14,27
@@ -56,10 +43,10 @@
 15. Tenebris,bank_drop_sale,Bank drop sale or bank-drop infrastructure,1,1
 15. Tenebris,email_access_takeover,Email-access-enabled account takeover,1,2
 15. Tenebris,jurisdiction_localisation,Jurisdiction-specific bank or account reference,1,11
-17.  XmrBazaar,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,2,27
-17.  XmrBazaar,bank_drop_sale,Bank drop sale or bank-drop infrastructure,1,3
-17.  XmrBazaar,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",1,14
-17.  XmrBazaar,tutorial_training_recruitment,"Tutorial, guide, or training content",1,5
+17. XmrBazaar,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,2,27
+17. XmrBazaar,bank_drop_sale,Bank drop sale or bank-drop infrastructure,1,3
+17. XmrBazaar,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",1,14
+17. XmrBazaar,tutorial_training_recruitment,"Tutorial, guide, or training content",1,5
 2. Altenen,fullz_identity_package,Fullz or identity package,19,71
 2. Altenen,tutorial_training_recruitment,"Tutorial, guide, or training content",19,112
 2. Altenen,telegram_off_platform,Telegram or private-channel coordination reference,18,44
@@ -67,18 +54,18 @@
 2. Altenen,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,13,27
 2. Altenen,cashout_laundering_service,Cash-out or laundering service,9,30
 2. Altenen,email_access_takeover,Email-access-enabled account takeover,4,6
-2. Altenen,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",3,6
 2. Altenen,mule_recruitment,Mule recruitment or account-holder solicitation,3,4
 2. Altenen,bank_drop_sale,Bank drop sale or bank-drop infrastructure,2,2
-3. Pitch,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",20,138
+2. Altenen,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",2,5
 3. Pitch,telegram_off_platform,Telegram or private-channel coordination reference,20,64
 3. Pitch,tutorial_training_recruitment,"Tutorial, guide, or training content",20,115
+3. Pitch,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",18,124
 3. Pitch,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,16,156
 3. Pitch,bank_log_sale,Compromised bank log sale or discussion,15,89
 3. Pitch,jurisdiction_localisation,Jurisdiction-specific bank or account reference,13,26
 3. Pitch,bank_drop_sale,Bank drop sale or bank-drop infrastructure,12,45
 3. Pitch,cashout_laundering_service,Cash-out or laundering service,12,39
-3. Pitch,fullz_identity_package,Fullz or identity package,12,45
+3. Pitch,fullz_identity_package,Fullz or identity package,12,44
 3. Pitch,email_access_takeover,Email-access-enabled account takeover,9,19
 3. Pitch,mule_recruitment,Mule recruitment or account-holder solicitation,3,7
 4. Caders Heven,bank_log_sale,Compromised bank log sale or discussion,28,115
@@ -111,9 +98,9 @@
 6. The X Wave Market,bank_log_sale,Compromised bank log sale or discussion,5,21
 6. The X Wave Market,email_access_takeover,Email-access-enabled account takeover,3,4
 7. Meta Banklogs,jurisdiction_localisation,Jurisdiction-specific bank or account reference,36,363
-7. Meta Banklogs,bank_log_sale,Compromised bank log sale or discussion,29,249
+7. Meta Banklogs,bank_log_sale,Compromised bank log sale or discussion,29,247
 7. Meta Banklogs,email_access_takeover,Email-access-enabled account takeover,21,122
-7. Meta Banklogs,bank_drop_sale,Bank drop sale or bank-drop infrastructure,14,231
+7. Meta Banklogs,bank_drop_sale,Bank drop sale or bank-drop infrastructure,14,223
 7. Meta Banklogs,fullz_identity_package,Fullz or identity package,12,59
 7. Meta Banklogs,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,6,39
 7. Meta Banklogs,tutorial_training_recruitment,"Tutorial, guide, or training content",6,24
@@ -130,8 +117,8 @@
 8. Secure ccSeller,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,1,2
 8. Secure ccSeller,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",1,1
 9. Deep Shop,bank_log_sale,Compromised bank log sale or discussion,15,219
-9. Deep Shop,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",15,58
 9. Deep Shop,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,10,42
+9. Deep Shop,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",7,14
 9. Deep Shop,cashout_laundering_service,Cash-out or laundering service,4,13
 9. Deep Shop,tutorial_training_recruitment,"Tutorial, guide, or training content",4,16
 9. Deep Shop,email_access_takeover,Email-access-enabled account takeover,2,14

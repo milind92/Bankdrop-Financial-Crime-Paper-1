@@ -271,13 +271,13 @@ def build_rows(
 
         agreement_low, agreement_high = wilson_interval(agreements, n)
         kappa_low, kappa_high = bootstrap_interval(
-            pairs, cohen_kappa, f"{payload.get('protocol_id')}|{code}|kappa"
+            pairs, cohen_kappa, f"bankdrop-paper1-human-icr|{code}|kappa"
         )
         ac1 = gwet_ac1_binary(binary_pairs)
         ac1_low, ac1_high = bootstrap_interval(
             binary_pairs,
             gwet_ac1_binary,
-            f"{payload.get('protocol_id')}|{code}|binary-ac1",
+            f"bankdrop-paper1-human-icr|{code}|binary-ac1",
         )
         final = adjudication[code]
         if final["adjudicated_disagreements"] != disagreements:
@@ -398,7 +398,6 @@ def render_markdown(
 
     return (
         "# Human ICR Results by Target\n\n"
-        f"- Protocol: `{payload.get('protocol_id')}`\n"
         "- Independent human coders: Ausma and Milind\n"
         "- Coordinator: none\n"
         "Independent coding was frozen before disagreement review.\n\n"
@@ -476,7 +475,6 @@ def main(argv: Sequence[str] | None = None) -> int:
                     )
         metadata = {
             "script_version": SCRIPT_VERSION,
-            "protocol_id": payload.get("protocol_id"),
             "controlled_input_sha256": {
                 "frozen_icr_results_json": sha256_file(args.frozen_results),
                 "adjudication_by_target_aggregate_csv": sha256_file(

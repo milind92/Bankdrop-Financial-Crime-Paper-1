@@ -6,10 +6,10 @@ Phase 4 converted the Phase 3 deterministic coding into an interpretive financia
 
 ## Key Inputs
 
-- Notes coded in Phase 3: 999
+- Notes coded in Phase 3: 980
 - Typology codes: 13
 - AML indicator candidates: 6
-- Evidence snippets available: 2817
+- Evidence snippets available: 2706
 
 ## Main Output Files
 

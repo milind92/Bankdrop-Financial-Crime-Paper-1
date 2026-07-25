@@ -40,7 +40,7 @@ CODEBOOK = {
             r"\bbank\s+logs?\b",
             r"\baccount\s+logs?\b",
             r"\blogz\b",
-            r"bank\s+logins?",
+            r"\bbank\s+logins?\b",
             r"logs?\s+with\s+(?:email|cookie|cookies|access)",
         ],
     },
@@ -52,7 +52,7 @@ CODEBOOK = {
             r"\bbankdrop\b",
             r"\bdrop\s+account\b",
             r"\bdrop\s+shop\b",
-            r"fresh\s+bank\s+drop",
+            r"\bfresh\s+bank\s+drop\b",
         ],
     },
     "fullz_identity_package": {
@@ -60,12 +60,12 @@ CODEBOOK = {
         "objective": "Reference identity packages or credentials relevant to KYC or account access",
         "patterns": [
             r"\bfullz\b",
-            r"identity package",
-            r"stolen credentials?",
-            r"synthetic id",
-            r"personal identifiable information",
+            r"\bidentity package\b",
+            r"\bstolen credentials?\b",
+            r"\bsynthetic id\b",
+            r"\bpersonal identifiable information\b",
             r"\bPII\b",
-            r"credit report",
+            r"\bcredit report\b",
         ],
     },
     "email_access_takeover": {
@@ -125,14 +125,14 @@ CODEBOOK = {
         "label": "Escrow, trust, reputation, or scam-risk discourse",
         "objective": "Reference escrow, trust, reputation, or scam-risk discourse",
         "patterns": [
-            r"escrow",
-            r"multisig",
-            r"multi-signature",
-            r"finali[sz]e early",
-            r"exit scam",
-            r"trusted vendor",
-            r"vouch",
-            r"red flag",
+            r"\bescrow\b",
+            r"\bmultisig\b",
+            r"\bmulti-signature\b",
+            r"\bfinali[sz]e early\b",
+            r"\bexit scam\b",
+            r"\btrusted vendor\b",
+            r"\bvouch\b",
+            r"\bred flag\b",
             r"\bscam(?:mer|med|s)?\b",
         ],
     },
@@ -266,7 +266,7 @@ def source_from_path(relative_path: str) -> str:
         if parts[index : index + len(root_parts)] == root_parts:
             source_index = index + len(root_parts)
             if source_index < len(parts) - 1:
-                return parts[source_index]
+                return re.sub(r"\s+", " ", parts[source_index]).strip()
     return ""
 
 
@@ -280,34 +280,27 @@ def date_from_name(name: str) -> str:
 
 
 def load_notes() -> list[Note]:
+    """Load only the Phase 1 eligible corpus; do not rescan the whole vault."""
     ocr_by_note = {}
-    ocr_path = PHASE2_OUTPUT / "ocr_text_by_note.csv"
-    if ocr_path.exists():
-        for row in read_csv(ocr_path):
-            ocr_by_note[row["note_id"]] = row.get("joined_ocr_text", "")
+    for row in read_csv(PHASE2_OUTPUT / "ocr_text_by_note.csv"):
+        ocr_by_note[row["note_id"]] = row.get("joined_ocr_text", "")
 
     notes = []
-    for path in sorted(VAULT.rglob("*.md")):
-        # Stable across Windows and POSIX reruns. Older Phase 2 exports used
-        # platform-native separators, so retain a lookup fallback while those
-        # controlled artifacts remain in circulation.
-        relative_path = path.relative_to(VAULT).as_posix()
-        legacy_relative_path = str(path.relative_to(VAULT))
-        note_id = sha256_text(relative_path)[:16]
-        legacy_note_id = sha256_text(legacy_relative_path)[:16]
-        markdown_text = path.read_text(encoding="utf-8", errors="replace")
-        notes.append(
-            Note(
-                note_id=note_id,
-                relative_path=relative_path,
-                source=source_from_path(relative_path),
-                collection_date=date_from_name(path.name),
-                markdown_text=normalise_text(markdown_text),
-                ocr_text=normalise_text(
-                    ocr_by_note.get(note_id, ocr_by_note.get(legacy_note_id, ""))
-                ),
-            )
-        )
+    for row in read_csv(PHASE1_OUTPUT / "corpus_index.csv"):
+        relative_path = row["relative_path"]
+        path = VAULT / Path(relative_path)
+        if not path.is_file():
+            raise FileNotFoundError(f"Eligible Phase 1 note is missing: {relative_path}")
+        note_id = row["note_id"]
+        legacy_note_id = row.get("legacy_note_id", "")
+        notes.append(Note(
+            note_id=note_id,
+            relative_path=relative_path,
+            source=re.sub(r"\s+", " ", row.get("source", "")).strip(),
+            collection_date=row.get("collection_date", ""),
+            markdown_text=normalise_text(path.read_text(encoding="utf-8", errors="replace")),
+            ocr_text=normalise_text(ocr_by_note.get(note_id, ocr_by_note.get(legacy_note_id, ""))),
+        ))
     return notes
 
 

@@ -84,14 +84,7 @@ PUBLIC_EXPORTS = tuple(
     + phase_exports(
         "human_validation",
         "human_validation",
-        (
-            "HUMAN_ICR_COMPLETION.md",
-            "HUMAN_ICR_BY_TARGET.md",
-            "validation_code_summary.csv",
-            "human_icr_aggregate_summary.csv",
-            "human_icr_by_target.csv",
-            "human_icr_target_metadata.json",
-        ),
+        ("HUMAN_VALIDATION_STATUS.md",),
     )
     + phase_exports(
         "derived_analysis",

@@ -133,29 +133,29 @@ The figures below were derived from the controlled Phase 1-3 aggregate inventory
 
 | Flow item | Current aggregate count | Interpretation/status |
 |---|---:|---|
-| Markdown notes inventoried | 999 | File inventory; eligibility and unique evidence-unit count remain to be confirmed. |
-| Named source groups | 16 | Plus a `no_source` group; source selection rationale remains author-only. |
+| Markdown notes inventoried | 980 | File inventory; eligibility and unique evidence-unit count remain to be confirmed. |
+| Eligible source groups represented | 16 | Only notes within named `Core Trace/<source folder>/` directories are eligible. Folder index 16 exists but contains no Markdown notes; the next represented label is normalized to `17. XmrBazaar`. |
 | Image references | 1,140 | Reference occurrences, not unique screenshots. |
 | Locally resolved image references | 1,048 | Current aggregate count; path-resolution audit required. |
 | Unresolved, missing, or external image references | 92 | Must be classified and reported. |
 | Unique local PNG files processed by OCR | 1,043 | Local image-path count; distinct from content-hash count. |
-| Unique local image-content hashes | 1,037 | Six OCR rows reused cached results for identical image content. |
-| Combined records screened | 999 | Every current combined note record was passed to deterministic screening. |
-| Unique combined-text hashes | 479 | Hash-level text uniqueness only; not proof of 479 unique posts, listings, actors, or evidence units. |
+| Unique local image-content hashes | 1,037 | Six path-level image rows share content hashes with other images. |
+| Combined records screened | 980 | Every current combined note record was passed to deterministic screening. |
+| Unique combined-text hashes | 463 | Hash-level text uniqueness only; not proof of 463 unique posts, listings, actors, or evidence units. |
 | Exact combined-text duplicate groups | 34 | Groups containing at least two identical combined-text hashes. |
-| Exact combined-text duplicate excess | 520 | Difference between 999 screened records and 479 unique combined-text hashes. |
+| Exact combined-text duplicate excess | 517 | Difference between 980 screened records and 463 unique combined-text hashes. |
 | Largest exact combined-text group | 99 | Requires controlled interpretation; repeated, empty, or boilerplate records may contribute. |
-| Zero combined-word records | 68 | Must not be treated as substantive negatives without the eligibility audit. |
-| Markdown-only records | 540 | Assessable modality count from the current combined inventory. |
+| Zero combined-word records | 65 | Must not be treated as substantive negatives without the eligibility audit. |
+| Markdown-only records | 524 | Assessable modality count from the current combined inventory. |
 | Markdown-and-OCR records | 391 | Assessable modality count from the current combined inventory. |
 | OCR-only records | 0 | Current combined inventory. |
-| Neither Markdown nor OCR assessable | 68 | Same count as zero combined-word records in the current inventory. |
-| Records excluded before analysis | Not recorded | No locked inclusion/exclusion status field or exclusion log was applied by the current deterministic pipeline. |
-| Exact duplicate records removed before analysis | 0 | The 999-record screen was not deduplicated before Phase 3 coding. |
+| Neither Markdown nor OCR assessable | 65 | Same count as zero combined-word records in the current inventory. |
+| Internal project documents excluded before analysis | 19 | Excluded by the source-root eligibility rule before Phase 1 extraction. |
+| Exact duplicate records removed before analysis | 0 | The 980-record screen was not deduplicated before Phase 3 coding. |
 | Eligible unique analytic records | **AUTHOR CONFIRMATION REQUIRED** | This becomes the primary descriptive denominator. |
-| Paired case-target units in completed human ICR | 1,036 | Two independently completed blinded coder decisions across 351 evidence packets and 18 assessed targets; this is not the count of unique analytic records. |
+| Human validation | Withdrawn | The prior sample contained 14 ineligible internal documents (59 paired case-target units); fresh corrected-corpus validation is required. |
 
-The final manuscript should include a flow diagram or table showing identified, screened, excluded, deduplicated, eligible, validated, and analysed records. Counts must reconcile across the controlled inventory, manuscript, tables, and machine-readable manifest. Until the authors complete the collection and eligibility audit, the existing Phase 3 and 4 counts must be described as descriptive signals among 999 screened combined note records, with exact-text sensitivity reported separately. The 479 unique hashes must not be called the final eligible denominator.
+The final manuscript should include a flow diagram or table showing identified, screened, excluded, deduplicated, eligible, validated, and analysed records. Counts must reconcile across the controlled inventory, manuscript, tables, and machine-readable manifest. Until the authors complete the collection and eligibility audit, the existing Phase 3 and 4 counts must be described as descriptive signals among 980 screened combined note records, with exact-text sensitivity reported separately. The 463 unique hashes must not be called the final eligible denominator.
 
 ## Collection Bias And Missingness
 

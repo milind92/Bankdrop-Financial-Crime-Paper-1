@@ -78,7 +78,6 @@ class AiDisclosureTests(unittest.TestCase):
 class HumanIcrInvariantTests(unittest.TestCase):
     def make_row(self) -> dict[str, str]:
         return {
-            "protocol_id": "BD-HUMAN-ICR-20260722-R2",
             "completion_date": "2026-07-23",
             "coder_count": "2", "coordinator_count": "0",
             "evidence_packet_count": "351", "assessed_target_count": "18",
@@ -95,7 +94,7 @@ class HumanIcrInvariantTests(unittest.TestCase):
 
     def manifest(self) -> dict[str, object]:
         return {"validation": {
-            "protocol_id": "BD-HUMAN-ICR-20260722-R2", "completion_date": "2026-07-23",
+            "completion_date": "2026-07-23",
             "coder_count": 2, "coordinator_count": 0, "evidence_packet_count": 351,
             "assessed_target_count": 18, "paired_case_target_units": 1036,
             "exact_agreements": 977, "disagreements": 59,

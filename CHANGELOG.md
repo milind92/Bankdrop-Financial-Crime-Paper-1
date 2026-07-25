@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.0 - 2026-07-25
+
+- Corrected the eligibility boundary and reran the deterministic analysis on 980 source-folder notes after excluding 19 internal project documents.
+- Made Phase 3 consume the frozen Phase 1 eligible corpus instead of rescanning every Markdown file.
+- Normalized the `17.  XmrBazaar` display label and documented the empty source index 16.
+- Tightened generic lexical and bank-entity patterns and added currency-labelled price extraction, including supported cryptocurrency amount forms.
+- Added provenance-matched OCR cache-only replay for non-Windows environments.
+- Regenerated Phase 1-4 and derived aggregate outputs: 980 screened records and 463 exact-text sensitivity representatives.
+- Withdrew the 23 July human-validation statistics because 14 ineligible internal records contributed 59 paired case-target units; fresh validation is required.
+
 ## 1.1.0 - 2026-07-25
 
 - Added deterministic publication-safe tables for exact-text duplicate sensitivity, source-normalized typology reporting, typology co-occurrence with source-stratified and leave-one-source-out stability, typology-to-AML-candidate overlap, exploratory functional unions, source concentration, and leave-one-source-out sensitivity.

@@ -35,9 +35,7 @@ REQUIRED_FILES = (
     "docs/HUMAN_VALIDATION_PROTOCOL.md",
     "docs/CONTROLLED_AUDIT_ACCESS.md",
     "docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md",
-    "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
-    "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
-    "outputs/human_validation/human_icr_target_metadata.json",
+    "outputs/human_validation/HUMAN_VALIDATION_STATUS.md",
     "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
     "outputs/derived_analysis/derived_analysis_metadata.json",
     "outputs/analysis_audit/corpus_screening_audit_summary.csv",
@@ -47,7 +45,7 @@ CSV_SCHEMAS = {
     "outputs/phase1_aggregate/entity_summary_by_source.csv": "source,entity_type,entity,hit_count",
     "outputs/phase1_aggregate/keyword_summary_by_source.csv": "source,keyword,file_count,hit_count",
     "outputs/phase1_aggregate/source_summary.csv": "source,note_count,dated_note_count,first_date,last_date,word_count,image_ref_count",
-    "outputs/phase1_aggregate/top_price_amounts.csv": "amount,mention_count",
+    "outputs/phase1_aggregate/top_price_amounts.csv": "currency,amount,mention_count",
     "outputs/phase2_aggregate/ocr_summary_by_source.csv": "source,image_ref_count,ocr_ok_count,ocr_empty_count,ocr_error_count,ocr_not_local_or_not_processed_count,ocr_word_count",
     "outputs/phase3_aggregate/aml_indicator_summary_by_source.csv": "aml_indicator,label,source,note_count,hit_count",
     "outputs/phase3_aggregate/criminal_objective_summary.csv": "criminal_objective,note_count,hit_count",
@@ -56,9 +54,6 @@ CSV_SCHEMAS = {
     "outputs/phase4_aggregate/aml_red_flags_summary.csv": "rank,aml_indicator,label,source_count,note_count,hit_count,interpretation",
     "outputs/phase4_aggregate/financial_crime_findings.csv": "rank,code,label,note_count,hit_count,finding,analysis,result_type,aml_or_detection_relevance",
     "outputs/phase4_aggregate/source_profile_summary.csv": "source,dominant_typology,dominant_typology_notes,top_typologies",
-    "outputs/human_validation/human_icr_aggregate_summary.csv": "protocol_id,completion_date,coder_count,coordinator_count,evidence_packet_count,assessed_target_count,decision_category_count,paired_units,exact_agreements,disagreements,agreement_percent,cohen_kappa,krippendorff_alpha_nominal,binary_subset_units,binary_subset_exact_agreements,binary_subset_agreement_percent,binary_subset_cohen_kappa,adjudicated_disagreements,consensus_cases,no_consensus_cases,final_present,final_absent,final_ambiguous,final_insufficient_evidence,final_out_of_scope",
-    "outputs/human_validation/human_icr_by_target.csv": "code,target_group,paired_units,exact_agreements,disagreements,agreement_percent,agreement_ci95_low_percent,agreement_ci95_high_percent,cohen_kappa,cohen_kappa_bootstrap_ci95_low,cohen_kappa_bootstrap_ci95_high,krippendorff_alpha_nominal,binary_subset_units,binary_subset_exact_agreements,binary_subset_agreement_percent,binary_subset_cohen_kappa,binary_subset_gwet_ac1,binary_subset_gwet_ac1_bootstrap_ci95_low,binary_subset_gwet_ac1_bootstrap_ci95_high,adjudicated_disagreements,final_present,final_absent,final_ambiguous,final_insufficient_evidence,final_out_of_scope_record",
-    "outputs/human_validation/validation_code_summary.csv": "target_type,code,label,positive_population_rows,negative_population_rows,positive_unique_evidence_rows,negative_unique_evidence_rows,positive_sample_rows,negative_sample_rows,sampling_seed,sampling_rule",
     "outputs/analysis_audit/corpus_screening_audit_summary.csv": "screened_combined_records,unique_combined_text_hashes,exact_duplicate_groups,exact_duplicate_excess,maximum_duplicate_group_size,zero_combined_word_records,markdown_only_records,markdown_and_ocr_records,ocr_only_records,neither_assessable_records,explicit_exclusion_log_available,pre_analysis_deduplication_applied,eligible_unique_analytic_records",
     "outputs/derived_analysis/duplicate_sensitivity.csv": "code,label,full_screened_denominator_n,full_screened_present_n,full_screened_percent,full_screened_rank,exact_text_unique_denominator_n,exact_text_unique_present_n,exact_text_unique_percent,exact_duplicate_excess_positive_records_n,positive_count_reduction_percent,percentage_point_difference,exact_text_unique_rank,rank_change",
     "outputs/derived_analysis/service_chain_grouping.csv": "population,population_definition,mapping_status,stage,label,definition,included_codes,denominator_n,unique_records_present_n,records_present_percent",
@@ -81,9 +76,6 @@ REQUIRED_NON_CSV_OUTPUTS = (
     "outputs/phase4_aggregate/FINANCIAL_CRIME_ANALYSIS_REPORT.md",
     "outputs/phase4_aggregate/PHASE4_CHECKPOINT_SUMMARY.md",
     "outputs/phase4_aggregate/run_metadata.json",
-    "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
-    "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
-    "outputs/human_validation/human_icr_target_metadata.json",
     "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
     "outputs/derived_analysis/derived_analysis_metadata.json",
 )
@@ -395,7 +387,6 @@ def check_human_icr_aggregate(manifest: dict[str, Any], errors: list[str]) -> in
         errors.append("Binary subset agreement percentage is inconsistent.")
     validation = manifest.get("validation", {})
     manifest_checks = {
-        "protocol_id": row.get("protocol_id"),
         "completion_date": row.get("completion_date"),
         "coder_count": integers["coder_count"],
         "coordinator_count": integers["coordinator_count"],
@@ -413,7 +404,6 @@ def check_human_icr_aggregate(manifest: dict[str, Any], errors: list[str]) -> in
 
 def check_human_icr_by_target(manifest: dict[str, Any], errors: list[str]) -> int:
     rows = _read_rows(
-        "outputs/human_validation/human_icr_by_target.csv", errors
     )
     if len(rows) != 18:
         errors.append(f"Human ICR target table must contain 18 rows; found {len(rows)}")
@@ -466,7 +456,6 @@ def check_human_icr_by_target(manifest: dict[str, Any], errors: list[str]) -> in
             if not -1 <= value <= 1:
                 errors.append(f"Target reliability metric outside [-1, 1] for {code}: {field}")
     aggregate_rows = _read_rows(
-        "outputs/human_validation/human_icr_aggregate_summary.csv", errors
     )
     if len(aggregate_rows) == 1:
         aggregate = aggregate_rows[0]
@@ -528,8 +517,8 @@ def check_derived_analysis(manifest: dict[str, Any], errors: list[str]) -> int:
         return 0
     populations = metadata.get("population_counts", {})
     expected_populations = {
-        "full_screened": 999,
-        "exact_text_unique_sensitivity": 479,
+        "full_screened": 980,
+        "exact_text_unique_sensitivity": 463,
     }
     if populations != expected_populations:
         errors.append(f"Unexpected derived-analysis populations: {populations}")
@@ -596,8 +585,8 @@ def main() -> int:
     privacy_count = check_text_privacy(errors)
     release_count = check_release_metadata(manifest, errors)
     disclosure_count = check_ai_authoring_disclosure(manifest, errors)
-    icr_count = check_human_icr_aggregate(manifest, errors)
-    icr_target_count = check_human_icr_by_target(manifest, errors)
+    icr_count = 0
+    icr_target_count = 0
     derived_count = check_derived_analysis(manifest, errors)
 
     if errors:
@@ -616,8 +605,7 @@ def main() -> int:
     print(f"- Publication-safe text files scanned for local paths: {privacy_count}")
     print(f"- Release metadata checks: {release_count}")
     print(f"- AI authoring-disclosure checks: {disclosure_count}")
-    print(f"- Human ICR aggregate checks: {icr_count}")
-    print(f"- Human ICR target-level checks: {icr_target_count}")
+    print("- Human validation: withdrawn pending corrected-corpus revalidation")
     print(f"- Derived-analysis checks: {derived_count}")
     return 0
 

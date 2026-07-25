@@ -20,7 +20,7 @@ All committed outputs are aggregate and publication-safe. Raw and record-level m
 
 ## Deterministic Derived Analysis
 
-`outputs/derived_analysis/` contains publication-safe duplicate-sensitivity, source-normalized typology, co-occurrence, co-occurrence source-stability, typology-to-AML-candidate overlap, exploratory functional-grouping, source-concentration, and leave-one-source-out tables. The 479-record exact-text-unique population is explicitly a sensitivity population, not a verified final eligible population. See `DERIVED_ANALYSIS_NOTES.md` for formulas and evidence boundaries.
+`outputs/derived_analysis/` contains publication-safe duplicate-sensitivity, source-normalized typology, co-occurrence, co-occurrence source-stability, typology-to-AML-candidate overlap, exploratory functional-grouping, source-concentration, and leave-one-source-out tables. The 463-record exact-text-unique population is explicitly a sensitivity population, not a verified final eligible population. See `DERIVED_ANALYSIS_NOTES.md` for formulas and evidence boundaries.
 
 ## Human Validation
 

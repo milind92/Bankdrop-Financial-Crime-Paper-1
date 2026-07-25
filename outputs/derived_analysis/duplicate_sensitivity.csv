@@ -1,13 +1,12 @@
 code,label,full_screened_denominator_n,full_screened_present_n,full_screened_percent,full_screened_rank,exact_text_unique_denominator_n,exact_text_unique_present_n,exact_text_unique_percent,exact_duplicate_excess_positive_records_n,positive_count_reduction_percent,percentage_point_difference,exact_text_unique_rank,rank_change
-bank_log_sale,Compromised bank log sale or discussion,999,182,18.218,1,479,181,37.787,1,0.549,19.569,1,0
-escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",999,134,13.413,2,479,133,27.766,1,0.746,14.353,2,0
-fullz_identity_package,Fullz or identity package,999,128,12.813,3,479,128,26.722,0,0.0,13.909,3,0
-crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,999,127,12.713,4,479,127,26.514,0,0.0,13.801,4,0
-bank_drop_sale,Bank drop sale or bank-drop infrastructure,999,121,12.112,5,479,121,25.261,0,0.0,13.149,5,0
-cashout_laundering_service,Cash-out or laundering service,999,120,12.012,6,479,120,25.052,0,0.0,13.04,6,0
-jurisdiction_localisation,Jurisdiction-specific bank or account reference,999,120,12.012,7,479,119,24.843,1,0.833,12.831,7,0
-tutorial_training_recruitment,"Tutorial, guide, or training content",999,107,10.711,8,479,107,22.338,0,0.0,11.627,8,0
-telegram_off_platform,Telegram or private-channel coordination reference,999,87,8.709,9,479,86,17.954,1,1.149,9.245,9,0
-email_access_takeover,Email-access-enabled account takeover,999,64,6.406,10,479,64,13.361,0,0.0,6.955,10,0
-mule_recruitment,Mule recruitment or account-holder solicitation,999,10,1.001,11,479,10,2.088,0,0.0,1.087,11,0
-vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,999,1,0.1,12,479,1,0.209,0,0.0,0.109,12,0
+bank_log_sale,Compromised bank log sale or discussion,980,178,18.163,1,463,177,38.229,1,0.562,20.066,1,0
+crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,980,126,12.857,2,463,126,27.214,0,0.0,14.357,2,0
+fullz_identity_package,Fullz or identity package,980,124,12.653,3,463,124,26.782,0,0.0,14.129,3,0
+escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",980,121,12.347,4,463,120,25.918,1,0.826,13.571,4,0
+cashout_laundering_service,Cash-out or laundering service,980,118,12.041,5,463,118,25.486,0,0.0,13.445,5,0
+jurisdiction_localisation,Jurisdiction-specific bank or account reference,980,117,11.939,6,463,116,25.054,1,0.855,13.115,7,1
+bank_drop_sale,Bank drop sale or bank-drop infrastructure,980,116,11.837,7,463,116,25.054,0,0.0,13.217,6,-1
+tutorial_training_recruitment,"Tutorial, guide, or training content",980,104,10.612,8,463,104,22.462,0,0.0,11.85,8,0
+telegram_off_platform,Telegram or private-channel coordination reference,980,82,8.367,9,463,81,17.495,1,1.22,9.128,9,0
+email_access_takeover,Email-access-enabled account takeover,980,62,6.327,10,463,62,13.391,0,0.0,7.064,10,0
+mule_recruitment,Mule recruitment or account-holder solicitation,980,9,0.918,11,463,9,1.944,0,0.0,1.026,11,0

@@ -6,12 +6,12 @@ Phase 3 combined Markdown text with Phase 2 OCR text and applied a deterministic
 
 ## Key Counts
 
-- Notes coded: 999
+- Notes coded: 980
 - Typology codes: 13
 - AML indicator candidates: 6
-- Typology coding rows: 12987
-- Evidence snippet rows: 2817
-- AML indicator coding rows: 5994
+- Typology coding rows: 12740
+- Evidence snippet rows: 2706
+- AML indicator coding rows: 5880
 
 ## Main Output Files
 
