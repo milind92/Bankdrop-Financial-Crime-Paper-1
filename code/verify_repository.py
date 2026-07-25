@@ -27,6 +27,8 @@ REQUIRED_FILES = (
     ".github/workflows/repository-integrity.yml",
     "code/run_reproducible_pipeline.py",
     "code/export_public_release.py",
+    "code/derived_analysis/build_derived_analysis.py",
+    "code/human_validation/build_public_icr_by_target.py",
     "code/human_validation/summarize_human_validation.py",
     "docs/ANALYSIS_PLAN.md",
     "docs/DATA_COLLECTION_PROTOCOL.md",
@@ -34,6 +36,10 @@ REQUIRED_FILES = (
     "docs/CONTROLLED_AUDIT_ACCESS.md",
     "docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md",
     "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
+    "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
+    "outputs/human_validation/human_icr_target_metadata.json",
+    "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
+    "outputs/derived_analysis/derived_analysis_metadata.json",
     "outputs/analysis_audit/corpus_screening_audit_summary.csv",
 )
 
@@ -51,8 +57,18 @@ CSV_SCHEMAS = {
     "outputs/phase4_aggregate/financial_crime_findings.csv": "rank,code,label,note_count,hit_count,finding,analysis,result_type,aml_or_detection_relevance",
     "outputs/phase4_aggregate/source_profile_summary.csv": "source,dominant_typology,dominant_typology_notes,top_typologies",
     "outputs/human_validation/human_icr_aggregate_summary.csv": "protocol_id,completion_date,coder_count,coordinator_count,evidence_packet_count,assessed_target_count,decision_category_count,paired_units,exact_agreements,disagreements,agreement_percent,cohen_kappa,krippendorff_alpha_nominal,binary_subset_units,binary_subset_exact_agreements,binary_subset_agreement_percent,binary_subset_cohen_kappa,adjudicated_disagreements,consensus_cases,no_consensus_cases,final_present,final_absent,final_ambiguous,final_insufficient_evidence,final_out_of_scope",
+    "outputs/human_validation/human_icr_by_target.csv": "code,target_group,paired_units,exact_agreements,disagreements,agreement_percent,agreement_ci95_low_percent,agreement_ci95_high_percent,cohen_kappa,cohen_kappa_bootstrap_ci95_low,cohen_kappa_bootstrap_ci95_high,krippendorff_alpha_nominal,binary_subset_units,binary_subset_exact_agreements,binary_subset_agreement_percent,binary_subset_cohen_kappa,binary_subset_gwet_ac1,binary_subset_gwet_ac1_bootstrap_ci95_low,binary_subset_gwet_ac1_bootstrap_ci95_high,adjudicated_disagreements,final_present,final_absent,final_ambiguous,final_insufficient_evidence,final_out_of_scope_record",
     "outputs/human_validation/validation_code_summary.csv": "target_type,code,label,positive_population_rows,negative_population_rows,positive_unique_evidence_rows,negative_unique_evidence_rows,positive_sample_rows,negative_sample_rows,sampling_seed,sampling_rule",
     "outputs/analysis_audit/corpus_screening_audit_summary.csv": "screened_combined_records,unique_combined_text_hashes,exact_duplicate_groups,exact_duplicate_excess,maximum_duplicate_group_size,zero_combined_word_records,markdown_only_records,markdown_and_ocr_records,ocr_only_records,neither_assessable_records,explicit_exclusion_log_available,pre_analysis_deduplication_applied,eligible_unique_analytic_records",
+    "outputs/derived_analysis/duplicate_sensitivity.csv": "code,label,full_screened_denominator_n,full_screened_present_n,full_screened_percent,full_screened_rank,exact_text_unique_denominator_n,exact_text_unique_present_n,exact_text_unique_percent,exact_duplicate_excess_positive_records_n,positive_count_reduction_percent,percentage_point_difference,exact_text_unique_rank,rank_change",
+    "outputs/derived_analysis/service_chain_grouping.csv": "population,population_definition,mapping_status,stage,label,definition,included_codes,denominator_n,unique_records_present_n,records_present_percent",
+    "outputs/derived_analysis/source_concentration.csv": "population,population_definition,denominator_n,code,label,positive_records_n,source_groups_with_positive_records_n,top_source,top_source_positive_records_n,top_source_share,top_three_source_share,source_hhi,full_rank_by_record_count",
+    "outputs/derived_analysis/source_leave_one_out.csv": "population,population_definition,removed_source,code,label,remaining_denominator_n,remaining_positive_records_n,remaining_positive_percent,full_rank_by_record_count,remaining_rank_by_record_count,rank_change",
+    "outputs/derived_analysis/typology_aml_crosswalk.csv": "population,population_definition,denominator_n,typology_code,typology_label,aml_candidate,aml_candidate_label,typology_present_n,aml_candidate_present_n,n11_both_present,n10_typology_only,n01_aml_only,n00_neither,jaccard,typology_share_with_candidate,candidate_share_with_typology,lift",
+    "outputs/derived_analysis/typology_cooccurrence.csv": "population,population_definition,denominator_n,code_a,label_a,code_b,label_b,code_a_present_n,code_b_present_n,n11_both_present,n10_a_only,n01_b_only,n00_neither,jaccard,lift",
+    "outputs/derived_analysis/typology_cooccurrence_by_source.csv": "population,population_definition,source,source_denominator_n,code_a,label_a,code_b,label_b,n11_both_present,n10_a_only,n01_b_only,n00_neither,jaccard,lift",
+    "outputs/derived_analysis/typology_cooccurrence_leave_one_source_out.csv": "population,population_definition,removed_source,remaining_denominator_n,code_a,label_a,code_b,label_b,n11_both_present,n10_a_only,n01_b_only,n00_neither,jaccard,lift,full_population_n11,n11_difference,full_population_jaccard,jaccard_difference,full_population_lift,lift_difference",
+    "outputs/derived_analysis/typology_source_normalized.csv": "population,population_definition,source,source_denominator_n,markdown_present_n,ocr_present_n,markdown_and_ocr_present_n,neither_modality_present_n,code,label,source_positive_records_n,within_source_percent,all_sources_positive_records_n,source_share_of_positive_records",
 }
 
 REQUIRED_NON_CSV_OUTPUTS = (
@@ -66,6 +82,10 @@ REQUIRED_NON_CSV_OUTPUTS = (
     "outputs/phase4_aggregate/PHASE4_CHECKPOINT_SUMMARY.md",
     "outputs/phase4_aggregate/run_metadata.json",
     "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
+    "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
+    "outputs/human_validation/human_icr_target_metadata.json",
+    "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
+    "outputs/derived_analysis/derived_analysis_metadata.json",
 )
 
 EXCLUDED_PATH_PARTS = {
@@ -259,6 +279,44 @@ def check_text_privacy(errors: list[str]) -> int:
     return checked
 
 
+def check_release_metadata(manifest: dict[str, Any], errors: list[str]) -> int:
+    project = manifest.get("project", {})
+    if not isinstance(project, dict):
+        errors.append("Manifest project metadata must be an object.")
+        return 0
+    try:
+        citation = (REPOSITORY_ROOT / "CITATION.cff").read_text(encoding="utf-8-sig")
+        changelog = (REPOSITORY_ROOT / "CHANGELOG.md").read_text(encoding="utf-8-sig")
+    except OSError as exc:
+        errors.append(f"Could not inspect release metadata: {exc}")
+        return 0
+    checks = {
+        "title": re.search(r"(?m)^title: \"([^\"]+)\"$", citation),
+        "version": re.search(r"(?m)^version: \"([^\"]+)\"$", citation),
+        "repository": re.search(r"(?m)^repository-code: \"([^\"]+)\"$", citation),
+        "license": re.search(r"(?m)^license: \"([^\"]+)\"$", citation),
+    }
+    expected = {
+        "title": project.get("title"),
+        "version": project.get("version"),
+        "repository": project.get("repository"),
+        "license": "LicenseRef-All-Rights-Reserved",
+    }
+    checked = 0
+    for field, match in checks.items():
+        actual = match.group(1) if match else None
+        if actual != expected[field]:
+            errors.append(f"CITATION.cff {field} does not match release metadata.")
+        else:
+            checked += 1
+    version = str(project.get("version", ""))
+    if not re.search(rf"(?m)^## {re.escape(version)} - \d{{4}}-\d{{2}}-\d{{2}}$", changelog):
+        errors.append("CHANGELOG.md has no dated heading for the manifest version.")
+    else:
+        checked += 1
+    return checked
+
+
 def check_ai_authoring_disclosure(manifest: dict[str, Any], errors: list[str]) -> int:
     record = manifest.get("ai_authoring_assistance", {})
     disclosure = record.get("disclosure") if isinstance(record, dict) else None
@@ -353,6 +411,180 @@ def check_human_icr_aggregate(manifest: dict[str, Any], errors: list[str]) -> in
     return len(integers) + len(numbers) + len(manifest_checks) + 5
 
 
+def check_human_icr_by_target(manifest: dict[str, Any], errors: list[str]) -> int:
+    rows = _read_rows(
+        "outputs/human_validation/human_icr_by_target.csv", errors
+    )
+    if len(rows) != 18:
+        errors.append(f"Human ICR target table must contain 18 rows; found {len(rows)}")
+        return 0
+    codes = [row.get("code", "") for row in rows]
+    if any(not code for code in codes) or len(codes) != len(set(codes)):
+        errors.append("Human ICR target codes must be nonblank and unique.")
+    totals = {
+        field: sum(_integer(row, field, errors) for row in rows)
+        for field in (
+            "paired_units", "exact_agreements", "disagreements",
+            "binary_subset_units", "binary_subset_exact_agreements",
+            "adjudicated_disagreements", "final_present", "final_absent",
+            "final_ambiguous", "final_insufficient_evidence",
+            "final_out_of_scope_record",
+        )
+    }
+    for row in rows:
+        code = row.get("code", "(blank)")
+        paired = _integer(row, "paired_units", errors)
+        agreements = _integer(row, "exact_agreements", errors)
+        disagreements = _integer(row, "disagreements", errors)
+        adjudicated = _integer(row, "adjudicated_disagreements", errors)
+        if agreements + disagreements != paired:
+            errors.append(f"Target ICR counts do not reconcile for {code}.")
+        if adjudicated != disagreements:
+            errors.append(f"Target adjudication count does not reconcile for {code}.")
+        final_total = sum(
+            _integer(row, field, errors)
+            for field in (
+                "final_present", "final_absent", "final_ambiguous",
+                "final_insufficient_evidence", "final_out_of_scope_record",
+            )
+        )
+        if final_total != adjudicated:
+            errors.append(f"Target final decisions do not reconcile for {code}.")
+        agreement = _number(row, "agreement_percent", errors)
+        low = _number(row, "agreement_ci95_low_percent", errors)
+        high = _number(row, "agreement_ci95_high_percent", errors)
+        if not (0 <= low <= agreement <= high <= 100):
+            errors.append(f"Target agreement interval is invalid for {code}.")
+        for field in (
+            "cohen_kappa", "cohen_kappa_bootstrap_ci95_low",
+            "cohen_kappa_bootstrap_ci95_high", "krippendorff_alpha_nominal",
+            "binary_subset_cohen_kappa", "binary_subset_gwet_ac1",
+            "binary_subset_gwet_ac1_bootstrap_ci95_low",
+            "binary_subset_gwet_ac1_bootstrap_ci95_high",
+        ):
+            value = _number(row, field, errors)
+            if not -1 <= value <= 1:
+                errors.append(f"Target reliability metric outside [-1, 1] for {code}: {field}")
+    aggregate_rows = _read_rows(
+        "outputs/human_validation/human_icr_aggregate_summary.csv", errors
+    )
+    if len(aggregate_rows) == 1:
+        aggregate = aggregate_rows[0]
+        expected = {
+            "paired_units": _integer(aggregate, "paired_units", errors),
+            "exact_agreements": _integer(aggregate, "exact_agreements", errors),
+            "disagreements": _integer(aggregate, "disagreements", errors),
+            "binary_subset_units": _integer(aggregate, "binary_subset_units", errors),
+            "binary_subset_exact_agreements": _integer(aggregate, "binary_subset_exact_agreements", errors),
+            "adjudicated_disagreements": _integer(aggregate, "adjudicated_disagreements", errors),
+            "final_present": _integer(aggregate, "final_present", errors),
+            "final_absent": _integer(aggregate, "final_absent", errors),
+            "final_ambiguous": _integer(aggregate, "final_ambiguous", errors),
+            "final_insufficient_evidence": _integer(aggregate, "final_insufficient_evidence", errors),
+            "final_out_of_scope_record": _integer(aggregate, "final_out_of_scope", errors),
+        }
+        for field, value in expected.items():
+            if totals[field] != value:
+                errors.append(f"Target ICR totals do not match overall aggregate: {field}")
+    metadata_path = REPOSITORY_ROOT / "outputs/human_validation/human_icr_target_metadata.json"
+    try:
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"Could not read target-level ICR metadata: {exc}")
+        metadata = {}
+    if metadata.get("target_count") != len(rows):
+        errors.append("Target-level ICR metadata target count does not reconcile.")
+    for field in ("paired_units", "disagreements", "adjudicated_disagreements"):
+        if metadata.get(field) != totals[field]:
+            errors.append(f"Target-level ICR metadata does not reconcile: {field}")
+    input_hashes = metadata.get("controlled_input_sha256", {})
+    coder_hashes = metadata.get("frozen_coder_workbook_sha256", [])
+    if not isinstance(input_hashes, dict) or len(input_hashes) != 3 or any(
+        not re.fullmatch(r"[0-9a-f]{64}", str(value))
+        for value in input_hashes.values()
+    ):
+        errors.append("Target-level ICR controlled input hashes are incomplete or invalid.")
+    if not isinstance(coder_hashes, list) or len(coder_hashes) != 2 or any(
+        not isinstance(item, dict)
+        or not re.fullmatch(r"[0-9a-f]{64}", str(item.get("sha256", "")))
+        for item in coder_hashes
+    ):
+        errors.append("Target-level ICR frozen coder workbook hashes are incomplete or invalid.")
+    validation = manifest.get("validation", {})
+    if isinstance(validation, dict):
+        if validation.get("public_target_results") != "outputs/human_validation/human_icr_by_target.csv":
+            errors.append("Manifest does not reference the public target-level ICR table.")
+        if validation.get("public_target_metadata") != "outputs/human_validation/human_icr_target_metadata.json":
+            errors.append("Manifest does not reference the target-level ICR metadata.")
+    return len(rows) * 12 + len(totals) + 8
+
+
+def check_derived_analysis(manifest: dict[str, Any], errors: list[str]) -> int:
+    metadata_path = REPOSITORY_ROOT / "outputs/derived_analysis/derived_analysis_metadata.json"
+    try:
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"Could not read derived-analysis metadata: {exc}")
+        return 0
+    populations = metadata.get("population_counts", {})
+    expected_populations = {
+        "full_screened": 999,
+        "exact_text_unique_sensitivity": 479,
+    }
+    if populations != expected_populations:
+        errors.append(f"Unexpected derived-analysis populations: {populations}")
+    corpus_counts = manifest.get("corpus_counts", {})
+    if isinstance(corpus_counts, dict):
+        if populations.get("full_screened") != corpus_counts.get("screened_combined_records"):
+            errors.append("Derived full-screened denominator differs from manifest.")
+        if populations.get("exact_text_unique_sensitivity") != corpus_counts.get("unique_combined_text_hashes"):
+            errors.append("Derived exact-text denominator differs from manifest.")
+    row_counts = metadata.get("output_row_counts", {})
+    if not isinstance(row_counts, dict):
+        errors.append("Derived-analysis metadata has no output row counts.")
+        row_counts = {}
+    checked = 3
+    for filename, expected in row_counts.items():
+        rows = _read_rows(f"outputs/derived_analysis/{filename}", errors)
+        if len(rows) != expected:
+            errors.append(
+                f"Derived row count mismatch for {filename}: expected {expected}, found {len(rows)}"
+            )
+        checked += 1
+    for relative, denominator_field, fields in (
+        ("outputs/derived_analysis/typology_cooccurrence.csv", "denominator_n", ("n11_both_present", "n10_a_only", "n01_b_only", "n00_neither")),
+        ("outputs/derived_analysis/typology_cooccurrence_by_source.csv", "source_denominator_n", ("n11_both_present", "n10_a_only", "n01_b_only", "n00_neither")),
+        ("outputs/derived_analysis/typology_cooccurrence_leave_one_source_out.csv", "remaining_denominator_n", ("n11_both_present", "n10_a_only", "n01_b_only", "n00_neither")),
+        ("outputs/derived_analysis/typology_aml_crosswalk.csv", "denominator_n", ("n11_both_present", "n10_typology_only", "n01_aml_only", "n00_neither")),
+    ):
+        for row in _read_rows(relative, errors):
+            denominator = _integer(row, denominator_field, errors)
+            cells = sum(_integer(row, field, errors) for field in fields)
+            if cells != denominator:
+                errors.append(f"Contingency cells do not sum to denominator in {relative}.")
+            checked += 1
+    for row in _read_rows("outputs/derived_analysis/typology_source_normalized.csv", errors):
+        denominator = _integer(row, "source_denominator_n", errors)
+        positive = _integer(row, "source_positive_records_n", errors)
+        within_source = _number(row, "within_source_percent", errors)
+        if positive > denominator or not 0 <= within_source <= 100:
+            errors.append("Source-normalized typology row has invalid count or percentage.")
+        checked += 1
+    for row in _read_rows("outputs/derived_analysis/service_chain_grouping.csv", errors):
+        if row.get("mapping_status") != "exploratory_descriptive_grouping":
+            errors.append("Service-chain grouping must remain explicitly exploratory.")
+        checked += 1
+    hashes = metadata.get("controlled_input_sha256", {})
+    if not isinstance(hashes, dict) or len(hashes) != 3:
+        errors.append("Derived-analysis metadata must contain three controlled input hashes.")
+    elif any(not re.fullmatch(r"[0-9a-f]{64}", str(value)) for value in hashes.values()):
+        errors.append("Derived-analysis controlled input hash is invalid.")
+    derived_manifest = manifest.get("derived_analysis", {})
+    if not isinstance(derived_manifest, dict) or derived_manifest.get("metadata") != "outputs/derived_analysis/derived_analysis_metadata.json":
+        errors.append("Manifest does not reference the derived-analysis metadata.")
+    return checked + 2
+
+
 def main() -> int:
     errors: list[str] = []
     manifest = load_manifest(errors)
@@ -362,8 +594,11 @@ def main() -> int:
     manifest_count = check_manifest(manifest, errors)
     excluded_count = check_excluded_material(errors)
     privacy_count = check_text_privacy(errors)
+    release_count = check_release_metadata(manifest, errors)
     disclosure_count = check_ai_authoring_disclosure(manifest, errors)
     icr_count = check_human_icr_aggregate(manifest, errors)
+    icr_target_count = check_human_icr_by_target(manifest, errors)
+    derived_count = check_derived_analysis(manifest, errors)
 
     if errors:
         print("Repository integrity check failed:", file=sys.stderr)
@@ -379,8 +614,11 @@ def main() -> int:
     print(f"- Manifest phase and file references checked: {manifest_count}")
     print(f"- Files checked against excluded/restricted paths: {excluded_count}")
     print(f"- Publication-safe text files scanned for local paths: {privacy_count}")
+    print(f"- Release metadata checks: {release_count}")
     print(f"- AI authoring-disclosure checks: {disclosure_count}")
     print(f"- Human ICR aggregate checks: {icr_count}")
+    print(f"- Human ICR target-level checks: {icr_target_count}")
+    print(f"- Derived-analysis checks: {derived_count}")
     return 0
 
 

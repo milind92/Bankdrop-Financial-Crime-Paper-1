@@ -23,7 +23,7 @@ The blinded human ICR and post-ICR adjudication stages were completed on 23 July
 
 The preferred generic role separation below was not fully used: there was no coordinator or independent third adjudicator. The same two researchers jointly adjudicated after their independent workbooks and pre-adjudication metrics were frozen. Because all 59 disagreements reached consensus, a third coder was not invoked. This role overlap must be disclosed as a design limitation; it does not alter the frozen ICR calculation.
 
-The publication-safe completion record is `outputs/human_validation/HUMAN_ICR_COMPLETION.md`. Coder-level decisions, evidence packets, rationales, adjudication rows, signatures, and hashes remain outside GitHub under controlled governance.
+The publication-safe completion record is `outputs/human_validation/HUMAN_ICR_COMPLETION.md`. Target-level agreement intervals, reliability coefficients, and aggregate adjudication outcomes are reported in `outputs/human_validation/HUMAN_ICR_BY_TARGET.md` and `human_icr_by_target.csv`. Coder-level decisions, evidence packets, rationales, adjudication rows, signatures, and hashes remain outside GitHub under controlled governance.
 
 ICR quantifies consistency between coders within the validation design. It does not, by itself, establish corpus prevalence, construct validity, or the sensitivity, specificity, positive predictive value, or negative predictive value of the deterministic rules.
 
@@ -199,8 +199,8 @@ Report, overall and by code where sample size permits:
 - the number and percentage of exact agreements;
 - coder 1 `present`/coder 2 `absent` and coder 1 `absent`/coder 2 `present` counts, plus a count of other multicategory disagreements;
 - `ambiguous`, `insufficient_evidence`, and `out_of_scope_record` counts;
-- Cohen's kappa with a deterministic paired-record percentile-bootstrap 95% interval for coder pairs where both decisions are `present` or `absent`;
-- Gwet's AC1 with the same bootstrap interval for that binary subset;
+- Cohen's kappa across the five nominal decision categories, with a deterministic paired-unit percentile-bootstrap 95% interval by target;
+- a separately labelled Present/Absent sensitivity subset with binary kappa and Gwet's AC1, with a deterministic paired-unit percentile-bootstrap interval for AC1;
 - source-, modality-, length-, and duplicate-stratum agreement;
 - pre-adjudication results separately from adjudicated results.
 
@@ -319,6 +319,22 @@ Kish effective sample sizes. To report agreement by source, modality, length,
 or duplicate stratum, run the tool on separately frozen stratum-specific
 machine-key and coder-file subsets and retain the subset definitions and hashes.
 The tool does not compute cluster-robust or survey-design variance.
+
+### Publication-safe target-level close-out
+
+After the frozen controlled ICR calculation and completed adjudication have been reduced to aggregate inputs, authorised researchers can reproduce the public target-level table with:
+
+```powershell
+python .\code\human_validation\build_public_icr_by_target.py `
+  --frozen-results <controlled-frozen-results-json> `
+  --adjudication-by-target <controlled-aggregate-adjudication-csv> `
+  --output-csv .\outputs\human_validation\human_icr_by_target.csv `
+  --output-markdown .\outputs\human_validation\HUMAN_ICR_BY_TARGET.md `
+  --output-metadata .\outputs\human_validation\human_icr_target_metadata.json `
+  --adjudication-workbook-sha256 <completed-workbook-sha256>
+```
+
+The adjudication input to this public builder is already grouped by target. It must not contain Case IDs, Packet IDs, coder-level decisions, rationales, evidence, or signatures.
 
 ## Required Validation Outputs
 

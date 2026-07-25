@@ -1,0 +1,46 @@
+{
+  "script_version": "1.0.0",
+  "analysis_scope": "deterministic_descriptive_derived_analysis",
+  "population_counts": {
+    "full_screened": 999,
+    "exact_text_unique_sensitivity": 479
+  },
+  "population_definitions": {
+    "full_screened": "All combined records evaluated by the deterministic screen",
+    "exact_text_unique_sensitivity": "One deterministic representative per combined-text SHA-256 value; sensitivity population only"
+  },
+  "duplicate_audit": {
+    "screened_records_n": 999,
+    "unique_combined_text_hashes_n": 479,
+    "exact_duplicate_groups_n": 34,
+    "records_in_exact_duplicate_groups_n": 554,
+    "exact_duplicate_excess_records_n": 520,
+    "maximum_exact_duplicate_group_size_n": 99,
+    "zero_combined_word_records_n": 68
+  },
+  "substantive_typology_codes_n": 12,
+  "aml_candidate_codes_n": 6,
+  "structural_typology_aml_pairs_excluded_n": 7,
+  "output_row_counts": {
+    "duplicate_sensitivity.csv": 12,
+    "typology_cooccurrence.csv": 132,
+    "typology_cooccurrence_by_source.csv": 2244,
+    "typology_cooccurrence_leave_one_source_out.csv": 2244,
+    "typology_source_normalized.csv": 408,
+    "typology_aml_crosswalk.csv": 130,
+    "service_chain_grouping.csv": 8,
+    "source_concentration.csv": 24,
+    "source_leave_one_out.csv": 408
+  },
+  "controlled_input_sha256": {
+    "combined_corpus_with_ocr.csv": "230418ecaa294ca86eff738c442a9845752c99535141ed97886632d371390ae2",
+    "typology_coding_long.csv": "ae7f9d1fd341a7d23cad456dce058eda3544795a2f13a38e941ef57f8d47e8a5",
+    "aml_indicator_coding_long.csv": "398957ac089095648e0b4474502452565a4a7c82df2e1224b5f70c7fd09efb49"
+  },
+  "interpretation_boundaries": [
+    "The exact-text-unique population is a duplicate sensitivity population, not a final eligible population.",
+    "Co-occurrence and lift are descriptive of captured records and do not establish direction, sequence, common actors, transactions, or causation.",
+    "AML candidates are corpus-derived research hypotheses, not confirmed red flags or monitoring controls.",
+    "Service-chain stages are an exploratory descriptive grouping and do not establish a completed service chain."
+  ]
+}

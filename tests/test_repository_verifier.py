@@ -46,6 +46,15 @@ class ManifestBoundaryTests(unittest.TestCase):
         self.assertTrue(any("exactly deterministic Phases 1-4" in error for error in errors))
 
 
+class ReleaseMetadataTests(unittest.TestCase):
+    def test_citation_and_changelog_match_manifest_release(self) -> None:
+        errors: list[str] = []
+        manifest = verifier.load_manifest(errors)
+        checked = verifier.check_release_metadata(manifest, errors)
+        self.assertEqual(errors, [])
+        self.assertEqual(checked, 5)
+
+
 class AiDisclosureTests(unittest.TestCase):
     def test_author_provided_disclosure_is_consistent(self) -> None:
         disclosure = (

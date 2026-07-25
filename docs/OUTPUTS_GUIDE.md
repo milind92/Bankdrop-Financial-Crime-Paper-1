@@ -18,9 +18,13 @@ All committed outputs are aggregate and publication-safe. Raw and record-level m
 
 `outputs/phase4_aggregate/` contains deterministic aggregate findings, AML-candidate summaries, source profiles, run metadata, an analysis report, and a checkpoint summary.
 
+## Deterministic Derived Analysis
+
+`outputs/derived_analysis/` contains publication-safe duplicate-sensitivity, source-normalized typology, co-occurrence, co-occurrence source-stability, typology-to-AML-candidate overlap, exploratory functional-grouping, source-concentration, and leave-one-source-out tables. The 479-record exact-text-unique population is explicitly a sensitivity population, not a verified final eligible population. See `DERIVED_ANALYSIS_NOTES.md` for formulas and evidence boundaries.
+
 ## Human Validation
 
-`outputs/human_validation/` contains the public completion narrative, aggregate ICR and adjudication totals, and the aggregate validation sampling summary. It contains no coder-level decisions or evidence.
+`outputs/human_validation/` contains the public completion narrative, overall aggregate ICR and adjudication totals, the aggregate validation sampling summary, and target-level agreement intervals, kappa, binary Gwet AC1, and adjudication totals. The folder also contains file-level SHA-256 provenance metadata for the target report. It contains no coder-level decisions, rationales, identifiers, signatures, or evidence.
 
 ## Screening Audit
 
@@ -28,4 +32,4 @@ All committed outputs are aggregate and publication-safe. Raw and record-level m
 
 ## Excluded Outputs
 
-The repository excludes manuscript tables, article drafts, submission files, Phase 3b, Phase 4b, Phase 5, LLM-assisted empirical outputs, raw notes, screenshots, OCR text, evidence snippets, note-level rows, coding workbooks, rationales, and adjudication records.
+The repository excludes article-ready manuscript tables, article drafts, submission files, Phase 3b, Phase 4b, Phase 5, LLM-assisted empirical outputs, raw notes, screenshots, OCR text, evidence snippets, note-level rows, coding workbooks, rationales, and adjudication records. Publication-safe analytical CSVs are included only as aggregate reproducibility outputs.

@@ -86,8 +86,28 @@ PUBLIC_EXPORTS = tuple(
         "human_validation",
         (
             "HUMAN_ICR_COMPLETION.md",
+            "HUMAN_ICR_BY_TARGET.md",
             "validation_code_summary.csv",
             "human_icr_aggregate_summary.csv",
+            "human_icr_by_target.csv",
+            "human_icr_target_metadata.json",
+        ),
+    )
+    + phase_exports(
+        "derived_analysis",
+        "derived_analysis",
+        (
+            "DERIVED_ANALYSIS_NOTES.md",
+            "derived_analysis_metadata.json",
+            "duplicate_sensitivity.csv",
+            "service_chain_grouping.csv",
+            "source_concentration.csv",
+            "source_leave_one_out.csv",
+            "typology_aml_crosswalk.csv",
+            "typology_cooccurrence.csv",
+            "typology_cooccurrence_by_source.csv",
+            "typology_cooccurrence_leave_one_source_out.csv",
+            "typology_source_normalized.csv",
         ),
     )
     + phase_exports(
@@ -124,6 +144,16 @@ SAFE_AGGREGATE_FIELDS = {
     "positive_unique_evidence_rows",
     "negative_unique_evidence_rows",
     "evidence_packet_count",
+    "final_insufficient_evidence",
+    "final_insufficient_evidence_n",
+    "coder_1_insufficient_evidence_n",
+    "coder_2_insufficient_evidence_n",
+    "unique_combined_text_hashes_n",
+    "exact_text_unique_denominator_n",
+    "exact_text_unique_present_n",
+    "exact_text_unique_percent",
+    "exact_text_unique_rank",
+    "exact_text_unique_sensitivity",
 }
 ABSOLUTE_PATH_PATTERN = re.compile(
     r"(?:file://|(?:^|[\s\"'=(\x60])(?:[A-Za-z]:[\\/]|/(?:home|Users|mnt|tmp|var|private)/))",
@@ -286,7 +316,7 @@ def export_public_release(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source-output-root", required=True, type=Path, help="Controlled Phases 1--5 output root")
+    parser.add_argument("--source-output-root", required=True, type=Path, help="Controlled deterministic and validation aggregate output root")
     parser.add_argument("--repository-root", required=True, type=Path, help="Public repository checkout")
     parser.add_argument("--dry-run", action="store_true", help="Validate candidates without copying them")
     return parser

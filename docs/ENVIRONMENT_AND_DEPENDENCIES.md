@@ -17,7 +17,9 @@ python .\code\verify_repository.py
 | Phase 2 | Windows, Python 3.11, the pinned WinRT OCR dependencies, and authorised screenshot access. |
 | Phase 3 | Python 3.11 standard library and controlled Phase 1–2 outputs. |
 | Phase 4 | Python 3.11 standard library and controlled Phase 3 outputs. |
+| Derived-analysis builder | Python 3.11 standard library and controlled Phase 3 outputs. |
 | Human-validation summariser | Python 3.11 standard library and two controlled completed coder files. |
+| Public target-level ICR builder | Python 3.11 standard library, the controlled frozen aggregate ICR JSON, and an adjudication table already aggregated by target. |
 
 The OCR dependency declaration is [requirements-windows-ocr.txt](../reproducibility/requirements-windows-ocr.txt).
 

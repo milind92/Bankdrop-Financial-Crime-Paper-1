@@ -1,0 +1,29 @@
+{
+  "script_version": "1.0.0",
+  "protocol_id": "BD-HUMAN-ICR-20260722-R2",
+  "controlled_input_sha256": {
+    "frozen_icr_results_json": "5245bdbdbcc3848bb937e81073e979d91824db32a4b666527d5305ce4f08c3f1",
+    "adjudication_by_target_aggregate_csv": "f52ac8e6e6067b8de91c236b96f3f7e0b4aeb5c482d8dd345510863c59f7058c",
+    "completed_adjudication_workbook": "e1e0497d72ae39467174557bfdbbffd0eb33dc9040b335aa00596a21cda26bb1"
+  },
+  "frozen_coder_workbook_sha256": [
+    {
+      "coder": "Ausma",
+      "sha256": "873c140ac3636a4a5d3c542ef7fcfc6feba0209793b0c04b73db52d1cb147208"
+    },
+    {
+      "coder": "Milind",
+      "sha256": "d821f19640d45a5ca76bfdc26dc56f5ea19af048349249c725b3b3e4d8fa422c"
+    }
+  ],
+  "target_count": 18,
+  "paired_units": 1036,
+  "disagreements": 59,
+  "adjudicated_disagreements": 59,
+  "interval_methods": {
+    "agreement": "Wilson 95% score interval",
+    "cohen_kappa": "1000 deterministic paired-unit percentile bootstrap replicates within target",
+    "binary_gwet_ac1": "1000 deterministic paired-unit percentile bootstrap replicates within target"
+  },
+  "privacy_boundary": "File-level hashes and grouped target statistics only; no case identifiers, coder-level rows, rationales, evidence, or signatures."
+}
