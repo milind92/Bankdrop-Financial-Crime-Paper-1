@@ -1,0 +1,2 @@
+﻿completion_date,coder_count,coordinator_count,evidence_packet_count,assessed_target_count,decision_category_count,paired_units,exact_agreements,disagreements,agreement_percent,cohen_kappa,krippendorff_alpha_nominal,binary_subset_units,binary_subset_exact_agreements,binary_subset_agreement_percent,binary_subset_cohen_kappa,adjudicated_disagreements,consensus_cases,no_consensus_cases,final_present,final_absent,final_ambiguous,final_insufficient_evidence,final_out_of_scope
+2026-07-26,2,0,313,18,5,1032,981,51,95.1,0.839378,0.839365,998,979,98.1,0.933155,51,51,0,22,29,0,0,0

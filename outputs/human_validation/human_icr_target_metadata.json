@@ -1,0 +1,21 @@
+{
+  "status": "complete",
+  "completion_date": "2026-07-26",
+  "ethics_approval": "Griffith University Human Ethics Protocol 2025/697",
+  "target_count": 18,
+  "paired_units": 1032,
+  "disagreements": 51,
+  "adjudicated_disagreements": 51,
+  "frozen_coder_workbook_sha256": [
+    {
+      "coder": "Milind Tiwari",
+      "sha256": "75cf00df9ae0ebe7b1a3384b2c66bb3a0bc6bdc0939c6533238078f218db5609"
+    },
+    {
+      "coder": "Ausma Bernot",
+      "sha256": "57f200a6c95cbff324236f1da3040c9a573182554b76434fe18c938165449c6e"
+    }
+  ],
+  "adjudication_workbook_sha256": "15b726e7c9f9da17c03019369076b08ade1bb024dd1d6050f31f9cb6350660ac",
+  "controlled_records_in_github": false
+}

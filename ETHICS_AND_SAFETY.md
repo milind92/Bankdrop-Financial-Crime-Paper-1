@@ -1,5 +1,9 @@
 # Ethics, Privacy And Safety
 
+## Institutional Ethics Approval
+
+This project was approved by Griffith University under Human Ethics Protocol 2025/697. The approval identifier does not expand the controlled-access or public-release boundaries below.
+
 ## Repository Boundary
 
 This public repository contains code, protocols, aggregate tables, aggregate human-validation results, and cautious analytical reports. It excludes source-level and record-level material that could identify people, sources, accounts, services, or operational practices.
@@ -18,4 +22,4 @@ The included empirical workflow is deterministic Phase 1–4 analysis. No Phase 
 
 ## Governance
 
-This document records the repository safety boundary. It does not independently establish institutional ethics approval, exemption, waiver, consent status, copyright ownership, or authority to disclose controlled material. Those determinations remain the responsibility of the authors and relevant institutions.
+This document records the repository safety boundary. The ethics approval identified above does not by itself establish consent status, copyright ownership, or authority to disclose controlled material. Those determinations remain the responsibility of the authors and relevant institutions.

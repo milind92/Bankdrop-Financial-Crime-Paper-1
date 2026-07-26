@@ -1,4 +1,4 @@
-# Human Validation Status: Corrected Revalidation Complete
+# Human ICR Completion
 
 The earlier 1,036-unit validation was withdrawn after 14 ineligible internal records were identified. A fresh validation sample was drawn exclusively from the corrected 980-note eligible corpus.
 

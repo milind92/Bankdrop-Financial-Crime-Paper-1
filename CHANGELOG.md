@@ -1,3 +1,10 @@
+## 2026-07-26 ? Corrected human revalidation complete
+
+- Recorded Griffith University Human Ethics Protocol 2025/697.
+- Completed fresh blinded validation against the corrected 980-note corpus: 1,032 paired units, 981 agreements, 51 disagreements, 95.1% agreement, Cohen's kappa .839, and nominal Krippendorff's alpha .839.
+- Recorded joint human consensus for all 51 disagreements: 22 Present and 29 Absent.
+- Retained coder workbooks, evidence, rationales, signatures, and record-level adjudication outside GitHub.
+
 # Changelog
 
 ## 1.2.0 - 2026-07-25

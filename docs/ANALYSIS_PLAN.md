@@ -249,7 +249,7 @@ Do not mechanically “correct” full-corpus counts using a small unweighted va
 
 ### Completed Human-ICR Reporting
 
-The repository now includes publication-safe target-level human ICR results for all 18 assessed targets. Each row reports the paired-unit denominator, exact agreement with a Wilson 95% interval, Cohen’s kappa with a deterministic paired-unit bootstrap interval, nominal Krippendorff’s alpha, binary-subset kappa and Gwet AC1, and aggregate adjudication outcomes. These intervals describe the controlled validation sample only. Original independent decisions remain frozen, and the 59 consensus decisions were not substituted into the reliability calculation.
+The repository now includes publication-safe target-level human ICR results for all 18 assessed targets. Each row reports the paired-unit denominator, exact agreement with a Wilson 95% interval, Cohen’s kappa with a deterministic paired-unit bootstrap interval, nominal Krippendorff’s alpha, binary-subset kappa and Gwet AC1, and aggregate adjudication outcomes. These intervals describe the controlled validation sample only. Original independent decisions remain frozen, and the 51 consensus decisions were not substituted into the reliability calculation.
 
 ## Statistical Inference Boundary
 

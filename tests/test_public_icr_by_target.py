@@ -38,12 +38,14 @@ class PublicICRByTargetTests(unittest.TestCase):
         self.assertLess(low, 49 / 56)
         self.assertGreater(high, 49 / 56)
 
-    def test_withdrawn_validation_status_is_committed(self) -> None:
+    def test_corrected_revalidation_status_is_committed(self) -> None:
         path = ROOT / "outputs" / "human_validation" / "HUMAN_VALIDATION_STATUS.md"
         text = path.read_text(encoding="utf-8")
-        self.assertIn("withdrawn", text.casefold())
-        self.assertIn("14 internal", text)
-        self.assertFalse((path.parent / "human_icr_by_target.csv").exists())
+        self.assertIn("corrected revalidation complete", text.casefold())
+        self.assertIn("1,032 paired", text)
+        self.assertIn("Human Ethics Protocol 2025/697", text)
+        self.assertTrue((path.parent / "human_icr_by_target.csv").exists())
+
 
 
 if __name__ == "__main__":

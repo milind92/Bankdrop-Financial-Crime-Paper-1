@@ -10,20 +10,20 @@ The empirical validation pathway is no-LLM. No LLM output may be shown to coders
 
 ## Completed Implementation And Deviation Record
 
-The blinded human ICR and post-ICR adjudication stages were completed on 23 July 2026.
+The blinded human ICR and post-ICR adjudication stages were completed on 26 July 2026.
 
 - Coders: Ausma and Milind.
 - Coordinator: none.
-- Independent coding: 1,036 paired case-target units across 351 evidence packets and 18 assessed targets.
+- Independent coding: 1,032 paired case-target units across 351 evidence packets and 18 assessed targets.
 - Permitted decisions: Present, Absent, Ambiguous, Insufficient evidence, and Out of scope record.
 - Independence: each researcher confirmed that the submitted answers were their own independent human judgements.
 - Locking: both completed workbooks were frozen before comparison and discussion.
-- Pre-adjudication result: 977 exact agreements, 59 disagreements, 94.3% exact agreement, Cohen's kappa 0.909, and nominal Krippendorff's alpha 0.909.
+- Pre-adjudication result: 981 exact agreements, 51 disagreements, 95.1% exact agreement, Cohen's kappa 0.839, and nominal Krippendorff's alpha 0.839.
 - Binary sensitivity subset: 841 Present/Absent pairs, 96.6% agreement, and kappa 0.930; other categories were excluded, not recoded.
-- Adjudication: Ausma and Milind jointly reviewed all 59 disagreements after ICR was frozen and reached consensus in every case.
+- Adjudication: Ausma and Milind jointly reviewed all 51 disagreements after ICR was frozen and reached consensus in every case.
 - Final disagreement outcomes: 30 Ambiguous, 16 Absent, and 13 Present; zero pending, deferred, or no-consensus cases.
 
-The preferred generic role separation below was not fully used: there was no coordinator or independent third adjudicator. The same two researchers jointly adjudicated after their independent workbooks and pre-adjudication metrics were frozen. Because all 59 disagreements reached consensus, a third coder was not invoked. This role overlap must be disclosed as a design limitation; it does not alter the frozen ICR calculation.
+The preferred generic role separation below was not fully used: there was no coordinator or independent third adjudicator. The same two researchers jointly adjudicated after their independent workbooks and pre-adjudication metrics were frozen. Because all 51 disagreements reached consensus, a third coder was not invoked. This role overlap must be disclosed as a design limitation; it does not alter the frozen ICR calculation.
 
 The publication-safe completion record is `outputs/human_validation/HUMAN_ICR_COMPLETION.md`. Target-level agreement intervals, reliability coefficients, and aggregate adjudication outcomes are reported in `outputs/human_validation/HUMAN_ICR_BY_TARGET.md` and `human_icr_by_target.csv`. Coder-level decisions, evidence packets, rationales, adjudication rows, signatures, and hashes remain outside GitHub under controlled governance.
 
