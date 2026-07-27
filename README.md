@@ -1,5 +1,3 @@
-> **Correction and completion notice (26 July 2026):** The empirical corpus was rerun using 980 eligible source-folder notes after excluding 19 internal project documents. Fresh independent human coding and adjudication against the corrected corpus are complete; the obsolete earlier validation remains withdrawn.
-
 # Bankdrop Financial Crime Paper 1
 
 A public, privacy-clean repository containing the deterministic analysis and human-validation record for Bankdrop Financial Crime Paper 1.
