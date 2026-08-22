@@ -6,7 +6,7 @@ A public, privacy-clean, journal-neutral reproducibility supplement containing t
 
 ## Reproducibility Supplement Status
 
-This repository is **submission-ready as a journal-neutral reproducibility supplement**. Release `v1.3.2` contains the complete public code, aggregate outputs, validation record, interpretation boundaries, privacy safeguards, and reviewer audit route defined for this supplement.
+This repository is **submission-ready as a journal-neutral reproducibility supplement**. Release `v1.3.3` contains the complete public code, aggregate outputs, validation record, interpretation boundaries, privacy safeguards, and reviewer audit route defined for this supplement.
 
 It deliberately contains no manuscript, title page, declarations, or journal-portal forms because those are article-submission materials rather than reproducibility components. Final author metadata, declarations, rights, and any archival DOI are supplied with the manuscript or through the selected journal's submission process; they do not represent missing empirical work in this repository. A submitter must still follow an eventual journal's file-format and review-anonymity rules.
 
@@ -53,7 +53,6 @@ The repository also includes publication-safe deterministic derived analyses for
 - [Author decisions record](docs/AUTHOR_DECISIONS_RECORD.md)
 - [Supplement submission checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md)
 - [Claim-to-evidence register](docs/claim_to_evidence_register.csv)
-- [Google Colab compatibility](docs/GOOGLE_COLAB_COMPATIBILITY.md)
 
 ## Data Boundary
 

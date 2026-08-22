@@ -4,7 +4,7 @@
 
 This public repository is **submission-ready as a journal-neutral reproducibility supplement**. It supports inspection of the deterministic workflow, aggregate results, completed human validation, sensitivity analyses, privacy controls, and release provenance. It does not contain the manuscript or journal submission forms because they are outside the supplement's role.
 
-The supplement is complete at release `v1.3.2`. Final authorship, declarations, rights, archival metadata, journal formatting, and review-anonymity choices are supplied through the manuscript or submission system. They are handoff tasks rather than missing reproducibility components. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Supplement Submission Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
+The supplement is complete at release `v1.3.3`. Final authorship, declarations, rights, archival metadata, journal formatting, and review-anonymity choices are supplied through the manuscript or submission system. They are handoff tasks rather than missing reproducibility components. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Supplement Submission Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
 
 ## Reviewer Audit Route
 
@@ -18,8 +18,6 @@ python .\code\verify_repository.py
 These data-free checks validate code syntax, required files, JSON and CSV schemas, manifest references, privacy exclusions, release metadata, human-validation reconciliation, claim boundaries, and derived contingency tables. GitHub Actions runs the same checks on Ubuntu and Windows.
 
 A source-level rerun requires authorised access to the controlled vault and the pinned Windows OCR environment. The public repository cannot reconstruct excluded evidence. See [Reproducibility](../REPRODUCIBILITY.md) and [Controlled Rerun](../reproducibility/CONTROLLED_RERUN.md).
-
-Google Colab can run the public audit and most standard-library stages, but not the release's native Windows Media OCR. The supported hybrid boundary is documented in [Google Colab Compatibility](GOOGLE_COLAB_COMPATIBILITY.md).
 
 ## Empirical Scope
 

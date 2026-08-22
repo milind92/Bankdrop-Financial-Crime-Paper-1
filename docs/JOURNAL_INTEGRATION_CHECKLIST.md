@@ -13,10 +13,10 @@
 - [x] Raw and record-level controlled material excluded.
 - [x] Data-free tests and privacy/integrity verifier available on Windows and Ubuntu.
 - [x] Ethics identifier and approved repository wording recorded.
-- [x] Public-versus-controlled rerun and Google Colab boundaries documented.
+- [x] Public-versus-controlled rerun boundaries documented.
 - [x] Release version, changelog, citation metadata, and workflow manifest aligned.
 
-All repository-side items in this gate are complete for release `v1.3.2`.
+All repository-side items in this gate are complete for release `v1.3.3`.
 
 ## Article And Journal-Portal Handoff
 

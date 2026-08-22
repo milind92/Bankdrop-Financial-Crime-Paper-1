@@ -3,7 +3,7 @@
     "title": "Bankdrop Financial Crime Paper 1",
     "repository": "https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1",
     "repository_visibility": "public",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "repository_purpose": "Submission-ready, journal-neutral, privacy-clean reproducibility supplement for corrected deterministic Phase 1-4 analysis, publication-safe derived aggregates, and completed human validation.",
     "empirical_scope": "Deterministic Phases 1-4 only. No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis is included.",
     "authorship_status": "Final author names, order, affiliations, identifiers, and contribution statements will be supplied by the authors."
@@ -174,8 +174,7 @@
       "GitHub Actions integrity checks",
       "human-validation invalidation and revalidation status",
       "machine-versus-final-human classification performance",
-      "journal-neutral reproducibility-supplement landing page and claim register",
-      "Google Colab compatibility and controlled-data boundary"
+      "journal-neutral reproducibility-supplement landing page and claim register"
     ],
     "explicitly_excluded": [
       "manuscript drafts",
@@ -215,8 +214,7 @@
       "docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md",
       "docs/AUTHOR_DECISIONS_RECORD.md",
       "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
-      "docs/claim_to_evidence_register.csv",
-      "docs/GOOGLE_COLAB_COMPATIBILITY.md"
+      "docs/claim_to_evidence_register.csv"
     ]
   },
   "journal_reproducibility_supplement": {
@@ -240,8 +238,7 @@
       "reviewer_landing_page": "docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md",
       "author_decisions": "docs/AUTHOR_DECISIONS_RECORD.md",
       "integration_checklist": "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
-      "claim_register": "docs/claim_to_evidence_register.csv",
-      "colab_compatibility": "docs/GOOGLE_COLAB_COMPATIBILITY.md"
+      "claim_register": "docs/claim_to_evidence_register.csv"
     }
   },
   "derived_analysis": {

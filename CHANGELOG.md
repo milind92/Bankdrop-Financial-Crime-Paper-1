@@ -1,24 +1,30 @@
 # Changelog
 
+## 1.3.3 - 2026-08-22
+
+- Simplified environment and reviewer documentation at author direction.
+- Removed the superseded cloud-runtime compatibility guide and its related manifest and verifier requirements.
+- Preserved the deterministic no-LLM empirical scope, controlled-rerun instructions, and all analysis and human-validation outputs.
+
 ## 1.3.2 - 2026-08-22
 
 - Updated repository governance documentation and integrity checks at author direction.
 - Preserved the deterministic no-LLM empirical scope and all analysis and human-validation outputs.
-- Aligned the reviewer landing page, submission checklist, citation metadata, workflow manifest, and Google Colab instructions with the `v1.3.2` release.
+- Aligned the reviewer landing page, submission checklist, citation metadata, and workflow manifest with the `v1.3.2` release.
 
 ## 1.3.1 - 2026-08-22
 
 - Marked the repository explicitly submission-ready as a journal-neutral reproducibility supplement.
 - Separated completed supplement requirements from manuscript, authorship, declaration, journal-portal, rights, and DOI tasks that sit outside the repository artifact.
 - Added a visible repository-integrity badge and strengthened the verifier so the readiness status cannot regress to “technically ready.”
-- Updated the reviewer landing page, submission checklist, citation metadata, and Colab instructions for the audited `v1.3.1` release.
+- Updated the reviewer landing page, submission checklist, and citation metadata for the audited `v1.3.1` release.
 
 ## 1.3.0 - 2026-08-22
 
 - Fixed the repository role as a journal-neutral reproducibility supplement; manuscript and journal submission files remain outside GitHub.
 - Recorded the author-approved primary computational unit and 980-record descriptive denominator, with 463 exact-text representatives retained only as duplicate sensitivity and 65 zero-word records disclosed.
 - Added a reviewer landing page, author-decisions record, journal-integration checklist, and machine-readable claim-to-evidence register.
-- Added a Google Colab capability matrix, audit commands, and controlled-data/OCR portability boundaries.
+- Added public audit commands and controlled-data/OCR portability boundaries.
 - Recorded both coders as subject-matter experts, Milind Tiwari's AML expertise, and the author confirmation that a sample-size plan was used.
 - Preserved transparent validation limitations: short predicted-negative eligibility, legacy provenance labels, joint two-coder adjudication, and no claim of an independent external AML review.
 - Corrected the legacy screening-audit row so it no longer claims a record-level exclusion log or 980 eligible unique analytic records.

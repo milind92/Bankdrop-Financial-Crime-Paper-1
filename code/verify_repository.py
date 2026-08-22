@@ -37,7 +37,6 @@ REQUIRED_FILES = (
     "docs/AUTHOR_DECISIONS_RECORD.md",
     "docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md",
     "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
-    "docs/GOOGLE_COLAB_COMPATIBILITY.md",
     "outputs/human_validation/HUMAN_VALIDATION_STATUS.md",
     "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
     "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
@@ -531,7 +530,6 @@ def check_journal_reproducibility_supplement(
         "author_decisions": "docs/AUTHOR_DECISIONS_RECORD.md",
         "integration_checklist": "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
         "claim_register": "docs/claim_to_evidence_register.csv",
-        "colab_compatibility": "docs/GOOGLE_COLAB_COMPATIBILITY.md",
     }
     files = section.get("files", {})
     if not isinstance(files, dict) or files != expected_files:

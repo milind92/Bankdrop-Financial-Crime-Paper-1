@@ -23,8 +23,6 @@ python .\code\verify_repository.py
 
 The OCR dependency declaration is [requirements-windows-ocr.txt](../reproducibility/requirements-windows-ocr.txt).
 
-Google Colab can run the public audit and portable standard-library stages, but it cannot generate OCR with the release's Windows Media OCR engine. See [Google Colab Compatibility](GOOGLE_COLAB_COMPATIBILITY.md) for the supported hybrid route and controlled-data boundary.
-
 ## Portability And Safety
 
 Scripts use environment variables instead of user-specific paths. Complete inputs and outputs must remain outside the public checkout. No Ollama service, model download, Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical dependency is present.

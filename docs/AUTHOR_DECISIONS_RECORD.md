@@ -37,4 +37,4 @@ The following items will be completed after the target journal and final paper t
 - licence choice and any archival DOI;
 - journal-specific repository, data, ethics, and anonymity wording.
 
-As of release `v1.3.2`, the repository may be described as **submission-ready as a journal-neutral reproducibility supplement**. This statement applies to the repository artifact only and does not claim that the separate manuscript or journal-portal submission is complete.
+As of release `v1.3.3`, the repository may be described as **submission-ready as a journal-neutral reproducibility supplement**. This statement applies to the repository artifact only and does not claim that the separate manuscript or journal-portal submission is complete.
