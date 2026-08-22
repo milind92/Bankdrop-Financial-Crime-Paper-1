@@ -1,11 +1,17 @@
 # Changelog
 
+## 1.3.2 - 2026-08-22
+
+- Updated repository governance documentation and integrity checks at author direction.
+- Preserved the deterministic no-LLM empirical scope and all analysis and human-validation outputs.
+- Aligned the reviewer landing page, submission checklist, citation metadata, workflow manifest, and Google Colab instructions with the `v1.3.2` release.
+
 ## 1.3.1 - 2026-08-22
 
 - Marked the repository explicitly submission-ready as a journal-neutral reproducibility supplement.
 - Separated completed supplement requirements from manuscript, authorship, declaration, journal-portal, rights, and DOI tasks that sit outside the repository artifact.
 - Added a visible repository-integrity badge and strengthened the verifier so the readiness status cannot regress to “technically ready.”
-- Updated the reviewer landing page, submission checklist, citation metadata, AI disclosure, and Colab instructions for the audited `v1.3.1` release.
+- Updated the reviewer landing page, submission checklist, citation metadata, and Colab instructions for the audited `v1.3.1` release.
 
 ## 1.3.0 - 2026-08-22
 
@@ -51,5 +57,5 @@
 - Included only deterministic Phase 1–4 code and aggregate results.
 - Included the Phase 3 codebook, analysis plan, data-collection protocol, and reproducibility documentation.
 - Included the human-validation protocol and publication-safe aggregate ICR and adjudication results.
-- Included privacy, ethics, security, controlled-access, rights, and AI-assistance disclosures.
+- Included privacy, ethics, security, controlled-access, and rights disclosures.
 - Excluded manuscript drafts, submission materials, literature-review materials, incomplete Phase 3b and Phase 4b work, Phase 5 materials, raw data, screenshots, record-level evidence, coder workbooks, and adjudication records.

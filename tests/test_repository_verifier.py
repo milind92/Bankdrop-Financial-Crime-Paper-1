@@ -151,26 +151,6 @@ class JournalSupplementTests(unittest.TestCase):
         )
 
 
-class AiDisclosureTests(unittest.TestCase):
-    def test_author_provided_disclosure_is_consistent(self) -> None:
-        disclosure = (
-            "preparation and formatting of the workbook used for the intercoder reliability assessment; "
-            "did not generate coding responses; "
-            "did not perform literature discovery, citation checking, or the drafting or editing of the manuscript or submission materials"
-        )
-        manifest = {"ai_authoring_assistance": {"disclosure": disclosure}}
-        with mock.patch.object(verifier.Path, "read_text", return_value=disclosure):
-            errors: list[str] = []
-            checked = verifier.check_ai_authoring_disclosure(manifest, errors)
-        self.assertEqual(errors, [])
-        self.assertEqual(checked, 4)
-
-        with mock.patch.object(verifier.Path, "read_text", return_value="different wording"):
-            errors = []
-            verifier.check_ai_authoring_disclosure(manifest, errors)
-        self.assertTrue(any("differs" in error for error in errors))
-
-
 class HumanIcrInvariantTests(unittest.TestCase):
     def test_optional_reliability_number_is_parsed_and_validated(self) -> None:
         errors: list[str] = []

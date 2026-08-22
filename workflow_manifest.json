@@ -3,7 +3,7 @@
     "title": "Bankdrop Financial Crime Paper 1",
     "repository": "https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1",
     "repository_visibility": "public",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "repository_purpose": "Submission-ready, journal-neutral, privacy-clean reproducibility supplement for corrected deterministic Phase 1-4 analysis, publication-safe derived aggregates, and completed human validation.",
     "empirical_scope": "Deterministic Phases 1-4 only. No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis is included.",
     "authorship_status": "Final author names, order, affiliations, identifiers, and contribution statements will be supplied by the authors."
@@ -168,7 +168,6 @@
       "reproducibility instructions",
       "data availability and controlled-access documents",
       "ethics privacy and security safeguards",
-      "AI authoring-assistance disclosure",
       "citation metadata",
       "all-rights-reserved notice",
       "changelog",
@@ -206,7 +205,6 @@
       "docs/DATA_COLLECTION_PROTOCOL.md",
       "docs/HUMAN_VALIDATION_PROTOCOL.md",
       "docs/CONTROLLED_AUDIT_ACCESS.md",
-      "docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md",
       "reproducibility/CONTROLLED_RERUN.md",
       "reproducibility/REPOSITORY_INTEGRITY.md",
       "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
@@ -245,33 +243,6 @@
       "claim_register": "docs/claim_to_evidence_register.csv",
       "colab_compatibility": "docs/GOOGLE_COLAB_COMPATIBILITY.md"
     }
-  },
-  "ai_authoring_assistance": {
-    "status": "Author-confirmed repository and reproducibility disclosure recorded 2026-08-22.",
-    "tool": "OpenAI Codex",
-    "disclosure": "OpenAI Codex was used as an assistive tool to support the development and organisation of the project’s GitHub repository, including assistance with code, testing, workflow orchestration, documentation, and reproducibility safeguards. It was also used to support the preparation and formatting of the workbook used for the intercoder reliability assessment. Codex did not generate coding responses, independently classify or interpret the evidence, assess coder agreement, resolve disagreements, or participate in the adjudication process. All coding, intercoder reliability assessments, resolution of discrepancies, interpretation of findings, verification of outputs, and final methodological and substantive decisions were undertaken by the named authors. The authors critically reviewed and validated all AI-assisted outputs and retain full responsibility for the accuracy, integrity, and conclusions of the research. Codex was not treated as an author and did not perform literature discovery, citation checking, or the drafting or editing of the manuscript or submission materials.",
-    "included_support": [
-      "GitHub repository development and organisation",
-      "code",
-      "testing",
-      "workflow orchestration",
-      "documentation",
-      "journal-neutral reproducibility-supplement documentation",
-      "reproducibility safeguards",
-      "preparation and formatting of the intercoder-reliability workbook"
-    ],
-    "excluded_roles": [
-      "coding responses",
-      "independent evidence classification or interpretation",
-      "coder-agreement assessment",
-      "discrepancy resolution",
-      "adjudication",
-      "literature discovery",
-      "citation checking",
-      "manuscript drafting or editing",
-      "submission-material drafting or editing"
-    ],
-    "author_responsibility": "Named authors retain responsibility for the human coding, reliability assessment, adjudication, interpretation, output verification, and final decisions."
   },
   "derived_analysis": {
     "status": "Completed deterministic descriptive post-processing of controlled Phase 3 outputs; not a Phase 5 or LLM-assisted empirical stage.",

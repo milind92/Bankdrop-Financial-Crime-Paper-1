@@ -6,7 +6,7 @@ A public, privacy-clean, journal-neutral reproducibility supplement containing t
 
 ## Reproducibility Supplement Status
 
-This repository is **submission-ready as a journal-neutral reproducibility supplement**. Release `v1.3.1` contains the complete public code, aggregate outputs, validation record, interpretation boundaries, privacy safeguards, and reviewer audit route defined for this supplement.
+This repository is **submission-ready as a journal-neutral reproducibility supplement**. Release `v1.3.2` contains the complete public code, aggregate outputs, validation record, interpretation boundaries, privacy safeguards, and reviewer audit route defined for this supplement.
 
 It deliberately contains no manuscript, title page, declarations, or journal-portal forms because those are article-submission materials rather than reproducibility components. Final author metadata, declarations, rights, and any archival DOI are supplied with the manuscript or through the selected journal's submission process; they do not represent missing empirical work in this repository. A submitter must still follow an eventual journal's file-format and review-anonymity rules.
 
@@ -29,7 +29,7 @@ The repository also includes publication-safe deterministic derived analyses for
 
 - `code/`: deterministic Phase 1–4 scripts, derived-analysis and human-validation summarisation utilities, guarded orchestrator, public-output exporter, and repository verifier.
 - `outputs/`: privacy-safe Phase 1–4 aggregates, deterministic derived analyses, corpus-screening audit totals, and aggregate human-validation results.
-- `docs/`: analysis plan, data-collection protocol, code index, validation protocol, controlled-access guidance, environment record, release governance, and AI-assistance disclosure.
+- `docs/`: analysis plan, data-collection protocol, code index, validation protocol, controlled-access guidance, environment record, and release governance.
 - `reproducibility/`: controlled-rerun and integrity instructions.
 - `tests/`: data-free automated tests for provenance, privacy, orchestration, validation calculations, and repository integrity.
 
@@ -49,7 +49,6 @@ The repository also includes publication-safe deterministic derived analyses for
 - [Data availability](DATA_AVAILABILITY.md)
 - [Controlled audit access](docs/CONTROLLED_AUDIT_ACCESS.md)
 - [Ethics and safety](ETHICS_AND_SAFETY.md)
-- [AI authoring-assistance disclosure](docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md)
 - [Journal reproducibility supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md)
 - [Author decisions record](docs/AUTHOR_DECISIONS_RECORD.md)
 - [Supplement submission checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md)

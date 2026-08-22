@@ -17,7 +17,6 @@ This record captures author instructions supplied on 22 August 2026 for the publ
 | Ethics wording | Use “Griffith University Human Ethics Protocol 2025/697.” | The identifier is reported without inferring consent, waiver, copyright, access, or release permissions that it does not itself establish. |
 | Coder expertise | Ausma Bernot and Milind Tiwari are subject-matter experts; Milind Tiwari also has AML expertise. | Expertise is reported at this bounded level. No unprovided qualifications, titles, or institutional roles are inferred. |
 | Validation sampling | A sample-size plan was used. | The implemented fixed-seed, stratified design is documented. No claim is described as passing an undisclosed numerical acceptance threshold. |
-| AI assistance | Restrict assistance to repository and reproducibility work. | The repository contains no AI-drafted manuscript or journal submission text. The existing repository-assistance disclosure remains applicable. |
 
 ## Validation Qualifications
 
@@ -36,6 +35,6 @@ The following items will be completed after the target journal and final paper t
 - funding, acknowledgements, competing interests, and CRediT contributions;
 - copyright-holder and institutional ownership confirmation;
 - licence choice and any archival DOI;
-- journal-specific repository, data, ethics, anonymity, and AI-disclosure wording.
+- journal-specific repository, data, ethics, and anonymity wording.
 
-As of release `v1.3.1`, the repository may be described as **submission-ready as a journal-neutral reproducibility supplement**. This statement applies to the repository artifact only and does not claim that the separate manuscript or journal-portal submission is complete.
+As of release `v1.3.2`, the repository may be described as **submission-ready as a journal-neutral reproducibility supplement**. This statement applies to the repository artifact only and does not claim that the separate manuscript or journal-portal submission is complete.

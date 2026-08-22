@@ -269,8 +269,6 @@ Any later inferential model requires a separate prespecified sampling and modell
 
 The repository’s empirical workflow is limited to deterministic Phases 1–4. Phase 2 uses local OCR, which is not an LLM stage. No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis is included.
 
-OpenAI Codex assistance outside the empirical workflow is disclosed separately. Codex did not generate coding responses, classify or interpret evidence, calculate or assess agreement, resolve disagreements, adjudicate cases, or make methodological or substantive decisions.
-
 ## Planned Tables And Figures
 
 The main article should contain, subject to the target journal's limits:
@@ -308,6 +306,6 @@ The final release should include deterministic analysis code, aggregate inputs s
 
 ## Journal Integration And Future-Analysis Decisions
 
-The repository analysis unit, 980-record denominator, duplicate-sensitivity role, ethics identifier, coder expertise, sampling-plan existence, and repository-only AI boundary are author confirmed in `docs/AUTHOR_DECISIONS_RECORD.md`.
+The repository analysis unit, 980-record denominator, duplicate-sensitivity role, ethics identifier, coder expertise, and sampling-plan existence are author confirmed in `docs/AUTHOR_DECISIONS_RECORD.md`.
 
 The reproducibility supplement is submission-ready. When the manuscript cites its tagged release, the authors still supply the target-journal, authorship, declaration, rights, DOI, and review-anonymity information identified in `docs/JOURNAL_INTEGRATION_CHECKLIST.md`; those are external submission tasks rather than missing repository analyses. Any new theoretical grouping, near-duplicate rule, evidence-unit reconstruction, claim-performance threshold, or inferential model is a new or post hoc analysis and requires separate justification, versioning, and rerun where it changes the coded population or claims.

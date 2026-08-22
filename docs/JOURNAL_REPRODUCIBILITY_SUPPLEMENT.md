@@ -4,7 +4,7 @@
 
 This public repository is **submission-ready as a journal-neutral reproducibility supplement**. It supports inspection of the deterministic workflow, aggregate results, completed human validation, sensitivity analyses, privacy controls, and release provenance. It does not contain the manuscript or journal submission forms because they are outside the supplement's role.
 
-The supplement is complete at release `v1.3.1`. Final authorship, declarations, rights, archival metadata, journal formatting, and review-anonymity choices are supplied through the manuscript or submission system. They are handoff tasks rather than missing reproducibility components. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Supplement Submission Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
+The supplement is complete at release `v1.3.2`. Final authorship, declarations, rights, archival metadata, journal formatting, and review-anonymity choices are supplied through the manuscript or submission system. They are handoff tasks rather than missing reproducibility components. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Supplement Submission Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
 
 ## Reviewer Audit Route
 
@@ -58,11 +58,9 @@ AML candidates are compound lexical relationships in captured records. They may 
 
 GitHub contains code, protocols, codebooks, aggregate tables, validation summaries, sensitivity analyses, and provenance metadata. It excludes raw notes, screenshots, OCR text, direct excerpts, identifiers, record-level coding, evidence packets, coder workbooks, rationales, and adjudication rows. Controlled access is discretionary and subject to ethics, law, privacy, security, and institutional approval.
 
-## Ethics And AI Disclosure
+## Ethics
 
-The approved repository wording is “Griffith University Human Ethics Protocol 2025/697.” The identifier does not independently establish consent status, copyright ownership, or authority to release controlled evidence.
-
-OpenAI Codex assistance is restricted to repository and reproducibility work as recorded in [AI Authoring Assistance Disclosure](AI_AUTHORING_ASSISTANCE_DISCLOSURE.md). This repository contains no AI-drafted manuscript or journal submission text.
+The approved repository wording is "Griffith University Human Ethics Protocol 2025/697." The identifier does not independently establish consent status, copyright ownership, or authority to release controlled evidence.
 
 ## Citation And Versioning
 

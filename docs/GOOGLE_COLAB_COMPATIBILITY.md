@@ -24,7 +24,7 @@ Google Colab can run the public data-free audit and most standard-library analys
 Use a fresh runtime and pin the tagged release being audited:
 
 ```python
-!git clone --branch v1.3.1 --depth 1 https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1.git
+!git clone --branch v1.3.2 --depth 1 https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1.git
 %cd Bankdrop-Financial-Crime-Paper-1
 !python --version
 !python -m unittest discover -s tests -v
@@ -48,4 +48,4 @@ The cache must contain a successful row for every eligible image with matching i
 
 Do not upload the vault, screenshots, raw OCR, evidence packets, coder workbooks, or record-level adjudication to Colab unless the ethics protocol, institutional data governance, legal rights, and the responsible data custodian expressly permit processing in that cloud environment.
 
-Substituting Tesseract, EasyOCR, a hosted OCR API, or another Linux-compatible engine would create a different empirical pipeline. Such a change requires a new version, documented environment and provenance, a complete downstream rerun, comparison with the locked release, and review of whether human validation must be repeated. It must not be described as exact reproduction of version 1.3.1.
+Substituting Tesseract, EasyOCR, a hosted OCR API, or another Linux-compatible engine would create a different empirical pipeline. Such a change requires a new version, documented environment and provenance, a complete downstream rerun, comparison with the locked release, and review of whether human validation must be repeated. It must not be described as exact reproduction of version 1.3.2.

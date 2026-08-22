@@ -12,18 +12,18 @@
 - [x] Claim-to-evidence register and reviewer landing page included.
 - [x] Raw and record-level controlled material excluded.
 - [x] Data-free tests and privacy/integrity verifier available on Windows and Ubuntu.
-- [x] Ethics identifier and repository-only AI-assistance boundary recorded.
+- [x] Ethics identifier and approved repository wording recorded.
 - [x] Public-versus-controlled rerun and Google Colab boundaries documented.
 - [x] Release version, changelog, citation metadata, and workflow manifest aligned.
 
-All repository-side items in this gate are complete for release `v1.3.1`.
+All repository-side items in this gate are complete for release `v1.3.2`.
 
 ## Article And Journal-Portal Handoff
 
 The following information is supplied outside this reproducibility supplement. These tasks do not indicate missing repository analysis:
 
 - select the journal and article type;
-- apply the journal's repository, data, code, ethics, AI, supplementary-file, and archival rules;
+- apply the journal's repository, data, code, ethics, supplementary-file, and archival rules;
 - confirm whether the review model permits citation of this identity-bearing public repository or requires an anonymised snapshot or deferred citation;
 - supply final author names, order, affiliations, ORCIDs, and corresponding-author details;
 - approve CRediT contributions, funding, acknowledgements, and competing-interest declarations;

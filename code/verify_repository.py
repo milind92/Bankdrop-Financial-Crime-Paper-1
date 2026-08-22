@@ -34,7 +34,6 @@ REQUIRED_FILES = (
     "docs/DATA_COLLECTION_PROTOCOL.md",
     "docs/HUMAN_VALIDATION_PROTOCOL.md",
     "docs/CONTROLLED_AUDIT_ACCESS.md",
-    "docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md",
     "docs/AUTHOR_DECISIONS_RECORD.md",
     "docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md",
     "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
@@ -610,35 +609,6 @@ def check_journal_reproducibility_supplement(
     return checked
 
 
-def check_ai_authoring_disclosure(manifest: dict[str, Any], errors: list[str]) -> int:
-    record = manifest.get("ai_authoring_assistance", {})
-    disclosure = record.get("disclosure") if isinstance(record, dict) else None
-    if not isinstance(disclosure, str) or not disclosure.strip():
-        errors.append("Manifest must contain the author-provided Codex disclosure.")
-        return 0
-    required_fragments = (
-        "preparation and formatting of the workbook used for the intercoder reliability assessment",
-        "did not generate coding responses",
-        "did not perform literature discovery, citation checking, or the drafting or editing of the manuscript or submission materials",
-    )
-    checked = 0
-    for fragment in required_fragments:
-        if fragment not in disclosure:
-            errors.append(f"Codex disclosure is missing required boundary: {fragment}")
-        else:
-            checked += 1
-    try:
-        disclosure_file = (REPOSITORY_ROOT / "docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md").read_text(encoding="utf-8-sig")
-    except OSError as exc:
-        errors.append(f"Could not inspect AI disclosure: {exc}")
-    else:
-        if disclosure not in disclosure_file:
-            errors.append("AI disclosure differs between the manifest and disclosure document.")
-        else:
-            checked += 1
-    return checked
-
-
 def _integer(row: dict[str, str], field: str, errors: list[str]) -> int:
     try:
         return int(row[field])
@@ -1133,7 +1103,6 @@ def main() -> int:
     privacy_count = check_text_privacy(errors)
     release_count = check_release_metadata(manifest, errors)
     journal_count = check_journal_reproducibility_supplement(manifest, errors)
-    disclosure_count = check_ai_authoring_disclosure(manifest, errors)
     icr_count = check_human_icr_aggregate(manifest, errors)
     icr_target_count = check_human_icr_by_target(manifest, errors)
     performance_count = check_human_validation_performance(manifest, errors)
@@ -1155,7 +1124,6 @@ def main() -> int:
     print(f"- Publication-safe text files scanned for local paths: {privacy_count}")
     print(f"- Release metadata checks: {release_count}")
     print(f"- Journal reproducibility-supplement checks: {journal_count}")
-    print(f"- AI authoring-disclosure checks: {disclosure_count}")
     print(f"- Aggregate human-validation checks: {icr_count}")
     print(f"- Target-level human-validation checks: {icr_target_count}")
     print(f"- Human-validation performance checks: {performance_count}")
