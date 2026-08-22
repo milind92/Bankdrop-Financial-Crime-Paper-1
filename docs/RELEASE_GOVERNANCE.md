@@ -15,4 +15,4 @@ The public repository contains deterministic Phase 1–4 code, publication-safe 
 
 ## Immutable Releases
 
-A future tag or archive should record the commit hash, version, date, verification result, privacy review, and approver. Creating this repository does not itself create a DOI or archival deposit.
+Each public tag or archive should record the commit hash, version, date, verification result, privacy review, and approver. A GitHub tag or release does not itself create a DOI or archival deposit.

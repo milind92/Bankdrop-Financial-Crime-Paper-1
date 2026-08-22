@@ -179,6 +179,9 @@ CODEBOOK = {
 }
 
 
+DATA_QUALITY_CODES = frozenset({"market_access_limitation"})
+
+
 AML_INDICATORS = {
     "bank_log_plus_email_access": {
         "label": "Bank log packaged with email/cookie access",
@@ -499,9 +502,16 @@ def main() -> None:
         ],
     )
 
-    summary_by_code = defaultdict(Counter)
-    summary_by_source_code = defaultdict(Counter)
-    objective_summary = defaultdict(Counter)
+    summary_by_code = {code: Counter() for code in CODEBOOK}
+    sources = sorted({row["source"] or "(no_source)" for row in coding_rows})
+    summary_by_source_code = {
+        (source, code): Counter() for source in sources for code in CODEBOOK
+    }
+    objective_summary = {
+        entry["objective"]: Counter()
+        for code, entry in CODEBOOK.items()
+        if code not in DATA_QUALITY_CODES
+    }
     aml_summary = defaultdict(Counter)
 
     for row in coding_rows:
@@ -514,7 +524,7 @@ def main() -> None:
             summary_by_code[code][row["rule_match_intensity"]] += 1
             summary_by_source_code[(source, code)]["note_count"] += 1
             summary_by_source_code[(source, code)]["hit_count"] += int(row["hit_count"])
-            if code != "market_access_limitation":
+            if code not in DATA_QUALITY_CODES:
                 objective_summary[objective]["note_count"] += 1
                 objective_summary[objective]["hit_count"] += int(row["hit_count"])
 
@@ -623,6 +633,8 @@ def main() -> None:
         "phase3_output_path": str(PHASE3_OUTPUT),
         "note_count": len(notes),
         "typology_code_count": len(CODEBOOK),
+        "substantive_typology_code_count": len(CODEBOOK) - len(DATA_QUALITY_CODES),
+        "collection_quality_flag_count": len(DATA_QUALITY_CODES),
         "aml_indicator_count": len(AML_INDICATORS),
         "coding_rows": len(coding_rows),
         "evidence_snippet_rows": len(snippet_rows),
@@ -639,7 +651,8 @@ Phase 3 combined Markdown text with Phase 2 OCR text and applied a deterministic
 ## Key Counts
 
 - Notes coded: {len(notes)}
-- Typology codes: {len(CODEBOOK)}
+- Substantive typology codes: {len(CODEBOOK) - len(DATA_QUALITY_CODES)}
+- Collection-quality flags: {len(DATA_QUALITY_CODES)}
 - AML indicator candidates: {len(AML_INDICATORS)}
 - Typology coding rows: {len(coding_rows)}
 - Evidence snippet rows: {len(snippet_rows)}
@@ -660,7 +673,7 @@ Phase 3 combined Markdown text with Phase 2 OCR text and applied a deterministic
 
 ## Interpretation Limits
 
-This is an auditable baseline coding, not a final qualitative interpretation. Regex rules can produce false positives and false negatives, especially in noisy OCR text. Journal-grade findings should use this table for sampling, manual validation, and later interpretive analysis.
+This is an auditable deterministic baseline, not a final qualitative interpretation. The completed Ausma Bernot–Milind Tiwari human validation quantifies agreement and rule-classification performance for the sampled case-target units. Regex rules can still produce false positives and false negatives, especially in noisy OCR text, so substantive claims must respect the published validation and interpretation boundaries.
 """
     (PHASE3_OUTPUT / "PHASE3_CHECKPOINT_SUMMARY.md").write_text(checkpoint, encoding="utf-8")
 

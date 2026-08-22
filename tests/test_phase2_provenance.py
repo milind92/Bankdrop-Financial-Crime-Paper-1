@@ -1,13 +1,25 @@
 from __future__ import annotations
 
 import importlib.util
+import shutil
 import sys
-import tempfile
 import unittest
+import uuid
+from contextlib import contextmanager
 from pathlib import Path
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+
+
+@contextmanager
+def temporary_workspace():
+    path = REPOSITORY_ROOT / f"tmp-phase2-{uuid.uuid4().hex}"
+    path.mkdir()
+    try:
+        yield str(path)
+    finally:
+        shutil.rmtree(path)
 
 
 def load_module(name: str, relative_path: str):
@@ -29,7 +41,7 @@ phase2 = load_module(
 
 class Phase1ImageVerificationTests(unittest.TestCase):
     def test_resolved_row_requires_matching_content_hash(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with temporary_workspace() as temporary:
             vault = Path(temporary) / "vault"
             image = vault / "assets" / "evidence.png"
             image.parent.mkdir(parents=True)
@@ -50,8 +62,9 @@ class Phase1ImageVerificationTests(unittest.TestCase):
             image.write_bytes(b"changed-after-phase-one")
             with self.assertRaisesRegex(RuntimeError, "no longer matches"):
                 phase2.resolve_phase1_image_row(row, vault)
+
     def test_new_phase1_schema_requires_a_recorded_hash(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with temporary_workspace() as temporary:
             vault = Path(temporary) / "vault"
             image = vault / "evidence.png"
             image.parent.mkdir(parents=True)
@@ -60,9 +73,8 @@ class Phase1ImageVerificationTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "without image_sha256"):
                 phase2.resolve_phase1_image_row(row, vault)
 
-
     def test_legacy_basename_fallback_refuses_ambiguity(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with temporary_workspace() as temporary:
             vault = Path(temporary) / "vault"
             for folder in ("a", "b"):
                 image = vault / folder / "same.png"
@@ -74,7 +86,7 @@ class Phase1ImageVerificationTests(unittest.TestCase):
             )
 
     def test_safe_vault_path_rejects_traversal(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with temporary_workspace() as temporary:
             vault = Path(temporary) / "vault"
             vault.mkdir()
             with self.assertRaisesRegex(ValueError, "escapes"):
@@ -168,6 +180,8 @@ class NoteAggregationTests(unittest.TestCase):
         self.assertEqual(result["ocr_duplicate_ref_count"], 1)
         self.assertEqual(result["ocr_word_count"], 2)
         self.assertEqual(str(result["joined_ocr_text"]).count("same text"), 1)
+        self.assertNotIn("a/one.png", str(result["joined_ocr_text"]))
+        self.assertNotIn("[OCR:", str(result["joined_ocr_text"]))
 
 
 if __name__ == "__main__":

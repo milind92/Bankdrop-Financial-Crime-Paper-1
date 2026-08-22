@@ -6,8 +6,8 @@
 |---|---|
 | `code/run_reproducible_pipeline.py` | Runs deterministic Phases 1–4 against controlled data and refuses unsafe output locations. |
 | `code/export_public_release.py` | Copies only explicitly allowlisted aggregate outputs and rejects note-level fields and local paths. |
-| `code/verify_repository.py` | Performs the data-free integrity, privacy, manifest, schema, and human-ICR audit. |
-| `code/human_validation/summarize_human_validation.py` | Summarises two completed human coding workbooks in controlled storage; only aggregate results may be exported. |
+| `code/verify_repository.py` | Performs the data-free integrity, privacy, manifest, schema, human-ICR, and classification-performance audit. |
+| `code/human_validation/summarize_human_validation.py` | Summarises normalized controlled machine, coder, and adjudication tables; only aggregate performance results and file-level provenance hashes may be exported. |
 | `code/human_validation/build_public_icr_by_target.py` | Produces the publication-safe per-target ICR table and report from controlled aggregate reliability and adjudication inputs. |
 
 ## Phase 1: Markdown Baseline

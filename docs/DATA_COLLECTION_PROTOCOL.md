@@ -153,7 +153,7 @@ The figures below were derived from the controlled Phase 1-3 aggregate inventory
 | Internal project documents excluded before analysis | 19 | Excluded by the source-root eligibility rule before Phase 1 extraction. |
 | Exact duplicate records removed before analysis | 0 | The 980-record screen was not deduplicated before Phase 3 coding. |
 | Eligible unique analytic records | **AUTHOR CONFIRMATION REQUIRED** | This becomes the primary descriptive denominator. |
-| Human validation | Withdrawn | The prior sample contained 14 ineligible internal documents (59 paired case-target units); fresh corrected-corpus validation is required. |
+| Human validation | Complete | Ausma Bernot and Milind Tiwari independently coded 1,032 case-target units across 313 evidence packets from the corrected corpus; all 51 disagreements were jointly adjudicated on 26 July 2026. The earlier 1,036-unit result remains withdrawn. |
 
 The final manuscript should include a flow diagram or table showing identified, screened, excluded, deduplicated, eligible, validated, and analysed records. Counts must reconcile across the controlled inventory, manuscript, tables, and machine-readable manifest. Until the authors complete the collection and eligibility audit, the existing Phase 3 and 4 counts must be described as descriptive signals among 980 screened combined note records, with exact-text sensitivity reported separately. The 463 unique hashes must not be called the final eligible denominator.
 

@@ -22,7 +22,7 @@ from typing import Any, Sequence
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
-EXPORTER_VERSION = "1.0.0"
+EXPORTER_VERSION = "1.1.0"
 
 
 @dataclass(frozen=True)
@@ -76,6 +76,7 @@ PUBLIC_EXPORTS = tuple(
             "financial_crime_findings.csv",
             "aml_red_flags_summary.csv",
             "source_profile_summary.csv",
+            "phase4_recommendations.csv",
             "FINANCIAL_CRIME_ANALYSIS_REPORT.md",
             "PHASE4_CHECKPOINT_SUMMARY.md",
             "run_metadata.json",

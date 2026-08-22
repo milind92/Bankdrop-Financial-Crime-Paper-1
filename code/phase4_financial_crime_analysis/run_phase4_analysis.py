@@ -57,7 +57,7 @@ FINDING_NARRATIVES = {
             "or transaction coordination moved elsewhere. Human review is required before interpreting off-platform migration; "
             "captured forum material may omit context outside the retained record."
         ),
-        "result_type": "Can support a validation target concerning private-channel references and possible coordination.",
+        "result_type": "Can support descriptive analysis of private-channel references; any coordination hypothesis requires direct contextual evidence.",
         "controls": "Treat open-forum posts as lead generation; do not assume the whole transaction is visible in the captured page.",
     },
     "tutorial_training_recruitment": {
@@ -82,7 +82,7 @@ FINDING_NARRATIVES = {
         "finding": "Cryptocurrency payment and conversion terms appear in the provisional coding.",
         "analysis": (
             "Crypto references occur alongside cash-out, escrow, and market-payment language. This suggests crypto is not just a payment method "
-            "or was actually converted, obfuscated, or settled; those are hypotheses for human review."
+            "in the captured discourse; whether funds were converted, obfuscated, or settled remains a hypothesis requiring direct contextual evidence."
         ),
         "result_type": "Can support analysis of crypto-to-fiat conversion points and settlement rails.",
         "controls": "Focus on fiat off-ramp points, exchange account misuse, rapid movement after crypto conversion, and mule account inflows.",
@@ -133,13 +133,12 @@ FINDING_NARRATIVES = {
         "controls": "Assess direct-owner language, long-term loading claims, account-age preferences, and payment-for-use narratives.",
     },
     "vulnerable_group_exploitation": {
-        "finding": "Explicit vulnerable migrant/student exploitation is rare in the captured text.",
+        "finding": "No explicit vulnerable migrant/student exploitation match was detected by the deterministic rule.",
         "analysis": (
-            "The project rationale is strongly concerned with migrants and vulnerable groups, but deterministic coding finds only a small explicit signal. "
-            "This should be reported carefully: the dataset may still contain indirect evidence, but Phase 3 does not support broad prevalence claims without manual review."
+            "The zero rule-positive count is a null deterministic result, not evidence that exploitation is absent. The validation sample contained no rule-positive stratum for this target, so the study cannot estimate sensitivity or bound false negatives for an absence or rarity claim."
         ),
-        "result_type": "Can support a research gap/targeted sampling question, not a broad prevalence conclusion yet.",
-        "controls": "Use manual sampling and targeted searches before making claims about migrant/student exploitation prevalence.",
+        "result_type": "Supports only a targeted research question; it does not support a prevalence or absence conclusion.",
+        "controls": "Do not infer absence or rarity without a separately justified targeted review design.",
     },
 }
 
@@ -167,7 +166,11 @@ def md_table(headers: list[str], rows: list[list[object]]) -> str:
 
 
 def top_by_source(source_rows: list[dict[str, str]], source: str, limit: int = 5) -> list[dict[str, str]]:
-    rows = [row for row in source_rows if row["source"] == source]
+    rows = [
+        row
+        for row in source_rows
+        if row["source"] == source and int(row["note_count"]) > 0
+    ]
     return sorted(rows, key=lambda r: int(r["note_count"]), reverse=True)[:limit]
 
 
@@ -286,9 +289,15 @@ def main() -> None:
         source_profile_rows.append(
             {
                 "source": source,
-                "top_typologies": "; ".join(f"{row['code']} ({row['note_count']} notes)" for row in top),
-                "dominant_typology": top[0]["code"] if top else "",
-                "dominant_typology_notes": top[0]["note_count"] if top else "",
+                "top_typologies": (
+                    "; ".join(
+                        f"{row['code']} ({row['note_count']} notes)" for row in top
+                    )
+                    if top
+                    else "no rule-positive typology matches"
+                ),
+                "dominant_typology": top[0]["code"] if top else "none",
+                "dominant_typology_notes": top[0]["note_count"] if top else "0",
             }
         )
     write_csv(
@@ -300,13 +309,13 @@ def main() -> None:
     recommendations = [
         {
             "priority": 1,
-            "recommendation": "Validate top typologies with manual sampling before publication claims.",
-            "reason": "Regex and OCR signals are strong for mapping but can include false positives or duplicated marketplace text.",
+            "recommendation": "Apply the completed human-validation performance results and targeted contextual review to each publication claim.",
+            "reason": "Ausma Bernot and Milind Tiwari completed blinded coding and adjudication, but reliability and classification performance vary by target.",
         },
         {
             "priority": 2,
             "recommendation": "Treat migrant/student exploitation as a targeted sub-analysis rather than a dataset-wide finding at this stage.",
-            "reason": "Explicit vulnerable-group coding is low relative to other typologies.",
+            "reason": "No explicit deterministic match was detected, and the validation design cannot estimate sensitivity for an absence or rarity claim.",
         },
         {
             "priority": 3,
@@ -315,8 +324,8 @@ def main() -> None:
         },
         {
             "priority": 4,
-            "recommendation": "Use source profiles to select a stratified manual-validation sample.",
-            "reason": "Different sources concentrate different signals, especially Pitch, Meta Banklogs, X Wave Market, Tor Shop, and Dread.",
+            "recommendation": "Use source profiles for targeted contextual checks and robustness reporting.",
+            "reason": "Different sources concentrate different signals, so source dependence must be visible in the manuscript.",
         },
         {
             "priority": 5,
@@ -338,7 +347,8 @@ Phase 4 converted the Phase 3 deterministic coding into an interpretive financia
 ## Key Inputs
 
 - Notes coded in Phase 3: {phase3_meta.get('note_count')}
-- Typology codes: {phase3_meta.get('typology_code_count')}
+- Substantive typology codes analysed: {len(typology)}
+- Collection-quality flags excluded from findings: {int(phase3_meta.get('typology_code_count') or 0) - len(typology)}
 - AML indicator candidates: {phase3_meta.get('aml_indicator_count')}
 - Evidence snippets available: {phase3_meta.get('evidence_snippet_rows')}
 
@@ -354,7 +364,7 @@ Phase 4 converted the Phase 3 deterministic coding into an interpretive financia
 
 ## Interpretation Limits
 
-Phase 4 is an analytical synthesis based on deterministic Phase 3 coding. It should be treated as a structured first interpretation and should be manually validated before journal submission.
+Phase 4 is an analytical synthesis based on deterministic Phase 3 coding. Ausma Bernot and Milind Tiwari completed the blinded human validation and joint adjudication. The report remains a structured interpretation whose claims must be reconciled with target-level performance, duplicate sensitivity, source dependence, and direct contextual evidence before submission.
 """
     (PHASE4_OUTPUT / "PHASE4_CHECKPOINT_SUMMARY.md").write_text(checkpoint, encoding="utf-8")
 
@@ -407,16 +417,17 @@ def build_report(typology, objectives, aml_rows, source_profiles, snippets, phas
     lines.append("")
     lines.append(
         "This report is based on deterministic Phase 3 coding over Markdown notes plus OCR text. It should be read as a "
-        "structured first interpretation rather than a final qualitative conclusion. The strongest publication path is to "
-        "use these findings to guide manual validation and targeted close reading."
+        "structured interpretation rather than a final qualitative conclusion. Blinded human validation and adjudication were completed by "
+        "Ausma Bernot and Milind Tiwari; publication claims must still follow the target-level performance and evidence boundaries."
     )
     lines.append("")
 
     lines.append("## Data And Method Boundary")
     lines.append("")
     lines.append(
-        f"Phase 3 coded {phase3_meta.get('note_count')} notes using {phase3_meta.get('typology_code_count')} typology codes "
-        f"and {phase3_meta.get('aml_indicator_count')} AML indicator candidates. Evidence snippets available for audit: "
+        f"Phase 3 coded {phase3_meta.get('note_count')} notes using {len(typology)} substantive typologies and "
+        f"{int(phase3_meta.get('typology_code_count') or 0) - len(typology)} collection-quality flag, alongside "
+        f"{phase3_meta.get('aml_indicator_count')} AML indicator candidates. Evidence snippets available for audit: "
         f"{phase3_meta.get('evidence_snippet_rows')}."
     )
     lines.append("")
@@ -466,12 +477,12 @@ def build_report(typology, objectives, aml_rows, source_profiles, snippets, phas
     lines.append(md_table(["Source", "Dominant typology", "Notes", "Top typologies"], [[row["source"], row["dominant_typology"], row["dominant_typology_notes"], row["top_typologies"]] for row in source_profiles]))
     lines.append("")
 
-    lines.append("## Journal-Ready Findings To Validate")
+    lines.append("## Candidate Findings And Evidence Boundaries")
     lines.append("")
     lines.append("1. The dataset is strongest for account-access, bank-drop, cash-out, crypto-conversion, and trust/reputation typologies.")
     lines.append("2. Forum/market evidence appears to capture both commodity supply and downstream monetisation infrastructure.")
-    lines.append("3. Telegram/private-channel migration should be treated as a structural feature of the transaction pathway.")
-    lines.append("4. Explicit migrant/student exploitation is not yet a high-volume coded finding and needs targeted manual sampling before any prevalence claim.")
+    lines.append("3. Telegram/private-channel references are observable signals, but the captured material does not establish migration or transaction coordination.")
+    lines.append("4. No explicit migrant/student exploitation rule match was detected; this does not support an absence, rarity, or prevalence claim.")
     lines.append("5. Marketplace scam and escrow discourse should be analysed as part of the criminal ecology, not just as noise.")
     lines.append("")
 
@@ -487,9 +498,10 @@ def build_report(typology, objectives, aml_rows, source_profiles, snippets, phas
     lines.append("## Recommended Next Step")
     lines.append("")
     lines.append(
-        "Before journal submission, draw a stratified validation sample from `evidence_snippets.csv` and the source notes. "
-        "Prioritise the top typologies and the lower-count but substantively important categories such as mule recruitment "
-        "and vulnerable-group exploitation."
+        "Before journal submission, reconcile every proposed claim with the completed human-validation performance table, "
+        "target-level uncertainty, duplicate and source-sensitivity outputs, and controlled contextual review. Obtain the "
+        "separate AML-domain review and do not make an absence or rarity claim for vulnerable-group exploitation from the "
+        "zero deterministic match."
     )
     lines.append("")
     return "\n".join(lines)

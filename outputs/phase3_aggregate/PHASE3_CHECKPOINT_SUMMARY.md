@@ -7,10 +7,11 @@ Phase 3 combined Markdown text with Phase 2 OCR text and applied a deterministic
 ## Key Counts
 
 - Notes coded: 980
-- Typology codes: 13
+- Substantive typology codes: 12
+- Collection-quality flags: 1
 - AML indicator candidates: 6
 - Typology coding rows: 12740
-- Evidence snippet rows: 2706
+- Evidence snippet rows: 2707
 - AML indicator coding rows: 5880
 
 ## Main Output Files
@@ -28,4 +29,4 @@ Phase 3 combined Markdown text with Phase 2 OCR text and applied a deterministic
 
 ## Interpretation Limits
 
-This is an auditable baseline coding, not a final qualitative interpretation. Regex rules can produce false positives and false negatives, especially in noisy OCR text. Journal-grade findings should use this table for sampling, manual validation, and later interpretive analysis.
+This is an auditable deterministic baseline, not a final qualitative interpretation. The completed Ausma Bernot–Milind Tiwari human validation quantifies agreement and rule-classification performance for the sampled case-target units. Regex rules can still produce false positives and false negatives, especially in noisy OCR text, so substantive claims must respect the published validation and interpretation boundaries.

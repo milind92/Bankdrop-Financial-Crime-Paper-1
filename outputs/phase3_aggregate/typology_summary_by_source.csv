@@ -1,7 +1,7 @@
 ﻿source,code,label,note_count,hit_count
 1. Dread,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",22,95
 1. Dread,bank_drop_sale,Bank drop sale or bank-drop infrastructure,19,71
-1. Dread,jurisdiction_localisation,Jurisdiction-specific bank or account reference,17,70
+1. Dread,jurisdiction_localisation,Jurisdiction-specific bank or account reference,17,72
 1. Dread,tutorial_training_recruitment,"Tutorial, guide, or training content",17,54
 1. Dread,bank_log_sale,Compromised bank log sale or discussion,15,57
 1. Dread,telegram_off_platform,Telegram or private-channel coordination reference,13,28
@@ -10,31 +10,74 @@
 1. Dread,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,10,53
 1. Dread,email_access_takeover,Email-access-enabled account takeover,3,5
 1. Dread,mule_recruitment,Mule recruitment or account-holder solicitation,2,2
+1. Dread,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+1. Dread,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 10. Tor Shop,bank_drop_sale,Bank drop sale or bank-drop infrastructure,32,179
 10. Tor Shop,bank_log_sale,Compromised bank log sale or discussion,29,84
 10. Tor Shop,fullz_identity_package,Fullz or identity package,24,80
-10. Tor Shop,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,14,27
-10. Tor Shop,jurisdiction_localisation,Jurisdiction-specific bank or account reference,13,81
+10. Tor Shop,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,14,28
+10. Tor Shop,jurisdiction_localisation,Jurisdiction-specific bank or account reference,13,83
 10. Tor Shop,tutorial_training_recruitment,"Tutorial, guide, or training content",12,36
 10. Tor Shop,cashout_laundering_service,Cash-out or laundering service,9,20
 10. Tor Shop,email_access_takeover,Email-access-enabled account takeover,7,15
+10. Tor Shop,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",0,0
+10. Tor Shop,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+10. Tor Shop,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+10. Tor Shop,telegram_off_platform,Telegram or private-channel coordination reference,0,0
+10. Tor Shop,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 11. Legit Market,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",20,55
 11. Legit Market,bank_log_sale,Compromised bank log sale or discussion,15,147
 11. Legit Market,jurisdiction_localisation,Jurisdiction-specific bank or account reference,12,30
 11. Legit Market,bank_drop_sale,Bank drop sale or bank-drop infrastructure,11,68
 11. Legit Market,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,6,24
-11. Legit Market,email_access_takeover,Email-access-enabled account takeover,4,12
+11. Legit Market,email_access_takeover,Email-access-enabled account takeover,4,13
 11. Legit Market,cashout_laundering_service,Cash-out or laundering service,3,11
 11. Legit Market,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",3,6
 11. Legit Market,tutorial_training_recruitment,"Tutorial, guide, or training content",3,9
 11. Legit Market,fullz_identity_package,Fullz or identity package,2,3
 11. Legit Market,telegram_off_platform,Telegram or private-channel coordination reference,1,2
+11. Legit Market,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+11. Legit Market,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 12. TORCH Tor Search,bank_drop_sale,Bank drop sale or bank-drop infrastructure,2,21
 12. TORCH Tor Search,bank_log_sale,Compromised bank log sale or discussion,2,14
+12. TORCH Tor Search,cashout_laundering_service,Cash-out or laundering service,0,0
+12. TORCH Tor Search,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,0,0
+12. TORCH Tor Search,email_access_takeover,Email-access-enabled account takeover,0,0
+12. TORCH Tor Search,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",0,0
+12. TORCH Tor Search,fullz_identity_package,Fullz or identity package,0,0
+12. TORCH Tor Search,jurisdiction_localisation,Jurisdiction-specific bank or account reference,0,0
+12. TORCH Tor Search,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+12. TORCH Tor Search,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+12. TORCH Tor Search,telegram_off_platform,Telegram or private-channel coordination reference,0,0
+12. TORCH Tor Search,tutorial_training_recruitment,"Tutorial, guide, or training content",0,0
+12. TORCH Tor Search,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
+13. Bank Logs,bank_drop_sale,Bank drop sale or bank-drop infrastructure,0,0
+13. Bank Logs,bank_log_sale,Compromised bank log sale or discussion,0,0
+13. Bank Logs,cashout_laundering_service,Cash-out or laundering service,0,0
+13. Bank Logs,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,0,0
+13. Bank Logs,email_access_takeover,Email-access-enabled account takeover,0,0
+13. Bank Logs,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",0,0
+13. Bank Logs,fullz_identity_package,Fullz or identity package,0,0
+13. Bank Logs,jurisdiction_localisation,Jurisdiction-specific bank or account reference,0,0
+13. Bank Logs,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+13. Bank Logs,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+13. Bank Logs,telegram_off_platform,Telegram or private-channel coordination reference,0,0
+13. Bank Logs,tutorial_training_recruitment,"Tutorial, guide, or training content",0,0
+13. Bank Logs,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 14. Lonely Road,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,3,15
 14. Lonely Road,bank_log_sale,Compromised bank log sale or discussion,1,1
 14. Lonely Road,jurisdiction_localisation,Jurisdiction-specific bank or account reference,1,1
-15. Tenebris,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,4,30
+14. Lonely Road,bank_drop_sale,Bank drop sale or bank-drop infrastructure,0,0
+14. Lonely Road,cashout_laundering_service,Cash-out or laundering service,0,0
+14. Lonely Road,email_access_takeover,Email-access-enabled account takeover,0,0
+14. Lonely Road,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",0,0
+14. Lonely Road,fullz_identity_package,Fullz or identity package,0,0
+14. Lonely Road,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+14. Lonely Road,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+14. Lonely Road,telegram_off_platform,Telegram or private-channel coordination reference,0,0
+14. Lonely Road,tutorial_training_recruitment,"Tutorial, guide, or training content",0,0
+14. Lonely Road,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
+15. Tenebris,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,4,31
 15. Tenebris,telegram_off_platform,Telegram or private-channel coordination reference,4,24
 15. Tenebris,bank_log_sale,Compromised bank log sale or discussion,3,26
 15. Tenebris,cashout_laundering_service,Cash-out or laundering service,3,8
@@ -43,10 +86,23 @@
 15. Tenebris,bank_drop_sale,Bank drop sale or bank-drop infrastructure,1,1
 15. Tenebris,email_access_takeover,Email-access-enabled account takeover,1,2
 15. Tenebris,jurisdiction_localisation,Jurisdiction-specific bank or account reference,1,11
+15. Tenebris,fullz_identity_package,Fullz or identity package,0,0
+15. Tenebris,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+15. Tenebris,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+15. Tenebris,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 17. XmrBazaar,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,2,27
 17. XmrBazaar,bank_drop_sale,Bank drop sale or bank-drop infrastructure,1,3
 17. XmrBazaar,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",1,14
 17. XmrBazaar,tutorial_training_recruitment,"Tutorial, guide, or training content",1,5
+17. XmrBazaar,bank_log_sale,Compromised bank log sale or discussion,0,0
+17. XmrBazaar,cashout_laundering_service,Cash-out or laundering service,0,0
+17. XmrBazaar,email_access_takeover,Email-access-enabled account takeover,0,0
+17. XmrBazaar,fullz_identity_package,Fullz or identity package,0,0
+17. XmrBazaar,jurisdiction_localisation,Jurisdiction-specific bank or account reference,0,0
+17. XmrBazaar,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+17. XmrBazaar,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+17. XmrBazaar,telegram_off_platform,Telegram or private-channel coordination reference,0,0
+17. XmrBazaar,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 2. Altenen,fullz_identity_package,Fullz or identity package,19,71
 2. Altenen,tutorial_training_recruitment,"Tutorial, guide, or training content",19,112
 2. Altenen,telegram_off_platform,Telegram or private-channel coordination reference,18,44
@@ -57,6 +113,9 @@
 2. Altenen,mule_recruitment,Mule recruitment or account-holder solicitation,3,4
 2. Altenen,bank_drop_sale,Bank drop sale or bank-drop infrastructure,2,2
 2. Altenen,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",2,5
+2. Altenen,jurisdiction_localisation,Jurisdiction-specific bank or account reference,0,0
+2. Altenen,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+2. Altenen,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 3. Pitch,telegram_off_platform,Telegram or private-channel coordination reference,20,64
 3. Pitch,tutorial_training_recruitment,"Tutorial, guide, or training content",20,115
 3. Pitch,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",18,124
@@ -68,6 +127,8 @@
 3. Pitch,fullz_identity_package,Fullz or identity package,12,44
 3. Pitch,email_access_takeover,Email-access-enabled account takeover,9,19
 3. Pitch,mule_recruitment,Mule recruitment or account-holder solicitation,3,7
+3. Pitch,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+3. Pitch,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 4. Caders Heven,bank_log_sale,Compromised bank log sale or discussion,28,115
 4. Caders Heven,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,24,75
 4. Caders Heven,cashout_laundering_service,Cash-out or laundering service,22,46
@@ -77,9 +138,13 @@
 4. Caders Heven,jurisdiction_localisation,Jurisdiction-specific bank or account reference,2,2
 4. Caders Heven,tutorial_training_recruitment,"Tutorial, guide, or training content",2,2
 4. Caders Heven,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",1,1
+4. Caders Heven,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+4. Caders Heven,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+4. Caders Heven,telegram_off_platform,Telegram or private-channel coordination reference,0,0
+4. Caders Heven,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 5. CardPro,cashout_laundering_service,Cash-out or laundering service,32,182
 5. CardPro,telegram_off_platform,Telegram or private-channel coordination reference,22,71
-5. CardPro,jurisdiction_localisation,Jurisdiction-specific bank or account reference,11,66
+5. CardPro,jurisdiction_localisation,Jurisdiction-specific bank or account reference,11,62
 5. CardPro,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,7,29
 5. CardPro,bank_drop_sale,Bank drop sale or bank-drop infrastructure,6,32
 5. CardPro,fullz_identity_package,Fullz or identity package,5,39
@@ -88,16 +153,22 @@
 5. CardPro,bank_log_sale,Compromised bank log sale or discussion,2,5
 5. CardPro,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",1,1
 5. CardPro,mule_recruitment,Mule recruitment or account-holder solicitation,1,1
+5. CardPro,email_access_takeover,Email-access-enabled account takeover,0,0
+5. CardPro,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 6. The X Wave Market,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",41,305
 6. The X Wave Market,fullz_identity_package,Fullz or identity package,20,104
 6. The X Wave Market,cashout_laundering_service,Cash-out or laundering service,10,41
 6. The X Wave Market,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,10,46
 6. The X Wave Market,tutorial_training_recruitment,"Tutorial, guide, or training content",10,66
 6. The X Wave Market,bank_drop_sale,Bank drop sale or bank-drop infrastructure,9,55
-6. The X Wave Market,jurisdiction_localisation,Jurisdiction-specific bank or account reference,6,31
+6. The X Wave Market,jurisdiction_localisation,Jurisdiction-specific bank or account reference,6,32
 6. The X Wave Market,bank_log_sale,Compromised bank log sale or discussion,5,21
 6. The X Wave Market,email_access_takeover,Email-access-enabled account takeover,3,4
-7. Meta Banklogs,jurisdiction_localisation,Jurisdiction-specific bank or account reference,36,363
+6. The X Wave Market,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+6. The X Wave Market,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+6. The X Wave Market,telegram_off_platform,Telegram or private-channel coordination reference,0,0
+6. The X Wave Market,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
+7. Meta Banklogs,jurisdiction_localisation,Jurisdiction-specific bank or account reference,36,364
 7. Meta Banklogs,bank_log_sale,Compromised bank log sale or discussion,29,247
 7. Meta Banklogs,email_access_takeover,Email-access-enabled account takeover,21,122
 7. Meta Banklogs,bank_drop_sale,Bank drop sale or bank-drop infrastructure,14,223
@@ -108,6 +179,8 @@
 7. Meta Banklogs,telegram_off_platform,Telegram or private-channel coordination reference,2,6
 7. Meta Banklogs,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",1,2
 7. Meta Banklogs,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",1,2
+7. Meta Banklogs,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+7. Meta Banklogs,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 8. Secure ccSeller,fullz_identity_package,Fullz or identity package,6,14
 8. Secure ccSeller,jurisdiction_localisation,Jurisdiction-specific bank or account reference,5,10
 8. Secure ccSeller,bank_log_sale,Compromised bank log sale or discussion,4,26
@@ -116,6 +189,11 @@
 8. Secure ccSeller,bank_drop_sale,Bank drop sale or bank-drop infrastructure,1,1
 8. Secure ccSeller,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,1,2
 8. Secure ccSeller,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",1,1
+8. Secure ccSeller,cashout_laundering_service,Cash-out or laundering service,0,0
+8. Secure ccSeller,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+8. Secure ccSeller,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+8. Secure ccSeller,telegram_off_platform,Telegram or private-channel coordination reference,0,0
+8. Secure ccSeller,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0
 9. Deep Shop,bank_log_sale,Compromised bank log sale or discussion,15,219
 9. Deep Shop,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,10,42
 9. Deep Shop,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",7,14
@@ -124,3 +202,8 @@
 9. Deep Shop,email_access_takeover,Email-access-enabled account takeover,2,14
 9. Deep Shop,telegram_off_platform,Telegram or private-channel coordination reference,2,4
 9. Deep Shop,fullz_identity_package,Fullz or identity package,1,2
+9. Deep Shop,bank_drop_sale,Bank drop sale or bank-drop infrastructure,0,0
+9. Deep Shop,jurisdiction_localisation,Jurisdiction-specific bank or account reference,0,0
+9. Deep Shop,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",0,0
+9. Deep Shop,mule_recruitment,Mule recruitment or account-holder solicitation,0,0
+9. Deep Shop,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,0

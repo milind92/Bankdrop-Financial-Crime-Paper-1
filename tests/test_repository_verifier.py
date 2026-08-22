@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import io
 import importlib.util
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 from unittest import mock
 
@@ -26,6 +28,32 @@ class PrivacyBoundaryTests(unittest.TestCase):
         self.assertEqual(verifier.blocked_public_fields(["source", "note_id", "note_count"]), ["note_id"])
         self.assertEqual(verifier.blocked_public_fields(["code", "unique_text_count"]), [])
         self.assertEqual(verifier.blocked_public_fields(["code", "positive_unique_evidence_rows"]), [])
+
+
+class SyntaxAuditTests(unittest.TestCase):
+    def test_python_syntax_audit_does_not_write_bytecode(self) -> None:
+        errors: list[str] = []
+        with (
+            mock.patch.object(verifier, "repository_files", return_value=[MODULE_PATH]),
+            mock.patch(
+                "py_compile.compile",
+                side_effect=AssertionError("syntax audit attempted to write bytecode"),
+            ),
+        ):
+            python_count, json_count = verifier.check_python_and_json(errors)
+        self.assertEqual(errors, [])
+        self.assertEqual((python_count, json_count), (1, 0))
+
+
+class TextHashTests(unittest.TestCase):
+    def test_public_text_hash_is_independent_of_line_endings(self) -> None:
+        lf_text = b"heading,value\nalpha,1\n"
+        crlf_text = b"heading,value\r\nalpha,1\r\n"
+        cr_text = b"heading,value\ralpha,1\r"
+
+        expected = verifier._sha256_normalized_text_bytes(lf_text)
+        self.assertEqual(verifier._sha256_normalized_text_bytes(crlf_text), expected)
+        self.assertEqual(verifier._sha256_normalized_text_bytes(cr_text), expected)
 
 
 class ManifestBoundaryTests(unittest.TestCase):
@@ -76,28 +104,40 @@ class AiDisclosureTests(unittest.TestCase):
 
 
 class HumanIcrInvariantTests(unittest.TestCase):
+    def test_optional_reliability_number_is_parsed_and_validated(self) -> None:
+        errors: list[str] = []
+        self.assertEqual(
+            verifier._optional_number({"cohen_kappa": "0.839"}, "cohen_kappa", errors),
+            0.839,
+        )
+        self.assertEqual(errors, [])
+        self.assertIsNone(
+            verifier._optional_number({"cohen_kappa": "bad"}, "cohen_kappa", errors)
+        )
+        self.assertTrue(any("numeric or blank" in error for error in errors))
+
     def make_row(self) -> dict[str, str]:
         return {
-            "completion_date": "2026-07-23",
+            "completion_date": "2026-07-26",
             "coder_count": "2", "coordinator_count": "0",
-            "evidence_packet_count": "351", "assessed_target_count": "18",
-            "decision_category_count": "5", "paired_units": "1036",
-            "exact_agreements": "977", "disagreements": "59",
-            "agreement_percent": "94.3", "cohen_kappa": "0.909",
-            "krippendorff_alpha_nominal": "0.909",
-            "binary_subset_units": "841", "binary_subset_exact_agreements": "812",
-            "binary_subset_agreement_percent": "96.6", "binary_subset_cohen_kappa": "0.930",
-            "adjudicated_disagreements": "59", "consensus_cases": "59",
-            "no_consensus_cases": "0", "final_present": "13", "final_absent": "16",
-            "final_ambiguous": "30", "final_insufficient_evidence": "0", "final_out_of_scope": "0",
+            "evidence_packet_count": "313", "assessed_target_count": "18",
+            "decision_category_count": "5", "paired_units": "1032",
+            "exact_agreements": "981", "disagreements": "51",
+            "agreement_percent": "95.1", "cohen_kappa": "0.839378",
+            "krippendorff_alpha_nominal": "0.839365",
+            "binary_subset_units": "998", "binary_subset_exact_agreements": "979",
+            "binary_subset_agreement_percent": "98.1", "binary_subset_cohen_kappa": "0.933155",
+            "adjudicated_disagreements": "51", "consensus_cases": "51",
+            "no_consensus_cases": "0", "final_present": "22", "final_absent": "29",
+            "final_ambiguous": "0", "final_insufficient_evidence": "0", "final_out_of_scope": "0",
         }
 
     def manifest(self) -> dict[str, object]:
         return {"validation": {
-            "completion_date": "2026-07-23",
-            "coder_count": 2, "coordinator_count": 0, "evidence_packet_count": 351,
-            "assessed_target_count": 18, "paired_case_target_units": 1036,
-            "exact_agreements": 977, "disagreements": 59,
+            "completion_date": "2026-07-26",
+            "coder_count": 2, "coordinator_count": 0, "evidence_packet_count": 313,
+            "assessed_target_count": 18, "paired_case_target_units": 1032,
+            "exact_agreements": 981, "disagreements": 51,
         }}
 
     def test_completed_human_icr_contract(self) -> None:
@@ -113,6 +153,35 @@ class HumanIcrInvariantTests(unittest.TestCase):
             errors: list[str] = []
             verifier.check_human_icr_aggregate(self.manifest(), errors)
         self.assertTrue(any("disagreements" in error or "paired units" in error for error in errors))
+
+    def test_committed_target_results_pass_the_target_checker(self) -> None:
+        errors: list[str] = []
+        manifest = verifier.load_manifest(errors)
+        checked = verifier.check_human_icr_by_target(manifest, errors)
+        self.assertGreater(checked, 0)
+        self.assertEqual(errors, [])
+
+    def test_committed_performance_results_pass_the_performance_checker(self) -> None:
+        errors: list[str] = []
+        manifest = verifier.load_manifest(errors)
+        checked = verifier.check_human_validation_performance(manifest, errors)
+        self.assertGreater(checked, 0)
+        self.assertEqual(errors, [])
+
+    def test_main_executes_all_human_validation_checkers(self) -> None:
+        with (
+            mock.patch.object(verifier, "check_human_icr_aggregate", return_value=1) as aggregate,
+            mock.patch.object(verifier, "check_human_icr_by_target", return_value=1) as by_target,
+            mock.patch.object(
+                verifier, "check_human_validation_performance", return_value=1
+            ) as performance,
+            redirect_stdout(io.StringIO()),
+        ):
+            result = verifier.main()
+        self.assertEqual(result, 0)
+        aggregate.assert_called_once()
+        by_target.assert_called_once()
+        performance.assert_called_once()
 
 
 if __name__ == "__main__":

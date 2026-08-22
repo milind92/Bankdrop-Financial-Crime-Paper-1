@@ -1,14 +1,26 @@
 from __future__ import annotations
 
 import importlib.util
+import shutil
 import sys
-import tempfile
 import unicodedata
 import unittest
+import uuid
+from contextlib import contextmanager
 from pathlib import Path
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+
+
+@contextmanager
+def temporary_workspace():
+    path = REPOSITORY_ROOT / f"tmp-phase1-{uuid.uuid4().hex}"
+    path.mkdir()
+    try:
+        yield str(path)
+    finally:
+        shutil.rmtree(path)
 
 
 def load_module(name: str, relative_path: str):
@@ -30,7 +42,7 @@ phase1 = load_module(
 
 class CanonicalNoteIdentityTests(unittest.TestCase):
     def test_note_paths_are_unicode_normalised_posix_and_ids_are_stable(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with temporary_workspace() as temporary:
             vault = Path(temporary) / "vault"
             decomposed_folder = "Cafe\u0301"
             note = vault / "Collected Data" / decomposed_folder / "note.md"
@@ -69,7 +81,7 @@ class CanonicalNoteIdentityTests(unittest.TestCase):
 
 class ImageResolutionTests(unittest.TestCase):
     def test_explicit_relative_path_resolves_with_hash(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with temporary_workspace() as temporary:
             vault = Path(temporary) / "vault"
             note = vault / "notes" / "note.md"
             image = vault / "assets" / "screen shot.png"
@@ -90,7 +102,7 @@ class ImageResolutionTests(unittest.TestCase):
             self.assertIn("note_relative", result.method)
 
     def test_basename_ambiguity_is_reported_instead_of_guessed(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with temporary_workspace() as temporary:
             vault = Path(temporary) / "vault"
             note = vault / "note.md"
             note.parent.mkdir(parents=True)
@@ -108,7 +120,7 @@ class ImageResolutionTests(unittest.TestCase):
             self.assertEqual(result.sha256, "")
 
     def test_unsafe_external_and_missing_references_are_distinct(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary:
+        with temporary_workspace() as temporary:
             vault = Path(temporary) / "vault"
             vault.mkdir()
             note = vault / "note.md"

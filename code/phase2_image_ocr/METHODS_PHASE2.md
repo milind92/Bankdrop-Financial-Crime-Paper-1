@@ -17,6 +17,8 @@ This phase uses the local Windows OCR engine through Python WinRT packages. Scre
 
 The phase creates image-level and note-level OCR tables, coverage summaries, run metadata, and a checkpoint summary. Raw OCR tables are controlled artifacts and must not be added to GitHub; only aggregate OCR coverage is included here.
 
+Image filenames and relative paths remain in controlled provenance columns and are not inserted into the OCR evidence text passed to Phase 3. This prevents provenance labels from triggering content rules or altering analytic duplicate hashes.
+
 ## Reproduction Command
 
 From the repository root after setting the controlled paths:

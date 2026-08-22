@@ -1,11 +1,13 @@
-## 2026-07-26 ? Corrected human revalidation complete
-
-- Recorded Griffith University Human Ethics Protocol 2025/697.
-- Completed fresh blinded validation against the corrected 980-note corpus: 1,032 paired units, 981 agreements, 51 disagreements, 95.1% agreement, Cohen's kappa .839, and nominal Krippendorff's alpha .839.
-- Recorded joint human consensus for all 51 disagreements: 22 Present and 29 Absent.
-- Retained coder workbooks, evidence, rationales, signatures, and record-level adjudication outside GitHub.
-
 # Changelog
+
+## 1.2.1 - 2026-08-22
+
+- Recorded the completed corrected-corpus validation by Ausma Bernot and Milind Tiwari: 1,032 paired units, 981 agreements, 51 jointly adjudicated disagreements, and no unresolved cases.
+- Regenerated target-level agreement intervals, kappa, binary Gwet AC1, adjudication totals, and file-level provenance metadata from the frozen controlled closeout.
+- Added publication-safe machine-versus-final-human classification performance, including unweighted and sampling-weighted estimates with explicit interpretation limits.
+- Repaired the repository verifier so aggregate and target-level validation checks execute in CI and reject stale schemas or unreconciled totals.
+- Kept OCR filenames and paths out of analytic text, retained zero-count typology categories explicitly, and regenerated Phase 1-4 and derived aggregates. A controlled audit of the 313 frozen evidence packets found that removing 840 legacy provenance labels changed no packet-target classifications and that label-only text triggered no deterministic rule. The rerun changed no validation-sample classifications, no typology-positive counts, and no duplicate-sensitivity denominator.
+- Corrected controlled-rerun commands, stale validation figures, Phase 4 claim boundaries, and the Phase 4 public-export allowlist.
 
 ## 1.2.0 - 2026-07-25
 
@@ -15,7 +17,7 @@
 - Tightened generic lexical and bank-entity patterns and added currency-labelled price extraction, including supported cryptocurrency amount forms.
 - Added provenance-matched OCR cache-only replay for non-Windows environments.
 - Regenerated Phase 1-4 and derived aggregate outputs: 980 screened records and 463 exact-text sensitivity representatives.
-- Withdrew the 23 July human-validation statistics because 14 ineligible internal records contributed 59 paired case-target units; fresh validation is required.
+- Withdrew the 23 July human-validation statistics because 14 ineligible internal records contributed 59 paired case-target units; the replacement validation was subsequently completed and released in 1.2.1.
 
 ## 1.1.0 - 2026-07-25
 
@@ -23,7 +25,7 @@
 - Added target-level human ICR reporting for all 18 assessed targets, including agreement intervals, Cohen’s kappa intervals, binary Gwet AC1 intervals, and aggregate adjudication outcomes.
 - Added data-free tests and repository-verifier reconciliation for all new aggregate outputs.
 - Extended the allowlisted public exporter and workflow manifest without expanding the public data boundary.
-- Clarified that the 479-record exact-text-unique population is a sensitivity denominator, not the final eligible analytic population.
+- Clarified that the then-reported 479-record exact-text-unique population was a sensitivity denominator, not the final eligible analytic population; the corrected 1.2.0 rerun superseded that historical count with 463.
 
 ## 1.0.0 - 2026-07-25
 

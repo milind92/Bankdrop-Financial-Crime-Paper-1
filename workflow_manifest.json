@@ -3,7 +3,7 @@
     "title": "Bankdrop Financial Crime Paper 1",
     "repository": "https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1",
     "repository_visibility": "public",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "repository_purpose": "Privacy-clean transparency and reproducibility support for corrected deterministic Phase 1-4 analysis and publication-safe derived aggregate analyses.",
     "empirical_scope": "Deterministic Phases 1-4 only. No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis is included.",
     "authorship_status": "Final author names, order, affiliations, identifiers, and contribution statements will be supplied by the authors."
@@ -98,6 +98,7 @@
         "outputs/phase4_aggregate/financial_crime_findings.csv",
         "outputs/phase4_aggregate/aml_red_flags_summary.csv",
         "outputs/phase4_aggregate/source_profile_summary.csv",
+        "outputs/phase4_aggregate/phase4_recommendations.csv",
         "outputs/phase4_aggregate/run_metadata.json"
       ]
     }
@@ -113,6 +114,10 @@
     "status": "Corrected eligible-corpus human revalidation completed",
     "completion_date": "2026-07-26",
     "coder_count": 2,
+    "coders": [
+      "Ausma Bernot",
+      "Milind Tiwari"
+    ],
     "coordinator_count": 0,
     "evidence_packet_count": 313,
     "assessed_target_count": 18,
@@ -131,10 +136,14 @@
     "no_consensus_cases": 0,
     "final_present": 22,
     "final_absent": 29,
+    "final_outcomes_scope": "The 22 Present and 29 Absent counts describe the 51 adjudicated disagreements only.",
     "public_status_record": "outputs/human_validation/HUMAN_VALIDATION_STATUS.md",
     "public_aggregate_results": "outputs/human_validation/human_icr_aggregate_summary.csv",
     "public_target_results": "outputs/human_validation/human_icr_by_target.csv",
     "public_target_metadata": "outputs/human_validation/human_icr_target_metadata.json",
+    "public_performance_results": "outputs/human_validation/human_validation_performance.csv",
+    "public_performance_report": "outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md",
+    "public_performance_metadata": "outputs/human_validation/human_validation_performance_metadata.json",
     "ethics_approval": "Griffith University Human Ethics Protocol 2025/697",
     "controlled_records_in_github": false
   },
@@ -156,7 +165,8 @@
       "all-rights-reserved notice",
       "changelog",
       "GitHub Actions integrity checks",
-      "human-validation invalidation and revalidation status"
+      "human-validation invalidation and revalidation status",
+      "machine-versus-final-human classification performance"
     ],
     "explicitly_excluded": [
       "manuscript drafts",
@@ -190,7 +200,10 @@
       "reproducibility/CONTROLLED_RERUN.md",
       "reproducibility/REPOSITORY_INTEGRITY.md",
       "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
-      "outputs/human_validation/HUMAN_VALIDATION_STATUS.md"
+      "outputs/human_validation/HUMAN_VALIDATION_STATUS.md",
+      "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
+      "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
+      "outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md"
     ]
   },
   "ai_authoring_assistance": {

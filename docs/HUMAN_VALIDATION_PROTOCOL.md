@@ -1,4 +1,4 @@
-> **Status update (25 July 2026):** The 23 July human-validation release is withdrawn. Fourteen internal project documents entered the original sample, accounting for 59 paired case-target units. A fresh sample and independent coding from the corrected 980-note corpus are required. See `outputs/human_validation/HUMAN_VALIDATION_STATUS.md`.
+> **Status update (26 July 2026):** The corrected-corpus validation is complete. The earlier 23 July release remains withdrawn because 14 ineligible internal project documents contributed 59 paired case-target units. Ausma Bernot and Milind Tiwari independently coded the fresh sample drawn from the corrected 980-note corpus and jointly adjudicated every disagreement. See `outputs/human_validation/HUMAN_VALIDATION_STATUS.md`.
 
 # Human Validation Protocol
 
@@ -12,26 +12,28 @@ The empirical validation pathway is no-LLM. No LLM output may be shown to coders
 
 The blinded human ICR and post-ICR adjudication stages were completed on 26 July 2026.
 
-- Coders: Ausma and Milind.
+- Coders: Ausma Bernot and Milind Tiwari.
 - Coordinator: none.
-- Independent coding: 1,032 paired case-target units across 351 evidence packets and 18 assessed targets.
+- Independent coding: 1,032 paired case-target units across 313 evidence packets and 18 assessed targets.
 - Permitted decisions: Present, Absent, Ambiguous, Insufficient evidence, and Out of scope record.
 - Independence: each researcher confirmed that the submitted answers were their own independent human judgements.
 - Locking: both completed workbooks were frozen before comparison and discussion.
 - Pre-adjudication result: 981 exact agreements, 51 disagreements, 95.1% exact agreement, Cohen's kappa 0.839, and nominal Krippendorff's alpha 0.839.
-- Binary sensitivity subset: 841 Present/Absent pairs, 96.6% agreement, and kappa 0.930; other categories were excluded, not recoded.
+- Binary sensitivity subset: 998 Present/Absent pairs, 98.1% agreement, and kappa 0.933; other categories were excluded, not recoded.
 - Adjudication: Ausma and Milind jointly reviewed all 51 disagreements after ICR was frozen and reached consensus in every case.
-- Final disagreement outcomes: 30 Ambiguous, 16 Absent, and 13 Present; zero pending, deferred, or no-consensus cases.
+- Final disagreement outcomes: 22 Present and 29 Absent; zero Ambiguous, Insufficient evidence, Out of scope record, pending, deferred, or no-consensus cases.
 
 The preferred generic role separation below was not fully used: there was no coordinator or independent third adjudicator. The same two researchers jointly adjudicated after their independent workbooks and pre-adjudication metrics were frozen. Because all 51 disagreements reached consensus, a third coder was not invoked. This role overlap must be disclosed as a design limitation; it does not alter the frozen ICR calculation.
 
-The publication-safe completion record is `outputs/human_validation/HUMAN_ICR_COMPLETION.md`. Target-level agreement intervals, reliability coefficients, and aggregate adjudication outcomes are reported in `outputs/human_validation/HUMAN_ICR_BY_TARGET.md` and `human_icr_by_target.csv`. Coder-level decisions, evidence packets, rationales, adjudication rows, signatures, and hashes remain outside GitHub under controlled governance.
+A controlled post-closeout audit on 22 August 2026 found that the frozen evidence-packet text retained 840 legacy `[OCR: relative-path]` provenance labels across the 313 packets. The labels did not reveal deterministic predictions. Label-only text produced no Phase 3 typology or AML-rule hits, and removing every label changed zero packet-target deterministic classifications. Each coder had 114 positive rationales that referenced screenshot evidence; every one retained substantive non-path rationale after the provenance tokens were removed. The frozen human decisions and reliability statistics were therefore not recomputed. This aggregate audit cannot prove that visible provenance had zero cognitive influence, so the legacy label exposure should be disclosed if the target journal requires strict evidence-provenance masking.
 
-ICR quantifies consistency between coders within the validation design. It does not, by itself, establish corpus prevalence, construct validity, or the sensitivity, specificity, positive predictive value, or negative predictive value of the deterministic rules.
+The publication-safe completion record is `outputs/human_validation/HUMAN_ICR_COMPLETION.md`. Target-level agreement intervals, reliability coefficients, and aggregate adjudication outcomes are reported in `outputs/human_validation/HUMAN_ICR_BY_TARGET.md` and `human_icr_by_target.csv`. Machine-versus-final-human classification performance is reported separately in `HUMAN_VALIDATION_PERFORMANCE.md` and `human_validation_performance.csv`. Coder-level decisions, evidence packets, rationales, adjudication rows, signatures, and record identifiers remain outside GitHub under controlled governance.
+
+ICR quantifies consistency between coders within the validation design. It does not, by itself, establish corpus prevalence or construct validity. The separate classification-performance output reports sample-specific and sampling-weighted sensitivity, specificity, predictive values, accuracy, and their stated uncertainty limits; it does not establish external-market prevalence or transaction truth.
 
 ## Validation Objectives
 
-Human validation will assess:
+The completed human-validation exercise assessed:
 
 1. whether each deterministic typology assignment represents the construct defined in the locked codebook;
 2. whether eligible deterministic-negative records contain missed instances;
@@ -81,7 +83,7 @@ Collection barriers must be validated as data-quality states, not presented as c
 | Statistical analyst | Runs the aggregate validation tool and interprets its limits. Produces a separate design-based analysis when clustering, finite-population corrections, or estimated weights matter. |
 | AML domain reviewer | Separately evaluates the interpretation and practical boundaries of AML candidates; does not convert observed text into transaction-monitoring claims without external evidence. |
 
-**AUTHOR CONFIRMATION REQUIRED:** Record coder identities or coded identifiers, relevant training and domain expertise, prior involvement in codebook development, conflicts of interest, adjudicator, statistical analyst, and AML reviewer. Disclose when one person holds multiple roles.
+Coder identities are confirmed as Ausma Bernot and Milind Tiwari. **AUTHOR CONFIRMATION REQUIRED:** Record their relevant training and domain expertise, prior involvement in codebook development, conflicts of interest, statistical-analyst role, and the separate AML reviewer. Disclose when one person holds multiple roles.
 
 ## Blinding
 
@@ -131,7 +133,7 @@ Sampling should oversample rare deterministic positives and difficult strata whi
 
 ### Sample Size
 
-Sample size must be chosen before holdout review from a claim-specific precision target. The plan must state:
+The prospective protocol required sample size to be chosen before holdout review from a claim-specific precision target. The plan was expected to state:
 
 - the parameter to be estimated, such as positive predictive value, sensitivity, or agreement;
 - the anticipated value or conservative assumption;
@@ -142,7 +144,7 @@ Sample size must be chosen before holdout review from a claim-specific precision
 
 A sample of 15 predicted positives and 5 predicted negatives per code is not, by itself, sufficient justification. For illustration, even 15 correct decisions out of 15 yield a lower 95% Wilson bound of approximately 0.80, and 5 out of 5 yield a lower bound of approximately 0.57.
 
-**AUTHOR DECISION REQUIRED BEFORE HOLDOUT:** Approve the target interval width and minimum acceptable performance for each claim type. Record the resulting per-stratum sample sizes and any feasibility-driven compromises.
+**RETROSPECTIVE AUTHOR DISCLOSURE REQUIRED:** Confirm whether a contemporaneous target interval width, minimum acceptable performance, per-stratum sample-size rationale, and feasibility-deviation record existed before coding. If no such locked record exists, describe the performance analysis as descriptive and do not represent its thresholds as prespecified.
 
 ## Evidence Packet
 
@@ -262,7 +264,7 @@ The following rules apply regardless of numerical performance:
 8. An AML interpretation rejected by domain review must not appear as an AML implication.
 9. Any post hoc threshold, code change, exclusion, or regrouping must be disclosed and may not be presented as prespecified.
 
-Before the holdout, authors must approve a claim-to-threshold register specifying the minimum reliability and classification performance needed for each planned claim. If no threshold is prespecified, the result must remain descriptive and accompanied by its full uncertainty rather than being labelled "validated".
+The prospective protocol required a pre-holdout claim-to-threshold register specifying the minimum reliability and classification performance for each planned claim. Authors must confirm whether that contemporaneous register exists. If it does not, the results must remain descriptive, be accompanied by their full uncertainty, and not be labelled as having passed a prespecified validation threshold.
 
 ## Executable Aggregate Analysis
 
@@ -304,7 +306,10 @@ python code/human_validation/summarize_human_validation.py `
   --coder-2 controlled/coder_2.csv `
   --adjudication controlled/adjudication.csv `
   --output-csv reviewer_safe/human_validation_aggregates.csv `
-  --output-markdown reviewer_safe/human_validation_aggregates.md
+  --output-markdown reviewer_safe/human_validation_aggregates.md `
+  --output-metadata reviewer_safe/human_validation_performance_metadata.json `
+  --coder-1-label "Ausma Bernot" `
+  --coder-2-label "Milind Tiwari"
 ```
 
 Without `--adjudication`, a final decision is created only when both
@@ -353,4 +358,4 @@ The controlled archive should retain:
 - AML expert-review record;
 - validation deviations and author sign-off.
 
-The public or reviewer-safe repository should contain only aggregate validation results, methods, codebook changes, and privacy-clean reporting approved under the controlled-access policy.
+The public or reviewer-safe repository should contain only aggregate validation results, methods, codebook changes, file-level provenance hashes, and privacy-clean reporting approved under the controlled-access policy. This repository includes the completed target-level reliability and machine-versus-human performance aggregates; AML expert-review and claim-threshold records remain separate author-level requirements.

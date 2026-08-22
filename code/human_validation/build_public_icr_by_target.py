@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Callable, Mapping, Sequence
 
 
-SCRIPT_VERSION = "1.0.0"
+SCRIPT_VERSION = "1.1.0"
 BOOTSTRAP_REPLICATES = 1000
 CATEGORIES = (
     "Present",
@@ -80,6 +80,12 @@ def as_float(value: object, label: str) -> float:
     if not math.isfinite(result):
         raise PublicICRError(f"{label} is not finite")
     return result
+
+
+def as_optional_float(value: object, label: str) -> float | None:
+    if value is None or str(value).strip() == "":
+        return None
+    return as_float(value, label)
 
 
 def sha256_file(path: Path) -> str:
@@ -307,12 +313,12 @@ def build_rows(
                 "agreement_ci95_low_percent": round(100 * agreement_low, 3),
                 "agreement_ci95_high_percent": round(100 * agreement_high, 3),
                 "cohen_kappa": rounded(
-                    as_float(source.get("cohen_kappa"), f"{code}.cohen_kappa")
+                    as_optional_float(source.get("cohen_kappa"), f"{code}.cohen_kappa")
                 ),
                 "cohen_kappa_bootstrap_ci95_low": rounded(kappa_low),
                 "cohen_kappa_bootstrap_ci95_high": rounded(kappa_high),
                 "krippendorff_alpha_nominal": rounded(
-                    as_float(
+                    as_optional_float(
                         source.get("krippendorff_alpha_nominal"),
                         f"{code}.krippendorff_alpha_nominal",
                     )
@@ -325,7 +331,7 @@ def build_rows(
                 if binary_pairs
                 else "",
                 "binary_subset_cohen_kappa": rounded(
-                    as_float(
+                    as_optional_float(
                         source.get("binary_cohen_kappa"),
                         f"{code}.binary_cohen_kappa",
                     )
@@ -349,8 +355,16 @@ def write_csv(path: Path, rows: Sequence[Mapping[str, object]]) -> None:
         writer.writerows(rows)
 
 
+def metric(value: object, digits: int = 3) -> str:
+    if value is None or str(value).strip() == "":
+        return "NA"
+    return f"{float(value):.{digits}f}"
+
+
 def interval(low: object, high: object) -> str:
-    return f"{float(low):.3f}–{float(high):.3f}"
+    if low is None or high is None or not str(low).strip() or not str(high).strip():
+        return "NA"
+    return f"{float(low):.3f}-{float(high):.3f}"
 
 
 def render_markdown(
@@ -368,7 +382,7 @@ def render_markdown(
     for row in rows:
         table_rows.append(
             "| {code} | {n} | {agreement:.1f}% ({agreement_ci}) | "
-            "{kappa:.3f} ({kappa_ci}) | {ac1:.3f} ({ac1_ci}) | {adjudicated} | "
+            "{kappa} ({kappa_ci}) | {ac1} ({ac1_ci}) | {adjudicated} | "
             "{present}/{absent}/{ambiguous}/{insufficient}/{out_scope} |".format(
                 code=row["code"],
                 n=int(row["paired_units"]),
@@ -377,12 +391,12 @@ def render_markdown(
                     row["agreement_ci95_low_percent"],
                     row["agreement_ci95_high_percent"],
                 ),
-                kappa=float(row["cohen_kappa"]),
+                kappa=metric(row["cohen_kappa"]),
                 kappa_ci=interval(
                     row["cohen_kappa_bootstrap_ci95_low"],
                     row["cohen_kappa_bootstrap_ci95_high"],
                 ),
-                ac1=float(row["binary_subset_gwet_ac1"]),
+                ac1=metric(row["binary_subset_gwet_ac1"]),
                 ac1_ci=interval(
                     row["binary_subset_gwet_ac1_bootstrap_ci95_low"],
                     row["binary_subset_gwet_ac1_bootstrap_ci95_high"],
@@ -396,21 +410,22 @@ def render_markdown(
             )
         )
 
+    disagreement_count = sum(int(row["adjudicated_disagreements"]) for row in rows)
     return (
         "# Human ICR Results by Target\n\n"
-        "- Independent human coders: Ausma and Milind\n"
+        "- Independent human coders: Ausma Bernot and Milind Tiwari\n"
         "- Coordinator: none\n"
         "Independent coding was frozen before disagreement review.\n\n"
         "## Overall frozen result\n\n"
         f"- Paired case-target units: {int(full['n']):,}\n"
         f"- Exact agreement: {float(full['agreement_percent']):.1f}%\n"
-        f"- Cohen's kappa: {float(full['cohen_kappa']):.3f}\n"
+        f"- Cohen's kappa: {metric(full.get('cohen_kappa'))}\n"
         f"- Nominal Krippendorff's alpha: "
-        f"{float(full['krippendorff_alpha_nominal']):.3f}\n"
+        f"{metric(full.get('krippendorff_alpha_nominal'))}\n"
         f"- Present/Absent subset: {int(binary['n']):,} units; "
         f"{float(binary['agreement_percent']):.1f}% agreement; "
-        f"kappa {float(binary['cohen_kappa']):.3f}\n"
-        "- All 59 frozen disagreements were adjudicated jointly after the "
+        f"kappa {metric(binary.get('cohen_kappa'))}\n"
+        f"- All {disagreement_count} frozen disagreements were adjudicated jointly after the "
         "reliability calculation; consensus decisions did not replace the "
         "independent coder responses.\n\n"
         "## Publication-safe target-level results\n\n"

@@ -118,11 +118,17 @@ class HumanValidationTests(unittest.TestCase):
             )
         )
         overall = rows[0]
+        self.assertIn("sample_case_target_units_n", overall)
+        self.assertNotIn("sample_records_n", overall)
         self.assertEqual(overall["agreement_rate"], "1.000000")
+        self.assertTrue(overall["agreement_ci95_low"])
+        self.assertTrue(overall["agreement_ci95_high"])
         self.assertEqual(overall["cohen_kappa"], "1.000000")
         self.assertEqual((overall["tp"], overall["fp"], overall["tn"], overall["fn"]), ("2", "0", "2", "0"))
         self.assertEqual(overall["accuracy"], "1.000000")
         self.assertIn("cannot estimate corpus prevalence", markdown)
+        self.assertIn("pools heterogeneous case-target units", markdown)
+        self.assertNotIn("22 Present", markdown)
 
     def test_disagreement_uses_adjudicated_decisions(self):
         rows, _, _ = self.run_summary(

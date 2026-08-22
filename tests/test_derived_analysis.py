@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import importlib.util
 import sys
 import unittest
@@ -18,6 +19,71 @@ SPEC.loader.exec_module(derived)
 
 
 class DerivedAnalysisTests(unittest.TestCase):
+    def test_zero_positive_codes_remain_in_the_analysis(self) -> None:
+        rows = [
+            {
+                "note_id": "n1",
+                "code": "bank_log_sale",
+                "label": "Bank log",
+                "present": "1",
+            },
+            {
+                "note_id": "n1",
+                "code": "vulnerable_group_exploitation",
+                "label": "Vulnerable group exploitation",
+                "present": "0",
+            },
+        ]
+        presence, labels = derived.build_presence(rows, code_field="code")
+        self.assertEqual(presence["bank_log_sale"], {"n1"})
+        self.assertEqual(presence["vulnerable_group_exploitation"], set())
+        self.assertIn("vulnerable_group_exploitation", labels)
+
+    def test_committed_phase3_summary_retains_zero_count_codes(self) -> None:
+        path = ROOT / "outputs" / "phase3_aggregate" / "typology_summary.csv"
+        with path.open("r", encoding="utf-8-sig", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+        vulnerable = next(
+            row for row in rows if row["code"] == "vulnerable_group_exploitation"
+        )
+        self.assertEqual(vulnerable["note_count"], "0")
+        self.assertEqual(vulnerable["hit_count"], "0")
+
+    def test_phase4_zero_match_source_profile_is_explicit(self) -> None:
+        path = ROOT / "outputs" / "phase4_aggregate" / "source_profile_summary.csv"
+        with path.open("r", encoding="utf-8-sig", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+        no_match = next(row for row in rows if row["source"] == "13. Bank Logs")
+        self.assertEqual(no_match["dominant_typology"], "none")
+        self.assertEqual(no_match["dominant_typology_notes"], "0")
+        self.assertIn("no rule-positive", no_match["top_typologies"])
+
+    def test_phase4_outputs_recognise_completed_validation(self) -> None:
+        report = (
+            ROOT / "outputs" / "phase4_aggregate" / "FINANCIAL_CRIME_ANALYSIS_REPORT.md"
+        ).read_text(encoding="utf-8-sig")
+        recommendations = (
+            ROOT / "outputs" / "phase4_aggregate" / "phase4_recommendations.csv"
+        ).read_text(encoding="utf-8-sig")
+        self.assertNotIn("draw a stratified validation sample", report)
+        self.assertIn("completed human-validation performance", report)
+        self.assertIn("No explicit deterministic match", recommendations)
+
+    def test_phase_reports_separate_typologies_from_collection_quality(self) -> None:
+        phase3 = (
+            ROOT / "outputs" / "phase3_aggregate" / "PHASE3_ANALYTIC_OVERVIEW.md"
+        ).read_text(encoding="utf-8-sig")
+        phase4 = (
+            ROOT / "outputs" / "phase4_aggregate" / "FINANCIAL_CRIME_ANALYSIS_REPORT.md"
+        ).read_text(encoding="utf-8-sig")
+        self.assertIn("Substantive typology codes: 12", phase3)
+        self.assertIn("Collection-quality flags: 1", phase3)
+        top_typologies = phase3.split("## Top Typologies", 1)[1].split(
+            "## Collection-Quality Flags", 1
+        )[0]
+        self.assertNotIn("market_access_limitation", top_typologies)
+        self.assertIn("12 substantive typologies and 1 collection-quality flag", phase4)
+
     def test_fixture_builds_reconciled_aggregate_statistics(self) -> None:
         corpus = [
             {"note_id": "n1", "source": "s1", "combined_word_count": "3", "combined_text_sha256": "h1", "markdown_present": "1", "ocr_present": "0"},

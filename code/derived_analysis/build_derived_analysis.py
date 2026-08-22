@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Iterable, Mapping, Sequence
 
 
-SCRIPT_VERSION = "1.0.0"
+SCRIPT_VERSION = "1.1.0"
 DATA_QUALITY_CODES = frozenset({"market_access_limitation"})
 POPULATION_LABELS = {
     "full_screened": "All combined records evaluated by the deterministic screen",
@@ -198,6 +198,7 @@ def build_presence(
         if code in excluded:
             continue
         labels[code] = row[label_field]
+        present.setdefault(code, set())
         if row["present"] == "1":
             present[code].add(row["note_id"])
     return dict(present), labels

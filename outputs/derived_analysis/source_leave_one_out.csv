@@ -10,6 +10,7 @@ full_screened,All combined records evaluated by the deterministic screen,1. Drea
 full_screened,All combined records evaluated by the deterministic screen,1. Dread,mule_recruitment,Mule recruitment or account-holder solicitation,911,7,0.768,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,1. Dread,telegram_off_platform,Telegram or private-channel coordination reference,911,69,7.574,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,1. Dread,tutorial_training_recruitment,"Tutorial, guide, or training content",911,87,9.55,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,1. Dread,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,911,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,10. Tor Shop,bank_drop_sale,Bank drop sale or bank-drop infrastructure,887,84,9.47,7,8,1
 full_screened,All combined records evaluated by the deterministic screen,10. Tor Shop,bank_log_sale,Compromised bank log sale or discussion,887,149,16.798,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,10. Tor Shop,cashout_laundering_service,Cash-out or laundering service,887,109,12.289,5,4,-1
@@ -21,6 +22,7 @@ full_screened,All combined records evaluated by the deterministic screen,10. Tor
 full_screened,All combined records evaluated by the deterministic screen,10. Tor Shop,mule_recruitment,Mule recruitment or account-holder solicitation,887,9,1.015,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,10. Tor Shop,telegram_off_platform,Telegram or private-channel coordination reference,887,82,9.245,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,10. Tor Shop,tutorial_training_recruitment,"Tutorial, guide, or training content",887,92,10.372,8,7,-1
+full_screened,All combined records evaluated by the deterministic screen,10. Tor Shop,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,887,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,11. Legit Market,bank_drop_sale,Bank drop sale or bank-drop infrastructure,892,105,11.771,7,5,-2
 full_screened,All combined records evaluated by the deterministic screen,11. Legit Market,bank_log_sale,Compromised bank log sale or discussion,892,163,18.274,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,11. Legit Market,cashout_laundering_service,Cash-out or laundering service,892,115,12.892,5,4,-1
@@ -32,6 +34,7 @@ full_screened,All combined records evaluated by the deterministic screen,11. Leg
 full_screened,All combined records evaluated by the deterministic screen,11. Legit Market,mule_recruitment,Mule recruitment or account-holder solicitation,892,9,1.009,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,11. Legit Market,telegram_off_platform,Telegram or private-channel coordination reference,892,81,9.081,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,11. Legit Market,tutorial_training_recruitment,"Tutorial, guide, or training content",892,101,11.323,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,11. Legit Market,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,892,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,12. TORCH Tor Search,bank_drop_sale,Bank drop sale or bank-drop infrastructure,922,114,12.364,7,7,0
 full_screened,All combined records evaluated by the deterministic screen,12. TORCH Tor Search,bank_log_sale,Compromised bank log sale or discussion,922,176,19.089,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,12. TORCH Tor Search,cashout_laundering_service,Cash-out or laundering service,922,118,12.798,5,5,0
@@ -43,6 +46,7 @@ full_screened,All combined records evaluated by the deterministic screen,12. TOR
 full_screened,All combined records evaluated by the deterministic screen,12. TORCH Tor Search,mule_recruitment,Mule recruitment or account-holder solicitation,922,9,0.976,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,12. TORCH Tor Search,telegram_off_platform,Telegram or private-channel coordination reference,922,82,8.894,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,12. TORCH Tor Search,tutorial_training_recruitment,"Tutorial, guide, or training content",922,104,11.28,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,12. TORCH Tor Search,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,922,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,13. Bank Logs,bank_drop_sale,Bank drop sale or bank-drop infrastructure,979,116,11.849,7,7,0
 full_screened,All combined records evaluated by the deterministic screen,13. Bank Logs,bank_log_sale,Compromised bank log sale or discussion,979,178,18.182,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,13. Bank Logs,cashout_laundering_service,Cash-out or laundering service,979,118,12.053,5,5,0
@@ -54,6 +58,7 @@ full_screened,All combined records evaluated by the deterministic screen,13. Ban
 full_screened,All combined records evaluated by the deterministic screen,13. Bank Logs,mule_recruitment,Mule recruitment or account-holder solicitation,979,9,0.919,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,13. Bank Logs,telegram_off_platform,Telegram or private-channel coordination reference,979,82,8.376,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,13. Bank Logs,tutorial_training_recruitment,"Tutorial, guide, or training content",979,104,10.623,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,13. Bank Logs,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,979,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,14. Lonely Road,bank_drop_sale,Bank drop sale or bank-drop infrastructure,976,116,11.885,7,6,-1
 full_screened,All combined records evaluated by the deterministic screen,14. Lonely Road,bank_log_sale,Compromised bank log sale or discussion,976,177,18.135,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,14. Lonely Road,cashout_laundering_service,Cash-out or laundering service,976,118,12.09,5,5,0
@@ -65,6 +70,7 @@ full_screened,All combined records evaluated by the deterministic screen,14. Lon
 full_screened,All combined records evaluated by the deterministic screen,14. Lonely Road,mule_recruitment,Mule recruitment or account-holder solicitation,976,9,0.922,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,14. Lonely Road,telegram_off_platform,Telegram or private-channel coordination reference,976,82,8.402,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,14. Lonely Road,tutorial_training_recruitment,"Tutorial, guide, or training content",976,104,10.656,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,14. Lonely Road,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,976,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,15. Tenebris,bank_drop_sale,Bank drop sale or bank-drop infrastructure,972,115,11.831,7,6,-1
 full_screened,All combined records evaluated by the deterministic screen,15. Tenebris,bank_log_sale,Compromised bank log sale or discussion,972,175,18.004,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,15. Tenebris,cashout_laundering_service,Cash-out or laundering service,972,115,11.831,5,7,2
@@ -76,6 +82,7 @@ full_screened,All combined records evaluated by the deterministic screen,15. Ten
 full_screened,All combined records evaluated by the deterministic screen,15. Tenebris,mule_recruitment,Mule recruitment or account-holder solicitation,972,9,0.926,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,15. Tenebris,telegram_off_platform,Telegram or private-channel coordination reference,972,78,8.025,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,15. Tenebris,tutorial_training_recruitment,"Tutorial, guide, or training content",972,101,10.391,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,15. Tenebris,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,972,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,17. XmrBazaar,bank_drop_sale,Bank drop sale or bank-drop infrastructure,974,115,11.807,7,7,0
 full_screened,All combined records evaluated by the deterministic screen,17. XmrBazaar,bank_log_sale,Compromised bank log sale or discussion,974,178,18.275,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,17. XmrBazaar,cashout_laundering_service,Cash-out or laundering service,974,118,12.115,5,5,0
@@ -87,6 +94,7 @@ full_screened,All combined records evaluated by the deterministic screen,17. Xmr
 full_screened,All combined records evaluated by the deterministic screen,17. XmrBazaar,mule_recruitment,Mule recruitment or account-holder solicitation,974,9,0.924,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,17. XmrBazaar,telegram_off_platform,Telegram or private-channel coordination reference,974,82,8.419,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,17. XmrBazaar,tutorial_training_recruitment,"Tutorial, guide, or training content",974,103,10.575,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,17. XmrBazaar,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,974,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,2. Altenen,bank_drop_sale,Bank drop sale or bank-drop infrastructure,908,114,12.555,7,4,-3
 full_screened,All combined records evaluated by the deterministic screen,2. Altenen,bank_log_sale,Compromised bank log sale or discussion,908,163,17.952,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,2. Altenen,cashout_laundering_service,Cash-out or laundering service,908,109,12.004,5,6,1
@@ -98,6 +106,7 @@ full_screened,All combined records evaluated by the deterministic screen,2. Alte
 full_screened,All combined records evaluated by the deterministic screen,2. Altenen,mule_recruitment,Mule recruitment or account-holder solicitation,908,6,0.661,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,2. Altenen,telegram_off_platform,Telegram or private-channel coordination reference,908,64,7.048,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,2. Altenen,tutorial_training_recruitment,"Tutorial, guide, or training content",908,85,9.361,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,2. Altenen,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,908,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,3. Pitch,bank_drop_sale,Bank drop sale or bank-drop infrastructure,890,104,11.685,7,5,-2
 full_screened,All combined records evaluated by the deterministic screen,3. Pitch,bank_log_sale,Compromised bank log sale or discussion,890,163,18.315,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,3. Pitch,cashout_laundering_service,Cash-out or laundering service,890,106,11.91,5,4,-1
@@ -109,6 +118,7 @@ full_screened,All combined records evaluated by the deterministic screen,3. Pitc
 full_screened,All combined records evaluated by the deterministic screen,3. Pitch,mule_recruitment,Mule recruitment or account-holder solicitation,890,6,0.674,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,3. Pitch,telegram_off_platform,Telegram or private-channel coordination reference,890,62,6.966,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,3. Pitch,tutorial_training_recruitment,"Tutorial, guide, or training content",890,84,9.438,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,3. Pitch,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,890,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,4. Caders Heven,bank_drop_sale,Bank drop sale or bank-drop infrastructure,903,110,12.182,7,5,-2
 full_screened,All combined records evaluated by the deterministic screen,4. Caders Heven,bank_log_sale,Compromised bank log sale or discussion,903,150,16.611,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,4. Caders Heven,cashout_laundering_service,Cash-out or laundering service,903,96,10.631,5,8,3
@@ -120,6 +130,7 @@ full_screened,All combined records evaluated by the deterministic screen,4. Cade
 full_screened,All combined records evaluated by the deterministic screen,4. Caders Heven,mule_recruitment,Mule recruitment or account-holder solicitation,903,9,0.997,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,4. Caders Heven,telegram_off_platform,Telegram or private-channel coordination reference,903,82,9.081,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,4. Caders Heven,tutorial_training_recruitment,"Tutorial, guide, or training content",903,102,11.296,8,7,-1
+full_screened,All combined records evaluated by the deterministic screen,4. Caders Heven,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,903,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,5. CardPro,bank_drop_sale,Bank drop sale or bank-drop infrastructure,889,110,12.373,7,5,-2
 full_screened,All combined records evaluated by the deterministic screen,5. CardPro,bank_log_sale,Compromised bank log sale or discussion,889,176,19.798,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,5. CardPro,cashout_laundering_service,Cash-out or laundering service,889,86,9.674,5,8,3
@@ -131,6 +142,7 @@ full_screened,All combined records evaluated by the deterministic screen,5. Card
 full_screened,All combined records evaluated by the deterministic screen,5. CardPro,mule_recruitment,Mule recruitment or account-holder solicitation,889,8,0.9,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,5. CardPro,telegram_off_platform,Telegram or private-channel coordination reference,889,60,6.749,9,10,1
 full_screened,All combined records evaluated by the deterministic screen,5. CardPro,tutorial_training_recruitment,"Tutorial, guide, or training content",889,101,11.361,8,7,-1
+full_screened,All combined records evaluated by the deterministic screen,5. CardPro,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,889,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,6. The X Wave Market,bank_drop_sale,Bank drop sale or bank-drop infrastructure,890,107,12.022,7,5,-2
 full_screened,All combined records evaluated by the deterministic screen,6. The X Wave Market,bank_log_sale,Compromised bank log sale or discussion,890,173,19.438,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,6. The X Wave Market,cashout_laundering_service,Cash-out or laundering service,890,108,12.135,5,4,-1
@@ -142,6 +154,7 @@ full_screened,All combined records evaluated by the deterministic screen,6. The 
 full_screened,All combined records evaluated by the deterministic screen,6. The X Wave Market,mule_recruitment,Mule recruitment or account-holder solicitation,890,9,1.011,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,6. The X Wave Market,telegram_off_platform,Telegram or private-channel coordination reference,890,82,9.213,9,8,-1
 full_screened,All combined records evaluated by the deterministic screen,6. The X Wave Market,tutorial_training_recruitment,"Tutorial, guide, or training content",890,94,10.562,8,7,-1
+full_screened,All combined records evaluated by the deterministic screen,6. The X Wave Market,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,890,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,7. Meta Banklogs,bank_drop_sale,Bank drop sale or bank-drop infrastructure,888,102,11.486,7,6,-1
 full_screened,All combined records evaluated by the deterministic screen,7. Meta Banklogs,bank_log_sale,Compromised bank log sale or discussion,888,149,16.779,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,7. Meta Banklogs,cashout_laundering_service,Cash-out or laundering service,888,114,12.838,5,4,-1
@@ -153,6 +166,7 @@ full_screened,All combined records evaluated by the deterministic screen,7. Meta
 full_screened,All combined records evaluated by the deterministic screen,7. Meta Banklogs,mule_recruitment,Mule recruitment or account-holder solicitation,888,9,1.014,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,7. Meta Banklogs,telegram_off_platform,Telegram or private-channel coordination reference,888,80,9.009,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,7. Meta Banklogs,tutorial_training_recruitment,"Tutorial, guide, or training content",888,98,11.036,8,7,-1
+full_screened,All combined records evaluated by the deterministic screen,7. Meta Banklogs,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,888,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,8. Secure ccSeller,bank_drop_sale,Bank drop sale or bank-drop infrastructure,886,115,12.98,7,6,-1
 full_screened,All combined records evaluated by the deterministic screen,8. Secure ccSeller,bank_log_sale,Compromised bank log sale or discussion,886,174,19.639,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,8. Secure ccSeller,cashout_laundering_service,Cash-out or laundering service,886,118,13.318,5,4,-1
@@ -164,6 +178,7 @@ full_screened,All combined records evaluated by the deterministic screen,8. Secu
 full_screened,All combined records evaluated by the deterministic screen,8. Secure ccSeller,mule_recruitment,Mule recruitment or account-holder solicitation,886,9,1.016,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,8. Secure ccSeller,telegram_off_platform,Telegram or private-channel coordination reference,886,82,9.255,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,8. Secure ccSeller,tutorial_training_recruitment,"Tutorial, guide, or training content",886,100,11.287,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,8. Secure ccSeller,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,886,0,0.0,12,12,0
 full_screened,All combined records evaluated by the deterministic screen,9. Deep Shop,bank_drop_sale,Bank drop sale or bank-drop infrastructure,933,116,12.433,7,4,-3
 full_screened,All combined records evaluated by the deterministic screen,9. Deep Shop,bank_log_sale,Compromised bank log sale or discussion,933,163,17.471,1,1,0
 full_screened,All combined records evaluated by the deterministic screen,9. Deep Shop,cashout_laundering_service,Cash-out or laundering service,933,114,12.219,5,6,1
@@ -175,6 +190,7 @@ full_screened,All combined records evaluated by the deterministic screen,9. Deep
 full_screened,All combined records evaluated by the deterministic screen,9. Deep Shop,mule_recruitment,Mule recruitment or account-holder solicitation,933,9,0.965,11,11,0
 full_screened,All combined records evaluated by the deterministic screen,9. Deep Shop,telegram_off_platform,Telegram or private-channel coordination reference,933,80,8.574,9,9,0
 full_screened,All combined records evaluated by the deterministic screen,9. Deep Shop,tutorial_training_recruitment,"Tutorial, guide, or training content",933,100,10.718,8,8,0
+full_screened,All combined records evaluated by the deterministic screen,9. Deep Shop,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,933,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,1. Dread,bank_drop_sale,Bank drop sale or bank-drop infrastructure,415,97,23.373,6,7,1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,1. Dread,bank_log_sale,Compromised bank log sale or discussion,415,162,39.036,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,1. Dread,cashout_laundering_service,Cash-out or laundering service,415,108,26.024,5,4,-1
@@ -186,6 +202,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,1. Dread,mule_recruitment,Mule recruitment or account-holder solicitation,415,7,1.687,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,1. Dread,telegram_off_platform,Telegram or private-channel coordination reference,415,68,16.386,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,1. Dread,tutorial_training_recruitment,"Tutorial, guide, or training content",415,87,20.964,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,1. Dread,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,415,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,10. Tor Shop,bank_drop_sale,Bank drop sale or bank-drop infrastructure,413,84,20.339,6,8,2
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,10. Tor Shop,bank_log_sale,Compromised bank log sale or discussion,413,148,35.835,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,10. Tor Shop,cashout_laundering_service,Cash-out or laundering service,413,109,26.392,5,4,-1
@@ -197,6 +214,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,10. Tor Shop,mule_recruitment,Mule recruitment or account-holder solicitation,413,9,2.179,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,10. Tor Shop,telegram_off_platform,Telegram or private-channel coordination reference,413,81,19.613,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,10. Tor Shop,tutorial_training_recruitment,"Tutorial, guide, or training content",413,92,22.276,8,7,-1
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,10. Tor Shop,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,413,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,11. Legit Market,bank_drop_sale,Bank drop sale or bank-drop infrastructure,432,105,24.306,6,5,-1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,11. Legit Market,bank_log_sale,Compromised bank log sale or discussion,432,162,37.5,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,11. Legit Market,cashout_laundering_service,Cash-out or laundering service,432,115,26.62,5,4,-1
@@ -208,6 +226,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,11. Legit Market,mule_recruitment,Mule recruitment or account-holder solicitation,432,9,2.083,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,11. Legit Market,telegram_off_platform,Telegram or private-channel coordination reference,432,80,18.519,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,11. Legit Market,tutorial_training_recruitment,"Tutorial, guide, or training content",432,101,23.38,8,7,-1
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,11. Legit Market,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,432,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,12. TORCH Tor Search,bank_drop_sale,Bank drop sale or bank-drop infrastructure,457,114,24.945,6,7,1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,12. TORCH Tor Search,bank_log_sale,Compromised bank log sale or discussion,457,175,38.293,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,12. TORCH Tor Search,cashout_laundering_service,Cash-out or laundering service,457,118,25.821,5,5,0
@@ -219,6 +238,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,12. TORCH Tor Search,mule_recruitment,Mule recruitment or account-holder solicitation,457,9,1.969,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,12. TORCH Tor Search,telegram_off_platform,Telegram or private-channel coordination reference,457,81,17.724,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,12. TORCH Tor Search,tutorial_training_recruitment,"Tutorial, guide, or training content",457,104,22.757,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,12. TORCH Tor Search,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,457,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,13. Bank Logs,bank_drop_sale,Bank drop sale or bank-drop infrastructure,462,116,25.108,6,6,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,13. Bank Logs,bank_log_sale,Compromised bank log sale or discussion,462,177,38.312,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,13. Bank Logs,cashout_laundering_service,Cash-out or laundering service,462,118,25.541,5,5,0
@@ -230,6 +250,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,13. Bank Logs,mule_recruitment,Mule recruitment or account-holder solicitation,462,9,1.948,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,13. Bank Logs,telegram_off_platform,Telegram or private-channel coordination reference,462,81,17.532,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,13. Bank Logs,tutorial_training_recruitment,"Tutorial, guide, or training content",462,104,22.511,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,13. Bank Logs,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,462,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,14. Lonely Road,bank_drop_sale,Bank drop sale or bank-drop infrastructure,459,116,25.272,6,6,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,14. Lonely Road,bank_log_sale,Compromised bank log sale or discussion,459,176,38.344,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,14. Lonely Road,cashout_laundering_service,Cash-out or laundering service,459,118,25.708,5,5,0
@@ -241,6 +262,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,14. Lonely Road,mule_recruitment,Mule recruitment or account-holder solicitation,459,9,1.961,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,14. Lonely Road,telegram_off_platform,Telegram or private-channel coordination reference,459,81,17.647,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,14. Lonely Road,tutorial_training_recruitment,"Tutorial, guide, or training content",459,104,22.658,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,14. Lonely Road,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,459,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,15. Tenebris,bank_drop_sale,Bank drop sale or bank-drop infrastructure,457,115,25.164,6,5,-1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,15. Tenebris,bank_log_sale,Compromised bank log sale or discussion,457,174,38.074,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,15. Tenebris,cashout_laundering_service,Cash-out or laundering service,457,115,25.164,5,6,1
@@ -252,6 +274,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,15. Tenebris,mule_recruitment,Mule recruitment or account-holder solicitation,457,9,1.969,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,15. Tenebris,telegram_off_platform,Telegram or private-channel coordination reference,457,77,16.849,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,15. Tenebris,tutorial_training_recruitment,"Tutorial, guide, or training content",457,101,22.101,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,15. Tenebris,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,457,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,17. XmrBazaar,bank_drop_sale,Bank drop sale or bank-drop infrastructure,460,115,25.0,6,7,1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,17. XmrBazaar,bank_log_sale,Compromised bank log sale or discussion,460,177,38.478,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,17. XmrBazaar,cashout_laundering_service,Cash-out or laundering service,460,118,25.652,5,5,0
@@ -263,6 +286,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,17. XmrBazaar,mule_recruitment,Mule recruitment or account-holder solicitation,460,9,1.957,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,17. XmrBazaar,telegram_off_platform,Telegram or private-channel coordination reference,460,81,17.609,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,17. XmrBazaar,tutorial_training_recruitment,"Tutorial, guide, or training content",460,103,22.391,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,17. XmrBazaar,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,460,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,2. Altenen,bank_drop_sale,Bank drop sale or bank-drop infrastructure,427,114,26.698,6,4,-2
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,2. Altenen,bank_log_sale,Compromised bank log sale or discussion,427,162,37.939,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,2. Altenen,cashout_laundering_service,Cash-out or laundering service,427,109,25.527,5,6,1
@@ -274,6 +298,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,2. Altenen,mule_recruitment,Mule recruitment or account-holder solicitation,427,6,1.405,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,2. Altenen,telegram_off_platform,Telegram or private-channel coordination reference,427,63,14.754,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,2. Altenen,tutorial_training_recruitment,"Tutorial, guide, or training content",427,85,19.906,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,2. Altenen,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,427,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,3. Pitch,bank_drop_sale,Bank drop sale or bank-drop infrastructure,395,104,26.329,6,5,-1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,3. Pitch,bank_log_sale,Compromised bank log sale or discussion,395,162,41.013,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,3. Pitch,cashout_laundering_service,Cash-out or laundering service,395,106,26.835,5,4,-1
@@ -285,6 +310,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,3. Pitch,mule_recruitment,Mule recruitment or account-holder solicitation,395,6,1.519,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,3. Pitch,telegram_off_platform,Telegram or private-channel coordination reference,395,62,15.696,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,3. Pitch,tutorial_training_recruitment,"Tutorial, guide, or training content",395,84,21.266,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,3. Pitch,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,395,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,4. Caders Heven,bank_drop_sale,Bank drop sale or bank-drop infrastructure,430,110,25.581,6,5,-1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,4. Caders Heven,bank_log_sale,Compromised bank log sale or discussion,430,149,34.651,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,4. Caders Heven,cashout_laundering_service,Cash-out or laundering service,430,96,22.326,5,8,3
@@ -296,6 +322,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,4. Caders Heven,mule_recruitment,Mule recruitment or account-holder solicitation,430,9,2.093,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,4. Caders Heven,telegram_off_platform,Telegram or private-channel coordination reference,430,81,18.837,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,4. Caders Heven,tutorial_training_recruitment,"Tutorial, guide, or training content",430,102,23.721,8,7,-1
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,4. Caders Heven,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,430,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,5. CardPro,bank_drop_sale,Bank drop sale or bank-drop infrastructure,416,110,26.442,6,5,-1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,5. CardPro,bank_log_sale,Compromised bank log sale or discussion,416,175,42.067,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,5. CardPro,cashout_laundering_service,Cash-out or laundering service,416,86,20.673,5,8,3
@@ -307,6 +334,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,5. CardPro,mule_recruitment,Mule recruitment or account-holder solicitation,416,8,1.923,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,5. CardPro,telegram_off_platform,Telegram or private-channel coordination reference,416,59,14.183,9,10,1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,5. CardPro,tutorial_training_recruitment,"Tutorial, guide, or training content",416,101,24.279,8,7,-1
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,5. CardPro,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,416,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,6. The X Wave Market,bank_drop_sale,Bank drop sale or bank-drop infrastructure,415,107,25.783,6,5,-1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,6. The X Wave Market,bank_log_sale,Compromised bank log sale or discussion,415,172,41.446,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,6. The X Wave Market,cashout_laundering_service,Cash-out or laundering service,415,108,26.024,5,4,-1
@@ -318,6 +346,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,6. The X Wave Market,mule_recruitment,Mule recruitment or account-holder solicitation,415,9,2.169,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,6. The X Wave Market,telegram_off_platform,Telegram or private-channel coordination reference,415,81,19.518,9,8,-1
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,6. The X Wave Market,tutorial_training_recruitment,"Tutorial, guide, or training content",415,94,22.651,8,7,-1
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,6. The X Wave Market,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,415,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,7. Meta Banklogs,bank_drop_sale,Bank drop sale or bank-drop infrastructure,425,102,24.0,6,6,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,7. Meta Banklogs,bank_log_sale,Compromised bank log sale or discussion,425,149,35.059,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,7. Meta Banklogs,cashout_laundering_service,Cash-out or laundering service,425,114,26.824,5,4,-1
@@ -329,6 +358,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,7. Meta Banklogs,mule_recruitment,Mule recruitment or account-holder solicitation,425,9,2.118,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,7. Meta Banklogs,telegram_off_platform,Telegram or private-channel coordination reference,425,79,18.588,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,7. Meta Banklogs,tutorial_training_recruitment,"Tutorial, guide, or training content",425,98,23.059,8,7,-1
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,7. Meta Banklogs,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,425,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,8. Secure ccSeller,bank_drop_sale,Bank drop sale or bank-drop infrastructure,450,115,25.556,6,6,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,8. Secure ccSeller,bank_log_sale,Compromised bank log sale or discussion,450,173,38.444,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,8. Secure ccSeller,cashout_laundering_service,Cash-out or laundering service,450,118,26.222,5,4,-1
@@ -340,6 +370,7 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,8. Secure ccSeller,mule_recruitment,Mule recruitment or account-holder solicitation,450,9,2.0,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,8. Secure ccSeller,telegram_off_platform,Telegram or private-channel coordination reference,450,81,18.0,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,8. Secure ccSeller,tutorial_training_recruitment,"Tutorial, guide, or training content",450,100,22.222,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,8. Secure ccSeller,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,450,0,0.0,12,12,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,9. Deep Shop,bank_drop_sale,Bank drop sale or bank-drop infrastructure,432,116,26.852,6,3,-3
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,9. Deep Shop,bank_log_sale,Compromised bank log sale or discussion,432,162,37.5,1,1,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,9. Deep Shop,cashout_laundering_service,Cash-out or laundering service,432,114,26.389,5,6,1
@@ -351,3 +382,4 @@ exact_text_unique_sensitivity,One deterministic representative per combined-text
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,9. Deep Shop,mule_recruitment,Mule recruitment or account-holder solicitation,432,9,2.083,11,11,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,9. Deep Shop,telegram_off_platform,Telegram or private-channel coordination reference,432,79,18.287,9,9,0
 exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,9. Deep Shop,tutorial_training_recruitment,"Tutorial, guide, or training content",432,100,23.148,8,8,0
+exact_text_unique_sensitivity,One deterministic representative per combined-text SHA-256 value; sensitivity population only,9. Deep Shop,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,432,0,0.0,12,12,0

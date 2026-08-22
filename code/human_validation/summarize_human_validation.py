@@ -11,8 +11,9 @@ from __future__ import annotations
 
 import argparse
 import csv
-import math
 import hashlib
+import json
+import math
 import random
 from collections import defaultdict
 from dataclasses import dataclass
@@ -34,6 +35,7 @@ MACHINE_ABSENT = frozenset({"0", "absent", "false", "no"})
 Z_95 = 1.959963984540054
 
 BOOTSTRAP_REPLICATES = 1000
+SCRIPT_VERSION = "1.2.1"
 MACHINE_REQUIRED = ("record_id", "target_type", "code", "model_present")
 CODER_REQUIRED = ("record_id", "decision")
 ADJUDICATION_REQUIRED = (
@@ -44,7 +46,7 @@ ADJUDICATION_REQUIRED = (
 )
 
 OUTPUT_FIELDS = (
-    "scope", "target_type", "code", "sample_records_n",
+    "scope", "target_type", "code", "sample_case_target_units_n",
     "coder_pair_complete_n", "agreement_n", "agreement_rate",
     "agreement_ci95_low", "agreement_ci95_high", "kappa_evaluable_n",
     "cohen_kappa", "cohen_kappa_bootstrap_ci95_low",
@@ -483,7 +485,7 @@ def summarise_group(
         "scope": scope,
         "target_type": target_type,
         "code": code,
-        "sample_records_n": len(records),
+        "sample_case_target_units_n": len(records),
         "coder_pair_complete_n": len(completed_pairs),
         "agreement_n": agreement_n,
         "kappa_evaluable_n": len(binary_pairs),
@@ -524,6 +526,8 @@ def summarise_group(
         )
 
     add_metric(result, "agreement_rate", agreement_n, len(completed_pairs))
+    result["agreement_ci95_low"] = result.pop("agreement_rate_ci95_low")
+    result["agreement_ci95_high"] = result.pop("agreement_rate_ci95_high")
     add_metric(result, "precision", tp, tp + fp)
     add_metric(result, "negative_predictive_value", tn, tn + fn)
     add_metric(result, "sensitivity", tp, tp + fn)
@@ -663,7 +667,12 @@ def format_interval(low: object, high: object) -> str:
     return f"{float(low):.3f} to {float(high):.3f}"
 
 
-def render_markdown(rows: Sequence[Mapping[str, object]], adjudicated: bool) -> str:
+def render_markdown(
+    rows: Sequence[Mapping[str, object]],
+    adjudicated: bool,
+    coder_1_label: str = "Coder 1",
+    coder_2_label: str = "Coder 2",
+) -> str:
     overall = rows[0]
     final_counts = "; ".join(
         f"{decision}={overall[f'final_{decision}_n']}"
@@ -673,6 +682,17 @@ def render_markdown(rows: Sequence[Mapping[str, object]], adjudicated: bool) -> 
         "# Human validation aggregate results",
         "",
         "## Interpretation boundary",
+        "",
+        f"Independent human coders: {coder_1_label} and {coder_2_label}.",
+        (
+            "The final decision counts below cover every sampled case-target unit. "
+            "They are distinct from the disagreement-only adjudication outcomes "
+            "reported in the ICR completion record."
+        ),
+        (
+            "The overall row pools heterogeneous case-target units across 18 targets; "
+            "use the target rows for claim-specific performance."
+        ),
         "",
         SAMPLING_LIMITATION,
         "",
@@ -692,7 +712,7 @@ def render_markdown(rows: Sequence[Mapping[str, object]], adjudicated: bool) -> 
         "",
         "## Overall",
         "",
-        f"- Sample records: {overall['sample_records_n']}",
+        f"- Sampled case-target units: {overall['sample_case_target_units_n']}",
         f"- Complete coder pairs: {overall['coder_pair_complete_n']}",
         (
             f"- Exact agreement: {overall['agreement_n']}/"
@@ -758,7 +778,7 @@ def render_markdown(rows: Sequence[Mapping[str, object]], adjudicated: bool) -> 
             weighted_accuracy=format_metric(row.get("weighted_accuracy")),
         )
         lines.append(
-            "| {target_type} | {code} | {sample_records_n} | {agreement} | "
+            "| {target_type} | {code} | {sample_case_target_units_n} | {agreement} | "
             "{kappa} | {ac1} | {excluded_from_confusion_n} | {tp} | {fp} | "
             "{tn} | {fn} | {precision} | {npv} | {sensitivity} | "
             "{specificity} | {accuracy} | {weighted_accuracy} |".format(**display)
@@ -785,14 +805,27 @@ def render_markdown(rows: Sequence[Mapping[str, object]], adjudicated: bool) -> 
     return "\n".join(lines)
 
 
-def ensure_safe_output_paths(inputs: Sequence[Path], output_csv: Path, output_markdown: Path) -> None:
+def ensure_safe_output_paths(inputs: Sequence[Path], outputs: Sequence[Path]) -> None:
     input_paths = {path.resolve() for path in inputs}
-    csv_path = output_csv.resolve()
-    markdown_path = output_markdown.resolve()
-    if csv_path == markdown_path:
-        raise ValidationInputError("CSV and Markdown outputs must be different files")
-    if csv_path in input_paths or markdown_path in input_paths:
+    output_paths = [path.resolve() for path in outputs]
+    if len(output_paths) != len(set(output_paths)):
+        raise ValidationInputError("Aggregate output paths must be different files")
+    if input_paths & set(output_paths):
         raise ValidationInputError("An aggregate output path must not overwrite a controlled input")
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def sha256_normalized_text(path: Path) -> str:
+    """Hash public text output with platform-independent line endings."""
+    data = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -805,6 +838,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--adjudication", type=Path)
     parser.add_argument("--output-csv", required=True, type=Path)
     parser.add_argument("--output-markdown", required=True, type=Path)
+    parser.add_argument("--output-metadata", type=Path)
+    parser.add_argument("--coder-1-label", default="Coder 1")
+    parser.add_argument("--coder-2-label", default="Coder 2")
     parser.add_argument(
         "--allow-incomplete",
         action="store_true",
@@ -818,7 +854,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     inputs = [args.machine_key, args.coder_1, args.coder_2]
     if args.adjudication is not None:
         inputs.append(args.adjudication)
-    ensure_safe_output_paths(inputs, args.output_csv, args.output_markdown)
+    outputs = [args.output_csv, args.output_markdown]
+    if args.output_metadata is not None:
+        outputs.append(args.output_metadata)
+    ensure_safe_output_paths(inputs, outputs)
     records = load_records(
         args.machine_key,
         args.coder_1,
@@ -827,10 +866,41 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.allow_incomplete,
     )
     rows = summarise(records)
-    markdown = render_markdown(rows, adjudicated=args.adjudication is not None)
+    markdown = render_markdown(
+        rows,
+        adjudicated=args.adjudication is not None,
+        coder_1_label=args.coder_1_label,
+        coder_2_label=args.coder_2_label,
+    )
     write_aggregate_csv(args.output_csv, rows)
     args.output_markdown.parent.mkdir(parents=True, exist_ok=True)
     args.output_markdown.write_text(markdown, encoding="utf-8")
+    if args.output_metadata is not None:
+        metadata = {
+            "script_version": SCRIPT_VERSION,
+            "coders": [args.coder_1_label, args.coder_2_label],
+            "adjudication_supplied": args.adjudication is not None,
+            "aggregate_rows": len(rows),
+            "sample_case_target_units": len(records),
+            "controlled_input_sha256": {
+                path.name: sha256_file(path) for path in inputs
+            },
+            "public_output_sha256": {
+                args.output_csv.name: sha256_normalized_text(args.output_csv),
+                args.output_markdown.name: sha256_normalized_text(args.output_markdown),
+            },
+            "public_output_hash_method": (
+                "SHA-256 after CRLF and CR line endings are normalized to LF"
+            ),
+            "privacy_boundary": (
+                "Grouped statistics and file-level hashes only; no record IDs, "
+                "paths, evidence, rationales, signatures, or coder-level rows."
+            ),
+        }
+        args.output_metadata.parent.mkdir(parents=True, exist_ok=True)
+        args.output_metadata.write_text(
+            json.dumps(metadata, indent=2) + "\n", encoding="utf-8"
+        )
     return 0
 
 

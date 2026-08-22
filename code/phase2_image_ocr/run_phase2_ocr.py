@@ -46,7 +46,7 @@ PHASE1_OUTPUT = OUTPUTS / "phase1_markdown_baseline"
 PHASE2_OUTPUT = OUTPUTS / "phase2_image_ocr"
 IMAGE_REFS_CSV = PHASE1_OUTPUT / "image_references.csv"
 CORPUS_INDEX_CSV = PHASE1_OUTPUT / "corpus_index.csv"
-PIPELINE_VERSION = "2.1.0"
+PIPELINE_VERSION = "2.2.0"
 OCR_ENGINE_NAME = "windows.media.ocr"
 SHA256_RE = re.compile(r"[0-9a-f]{64}")
 
@@ -327,8 +327,9 @@ def build_note_ocr_rows(
             aggregate["ocr_unique_ok_image_count"] = int(aggregate["ocr_unique_ok_image_count"]) + 1
             aggregate["ocr_word_count"] = int(aggregate["ocr_word_count"]) + int(joined.get("ocr_word_count") or 0)
             aggregate["ocr_char_count"] = int(aggregate["ocr_char_count"]) + int(joined.get("ocr_char_count") or 0)
-            label = str(joined.get("image_relative_path") or joined.get("image_name") or "image")
-            block = f"\n\n[OCR: {label}]\n{joined.get('ocr_text', '')}"
+            # Image provenance remains in the controlled image-reference tables.
+            # Only OCR evidence text enters the analytic text and duplicate hash.
+            block = f"\n\n{joined.get('ocr_text', '')}"
             aggregate["joined_ocr_text"] = str(aggregate["joined_ocr_text"]) + block
 
     return list(by_note.values())

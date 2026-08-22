@@ -7,9 +7,10 @@ Phase 4 converted the Phase 3 deterministic coding into an interpretive financia
 ## Key Inputs
 
 - Notes coded in Phase 3: 980
-- Typology codes: 13
+- Substantive typology codes analysed: 12
+- Collection-quality flags excluded from findings: 1
 - AML indicator candidates: 6
-- Evidence snippets available: 2706
+- Evidence snippets available: 2707
 
 ## Main Output Files
 
@@ -23,4 +24,4 @@ Phase 4 converted the Phase 3 deterministic coding into an interpretive financia
 
 ## Interpretation Limits
 
-Phase 4 is an analytical synthesis based on deterministic Phase 3 coding. It should be treated as a structured first interpretation and should be manually validated before journal submission.
+Phase 4 is an analytical synthesis based on deterministic Phase 3 coding. Ausma Bernot and Milind Tiwari completed the blinded human validation and joint adjudication. The report remains a structured interpretation whose claims must be reconciled with target-level performance, duplicate sensitivity, source dependence, and direct contextual evidence before submission.

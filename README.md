@@ -11,7 +11,7 @@ The empirical workflow contains four deterministic phases:
 3. Phase 3: deterministic typology coding.
 4. Phase 4: deterministic financial-crime analysis.
 
-Blinded human inter-coder reliability and subsequent adjudication were completed by Ausma Bernot and Milind Tiwari on 26 July 2026 under Griffith University Human Ethics Protocol 2025/697. Publication-safe overall results are available in [Human ICR Completion](outputs/human_validation/HUMAN_ICR_COMPLETION.md), with agreement intervals, kappa, binary Gwet AC1, and adjudication totals by target in [Human ICR Results by Target](outputs/human_validation/HUMAN_ICR_BY_TARGET.md). Coder workbooks, evidence packets, rationales, and record-level adjudication material remain controlled and are not published.
+Blinded human inter-coder reliability and subsequent adjudication were completed by Ausma Bernot and Milind Tiwari on 26 July 2026 under Griffith University Human Ethics Protocol 2025/697. Publication-safe overall results are available in [Human ICR Completion](outputs/human_validation/HUMAN_ICR_COMPLETION.md), with agreement intervals, kappa, binary Gwet AC1, and adjudication totals by target in [Human ICR Results by Target](outputs/human_validation/HUMAN_ICR_BY_TARGET.md). The separate [Human Validation Performance](outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md) report compares the deterministic classifications with the final human decisions using both sample and sampling-weighted estimates. Coder workbooks, evidence packets, rationales, and record-level adjudication material remain controlled and are not published.
 
 The repository also includes publication-safe deterministic derived analyses for exact-text duplicate sensitivity, source-normalized typology reporting, typology co-occurrence with source-stratified and leave-one-source-out stability, AML-candidate overlap, exploratory functional grouping, source concentration, and leave-one-source-out sensitivity. These are descriptive post-processing outputs, not a Phase 5 or LLM-assisted empirical analysis.
 
@@ -31,6 +31,7 @@ The repository also includes publication-safe deterministic derived analyses for
 - [Human-validation protocol](docs/HUMAN_VALIDATION_PROTOCOL.md)
 - [Completed aggregate human ICR results](outputs/human_validation/HUMAN_ICR_COMPLETION.md)
 - [Human ICR results by target](outputs/human_validation/HUMAN_ICR_BY_TARGET.md)
+- [Human validation classification performance](outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md)
 - [Deterministic derived analysis notes](outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md)
 - [Outputs guide](docs/OUTPUTS_GUIDE.md)
 - [Workflow manifest](workflow_manifest.json)

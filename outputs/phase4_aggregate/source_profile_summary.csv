@@ -3,6 +3,7 @@
 10. Tor Shop,bank_drop_sale,32,bank_drop_sale (32 notes); bank_log_sale (29 notes); fullz_identity_package (24 notes); crypto_payment_or_conversion (14 notes); jurisdiction_localisation (13 notes)
 11. Legit Market,escrow_trust_reputation,20,escrow_trust_reputation (20 notes); bank_log_sale (15 notes); jurisdiction_localisation (12 notes); bank_drop_sale (11 notes); crypto_payment_or_conversion (6 notes)
 12. TORCH Tor Search,bank_drop_sale,2,bank_drop_sale (2 notes); bank_log_sale (2 notes)
+13. Bank Logs,none,0,no rule-positive typology matches
 14. Lonely Road,crypto_payment_or_conversion,3,crypto_payment_or_conversion (3 notes); bank_log_sale (1 notes); jurisdiction_localisation (1 notes)
 15. Tenebris,crypto_payment_or_conversion,4,crypto_payment_or_conversion (4 notes); telegram_off_platform (4 notes); bank_log_sale (3 notes); cashout_laundering_service (3 notes); escrow_trust_reputation (3 notes)
 17. XmrBazaar,crypto_payment_or_conversion,2,crypto_payment_or_conversion (2 notes); bank_drop_sale (1 notes); escrow_trust_reputation (1 notes); tutorial_training_recruitment (1 notes)

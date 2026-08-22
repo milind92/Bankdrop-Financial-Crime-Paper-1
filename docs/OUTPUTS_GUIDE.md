@@ -16,7 +16,7 @@ All committed outputs are aggregate and publication-safe. Raw and record-level m
 
 ## Phase 4
 
-`outputs/phase4_aggregate/` contains deterministic aggregate findings, AML-candidate summaries, source profiles, run metadata, an analysis report, and a checkpoint summary.
+`outputs/phase4_aggregate/` contains deterministic aggregate findings, AML-candidate summaries, source profiles, bounded recommendations, run metadata, an analysis report, and a checkpoint summary.
 
 ## Deterministic Derived Analysis
 
@@ -24,7 +24,7 @@ All committed outputs are aggregate and publication-safe. Raw and record-level m
 
 ## Human Validation
 
-`outputs/human_validation/` contains the public completion narrative, overall aggregate ICR and adjudication totals, the aggregate validation sampling summary, and target-level agreement intervals, kappa, binary Gwet AC1, and adjudication totals. The folder also contains file-level SHA-256 provenance metadata for the target report. It contains no coder-level decisions, rationales, identifiers, signatures, or evidence.
+`outputs/human_validation/` contains the public completion narrative, overall aggregate ICR and adjudication totals, target-level agreement intervals, kappa, binary Gwet AC1, and machine-versus-final-human classification performance. The performance table reports unweighted sample estimates and sampling-weighted point estimates with their documented limits. The folder also contains file-level SHA-256 provenance metadata. It contains no coder-level decisions, rationales, identifiers, signatures, or evidence.
 
 ## Screening Audit
 

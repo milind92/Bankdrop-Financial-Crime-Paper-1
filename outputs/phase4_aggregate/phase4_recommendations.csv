@@ -1,0 +1,6 @@
+﻿priority,recommendation,reason
+1,Apply the completed human-validation performance results and targeted contextual review to each publication claim.,"Ausma Bernot and Milind Tiwari completed blinded coding and adjudication, but reliability and classification performance vary by target."
+2,Treat migrant/student exploitation as a targeted sub-analysis rather than a dataset-wide finding at this stage.,"No explicit deterministic match was detected, and the validation design cannot estimate sensitivity for an absence or rarity claim."
+3,Separate commodity-sale evidence from cash-out and laundering-service evidence in the article.,The dataset captures both upstream account/data supply and downstream monetisation.
+4,Use source profiles for targeted contextual checks and robustness reporting.,"Different sources concentrate different signals, so source dependence must be visible in the manuscript."
+5,"Report marketplace reliability and scam discourse as a finding, not only a limitation.","Escrow, exit-scam, trust, and vendor-proof signals are part of the criminal-market ecology."

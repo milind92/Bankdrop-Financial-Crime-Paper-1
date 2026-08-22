@@ -1,0 +1,22 @@
+{
+  "script_version": "1.2.1",
+  "coders": [
+    "Ausma Bernot",
+    "Milind Tiwari"
+  ],
+  "adjudication_supplied": true,
+  "aggregate_rows": 19,
+  "sample_case_target_units": 1032,
+  "controlled_input_sha256": {
+    "machine_key.csv": "4402dcc47f04cfbbbf00b2b0f4a3fe5dbf09a03ffd0d3ba6d537dccb9285c256",
+    "ausma.csv": "e674ddf08e4a97b96a25c9111917223c341d914889a32fe0c7fe9fc63a098390",
+    "milind.csv": "1be4c423ad3e1443a5970ec7422c07bdc9b6ea2d284190b11ce3fef080d076ca",
+    "adjudication_all.csv": "f85a1c83fe220185d659793e55ef2df22e4d152695483d607b003b15cf7d545e"
+  },
+  "public_output_sha256": {
+    "human_validation_performance.csv": "5e0e572182e74f4e4c1c6c7f40219694b3c827278885d8b7f5b8a3287f2a2fe3",
+    "HUMAN_VALIDATION_PERFORMANCE.md": "bc2d1200a4957d42d9dab33b74243b615e9e2f7b6eace7f8d1da7970c9d66a77"
+  },
+  "public_output_hash_method": "SHA-256 after CRLF and CR line endings are normalized to LF",
+  "privacy_boundary": "Grouped statistics and file-level hashes only; no record IDs, paths, evidence, rationales, signatures, or coder-level rows."
+}

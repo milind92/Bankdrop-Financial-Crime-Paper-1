@@ -4,11 +4,11 @@
 
 The rule-based analysis identifies a range of content signals around bank logs, bank drops, identity packages, cash-out services, crypto conversion, Telegram/private-channel references, and criminal-market trust terms. These lexical patterns motivate hypotheses about account access and conversion, but they do not establish genuine services or movement of value.
 
-This report is based on deterministic Phase 3 coding over Markdown notes plus OCR text. It should be read as a structured first interpretation rather than a final qualitative conclusion. The strongest publication path is to use these findings to guide manual validation and targeted close reading.
+This report is based on deterministic Phase 3 coding over Markdown notes plus OCR text. It should be read as a structured interpretation rather than a final qualitative conclusion. Blinded human validation and adjudication were completed by Ausma Bernot and Milind Tiwari; publication claims must still follow the target-level performance and evidence boundaries.
 
 ## Data And Method Boundary
 
-Phase 3 coded 980 notes using 13 typology codes and 6 AML indicator candidates. Evidence snippets available for audit: 2706.
+Phase 3 coded 980 notes using 12 substantive typologies and 1 collection-quality flag, alongside 6 AML indicator candidates. Evidence snippets available for audit: 2707.
 
 The method is deliberately conservative: Phase 1 indexed Markdown, Phase 2 OCR'd screenshots, Phase 3 applied a deterministic codebook, and Phase 4 synthesises those outputs. No external LLM or external API was used in Phase 4.
 
@@ -17,32 +17,34 @@ The method is deliberately conservative: Phase 1 indexed Markdown, Phase 2 OCR'd
 | Rank | Typology | Notes | Hits |
 | --- | --- | --- | --- |
 | 1 | Compromised bank log sale or discussion | 178 | 1090 |
-| 2 | Cryptocurrency payment or conversion reference | 126 | 592 |
+| 2 | Cryptocurrency payment or conversion reference | 126 | 594 |
 | 3 | Fullz or identity package | 124 | 485 |
 | 4 | Escrow, trust, reputation, or scam-risk discourse | 121 | 640 |
 | 5 | Cash-out or laundering service | 118 | 418 |
-| 6 | Jurisdiction-specific bank or account reference | 117 | 691 |
+| 6 | Jurisdiction-specific bank or account reference | 117 | 693 |
 | 7 | Bank drop sale or bank-drop infrastructure | 116 | 719 |
 | 8 | Tutorial, guide, or training content | 104 | 484 |
 | 9 | Telegram or private-channel coordination reference | 82 | 243 |
-| 10 | Email-access-enabled account takeover | 62 | 217 |
+| 10 | Email-access-enabled account takeover | 62 | 218 |
 | 11 | Mule recruitment or account-holder solicitation | 9 | 14 |
+| 12 | Vulnerable group or migrant/student exploitation | 0 | 0 |
 
 ## Criminal Objectives
 
 | Rank | Criminal objective | Notes | Hits |
 | --- | --- | --- | --- |
 | 1 | Reference bank-log or associated account-access material | 178 | 1090 |
-| 2 | Reference cryptocurrency payment, conversion, or obfuscation contexts | 126 | 592 |
+| 2 | Reference cryptocurrency payment, conversion, or obfuscation contexts | 126 | 594 |
 | 3 | Reference identity packages or credentials relevant to KYC or account access | 124 | 485 |
 | 4 | Reference escrow, trust, reputation, or scam-risk discourse | 121 | 640 |
 | 5 | Reference cash-out, laundering, or conversion services | 118 | 418 |
-| 6 | Reference jurisdiction-specific banks, accounts, drops, or logs | 117 | 691 |
+| 6 | Reference jurisdiction-specific banks, accounts, drops, or logs | 117 | 693 |
 | 7 | Reference bank-drop or receiving-account material | 116 | 719 |
 | 8 | Reference tutorial, guide, method, or training content | 104 | 484 |
 | 9 | Reference Telegram or private channels in market-related content | 82 | 243 |
-| 10 | Reference email, recovery, or session access alongside account access | 62 | 217 |
+| 10 | Reference email, recovery, or session access alongside account access | 62 | 218 |
 | 11 | Reference mule or account-holder recruitment and solicitation | 9 | 14 |
+| 12 | Reference possible exploitation of financially or migration-vulnerable people | 0 | 0 |
 
 ## Interpretation Of Main Typologies
 
@@ -60,9 +62,9 @@ Evidence boundary: supporting snippets are retained in the separate Phase 3 `evi
 
 ### 2. Cryptocurrency payment and conversion terms appear in the provisional coding.
 
-Signal strength: 126 notes; 592 pattern hits.
+Signal strength: 126 notes; 594 pattern hits.
 
-Crypto references occur alongside cash-out, escrow, and market-payment language. This suggests crypto is not just a payment method or was actually converted, obfuscated, or settled; those are hypotheses for human review.
+Crypto references occur alongside cash-out, escrow, and market-payment language. This suggests crypto is not just a payment method in the captured discourse; whether funds were converted, obfuscated, or settled remains a hypothesis requiring direct contextual evidence.
 
 Likely result that can be drawn: Can support analysis of crypto-to-fiat conversion points and settlement rails.
 
@@ -108,7 +110,7 @@ Evidence boundary: supporting snippets are retained in the separate Phase 3 `evi
 
 ### 6. Jurisdiction and domestic-account terms appear across sources.
 
-Signal strength: 117 notes; 691 pattern hits.
+Signal strength: 117 notes; 693 pattern hits.
 
 The rule-based coding records country and local-bank terms near bank, account, drop, or log terms. It does not establish actor preference, reduced scrutiny, or completed domestic or cross-border money movement.
 
@@ -148,7 +150,7 @@ Signal strength: 82 notes; 243 pattern hits.
 
 The rule identifies Telegram or private-channel terms in market-related text. It does not by itself show that negotiation, proof, or transaction coordination moved elsewhere. Human review is required before interpreting off-platform migration; captured forum material may omit context outside the retained record.
 
-Likely result that can be drawn: Can support a validation target concerning private-channel references and possible coordination.
+Likely result that can be drawn: Can support descriptive analysis of private-channel references; any coordination hypothesis requires direct contextual evidence.
 
 AML or detection relevance: Treat open-forum posts as lead generation; do not assume the whole transaction is visible in the captured page.
 
@@ -156,7 +158,7 @@ Evidence boundary: supporting snippets are retained in the separate Phase 3 `evi
 
 ### 10. Email access is a recurring enhancer of bank-log/account-takeover risk.
 
-Signal strength: 62 notes; 217 pattern hits.
+Signal strength: 62 notes; 218 pattern hits.
 
 Email access can strengthen persistence and allow control over password resets, notifications, and recovery paths. Where bank access and email access appear together, the account-takeover risk is materially higher.
 
@@ -185,6 +187,7 @@ Evidence boundary: supporting snippets are retained in the separate Phase 3 `evi
 | 10. Tor Shop | bank_drop_sale | 32 | bank_drop_sale (32 notes); bank_log_sale (29 notes); fullz_identity_package (24 notes); crypto_payment_or_conversion (14 notes); jurisdiction_localisation (13 notes) |
 | 11. Legit Market | escrow_trust_reputation | 20 | escrow_trust_reputation (20 notes); bank_log_sale (15 notes); jurisdiction_localisation (12 notes); bank_drop_sale (11 notes); crypto_payment_or_conversion (6 notes) |
 | 12. TORCH Tor Search | bank_drop_sale | 2 | bank_drop_sale (2 notes); bank_log_sale (2 notes) |
+| 13. Bank Logs | none | 0 | no rule-positive typology matches |
 | 14. Lonely Road | crypto_payment_or_conversion | 3 | crypto_payment_or_conversion (3 notes); bank_log_sale (1 notes); jurisdiction_localisation (1 notes) |
 | 15. Tenebris | crypto_payment_or_conversion | 4 | crypto_payment_or_conversion (4 notes); telegram_off_platform (4 notes); bank_log_sale (3 notes); cashout_laundering_service (3 notes); escrow_trust_reputation (3 notes) |
 | 17. XmrBazaar | crypto_payment_or_conversion | 2 | crypto_payment_or_conversion (2 notes); bank_drop_sale (1 notes); escrow_trust_reputation (1 notes); tutorial_training_recruitment (1 notes) |
@@ -197,12 +200,12 @@ Evidence boundary: supporting snippets are retained in the separate Phase 3 `evi
 | 8. Secure ccSeller | fullz_identity_package | 6 | fullz_identity_package (6 notes); jurisdiction_localisation (5 notes); bank_log_sale (4 notes); email_access_takeover (4 notes); tutorial_training_recruitment (4 notes) |
 | 9. Deep Shop | bank_log_sale | 15 | bank_log_sale (15 notes); crypto_payment_or_conversion (10 notes); escrow_trust_reputation (7 notes); cashout_laundering_service (4 notes); tutorial_training_recruitment (4 notes) |
 
-## Journal-Ready Findings To Validate
+## Candidate Findings And Evidence Boundaries
 
 1. The dataset is strongest for account-access, bank-drop, cash-out, crypto-conversion, and trust/reputation typologies.
 2. Forum/market evidence appears to capture both commodity supply and downstream monetisation infrastructure.
-3. Telegram/private-channel migration should be treated as a structural feature of the transaction pathway.
-4. Explicit migrant/student exploitation is not yet a high-volume coded finding and needs targeted manual sampling before any prevalence claim.
+3. Telegram/private-channel references are observable signals, but the captured material does not establish migration or transaction coordination.
+4. No explicit migrant/student exploitation rule match was detected; this does not support an absence, rarity, or prevalence claim.
 5. Marketplace scam and escrow discourse should be analysed as part of the criminal ecology, not just as noise.
 
 ## Limitations
@@ -215,4 +218,4 @@ Evidence boundary: supporting snippets are retained in the separate Phase 3 `evi
 
 ## Recommended Next Step
 
-Before journal submission, draw a stratified validation sample from `evidence_snippets.csv` and the source notes. Prioritise the top typologies and the lower-count but substantively important categories such as mule recruitment and vulnerable-group exploitation.
+Before journal submission, reconcile every proposed claim with the completed human-validation performance table, target-level uncertainty, duplicate and source-sensitivity outputs, and controlled contextual review. Obtain the separate AML-domain review and do not make an absence or rarity claim for vulnerable-group exploitation from the zero deterministic match.

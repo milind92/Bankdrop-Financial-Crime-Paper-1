@@ -2,9 +2,11 @@
 
 import importlib.util
 import json
+import shutil
 import sys
-import tempfile
 import unittest
+import uuid
+from contextlib import contextmanager
 from pathlib import Path
 from unittest import mock
 
@@ -12,10 +14,16 @@ from unittest import mock
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 
 
+@contextmanager
 def temporary_workspace():
     """Create disposable isolated fixtures."""
 
-    return tempfile.TemporaryDirectory(dir=REPOSITORY_ROOT)
+    path = REPOSITORY_ROOT / f"tmp-orchestration-{uuid.uuid4().hex}"
+    path.mkdir()
+    try:
+        yield str(path)
+    finally:
+        shutil.rmtree(path)
 
 
 def load_module(name: str, relative_path: str):
@@ -92,6 +100,7 @@ class PipelineGuardrailTests(unittest.TestCase):
             self.assertNotIn(str(output), serialized)
             self.assertTrue(all(step["status"] == "planned" for step in manifest["steps"]))
             self.assertTrue(all(len(step["script_sha256"]) == 64 for step in manifest["steps"]))
+            self.assertEqual(manifest["fixed_settings"], {"python_hash_seed": 0})
 
     def test_subprocess_failure_stops_later_phases(self) -> None:
         with temporary_workspace() as temporary:
@@ -110,6 +119,12 @@ class PipelineGuardrailTests(unittest.TestCase):
 
 
 class PublicExporterTests(unittest.TestCase):
+    def test_phase4_recommendations_are_in_the_public_allowlist(self) -> None:
+        destinations = {item.destination for item in exporter.PUBLIC_EXPORTS}
+        self.assertIn(
+            "outputs/phase4_aggregate/phase4_recommendations.csv", destinations
+        )
+
     def test_exact_text_aggregate_fields_are_allowlisted(self) -> None:
         self.assertFalse(exporter.field_is_blocked("exact_text_unique_denominator_n"))
         self.assertFalse(exporter.field_is_blocked("unique_combined_text_hashes_n"))

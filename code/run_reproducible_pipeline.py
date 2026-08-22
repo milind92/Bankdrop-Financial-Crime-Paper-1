@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Sequence
 
 
-ORCHESTRATOR_VERSION = "1.0.0"
+ORCHESTRATOR_VERSION = "1.1.0"
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_NAME = "pipeline_run_manifest.json"
 
@@ -176,9 +176,6 @@ def run_pipeline(
         "dry_run": dry_run,
         "fixed_settings": {
             "python_hash_seed": 0,
-            "validation_positive_target": 20,
-            "validation_negative_target": 40,
-            "validation_min_words": 30,
         },
         "path_boundary": {
             "source_vault": "[CONTROLLED_VAULT]",

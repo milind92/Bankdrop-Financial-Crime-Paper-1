@@ -14,7 +14,7 @@ The corpus records observed online content. It is not a transaction ledger. Repo
 
 ## Human Validation
 
-The public repository reports aggregate ICR and adjudication results only. Evidence packets, independent coding workbooks, rationales, disagreement rows, signatures, and hashes remain controlled.
+The public repository reports aggregate ICR, adjudication totals, and machine-versus-final-human performance only. Evidence packets, independent coding workbooks, rationales, disagreement rows, signatures, and record- or evidence-level hashes remain controlled. Public provenance metadata contains file-level SHA-256 identifiers only.
 
 ## Empirical Method
 

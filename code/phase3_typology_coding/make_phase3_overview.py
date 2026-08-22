@@ -11,6 +11,7 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 WORKSPACE = Path(os.environ.get("BANK_DROP_WORKSPACE", REPOSITORY_ROOT))
 OUTPUTS = Path(os.environ.get("BANK_DROP_OUTPUTS_DIR", WORKSPACE / "outputs"))
 BASE = OUTPUTS / "phase3_typology_coding"
+DATA_QUALITY_CODES = {"market_access_limitation"}
 
 
 def read_csv(name: str) -> list[dict[str, str]]:
@@ -20,6 +21,12 @@ def read_csv(name: str) -> list[dict[str, str]]:
 
 def main() -> None:
     typology = read_csv("typology_summary.csv")
+    substantive_typology = [
+        row for row in typology if row["code"] not in DATA_QUALITY_CODES
+    ]
+    collection_quality = [
+        row for row in typology if row["code"] in DATA_QUALITY_CODES
+    ]
     objectives = read_csv("criminal_objective_summary.csv")
     aml = read_csv("aml_indicator_summary_by_source.csv")
     metadata = json.loads((BASE / "run_metadata.json").read_text(encoding="utf-8"))
@@ -30,7 +37,8 @@ def main() -> None:
         "## Scope",
         "",
         f"- Notes coded: {metadata['note_count']}",
-        f"- Typology codes: {metadata['typology_code_count']}",
+        f"- Substantive typology codes: {len(substantive_typology)}",
+        f"- Collection-quality flags: {len(collection_quality)}",
         f"- AML indicator candidates: {metadata['aml_indicator_count']}",
         f"- Evidence snippets: {metadata['evidence_snippet_rows']}",
         "",
@@ -39,8 +47,20 @@ def main() -> None:
         "| Rank | Code | Label | Notes | Hits |",
         "|---:|---|---|---:|---:|",
     ]
-    for index, row in enumerate(typology[:13], 1):
+    for index, row in enumerate(substantive_typology, 1):
         lines.append(f"| {index} | `{row['code']}` | {row['label']} | {row['note_count']} | {row['hit_count']} |")
+
+    lines.extend([
+        "",
+        "## Collection-Quality Flags",
+        "",
+        "| Code | Label | Notes | Hits |",
+        "|---|---|---:|---:|",
+    ])
+    for row in collection_quality:
+        lines.append(
+            f"| `{row['code']}` | {row['label']} | {row['note_count']} | {row['hit_count']} |"
+        )
 
     lines.extend([
         "",
@@ -66,7 +86,7 @@ def main() -> None:
         "",
         "## Use And Limits",
         "",
-        "This is deterministic baseline coding over Markdown plus OCR text. It guides sampling, manual validation, and Phase 4 financial-crime interpretation; it is not final qualitative coding by itself.",
+        "This is deterministic baseline coding over Markdown plus OCR text; it is not final qualitative coding by itself. Ausma Bernot and Milind Tiwari completed blinded human validation and adjudication. Interpretive claims must remain within the published target-level performance, duplicate-sensitivity, source-dependence, and contextual-evidence boundaries.",
     ])
     output = BASE / "PHASE3_ANALYTIC_OVERVIEW.md"
     output.write_text("\n".join(lines) + "\n", encoding="utf-8")

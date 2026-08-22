@@ -10,9 +10,11 @@
 ## Guarded Orchestrator
 
 ```powershell
-$env:BANK_DROP_VAULT = "D:\approved\bank-drop-vault"
-$env:BANK_DROP_OUTPUTS_DIR = "D:\approved\bank-drop-controlled-outputs"
-python .\code\run_reproducible_pipeline.py
+$vault = "D:\approved\bank-drop-vault"
+$outputs = "D:\approved\bank-drop-controlled-outputs"
+python .\code\run_reproducible_pipeline.py `
+  --vault $vault `
+  --output-root $outputs
 ```
 
 The orchestrator executes:
@@ -30,8 +32,8 @@ After the controlled Phase 3 output is available:
 
 ```powershell
 python .\code\derived_analysis\build_derived_analysis.py `
-  --source-dir (Join-Path $env:BANK_DROP_OUTPUTS_DIR "phase3_typology_coding") `
-  --output-dir (Join-Path $env:BANK_DROP_OUTPUTS_DIR "derived_analysis")
+  --source-dir (Join-Path $outputs "phase3_typology_coding") `
+  --output-dir (Join-Path $outputs "derived_analysis")
 ```
 
 This step writes only grouped descriptive outputs. The exact-text-unique population remains a sensitivity population until the final eligibility and evidence-unit audit is locked.
@@ -40,11 +42,11 @@ This step writes only grouped descriptive outputs. The exact-text-unique populat
 
 ```powershell
 python .\code\export_public_release.py `
-  --source-output-root $env:BANK_DROP_OUTPUTS_DIR `
+  --source-output-root $outputs `
   --repository-root . `
   --dry-run
 python .\code\export_public_release.py `
-  --source-output-root $env:BANK_DROP_OUTPUTS_DIR `
+  --source-output-root $outputs `
   --repository-root .
 ```
 

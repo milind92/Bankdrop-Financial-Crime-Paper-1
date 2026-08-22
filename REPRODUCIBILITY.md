@@ -16,9 +16,11 @@ The audit compiles Python files, validates JSON, checks required files and CSV s
 A complete rerun requires authorised access to the restricted source vault and a Windows OCR environment:
 
 ```powershell
-$env:BANK_DROP_VAULT = "D:\approved\bank-drop-vault"
-$env:BANK_DROP_OUTPUTS_DIR = "D:\approved\bank-drop-controlled-outputs"
-python .\code\run_reproducible_pipeline.py
+$vault = "D:\approved\bank-drop-vault"
+$outputs = "D:\approved\bank-drop-controlled-outputs"
+python .\code\run_reproducible_pipeline.py `
+  --vault $vault `
+  --output-root $outputs
 ```
 
 The orchestrator executes deterministic Phases 1–4 only. Complete outputs must remain outside the public repository. After Phase 3 completes, authorised researchers can regenerate the publication-safe deterministic derived tables in the controlled output tree:
@@ -43,7 +45,7 @@ python .\code\export_public_release.py `
 
 ## Boundaries
 
-The public checkout cannot reconstruct the controlled corpus or independently reproduce source-level counts. Aggregate human-validation and deterministic derived results can be checked for internal consistency, but the public repository does not include coder-level or note-level data. The 479-record exact-text-unique sensitivity population is not a verified final eligible population.
+The public checkout cannot reconstruct the controlled corpus or independently reproduce source-level counts. Aggregate human-validation and deterministic derived results can be checked for internal consistency, but the public repository does not include coder-level or note-level data. The 463-record exact-text-unique sensitivity population is not a verified final eligible population.
 
 No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical pathway is included.
 

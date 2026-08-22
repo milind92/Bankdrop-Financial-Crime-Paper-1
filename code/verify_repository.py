@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
-import py_compile
 import re
 import sys
 from pathlib import Path
@@ -36,6 +36,14 @@ REQUIRED_FILES = (
     "docs/CONTROLLED_AUDIT_ACCESS.md",
     "docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md",
     "outputs/human_validation/HUMAN_VALIDATION_STATUS.md",
+    "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
+    "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
+    "outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md",
+    "outputs/human_validation/human_icr_aggregate_summary.csv",
+    "outputs/human_validation/human_icr_by_target.csv",
+    "outputs/human_validation/human_icr_target_metadata.json",
+    "outputs/human_validation/human_validation_performance.csv",
+    "outputs/human_validation/human_validation_performance_metadata.json",
     "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
     "outputs/derived_analysis/derived_analysis_metadata.json",
     "outputs/analysis_audit/corpus_screening_audit_summary.csv",
@@ -54,6 +62,9 @@ CSV_SCHEMAS = {
     "outputs/phase4_aggregate/aml_red_flags_summary.csv": "rank,aml_indicator,label,source_count,note_count,hit_count,interpretation",
     "outputs/phase4_aggregate/financial_crime_findings.csv": "rank,code,label,note_count,hit_count,finding,analysis,result_type,aml_or_detection_relevance",
     "outputs/phase4_aggregate/source_profile_summary.csv": "source,dominant_typology,dominant_typology_notes,top_typologies",
+    "outputs/phase4_aggregate/phase4_recommendations.csv": "priority,recommendation,reason",
+    "outputs/human_validation/human_icr_aggregate_summary.csv": "completion_date,coder_count,coordinator_count,evidence_packet_count,assessed_target_count,decision_category_count,paired_units,exact_agreements,disagreements,agreement_percent,cohen_kappa,krippendorff_alpha_nominal,binary_subset_units,binary_subset_exact_agreements,binary_subset_agreement_percent,binary_subset_cohen_kappa,adjudicated_disagreements,consensus_cases,no_consensus_cases,final_present,final_absent,final_ambiguous,final_insufficient_evidence,final_out_of_scope",
+    "outputs/human_validation/human_icr_by_target.csv": "code,target_group,paired_units,exact_agreements,disagreements,agreement_percent,agreement_ci95_low_percent,agreement_ci95_high_percent,cohen_kappa,cohen_kappa_bootstrap_ci95_low,cohen_kappa_bootstrap_ci95_high,krippendorff_alpha_nominal,binary_subset_units,binary_subset_exact_agreements,binary_subset_agreement_percent,binary_subset_cohen_kappa,binary_subset_gwet_ac1,binary_subset_gwet_ac1_bootstrap_ci95_low,binary_subset_gwet_ac1_bootstrap_ci95_high,adjudicated_disagreements,final_present,final_absent,final_ambiguous,final_insufficient_evidence,final_out_of_scope_record",
     "outputs/analysis_audit/corpus_screening_audit_summary.csv": "screened_combined_records,unique_combined_text_hashes,exact_duplicate_groups,exact_duplicate_excess,maximum_duplicate_group_size,zero_combined_word_records,markdown_only_records,markdown_and_ocr_records,ocr_only_records,neither_assessable_records,explicit_exclusion_log_available,pre_analysis_deduplication_applied,eligible_unique_analytic_records",
     "outputs/derived_analysis/duplicate_sensitivity.csv": "code,label,full_screened_denominator_n,full_screened_present_n,full_screened_percent,full_screened_rank,exact_text_unique_denominator_n,exact_text_unique_present_n,exact_text_unique_percent,exact_duplicate_excess_positive_records_n,positive_count_reduction_percent,percentage_point_difference,exact_text_unique_rank,rank_change",
     "outputs/derived_analysis/service_chain_grouping.csv": "population,population_definition,mapping_status,stage,label,definition,included_codes,denominator_n,unique_records_present_n,records_present_percent",
@@ -171,10 +182,11 @@ def check_python_and_json(errors: list[str]) -> tuple[int, int]:
         relative = path.relative_to(REPOSITORY_ROOT).as_posix()
         if path.suffix == ".py":
             try:
-                py_compile.compile(str(path), doraise=True)
+                source = path.read_text(encoding="utf-8-sig")
+                compile(source, str(path), "exec")
                 python_count += 1
-            except py_compile.PyCompileError as exc:
-                errors.append(f"Python syntax error in {relative}: {exc.msg}")
+            except (OSError, UnicodeError, SyntaxError) as exc:
+                errors.append(f"Python syntax error in {relative}: {exc}")
         elif path.suffix == ".json":
             try:
                 json.loads(path.read_text(encoding="utf-8-sig"))
@@ -354,6 +366,37 @@ def _number(row: dict[str, str], field: str, errors: list[str]) -> float:
         return 0.0
 
 
+def _optional_number(
+    row: dict[str, str], field: str, errors: list[str]
+) -> float | None:
+    raw = row.get(field, "").strip()
+    if not raw:
+        return None
+    try:
+        return float(raw)
+    except ValueError:
+        errors.append(f"Human ICR field must be numeric or blank: {field}")
+        return None
+
+
+def _sha256(relative: str) -> str:
+    digest = hashlib.sha256()
+    with (REPOSITORY_ROOT / relative).open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _sha256_normalized_text_bytes(data: bytes) -> str:
+    """Hash text content after canonicalising CRLF and CR line endings to LF."""
+    normalized = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(normalized).hexdigest()
+
+
+def _sha256_text(relative: str) -> str:
+    return _sha256_normalized_text_bytes((REPOSITORY_ROOT / relative).read_bytes())
+
+
 def check_human_icr_aggregate(manifest: dict[str, Any], errors: list[str]) -> int:
     relative = "outputs/human_validation/human_icr_aggregate_summary.csv"
     rows = _read_rows(relative, errors)
@@ -404,6 +447,7 @@ def check_human_icr_aggregate(manifest: dict[str, Any], errors: list[str]) -> in
 
 def check_human_icr_by_target(manifest: dict[str, Any], errors: list[str]) -> int:
     rows = _read_rows(
+        "outputs/human_validation/human_icr_by_target.csv", errors
     )
     if len(rows) != 18:
         errors.append(f"Human ICR target table must contain 18 rows; found {len(rows)}")
@@ -411,6 +455,8 @@ def check_human_icr_by_target(manifest: dict[str, Any], errors: list[str]) -> in
     codes = [row.get("code", "") for row in rows]
     if any(not code for code in codes) or len(codes) != len(set(codes)):
         errors.append("Human ICR target codes must be nonblank and unique.")
+    if any(row.get("target_group") not in {"typology", "aml_candidate"} for row in rows):
+        errors.append("Human ICR target groups must be typology or aml_candidate.")
     totals = {
         field: sum(_integer(row, field, errors) for row in rows)
         for field in (
@@ -445,17 +491,36 @@ def check_human_icr_by_target(manifest: dict[str, Any], errors: list[str]) -> in
         high = _number(row, "agreement_ci95_high_percent", errors)
         if not (0 <= low <= agreement <= high <= 100):
             errors.append(f"Target agreement interval is invalid for {code}.")
-        for field in (
+        metrics = {
+            field: _optional_number(row, field, errors)
+            for field in (
             "cohen_kappa", "cohen_kappa_bootstrap_ci95_low",
             "cohen_kappa_bootstrap_ci95_high", "krippendorff_alpha_nominal",
             "binary_subset_cohen_kappa", "binary_subset_gwet_ac1",
             "binary_subset_gwet_ac1_bootstrap_ci95_low",
             "binary_subset_gwet_ac1_bootstrap_ci95_high",
-        ):
-            value = _number(row, field, errors)
+            )
+        }
+        for field, value in metrics.items():
+            if value is None:
+                continue
             if not -1 <= value <= 1:
                 errors.append(f"Target reliability metric outside [-1, 1] for {code}: {field}")
+        for low_field, high_field in (
+            ("cohen_kappa_bootstrap_ci95_low", "cohen_kappa_bootstrap_ci95_high"),
+            (
+                "binary_subset_gwet_ac1_bootstrap_ci95_low",
+                "binary_subset_gwet_ac1_bootstrap_ci95_high",
+            ),
+        ):
+            low_metric = metrics[low_field]
+            high_metric = metrics[high_field]
+            if (low_metric is None) != (high_metric is None):
+                errors.append(f"Target reliability interval is incomplete for {code}.")
+            elif low_metric is not None and high_metric is not None and low_metric > high_metric:
+                errors.append(f"Target reliability interval is reversed for {code}.")
     aggregate_rows = _read_rows(
+        "outputs/human_validation/human_icr_aggregate_summary.csv", errors
     )
     if len(aggregate_rows) == 1:
         aggregate = aggregate_rows[0]
@@ -506,6 +571,200 @@ def check_human_icr_by_target(manifest: dict[str, Any], errors: list[str]) -> in
         if validation.get("public_target_metadata") != "outputs/human_validation/human_icr_target_metadata.json":
             errors.append("Manifest does not reference the target-level ICR metadata.")
     return len(rows) * 12 + len(totals) + 8
+
+
+def check_human_validation_performance(
+    manifest: dict[str, Any], errors: list[str]
+) -> int:
+    relative = "outputs/human_validation/human_validation_performance.csv"
+    rows = _read_rows(relative, errors)
+    if len(rows) != 19:
+        errors.append(
+            f"Human-validation performance table must contain 19 rows; found {len(rows)}"
+        )
+        return 0
+    required_fields = {
+        "scope", "target_type", "code", "sample_case_target_units_n",
+        "coder_pair_complete_n", "agreement_n", "agreement_rate",
+        "agreement_ci95_low", "agreement_ci95_high", "kappa_evaluable_n",
+        "cohen_kappa", "gwet_ac1", "unresolved_n", "final_present_n",
+        "final_absent_n", "final_ambiguous_n",
+        "final_insufficient_evidence_n", "final_out_of_scope_record_n",
+        "excluded_from_confusion_n", "confusion_evaluable_n", "tp", "fp",
+        "tn", "fn", "accuracy", "analysis_weight_supplied_n",
+        "weighted_confusion_weight_sum", "weighted_tp", "weighted_fp",
+        "weighted_tn", "weighted_fn", "weighted_accuracy",
+    }
+    header = set(rows[0])
+    missing = sorted(required_fields - header)
+    if missing:
+        errors.append(
+            "Human-validation performance table is missing fields: "
+            + ", ".join(missing)
+        )
+    blocked = blocked_public_fields(list(rows[0]))
+    if blocked:
+        errors.append(
+            "Blocked public fields in human-validation performance table: "
+            + ", ".join(blocked)
+        )
+
+    overall_rows = [row for row in rows if row.get("scope") == "overall"]
+    target_rows = [row for row in rows if row.get("scope") == "target"]
+    if len(overall_rows) != 1 or len(target_rows) != 18:
+        errors.append("Human-validation performance table must have one overall and 18 target rows.")
+        return len(rows)
+    target_keys = [
+        (row.get("target_type", ""), row.get("code", "")) for row in target_rows
+    ]
+    if any(
+        target_type not in {"typology", "aml_candidate"} or not code
+        for target_type, code in target_keys
+    ) or len(target_keys) != len(set(target_keys)):
+        errors.append("Human-validation performance target keys must be valid and unique.")
+
+    overall = overall_rows[0]
+    integer_fields = (
+        "sample_case_target_units_n", "coder_pair_complete_n", "agreement_n",
+        "kappa_evaluable_n", "unresolved_n", "final_present_n",
+        "final_absent_n", "final_ambiguous_n",
+        "final_insufficient_evidence_n", "final_out_of_scope_record_n",
+        "excluded_from_confusion_n", "confusion_evaluable_n", "tp", "fp",
+        "tn", "fn", "analysis_weight_supplied_n",
+    )
+    integers = {field: _integer(overall, field, errors) for field in integer_fields}
+    expected_integers = {
+        "sample_case_target_units_n": 1032,
+        "coder_pair_complete_n": 1032,
+        "agreement_n": 981,
+        "kappa_evaluable_n": 998,
+        "unresolved_n": 0,
+        "confusion_evaluable_n": 1030,
+        "analysis_weight_supplied_n": 1032,
+    }
+    for field, expected in expected_integers.items():
+        if integers[field] != expected:
+            errors.append(
+                f"Unexpected overall human-validation performance count for {field}: "
+                f"{integers[field]}"
+            )
+    final_total = sum(
+        integers[field]
+        for field in (
+            "final_present_n", "final_absent_n", "final_ambiguous_n",
+            "final_insufficient_evidence_n", "final_out_of_scope_record_n",
+        )
+    )
+    if final_total + integers["unresolved_n"] != integers["sample_case_target_units_n"]:
+        errors.append("Final human-validation outcomes do not sum to the sampled units.")
+    confusion_total = sum(integers[field] for field in ("tp", "fp", "tn", "fn"))
+    if confusion_total != integers["confusion_evaluable_n"]:
+        errors.append("Human-validation confusion cells do not sum to evaluable units.")
+    if (
+        integers["confusion_evaluable_n"]
+        + integers["excluded_from_confusion_n"]
+        != integers["sample_case_target_units_n"]
+    ):
+        errors.append("Evaluable and excluded human-validation units do not reconcile.")
+
+    agreement = _number(overall, "agreement_rate", errors)
+    agreement_low = _number(overall, "agreement_ci95_low", errors)
+    agreement_high = _number(overall, "agreement_ci95_high", errors)
+    accuracy = _number(overall, "accuracy", errors)
+    if not 0 <= agreement_low <= agreement <= agreement_high <= 1:
+        errors.append("Overall human-validation agreement interval is invalid.")
+    if abs(
+        agreement
+        - integers["agreement_n"] / integers["sample_case_target_units_n"]
+    ) > 1e-6:
+        errors.append("Overall human-validation agreement rate is inconsistent.")
+    expected_accuracy = (
+        (integers["tp"] + integers["tn"]) / integers["confusion_evaluable_n"]
+    )
+    if abs(accuracy - expected_accuracy) > 1e-6:
+        errors.append("Overall human-validation accuracy is inconsistent.")
+
+    weighted_fields = (
+        "weighted_confusion_weight_sum", "weighted_tp", "weighted_fp",
+        "weighted_tn", "weighted_fn", "weighted_accuracy",
+    )
+    weighted = {field: _number(overall, field, errors) for field in weighted_fields}
+    weighted_cells = sum(
+        weighted[field] for field in ("weighted_tp", "weighted_fp", "weighted_tn", "weighted_fn")
+    )
+    if abs(weighted_cells - weighted["weighted_confusion_weight_sum"]) > 1e-6:
+        errors.append("Weighted human-validation confusion cells do not reconcile.")
+    expected_weighted_accuracy = (
+        (weighted["weighted_tp"] + weighted["weighted_tn"]) / weighted_cells
+        if weighted_cells
+        else 0.0
+    )
+    if abs(weighted["weighted_accuracy"] - expected_weighted_accuracy) > 1e-6:
+        errors.append("Weighted human-validation accuracy is inconsistent.")
+
+    metadata_relative = (
+        "outputs/human_validation/human_validation_performance_metadata.json"
+    )
+    try:
+        metadata = json.loads(
+            (REPOSITORY_ROOT / metadata_relative).read_text(encoding="utf-8-sig")
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"Could not read human-validation performance metadata: {exc}")
+        metadata = {}
+    validation = manifest.get("validation", {})
+    expected_coders = ["Ausma Bernot", "Milind Tiwari"]
+    if metadata.get("coders") != expected_coders:
+        errors.append("Human-validation performance metadata has unexpected coder names.")
+    if not isinstance(validation, dict) or validation.get("coders") != expected_coders:
+        errors.append("Manifest must identify Ausma Bernot and Milind Tiwari as coders.")
+    if metadata.get("adjudication_supplied") is not True:
+        errors.append("Human-validation performance metadata must record adjudication.")
+    if metadata.get("aggregate_rows") != len(rows):
+        errors.append("Human-validation performance metadata row count does not reconcile.")
+    if (
+        metadata.get("sample_case_target_units")
+        != integers["sample_case_target_units_n"]
+    ):
+        errors.append("Human-validation performance metadata sample count does not reconcile.")
+    input_hashes = metadata.get("controlled_input_sha256", {})
+    if not isinstance(input_hashes, dict) or len(input_hashes) != 4 or any(
+        not re.fullmatch(r"[0-9a-f]{64}", str(value))
+        for value in input_hashes.values()
+    ):
+        errors.append("Human-validation performance controlled input hashes are invalid.")
+    public_hashes = metadata.get("public_output_sha256", {})
+    if metadata.get("public_output_hash_method") != (
+        "SHA-256 after CRLF and CR line endings are normalized to LF"
+    ):
+        errors.append("Human-validation performance public output hash method is invalid.")
+    expected_hash_paths = {
+        "human_validation_performance.csv": relative,
+        "HUMAN_VALIDATION_PERFORMANCE.md": (
+            "outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md"
+        ),
+    }
+    if not isinstance(public_hashes, dict) or set(public_hashes) != set(expected_hash_paths):
+        errors.append("Human-validation performance public output hashes are incomplete.")
+    else:
+        for filename, output_relative in expected_hash_paths.items():
+            try:
+                actual_hash = _sha256_text(output_relative)
+            except OSError as exc:
+                errors.append(f"Could not hash {output_relative}: {exc}")
+                continue
+            if public_hashes.get(filename) != actual_hash:
+                errors.append(f"Human-validation performance output hash is stale: {filename}")
+    expected_manifest_paths = {
+        "public_performance_results": relative,
+        "public_performance_report": "outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md",
+        "public_performance_metadata": metadata_relative,
+    }
+    if isinstance(validation, dict):
+        for field, expected in expected_manifest_paths.items():
+            if validation.get(field) != expected:
+                errors.append(f"Manifest human-validation performance path is incorrect: {field}")
+    return len(rows) * 4 + len(integers) + len(weighted) + 18
 
 
 def check_derived_analysis(manifest: dict[str, Any], errors: list[str]) -> int:
@@ -585,8 +844,9 @@ def main() -> int:
     privacy_count = check_text_privacy(errors)
     release_count = check_release_metadata(manifest, errors)
     disclosure_count = check_ai_authoring_disclosure(manifest, errors)
-    icr_count = 0
-    icr_target_count = 0
+    icr_count = check_human_icr_aggregate(manifest, errors)
+    icr_target_count = check_human_icr_by_target(manifest, errors)
+    performance_count = check_human_validation_performance(manifest, errors)
     derived_count = check_derived_analysis(manifest, errors)
 
     if errors:
@@ -605,7 +865,9 @@ def main() -> int:
     print(f"- Publication-safe text files scanned for local paths: {privacy_count}")
     print(f"- Release metadata checks: {release_count}")
     print(f"- AI authoring-disclosure checks: {disclosure_count}")
-    print("- Human validation: corrected eligible-corpus revalidation completed (1,032 paired units; 51 adjudicated disagreements)")
+    print(f"- Aggregate human-validation checks: {icr_count}")
+    print(f"- Target-level human-validation checks: {icr_target_count}")
+    print(f"- Human-validation performance checks: {performance_count}")
     print(f"- Derived-analysis checks: {derived_count}")
     return 0
 

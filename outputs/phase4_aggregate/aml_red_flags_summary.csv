@@ -1,5 +1,5 @@
 ﻿rank,aml_indicator,label,source_count,note_count,hit_count,interpretation
-1,domestic_account_preference,Jurisdiction-specific bank or account reference,11,117,691,"Rule match for jurisdiction terms near bank, account, drop, or log terms; it does not establish preference or evasion intent."
+1,domestic_account_preference,Jurisdiction-specific bank or account reference,11,117,693,"Rule match for jurisdiction terms near bank, account, drop, or log terms; it does not establish preference or evasion intent."
 2,escrow_or_exit_scam_risk,Escrow or exit-scam discourse,11,101,448,"Rule match for escrow, exit-scam, finalise-early, or multisig terms; it does not establish listing reliability or transaction behaviour."
 3,crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,10,34,73,"Rule match for cryptocurrency near bank, cash, wire, or conversion terms; it does not establish conversion or money movement."
 4,telegram_sales_or_proof,"Telegram used for vendor proof, negotiation, or sales",4,21,49,"Rule match for Telegram near vendor, proof, contact, or direct-message terms; it does not establish negotiation or a transaction."
