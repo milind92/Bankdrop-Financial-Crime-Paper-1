@@ -2,7 +2,7 @@
 
 ## Status And Purpose
 
-This protocol defines the minimum provenance, sampling, inclusion, exclusion, and ethics information required to describe the Bank Drop corpus in a journal article. It is a prospective reporting and audit protocol. It does not assert that unresolved steps have already occurred.
+This protocol records the completed repository-level corpus boundary and the additional provenance, sampling, and ethics information required when the supplement is integrated with a journal article. It distinguishes author-confirmed decisions from collection facts that remain outside the public archive.
 
 Items marked **AUTHOR CONFIRMATION REQUIRED** must be completed from contemporaneous collection records or direct author knowledge. They must not be inferred from filenames, aggregate tables, repository history, or automated output.
 
@@ -10,17 +10,17 @@ The study concerns observed online material. It does not provide transaction dat
 
 ## Study Design
 
-The planned study is a deterministic, computer-assisted content analysis of a controlled research vault containing researcher-maintained Markdown notes and referenced screenshots. The design is descriptive and exploratory. It maps signals visible in the captured corpus; it is not a prevalence study of an external criminal market.
+The study is a deterministic, computer-assisted content analysis of a controlled research vault containing researcher-maintained Markdown notes and referenced screenshots. The design is descriptive and exploratory. It maps signals visible in the captured corpus; it is not a prevalence study of an external criminal market.
 
-The repository currently records a staged workflow in which Markdown content is inventoried, referenced screenshots are processed with local OCR, and the combined text is screened using a prespecified rule-based codebook. Human validation is governed separately by `docs/HUMAN_VALIDATION_PROTOCOL.md`.
+The repository records a staged workflow in which Markdown content is inventoried, referenced screenshots are processed with local OCR, and the combined text is screened using a fixed, version-controlled rule-based codebook. Human validation is governed separately by `docs/HUMAN_VALIDATION_PROTOCOL.md`.
 
 ## Research Scope
 
 The collection protocol must support the following bounded questions:
 
-1. Which prespecified financial-crime service, access, identity, coordination, trust, and monetisation signals are visible in eligible captured records?
+1. Which defined financial-crime service, access, identity, coordination, trust, and monetisation signals are visible in the screened combined note records?
 2. How are validated signals distributed across the included source groups and text modalities?
-3. Which signals co-occur within unique eligible records, without treating co-occurrence as proof of a transaction pathway?
+3. Which signals co-occur within screened combined note records, without treating co-occurrence as proof of a transaction pathway?
 4. Which observations may be framed as hypotheses for later AML research or expert assessment, rather than operational monitoring rules?
 
 ## Unit Definitions
@@ -28,16 +28,16 @@ The collection protocol must support the following bounded questions:
 | Unit | Definition | Permitted use |
 |---|---|---|
 | Source group | A named folder or documented collection stratum representing an online forum, market, search surface, or other source context. | Coverage and source-stratified description. It is not an independent population. |
-| Markdown note | One Markdown file in the controlled vault. A note may contain researcher text, embedded links, metadata, or references to screenshots. | Inventory unit only until its creation method and relationship to underlying captures are confirmed. |
+| Markdown note | One Markdown file in the controlled vault. A note may contain researcher text, embedded links, metadata, or references to screenshots. | Inventory unit and basis of the screened combined note record; it is not assumed to be one unique online post. |
 | Screenshot | One unique local image, identified by cryptographic file hash rather than filename alone. | Image-level provenance and OCR quality assessment. |
 | Image reference | One link from a Markdown note to an image. Multiple references may point to the same screenshot. | Linkage and missingness reporting; not a count of unique images. |
 | Combined note record | The normalized Markdown text for one note plus deduplicated OCR text from screenshots validly linked to that note. | Current screening record. It must not duplicate OCR merely because an image is referenced more than once. |
 | Evidence unit | The underlying captured post, listing, page, thread segment, or other online artefact represented by a note or screenshot. | Preferred substantive unit where the collection log permits reconstruction. |
-| Analytic record | One eligible, unique evidence unit or, where evidence-unit reconstruction is impossible, one eligible deduplicated combined note record. | Primary denominator for descriptive analysis. |
+| Analytic record | One screened combined note record: one Markdown note plus validly linked and content-deduplicated OCR text where available. | Primary descriptive denominator for this release, n = 980. It may be composite and is not a unique-post unit. |
 | Note-code row | One analytic record evaluated against one typology or AML-candidate definition. | Coding-table structure only. It is not an independent observation when multiple rows come from the same record. |
 | Duplicate cluster | Two or more notes or screenshots with identical content hashes, or a separately documented near-duplicate relationship. | Sensitivity analysis and prevention of double counting. |
 
-**AUTHOR CONFIRMATION REQUIRED:** State whether a Markdown note normally represents one post/listing, several captures, a daily collection log, a researcher summary, or a mixture. If the relationship varies, define record types and report counts for each type.
+The author-approved analysis retains the Markdown-note-based combined record because underlying evidence-unit reconstruction was not completed. The final manuscript must state that notes may be composite. It must not claim one record equals one post, listing, actor, or transaction. If a future controlled audit establishes record types, it must be versioned as a new analysis.
 
 ## Source Selection And Sampling Frame
 
@@ -61,9 +61,9 @@ For every source group, retain a controlled provenance record with:
 
 **AUTHOR CONFIRMATION REQUIRED:** Provide the original source-selection rationale, collection/search procedure, collection personnel, language scope, geographical scope, collection schedule, stopping rule, and any deviations. The current source-folder inventory alone does not establish these facts.
 
-## Inclusion Criteria
+## Current Inclusion Boundary
 
-A record is eligible for substantive analysis only when all applicable criteria are met:
+The corrected release included the 980 Markdown notes located within the named source-folder structure after excluding 19 internal or administrative files outside that structure. The following criteria describe a future evidence-unit refinement and must not be represented as having been applied record by record in the current release:
 
 1. It falls within the documented collection period and source scope.
 2. Its provenance can be linked to a controlled source record or explicitly classified as `source_unknown`.
@@ -74,9 +74,9 @@ A record is eligible for substantive analysis only when all applicable criteria 
 
 Image-only records may be eligible when the screenshot linkage is valid and the image is assessable. Short records must not be excluded solely because of word count; length is a validation and sensitivity stratum.
 
-## Exclusion And Flagging Criteria
+## Future Exclusion And Flagging Refinement
 
-Exclude a record from the primary substantive denominator, while retaining a controlled exclusion log, when it is:
+A future evidence-unit analysis should exclude or separately classify a record, while retaining a controlled exclusion log, when it is:
 
 - an exact duplicate of another retained analytic record under the prespecified duplicate rule;
 - a collection-system test, empty placeholder, or corrupted file;
@@ -87,7 +87,7 @@ Exclude a record from the primary substantive denominator, while retaining a con
 
 Do not silently discard near duplicates, reposts, mirrors, inaccessible images, OCR failures, short records, or ambiguous material. Flag them and report their counts. Near duplicates should be retained or clustered according to the locked analysis plan, with a sensitivity analysis showing the consequence of the choice.
 
-**AUTHOR CONFIRMATION REQUIRED:** Approve the treatment of reposts, mirrors, translated copies, daily collection logs, source-unknown notes, access/error pages, and records containing multiple underlying posts.
+The current design retains these conditions within the 980-record screen where they occur and uses exact-text and source sensitivity rather than claiming that they were resolved. A future change to their treatment requires a controlled audit, documented decision, and complete downstream rerun.
 
 ## Provenance And Integrity Fields
 
@@ -133,7 +133,7 @@ The figures below were derived from the controlled Phase 1-3 aggregate inventory
 
 | Flow item | Current aggregate count | Interpretation/status |
 |---|---:|---|
-| Markdown notes inventoried | 980 | File inventory; eligibility and unique evidence-unit count remain to be confirmed. |
+| Markdown notes inventoried | 980 | Source-root-screened inventory and primary descriptive denominator; not a unique evidence-unit count. |
 | Eligible source groups represented | 16 | Only notes within named `Core Trace/<source folder>/` directories are eligible. Folder index 16 exists but contains no Markdown notes; the next represented label is normalized to `17. XmrBazaar`. |
 | Image references | 1,140 | Reference occurrences, not unique screenshots. |
 | Locally resolved image references | 1,048 | Current aggregate count; path-resolution audit required. |
@@ -152,10 +152,10 @@ The figures below were derived from the controlled Phase 1-3 aggregate inventory
 | Neither Markdown nor OCR assessable | 65 | Same count as zero combined-word records in the current inventory. |
 | Internal project documents excluded before analysis | 19 | Excluded by the source-root eligibility rule before Phase 1 extraction. |
 | Exact duplicate records removed before analysis | 0 | The 980-record screen was not deduplicated before Phase 3 coding. |
-| Eligible unique analytic records | **AUTHOR CONFIRMATION REQUIRED** | This becomes the primary descriptive denominator. |
+| Primary descriptive analytic records | 980 | Author-confirmed screened combined note records; not deduplicated posts or evidence units. |
 | Human validation | Complete | Ausma Bernot and Milind Tiwari independently coded 1,032 case-target units across 313 evidence packets from the corrected corpus; all 51 disagreements were jointly adjudicated on 26 July 2026. The earlier 1,036-unit result remains withdrawn. |
 
-The final manuscript should include a flow diagram or table showing identified, screened, excluded, deduplicated, eligible, validated, and analysed records. Counts must reconcile across the controlled inventory, manuscript, tables, and machine-readable manifest. Until the authors complete the collection and eligibility audit, the existing Phase 3 and 4 counts must be described as descriptive signals among 980 screened combined note records, with exact-text sensitivity reported separately. The 463 unique hashes must not be called the final eligible denominator.
+The final manuscript should include a flow diagram or table showing the 999 source-archive Markdown files, 19 structurally excluded internal/administrative files, 980 screened combined note records, 463 exact-text sensitivity representatives, and 313 validation packets generating 1,032 case-target units. Counts must reconcile across the controlled inventory, manuscript, tables, and machine-readable manifest. Phase 3 and 4 counts must be described as descriptive signals among 980 screened combined note records, with exact-text sensitivity reported separately. The 463 unique hashes must not be called unique posts or a final eligible evidence-unit denominator.
 
 ## Collection Bias And Missingness
 
@@ -187,7 +187,7 @@ Before submission, the authors must document:
 - whether source names may be published or must be generalised;
 - the conditions under which editors or reviewers may receive time-limited controlled audit access.
 
-**AUTHOR CONFIRMATION REQUIRED:** Complete every item above. Repository redaction and aggregate-only publication are safeguards, but they are not substitutes for institutional ethics or legal review.
+The approved public ethics wording is “Griffith University Human Ethics Protocol 2025/697.” Consent or waiver rationale, access conditions, interaction status, retention, controlled-access authority, and the remaining items above still require confirmation from contemporaneous records or responsible institutional decision-makers. Repository redaction and aggregate-only publication are safeguards, not substitutes for ethics or legal review.
 
 ## Deviations And Change Control
 
@@ -203,7 +203,7 @@ Changes made after results are known must be disclosed as post hoc. The final ma
 
 ## Author Sign-Off
 
-Before the corpus is described as journal-ready, all authors must confirm:
+Before the article submission is described as journal-ready, all authors must confirm:
 
 - the collection account is complete and accurate;
 - source and unit definitions match how the material was actually created;

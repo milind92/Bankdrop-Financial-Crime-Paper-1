@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.3.0 - 2026-08-22
+
+- Fixed the repository role as a journal-neutral reproducibility supplement; manuscript and journal submission files remain outside GitHub.
+- Recorded the author-approved primary computational unit and 980-record descriptive denominator, with 463 exact-text representatives retained only as duplicate sensitivity and 65 zero-word records disclosed.
+- Added a reviewer landing page, author-decisions record, journal-integration checklist, and machine-readable claim-to-evidence register.
+- Added a Google Colab capability matrix, audit commands, and controlled-data/OCR portability boundaries.
+- Recorded both coders as subject-matter experts, Milind Tiwari's AML expertise, and the author confirmation that a sample-size plan was used.
+- Preserved transparent validation limitations: short predicted-negative eligibility, legacy provenance labels, joint two-coder adjudication, and no claim of an independent external AML review.
+- Corrected the legacy screening-audit row so it no longer claims a record-level exclusion log or 980 eligible unique analytic records.
+- Extended the repository verifier and tests to enforce the journal-supplement role, denominators, pending integration items, and claim boundaries.
+
 ## 1.2.1 - 2026-08-22
 
 - Recorded the completed corrected-corpus validation by Ausma Bernot and Milind Tiwari: 1,032 paired units, 981 agreements, 51 jointly adjudicated disagreements, and no unresolved cases.

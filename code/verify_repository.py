@@ -35,6 +35,10 @@ REQUIRED_FILES = (
     "docs/HUMAN_VALIDATION_PROTOCOL.md",
     "docs/CONTROLLED_AUDIT_ACCESS.md",
     "docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md",
+    "docs/AUTHOR_DECISIONS_RECORD.md",
+    "docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md",
+    "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
+    "docs/GOOGLE_COLAB_COMPATIBILITY.md",
     "outputs/human_validation/HUMAN_VALIDATION_STATUS.md",
     "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
     "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
@@ -75,6 +79,7 @@ CSV_SCHEMAS = {
     "outputs/derived_analysis/typology_cooccurrence_by_source.csv": "population,population_definition,source,source_denominator_n,code_a,label_a,code_b,label_b,n11_both_present,n10_a_only,n01_b_only,n00_neither,jaccard,lift",
     "outputs/derived_analysis/typology_cooccurrence_leave_one_source_out.csv": "population,population_definition,removed_source,remaining_denominator_n,code_a,label_a,code_b,label_b,n11_both_present,n10_a_only,n01_b_only,n00_neither,jaccard,lift,full_population_n11,n11_difference,full_population_jaccard,jaccard_difference,full_population_lift,lift_difference",
     "outputs/derived_analysis/typology_source_normalized.csv": "population,population_definition,source,source_denominator_n,markdown_present_n,ocr_present_n,markdown_and_ocr_present_n,neither_modality_present_n,code,label,source_positive_records_n,within_source_percent,all_sources_positive_records_n,source_share_of_positive_records",
+    "docs/claim_to_evidence_register.csv": "claim_id,claim_scope,approved_wording,status,primary_denominator_n,evidence_files,human_validation_boundary,sensitivity_boundary,prohibited_inference",
 }
 
 REQUIRED_NON_CSV_OUTPUTS = (
@@ -318,6 +323,278 @@ def check_release_metadata(manifest: dict[str, Any], errors: list[str]) -> int:
         errors.append("CHANGELOG.md has no dated heading for the manifest version.")
     else:
         checked += 1
+    return checked
+
+
+def check_journal_reproducibility_supplement(
+    manifest: dict[str, Any], errors: list[str]
+) -> int:
+    section = manifest.get("journal_reproducibility_supplement", {})
+    if not isinstance(section, dict):
+        errors.append("Manifest journal reproducibility supplement must be an object.")
+        return 0
+
+    checked = 0
+    expected_values = {
+        "repository_role": "journal-neutral reproducibility supplement",
+        "repository_status": "technically ready",
+        "manuscript_included": False,
+        "primary_descriptive_denominator_n": 980,
+        "exact_text_sensitivity_denominator_n": 463,
+        "external_prevalence_claims_permitted": False,
+        "author_confirmation_date": "2026-08-22",
+    }
+    for field, expected in expected_values.items():
+        if section.get(field) != expected:
+            errors.append(
+                f"Journal supplement field {field} must be {expected!r}."
+            )
+        else:
+            checked += 1
+
+    primary_unit = str(section.get("primary_analysis_unit", ""))
+    normalized_primary_unit = primary_unit.casefold()
+    forbidden_primary_units = (
+        "unique post",
+        "unique listing",
+        "unique actor",
+        "unique transaction",
+        "unique offender",
+        "unique victim",
+        "eligible evidence unit",
+    )
+    if (
+        "screened combined note record" not in normalized_primary_unit
+        or any(term in normalized_primary_unit for term in forbidden_primary_units)
+    ):
+        errors.append(
+            "Journal supplement primary unit must be a screened combined note record, "
+            "not a unique post, listing, actor, or transaction."
+        )
+    else:
+        checked += 1
+
+    corpus_counts_value = manifest.get("corpus_counts", {})
+    corpus_counts = corpus_counts_value if isinstance(corpus_counts_value, dict) else {}
+    if not isinstance(corpus_counts_value, dict) or (
+        section.get("primary_descriptive_denominator_n")
+        != corpus_counts.get("screened_combined_records")
+    ):
+        errors.append("Journal supplement primary denominator differs from the corpus manifest.")
+    else:
+        checked += 1
+    if not isinstance(corpus_counts_value, dict) or (
+        section.get("exact_text_sensitivity_denominator_n")
+        != corpus_counts.get("unique_combined_text_hashes")
+    ):
+        errors.append("Journal supplement sensitivity denominator differs from the corpus manifest.")
+    else:
+        checked += 1
+    try:
+        source_archive_n = int(corpus_counts.get("source_archive_markdown_files"))
+        structurally_excluded_n = int(
+            corpus_counts.get("structurally_excluded_internal_admin_files")
+        )
+        screened_n = int(corpus_counts.get("screened_combined_records"))
+    except (TypeError, ValueError):
+        errors.append("Journal supplement corpus-flow counts must be integers.")
+    else:
+        if source_archive_n - structurally_excluded_n != screened_n:
+            errors.append("Journal supplement corpus-flow counts do not reconcile.")
+        else:
+            checked += 1
+
+    screening_audit = manifest.get("screening_audit", {})
+    expected_screening_audit = {
+        "primary_descriptive_denominator_n": 980,
+        "explicit_exclusion_log_available": False,
+        "pre_analysis_deduplication_applied": False,
+        "eligible_unique_analytic_records": None,
+    }
+    if not isinstance(screening_audit, dict):
+        errors.append("Manifest screening audit must be an object.")
+    else:
+        for field, expected in expected_screening_audit.items():
+            if screening_audit.get(field) != expected:
+                errors.append(
+                    f"Screening audit field {field} must be {expected!r}."
+                )
+            else:
+                checked += 1
+
+    audit_rows = _read_rows(
+        "outputs/analysis_audit/corpus_screening_audit_summary.csv", errors
+    )
+    if len(audit_rows) != 1:
+        errors.append("Corpus screening audit must contain exactly one summary row.")
+    else:
+        audit_row = audit_rows[0]
+        expected_audit_row = {
+            "screened_combined_records": str(
+                corpus_counts.get("screened_combined_records")
+            ),
+            "unique_combined_text_hashes": str(
+                corpus_counts.get("unique_combined_text_hashes")
+            ),
+            "exact_duplicate_groups": str(
+                corpus_counts.get("exact_duplicate_groups")
+            ),
+            "exact_duplicate_excess": str(
+                corpus_counts.get("exact_duplicate_excess")
+            ),
+            "zero_combined_word_records": str(
+                corpus_counts.get("zero_combined_word_records")
+            ),
+            "neither_assessable_records": str(
+                corpus_counts.get("zero_combined_word_records")
+            ),
+            "explicit_exclusion_log_available": "no",
+            "pre_analysis_deduplication_applied": "no",
+            "eligible_unique_analytic_records": "",
+        }
+        for field, expected in expected_audit_row.items():
+            if audit_row.get(field) != expected:
+                errors.append(
+                    f"Corpus screening audit field {field} must be {expected!r}."
+                )
+            else:
+                checked += 1
+        try:
+            modality_total = sum(
+                int(audit_row[field])
+                for field in (
+                    "markdown_only_records",
+                    "markdown_and_ocr_records",
+                    "ocr_only_records",
+                    "neither_assessable_records",
+                )
+            )
+        except (KeyError, TypeError, ValueError):
+            errors.append("Corpus screening audit modality counts must be integers.")
+        else:
+            if modality_total != corpus_counts.get("screened_combined_records"):
+                errors.append("Corpus screening audit modality counts do not reconcile.")
+            else:
+                checked += 1
+
+    validation = manifest.get("validation", {})
+    expected_validation = {
+        "ethics_approval": "Griffith University Human Ethics Protocol 2025/697",
+        "coder_expertise": (
+            "Both coders were author-confirmed subject-matter experts; "
+            "Milind Tiwari also has AML expertise."
+        ),
+        "sample_size_plan_author_confirmed": True,
+        "independent_external_aml_review_claimed": False,
+    }
+    if not isinstance(validation, dict):
+        errors.append("Manifest validation record must be an object.")
+    else:
+        for field, expected in expected_validation.items():
+            if validation.get(field) != expected:
+                if field == "independent_external_aml_review_claimed":
+                    errors.append(
+                        "The repository must not claim an independent external AML review."
+                    )
+                else:
+                    errors.append(
+                        f"Journal supplement validation field {field} must be {expected!r}."
+                    )
+            else:
+                checked += 1
+
+    expected_pending = {
+        "target journal",
+        "authorship metadata",
+        "declarations",
+        "rights and archival DOI",
+    }
+    pending = section.get("pending_journal_integration", [])
+    if not isinstance(pending, list) or set(pending) != expected_pending:
+        errors.append("Journal supplement pending integration items are incomplete.")
+    else:
+        checked += 1
+
+    expected_files = {
+        "reviewer_landing_page": "docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md",
+        "author_decisions": "docs/AUTHOR_DECISIONS_RECORD.md",
+        "integration_checklist": "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
+        "claim_register": "docs/claim_to_evidence_register.csv",
+        "colab_compatibility": "docs/GOOGLE_COLAB_COMPATIBILITY.md",
+    }
+    files = section.get("files", {})
+    if not isinstance(files, dict) or files != expected_files:
+        errors.append("Journal supplement file map is incomplete or incorrect.")
+    else:
+        checked += 1
+
+    rows = _read_rows(expected_files["claim_register"], errors)
+    allowed_statuses = {
+        "supported_descriptive",
+        "qualified_descriptive",
+        "exploratory_only",
+        "not_supported",
+    }
+    identifiers = [row.get("claim_id", "") for row in rows]
+    if len(rows) < 8 or len(identifiers) != len(set(identifiers)) or any(
+        not identifier for identifier in identifiers
+    ):
+        errors.append("Claim-to-evidence register must contain at least eight unique claims.")
+    else:
+        checked += 1
+    for row in rows:
+        row_id = row.get("claim_id", "")
+        row_valid = True
+        if row.get("status") not in allowed_statuses:
+            errors.append(
+                f"Claim-to-evidence register has invalid status for {row_id}."
+            )
+            row_valid = False
+        required_boundary_fields = (
+            "claim_scope",
+            "approved_wording",
+            "human_validation_boundary",
+            "sensitivity_boundary",
+            "prohibited_inference",
+        )
+        if any(not row.get(field, "").strip() for field in required_boundary_fields):
+            errors.append(
+                f"Claim-to-evidence register has an incomplete boundary for {row_id}."
+            )
+            row_valid = False
+        try:
+            denominator_n = int(row.get("primary_denominator_n", ""))
+        except (TypeError, ValueError):
+            denominator_n = 0
+        if denominator_n <= 0:
+            errors.append(
+                f"Claim-to-evidence register has an invalid denominator for {row_id}."
+            )
+            row_valid = False
+        evidence_files = [
+            value.strip()
+            for value in row.get("evidence_files", "").split(";")
+            if value.strip()
+        ]
+        if not evidence_files:
+            errors.append(
+                f"Claim-to-evidence register has no evidence files for {row_id}."
+            )
+            row_valid = False
+        for evidence_file in evidence_files:
+            evidence_path = Path(evidence_file)
+            if (
+                evidence_path.is_absolute()
+                or ".." in evidence_path.parts
+                or not (REPOSITORY_ROOT / evidence_path).is_file()
+            ):
+                errors.append(
+                    f"Claim-to-evidence register references an invalid file for {row_id}: "
+                    f"{evidence_file}"
+                )
+                row_valid = False
+        if row_valid:
+            checked += 1
     return checked
 
 
@@ -843,6 +1120,7 @@ def main() -> int:
     excluded_count = check_excluded_material(errors)
     privacy_count = check_text_privacy(errors)
     release_count = check_release_metadata(manifest, errors)
+    journal_count = check_journal_reproducibility_supplement(manifest, errors)
     disclosure_count = check_ai_authoring_disclosure(manifest, errors)
     icr_count = check_human_icr_aggregate(manifest, errors)
     icr_target_count = check_human_icr_by_target(manifest, errors)
@@ -864,6 +1142,7 @@ def main() -> int:
     print(f"- Files checked against excluded/restricted paths: {excluded_count}")
     print(f"- Publication-safe text files scanned for local paths: {privacy_count}")
     print(f"- Release metadata checks: {release_count}")
+    print(f"- Journal reproducibility-supplement checks: {journal_count}")
     print(f"- AI authoring-disclosure checks: {disclosure_count}")
     print(f"- Aggregate human-validation checks: {icr_count}")
     print(f"- Target-level human-validation checks: {icr_target_count}")

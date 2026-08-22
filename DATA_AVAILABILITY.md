@@ -2,7 +2,7 @@
 
 ## Public Repository
 
-This repository contains deterministic Phase 1–4 code, documentation, privacy-safe aggregate and derived-analysis outputs, and aggregate human inter-coder reliability and adjudication results. It does not contain a manuscript or submission package.
+This journal-neutral reproducibility supplement contains deterministic Phase 1-4 code, documentation, privacy-safe aggregate and derived-analysis outputs, aggregate human inter-coder reliability and adjudication results, and a claim-to-evidence register. It does not contain a manuscript or submission package.
 
 ## Controlled Material
 

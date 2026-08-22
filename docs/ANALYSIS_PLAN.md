@@ -2,13 +2,13 @@
 
 ## Status And Scope
 
-This plan defines the analyses required for the deterministic, no-LLM journal study. It is prospective for the final validated analysis. Existing aggregate outputs are screening results and must not be treated as final merely because they are reproducible.
+This plan records the completed deterministic, no-LLM analysis and the reporting boundaries approved for the journal-neutral reproducibility supplement. The primary results are descriptive screening results for 980 combined note records. They are final for this repository release, but they are not estimates for an external population and are not results for 980 unique posts or evidence units.
 
 The study analyses observed online content in a captured corpus. It does not estimate offender, victim, transaction, financial-loss, or external market prevalence. It does not establish that advertised goods or services existed, were delivered, or were used.
 
 ## Analysis Questions
 
-1. Which validated, prespecified typology signals are present in eligible unique records?
+1. Which validated typology signals are present in the 980 screened combined note records?
 2. How are those signals distributed across source groups and Markdown/OCR modalities?
 3. Which signals co-occur within records, and how stable are those relationships across sources and duplicate handling?
 4. Which aggregate observations can be framed cautiously as research hypotheses for AML expert assessment?
@@ -17,22 +17,22 @@ The analysis is descriptive and exploratory. Co-occurrence is not evidence of te
 
 ## Data And Version Lock
 
-Before final analysis, lock and hash:
+The current release locks and records file-level provenance for:
 
 - the approved data-collection protocol;
-- the master analytic inventory and exclusion log;
-- exact-duplicate and reviewed near-duplicate assignments;
 - the final codebook;
 - the human-validation results and adjudication log;
 - the deterministic coding output produced with the validated rules;
 - the analysis code, software environment, and random seeds;
-- a claim register mapping every manuscript result to its source table and validation status.
+- a claim register mapping permissible result statements to source tables and validation boundaries.
+
+An explicit record-level exclusion log, reviewed near-duplicate assignments, and reconstructed underlying evidence units are not public and were not completed as part of the current full-screen design. The release therefore makes no unique-post, unique-listing, or prevalence claim.
 
 If human validation changes a definition or pattern, rerun the entire deterministic corpus before producing final tables. Do not manually alter aggregate counts.
 
 ## Primary Analytic Denominator
 
-The primary denominator is the number of eligible unique analytic records after applying the locked inclusion, exclusion, and exact-duplicate rules in `docs/DATA_COLLECTION_PROTOCOL.md`.
+The author-approved primary descriptive denominator is **980 screened combined note records**. One record consists of one Markdown note plus validly linked, content-deduplicated OCR text where available. The record may be composite and is not assumed to represent one unique post, listing, actor, transaction, offender, or victim.
 
 The denominator is not:
 
@@ -43,28 +43,26 @@ The denominator is not:
 - the total number of files before eligibility screening;
 - an estimate of the size of any external market.
 
-Where one Markdown note contains multiple underlying posts or listings, the authors must either reconstruct evidence units or explicitly retain the note as a composite record and describe the resulting unit limitation.
-
-**AUTHOR CONFIRMATION REQUIRED:** Approve the final primary unit and denominator after the corpus audit. Report the full-data and deduplicated denominators side by side.
+Where one Markdown note contains multiple underlying posts or listings, it remains one composite computational record. This limitation must be stated in the manuscript. The 463 exact-combined-text-hash representatives are reported separately as sensitivity analysis and are not substituted for the primary denominator.
 
 ### Current Implementation Audit
 
 The completed deterministic screen evaluated all 980 combined note records. The controlled aggregate audit found 463 unique combined-text hashes, 34 exact duplicate groups, 517 exact duplicate excess records, and 65 zero-word combined records. No locked inclusion/exclusion log or pre-analysis deduplication was applied before Phase 3 coding. Consequently:
 
-- existing Phase 3 and 4 counts are full-screened-record descriptive results, not results from a final eligible deduplicated population;
+- existing Phase 3 and 4 counts are the primary full-screened-record descriptive results, not unique-post or external-prevalence results;
 - 463 unique hashes are a duplicate-sensitivity denominator, not a verified count of unique posts, listings, actors, transactions, or evidence units;
 - zero-word and otherwise unassessable records must not be treated as substantive negatives in a prevalence or classifier-performance claim;
-- the final manuscript must disclose this implementation boundary and may not claim that the prospective primary-denominator procedure was completed;
+- the final manuscript must disclose this combined-note-record boundary and may not present the 980 records as unique posts, listings, actors, or transactions;
 - any later eligibility or evidence-unit audit that changes the denominator requires a complete deterministic rerun and a documented deviation.
 
-Publication-safe deterministic post-processing now reports the full 980-record screen beside a 463-record exact-combined-text-hash sensitivity population. The added tables cover source-normalized typology reporting, typology co-occurrence, source-stratified and leave-one-source-out co-occurrence stability, AML-candidate overlap, duplicate sensitivity, exploratory functional unions, source concentration, and leave-one-source-out counts. This implementation does not resolve the prospective primary-denominator decision, near-duplicate treatment, image-hash deduplication, modality sensitivity, or a final eligibility/exclusion log.
+Publication-safe deterministic post-processing reports the primary 980-record screen beside a 463-record exact-combined-text-hash sensitivity population. The added tables cover source-normalized typology reporting, typology co-occurrence, source-stratified and leave-one-source-out co-occurrence stability, AML-candidate overlap, duplicate sensitivity, exploratory functional unions, source concentration, and leave-one-source-out counts. Near-duplicate treatment, evidence-unit reconstruction, record-level eligibility logging, and a complete modality sensitivity analysis remain outside the completed design and cannot be implied.
 
 ## Analysis Populations
 
 | Population | Definition | Purpose |
 |---|---|---|
-| Primary deduplicated population | Eligible records with one retained representative per exact duplicate cluster. | Main descriptive results. |
-| Full eligible population | All eligible records before exact-duplicate removal. | Duplicate sensitivity analysis. |
+| Primary full-screen population | All 980 screened combined note records. | Main descriptive results. |
+| Exact-text sensitivity population | One deterministic representative per combined-text hash, n = 463. | Duplicate sensitivity only; not a unique-post denominator. |
 | Human-validation holdout | Locked, probability-documented validation sample. | Reliability and deterministic-code performance only. |
 | Markdown-assessable population | Eligible records containing assessable Markdown text. | Markdown-only sensitivity. |
 | OCR-assessable population | Eligible records containing assessable, validly linked OCR text. | OCR contribution and error sensitivity. |
@@ -108,7 +106,7 @@ Typologies are non-mutually exclusive unless the final codebook explicitly state
 
 - typology percentages need not sum to 100%;
 - summed typology counts are not a count of unique criminal events or service chains;
-- a “criminal objective” grouping must use the union of unique records within each higher-order category, not the sum of component-code counts;
+- a “criminal objective” grouping must use the union of distinct screened combined note records within each higher-order category, not the sum of component-code counts;
 - uncertainty and clustering must be handled at the unique-record level.
 
 Every typology table must include this warning in a note.
@@ -138,7 +136,7 @@ If a finding disappears, changes rank materially, or reverses after removing one
 
 ## Co-Occurrence Analysis
 
-Construct one binary record-by-code matrix from the primary deduplicated population. For every prespecified code pair, report:
+Construct binary record-by-code matrices for the primary full-screen population and the exact-text sensitivity population. For every reported code pair, report:
 
 - `n11`: records with both codes;
 - `n10`: records with the first code only;
@@ -169,16 +167,16 @@ The manuscript may describe a connected service infrastructure only when the cla
 
 ## Higher-Order Functional Grouping
 
-If the article uses access, identity, coordination/trust, monetisation, recruitment, or other higher-order functions:
+The current repository includes an explicitly exploratory grouping using access/takeover, identity/receiving-account, coordination/trust, and monetisation/settlement functions. If the article uses that grouping:
 
-1. map each validated code to a function before final analysis;
+1. identify the mapping as post hoc and exploratory;
 2. allow documented multi-membership where conceptually justified;
 3. calculate unique-record union counts for each function;
 4. report within-function overlap rather than copying code counts;
-5. validate the mapping with authors and relevant domain expertise;
+5. avoid treating the grouping as a validated theory or observed sequence;
 6. distinguish substantive functions from data-quality flags.
 
-**AUTHOR DECISION REQUIRED:** Approve the theoretical framework and code-to-function mapping before the final analysis is opened.
+The grouping may be used only as a bounded descriptive summary unless the authors separately approve and justify a theoretical framework.
 
 ## AML-Candidate Analysis
 
@@ -188,17 +186,19 @@ AML candidates are analysed as corpus-derived hypotheses only. For each candidat
 - unique-record count and corpus proportion;
 - source and modality distribution;
 - human content-validation metrics;
-- AML domain-review outcome;
+- AML interpretation boundary and reviewer role;
 - explicit evidence boundary and alternative interpretations.
 
 Country names, payment terms, communication-platform names, escrow terms, or other isolated keywords are not sufficient on their own to establish preference, conversion, recruitment, risk, or laundering behaviour. No table may label a candidate as a confirmed red flag, suspicious-activity indicator, detection rule, or monitoring control.
 
+Milind Tiwari has author-confirmed AML expertise but was also a coder and adjudicator. No independent external AML-domain review is claimed. All six AML candidates therefore remain exploratory corpus-derived research hypotheses.
+
 ## Exact-Duplicate Sensitivity
 
-Exact duplicates must be identified using normalized Markdown hashes and image file hashes. Run the main typology, source, functional-group, and co-occurrence analyses on:
+The completed sensitivity analysis uses exact combined-text hashes. Main typology, source, functional-group, and co-occurrence results are reported on:
 
-1. the primary deduplicated population; and
-2. the full eligible population before exact-duplicate removal.
+1. the primary 980-record full screen; and
+2. the 463-record exact-text sensitivity population.
 
 For each result, report:
 
@@ -212,9 +212,9 @@ Where the same screenshot hash is linked repeatedly, OCR text should contribute 
 
 Near-duplicate analysis may be exploratory, but its method and threshold must be documented and its results kept separate from exact-hash deduplication.
 
-## Modality And OCR Sensitivity
+## Future Modality And OCR Sensitivity
 
-Repeat key descriptive results using:
+A future extension may repeat key descriptive results using:
 
 - Markdown text only;
 - OCR text only;
@@ -225,7 +225,7 @@ Report which codes depend heavily on OCR, how often OCR creates or removes a cla
 
 ## Source And Record-Length Sensitivity
 
-Assess whether findings are driven by unequal text volume or source structure:
+The release includes source-normalised and leave-one-source-out analyses. A future extension may additionally assess record-length and access/interface effects by:
 
 - report within-source record prevalence;
 - optionally report hits per 1,000 words as rule diagnostics, never as incident rates;
@@ -236,7 +236,7 @@ Assess whether findings are driven by unequal text volume or source structure:
 
 ## Human-Validation Integration
 
-The final analysis must use the locked post-validation codebook and a complete rerun. Report:
+The corrected release used the locked post-validation codebook and a complete deterministic rerun. It reports:
 
 - coder agreement before adjudication;
 - adjudicated confusion matrices and 95% intervals;
@@ -276,10 +276,10 @@ OpenAI Codex assistance outside the empirical workflow is disclosed separately. 
 The main article should contain, subject to the target journal's limits:
 
 1. corpus-flow and coverage table with complete denominators and missingness;
-2. validated typology table with unique-record counts, proportions, source concentration, and validation status;
+2. validated typology table with screened-record counts, proportions, source concentration, and validation status;
 3. human-validation table with agreement, confusion metrics, and 95% intervals;
 4. source-normalized typology table or figure;
-5. prespecified co-occurrence matrix or network with support, Jaccard, and lift;
+5. explicitly exploratory co-occurrence matrix or network with support, Jaccard, and lift;
 6. AML-hypothesis table with human and expert-review boundaries;
 7. duplicate, OCR, and leave-one-source-out sensitivity summary.
 
@@ -287,7 +287,7 @@ Reproducibility inventories, software details, full source profiles, and extende
 
 ## Claim-To-Evidence Register
 
-Before manuscript submission, maintain a register with:
+The repository maintains `docs/claim_to_evidence_register.csv` with:
 
 - claim identifier and exact manuscript wording;
 - research question;
@@ -296,7 +296,7 @@ Before manuscript submission, maintain a register with:
 - validation result and uncertainty;
 - duplicate/source/OCR sensitivity result;
 - ethics or disclosure restriction;
-- status: supported, qualified, exploratory, withdrawn, or author confirmation required.
+- status: supported descriptive, qualified descriptive, exploratory only, or not supported.
 
 A claim must be withdrawn or softened when its validation, sensitivity, or evidence boundary does not support the proposed wording.
 
@@ -306,15 +306,8 @@ Record all deviations from this plan with date, rationale, approver, whether res
 
 The final release should include deterministic analysis code, aggregate inputs sufficient to recreate publication tables where safe, a synthetic test fixture, codebook and protocol versions, environment metadata, and integrity hashes. Raw or sensitive evidence remains controlled under the data-availability and audit-access policy.
 
-## Author Decisions Required Before Lock
+## Journal Integration And Future-Analysis Decisions
 
-- target journal, article type, and reporting constraints;
-- final primary unit and corpus denominator;
-- theoretical functional grouping;
-- exact and near-duplicate treatment;
-- minimum support for reported co-occurrences;
-- claim-specific validation-performance thresholds;
-- publication-safe source labels;
-- AML domain-review personnel and decision rules;
-- treatment of source-unknown, multilingual, composite, access/error, and interface-heavy records;
-- final ethics and controlled-access wording.
+The repository analysis unit, 980-record denominator, duplicate-sensitivity role, ethics identifier, coder expertise, sampling-plan existence, and repository-only AI boundary are author confirmed in `docs/AUTHOR_DECISIONS_RECORD.md`.
+
+Before a journal submission cites a tagged release, complete the target-journal, authorship, declaration, rights, DOI, and review-anonymity items in `docs/JOURNAL_INTEGRATION_CHECKLIST.md`. Any new theoretical grouping, near-duplicate rule, evidence-unit reconstruction, claim-performance threshold, or inferential model is a new or post hoc analysis and requires separate justification, versioning, and rerun where it changes the coded population or claims.

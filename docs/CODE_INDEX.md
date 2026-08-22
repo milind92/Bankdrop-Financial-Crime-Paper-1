@@ -10,6 +10,8 @@
 | `code/human_validation/summarize_human_validation.py` | Summarises normalized controlled machine, coder, and adjudication tables; only aggregate performance results and file-level provenance hashes may be exported. |
 | `code/human_validation/build_public_icr_by_target.py` | Produces the publication-safe per-target ICR table and report from controlled aggregate reliability and adjudication inputs. |
 
+The journal-neutral reviewer route and claim boundaries are documented in `docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md` and `docs/claim_to_evidence_register.csv`; they add no empirical processing stage.
+
 ## Phase 1: Markdown Baseline
 
 | File | Purpose |

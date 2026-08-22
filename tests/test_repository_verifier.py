@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-import io
+import copy
 import importlib.util
+import io
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
@@ -81,6 +82,57 @@ class ReleaseMetadataTests(unittest.TestCase):
         checked = verifier.check_release_metadata(manifest, errors)
         self.assertEqual(errors, [])
         self.assertEqual(checked, 5)
+
+
+class JournalSupplementTests(unittest.TestCase):
+    def test_committed_journal_supplement_contract_passes(self) -> None:
+        errors: list[str] = []
+        manifest = verifier.load_manifest(errors)
+        checked = verifier.check_journal_reproducibility_supplement(manifest, errors)
+        self.assertGreater(checked, 0)
+        self.assertEqual(errors, [])
+
+    def test_primary_denominator_cannot_be_described_as_unique_records(self) -> None:
+        manifest = {
+            "journal_reproducibility_supplement": {
+                "repository_role": "journal-neutral reproducibility supplement",
+                "repository_status": "technically ready",
+                "manuscript_included": False,
+                "primary_analysis_unit": (
+                    "screened combined note record representing one unique post"
+                ),
+                "primary_descriptive_denominator_n": 980,
+                "exact_text_sensitivity_denominator_n": 463,
+                "external_prevalence_claims_permitted": False,
+                "author_confirmation_date": "2026-08-22",
+                "pending_journal_integration": [
+                    "target journal",
+                    "authorship metadata",
+                    "declarations",
+                    "rights and archival DOI",
+                ],
+                "files": {},
+            }
+        }
+        errors: list[str] = []
+        verifier.check_journal_reproducibility_supplement(manifest, errors)
+        self.assertTrue(any("screened combined note record" in error for error in errors))
+
+    def test_unsupported_independent_aml_review_is_rejected(self) -> None:
+        errors: list[str] = []
+        manifest = copy.deepcopy(verifier.load_manifest(errors))
+        manifest["validation"]["independent_external_aml_review_claimed"] = True
+        verifier.check_journal_reproducibility_supplement(manifest, errors)
+        self.assertTrue(any("independent external AML review" in error for error in errors))
+
+    def test_legacy_unique_eligible_record_claim_is_rejected(self) -> None:
+        errors: list[str] = []
+        manifest = copy.deepcopy(verifier.load_manifest(errors))
+        manifest["screening_audit"]["eligible_unique_analytic_records"] = 980
+        verifier.check_journal_reproducibility_supplement(manifest, errors)
+        self.assertTrue(
+            any("eligible_unique_analytic_records" in error for error in errors)
+        )
 
 
 class AiDisclosureTests(unittest.TestCase):

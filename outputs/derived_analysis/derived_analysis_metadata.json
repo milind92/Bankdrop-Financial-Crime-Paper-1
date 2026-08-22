@@ -1,5 +1,5 @@
 {
-  "script_version": "1.1.0",
+  "script_version": "1.1.1",
   "analysis_scope": "deterministic_descriptive_derived_analysis",
   "population_counts": {
     "full_screened": 980,
@@ -38,7 +38,7 @@
     "aml_indicator_coding_long.csv": "5c1bb8f57a9d6ed8c2b9e839a847a6294f08683efe9a05f39a382a4a60fdea61"
   },
   "interpretation_boundaries": [
-    "The exact-text-unique population is a duplicate sensitivity population, not a final eligible population.",
+    "The exact-text sensitivity population contains one representative per combined-text hash; it is not a unique-post or eligible-evidence-unit population.",
     "Co-occurrence and lift are descriptive of captured records and do not establish direction, sequence, common actors, transactions, or causation.",
     "AML candidates are corpus-derived research hypotheses, not confirmed red flags or monitoring controls.",
     "Service-chain stages are an exploratory descriptive grouping and do not establish a completed service chain."

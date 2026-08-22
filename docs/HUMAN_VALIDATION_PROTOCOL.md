@@ -22,6 +22,8 @@ The blinded human ICR and post-ICR adjudication stages were completed on 26 July
 - Binary sensitivity subset: 998 Present/Absent pairs, 98.1% agreement, and kappa 0.933; other categories were excluded, not recoded.
 - Adjudication: Ausma and Milind jointly reviewed all 51 disagreements after ICR was frozen and reached consensus in every case.
 - Final disagreement outcomes: 22 Present and 29 Absent; zero Ambiguous, Insufficient evidence, Out of scope record, pending, deferred, or no-consensus cases.
+- Expertise: both coders were author-confirmed subject-matter experts; Milind Tiwari also has AML expertise.
+- Sampling-plan confirmation: the authors confirmed that a sample-size plan was used before coding.
 
 The preferred generic role separation below was not fully used: there was no coordinator or independent third adjudicator. The same two researchers jointly adjudicated after their independent workbooks and pre-adjudication metrics were frozen. Because all 51 disagreements reached consensus, a third coder was not invoked. This role overlap must be disclosed as a design limitation; it does not alter the frozen ICR calculation.
 
@@ -36,7 +38,7 @@ ICR quantifies consistency between coders within the validation design. It does 
 The completed human-validation exercise assessed:
 
 1. whether each deterministic typology assignment represents the construct defined in the locked codebook;
-2. whether eligible deterministic-negative records contain missed instances;
+2. whether sampled deterministic-negative records meeting the implemented eligibility rule contain missed instances;
 3. whether OCR, repeated interface text, broad patterns, source context, or duplication causes systematic error;
 4. whether the codebook can be applied consistently by independent humans;
 5. whether each corpus-derived AML candidate is supported as a cautious research hypothesis rather than an operational rule;
@@ -62,15 +64,12 @@ The lock record must include date, version, SHA-256 values, and author approval.
 
 ## Validation Targets
 
-Validation covers all substantive Phase 3 targets:
+The completed validation covered 18 targets:
 
-- every typology code retained in the journal codebook;
-- every AML indicator candidate retained in the journal analysis;
-- the separate data-quality classification for access failures or collection barriers;
-- the distinction between Markdown evidence, OCR evidence, and duplicated evidence;
-- any higher-order service-chain grouping used in the manuscript.
+- all 12 substantive typology codes retained in the journal codebook; and
+- all six AML indicator candidates retained in the journal analysis.
 
-Collection barriers must be validated as data-quality states, not presented as criminal objectives. Compound AML candidates require both content validation and an independently documented domain-expert assessment of whether the interpretation is plausible and appropriately bounded.
+The `market_access_limitation` collection-quality flag, modality provenance, duplicate status, and exploratory higher-order functional groupings were not separate validation targets. Collection barriers remain data-quality states, not criminal objectives. Compound AML candidates received content assessment but are retained only as hypotheses because no independent external domain-review record is claimed.
 
 ## Roles And Independence
 
@@ -83,7 +82,7 @@ Collection barriers must be validated as data-quality states, not presented as c
 | Statistical analyst | Runs the aggregate validation tool and interprets its limits. Produces a separate design-based analysis when clustering, finite-population corrections, or estimated weights matter. |
 | AML domain reviewer | Separately evaluates the interpretation and practical boundaries of AML candidates; does not convert observed text into transaction-monitoring claims without external evidence. |
 
-Coder identities are confirmed as Ausma Bernot and Milind Tiwari. **AUTHOR CONFIRMATION REQUIRED:** Record their relevant training and domain expertise, prior involvement in codebook development, conflicts of interest, statistical-analyst role, and the separate AML reviewer. Disclose when one person holds multiple roles.
+Coder identities are confirmed as Ausma Bernot and Milind Tiwari. Both were author-confirmed subject-matter experts, and Milind Tiwari also has AML expertise. No additional qualification, title, conflict-of-interest, or statistical-analyst detail is inferred. Milind's AML expertise is not described as an independent external review because he also coded and adjudicated the validation material.
 
 ## Blinding
 
@@ -113,7 +112,7 @@ Pilot records must not be reused to estimate final reliability or classifier per
 
 ## Locked Holdout Sampling Design
 
-The holdout is sampled at the unique analytic-record level, not as if each note-code row were independent. The same holdout record should be assessed for all applicable codes where feasible.
+The completed holdout sampled combined-note-record/target judgements. A single evidence packet could be selected for more than one target, so the 1,032 case-target units are not 1,032 independent records. Reliability and performance are reported at the paired case-target level, with target-specific rows retained.
 
 The sampling coordinator may use deterministic status for stratification, but that status remains hidden from coders and adjudicators. The design must record the inclusion probability for every sampled record.
 
@@ -129,11 +128,13 @@ Required strata are:
 - data-quality status, including OCR-heavy and access/interface-heavy records;
 - low-frequency and substantively sensitive codes.
 
-Sampling should oversample rare deterministic positives and difficult strata while preserving selection probabilities. When a sampled row will receive a weight, store a finite positive `analysis_weight` in the controlled machine key; document whether it is an inverse inclusion probability, a calibrated weight, or another prespecified analysis weight. For very rare codes, review all deterministic positives plus an adequately sized negative sample. Negative sampling must include short records and records from every assessable modality; a minimum-word filter is not permitted as the sole eligibility rule.
+The implemented fixed-seed plan separated deterministic predicted-positive and predicted-negative frames for each target, selected up to 20 positives and 40 negatives per target, and used source, modality, and length strata. Fewer than 20 positive records resulted in complete positive-frame selection. Selection probabilities and analysis weights were retained in the controlled machine key.
+
+Predicted-negative records required at least 30 combined-text words. This deviated from the preferred rule that short records remain eligible. Consequently, the published negative-side performance does not establish false-negative behaviour among shorter or unassessable records, and no rarity or absence claim may rely on it.
 
 ### Sample Size
 
-The prospective protocol required sample size to be chosen before holdout review from a claim-specific precision target. The plan was expected to state:
+The authors confirmed on 22 August 2026 that a sample-size plan was used before coding. The implemented plan and fixed selection design are described above. A stronger claim-specific precision plan would additionally state:
 
 - the parameter to be estimated, such as positive predictive value, sensitivity, or agreement;
 - the anticipated value or conservative assumption;
@@ -144,7 +145,7 @@ The prospective protocol required sample size to be chosen before holdout review
 
 A sample of 15 predicted positives and 5 predicted negatives per code is not, by itself, sufficient justification. For illustration, even 15 correct decisions out of 15 yield a lower 95% Wilson bound of approximately 0.80, and 5 out of 5 yield a lower bound of approximately 0.57.
 
-**RETROSPECTIVE AUTHOR DISCLOSURE REQUIRED:** Confirm whether a contemporaneous target interval width, minimum acceptable performance, per-stratum sample-size rationale, and feasibility-deviation record existed before coding. If no such locked record exists, describe the performance analysis as descriptive and do not represent its thresholds as prespecified.
+The public repository does not contain a contemporaneous claim-specific numerical acceptance threshold. It therefore reports the resulting estimates and uncertainty descriptively and does not state that any target passed a prespecified performance threshold.
 
 ## Evidence Packet
 
@@ -237,18 +238,20 @@ For low-volume or absence-oriented claims, sensitivity and false-negative uncert
 
 ## AML-Candidate Review
 
-Each retained AML candidate requires two separate judgements:
+The completed exercise provides content assessment for each retained AML candidate. Stronger interpretive validation would require two separate judgements:
 
 1. **Content validity:** independent coders confirm that the record actually contains the compound textual relationship defined by the code.
 2. **Interpretive validity:** an AML domain reviewer assesses whether the aggregate observation can cautiously motivate further research.
 
-The reviewer must classify each candidate as:
+An independent reviewer would classify each candidate as:
 
 - suitable as a corpus-derived research hypothesis;
 - requires narrower wording or additional evidence;
 - not supportable from this corpus.
 
 No candidate may be described as a confirmed suspicious-activity indicator, detection rule, causal mechanism, or validated transaction-monitoring control without independent transaction-level and operational evaluation.
+
+Milind Tiwari has AML expertise and supplied an internal expert boundary, but he also participated as coder and adjudicator. No separate independent external AML review is claimed. The public claim register therefore keeps all six candidates at `exploratory_only`.
 
 ## Stop, Revision, And Publication Rules
 
@@ -264,7 +267,7 @@ The following rules apply regardless of numerical performance:
 8. An AML interpretation rejected by domain review must not appear as an AML implication.
 9. Any post hoc threshold, code change, exclusion, or regrouping must be disclosed and may not be presented as prespecified.
 
-The prospective protocol required a pre-holdout claim-to-threshold register specifying the minimum reliability and classification performance for each planned claim. Authors must confirm whether that contemporaneous register exists. If it does not, the results must remain descriptive, be accompanied by their full uncertainty, and not be labelled as having passed a prespecified validation threshold.
+The authors confirmed that a sample-size plan existed, but the public record does not establish a contemporaneous numerical pass/fail threshold for every claim. Results therefore remain descriptive, retain their full uncertainty, and are not labelled as having passed a prespecified validation threshold.
 
 ## Executable Aggregate Analysis
 
@@ -355,7 +358,7 @@ The controlled archive should retain:
 - analysis code and machine-readable metrics;
 - code-level confusion tables and intervals;
 - source/modality/length/duplicate sensitivity tables;
-- AML expert-review record;
+- AML expertise and reviewer-independence record;
 - validation deviations and author sign-off.
 
-The public or reviewer-safe repository should contain only aggregate validation results, methods, codebook changes, file-level provenance hashes, and privacy-clean reporting approved under the controlled-access policy. This repository includes the completed target-level reliability and machine-versus-human performance aggregates; AML expert-review and claim-threshold records remain separate author-level requirements.
+The public or reviewer-safe repository should contain only aggregate validation results, methods, codebook changes, file-level provenance hashes, and privacy-clean reporting approved under the controlled-access policy. This repository includes the completed target-level reliability and machine-versus-human performance aggregates, records Milind Tiwari's AML expertise, and explicitly states that no independent external AML review or public numerical claim-threshold record is claimed.

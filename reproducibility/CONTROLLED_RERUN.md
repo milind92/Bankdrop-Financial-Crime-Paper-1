@@ -36,7 +36,7 @@ python .\code\derived_analysis\build_derived_analysis.py `
   --output-dir (Join-Path $outputs "derived_analysis")
 ```
 
-This step writes only grouped descriptive outputs. The exact-text-unique population remains a sensitivity population until the final eligibility and evidence-unit audit is locked.
+This step writes only grouped descriptive outputs. The 980 screened combined note records remain the primary descriptive population for this release. The exact-text population remains sensitivity only and cannot be interpreted as unique posts or evidence units.
 
 ## Public Aggregate Export
 

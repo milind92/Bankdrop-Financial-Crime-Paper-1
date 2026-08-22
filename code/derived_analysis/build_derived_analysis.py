@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Iterable, Mapping, Sequence
 
 
-SCRIPT_VERSION = "1.1.0"
+SCRIPT_VERSION = "1.1.1"
 DATA_QUALITY_CODES = frozenset({"market_access_limitation"})
 POPULATION_LABELS = {
     "full_screened": "All combined records evaluated by the deterministic screen",
@@ -831,7 +831,10 @@ def build_analysis(source_dir: Path, output_dir: Path) -> dict[str, object]:
             name: sha256_file(path) for name, path in source_files.items()
         },
         "interpretation_boundaries": [
-            "The exact-text-unique population is a duplicate sensitivity population, not a final eligible population.",
+            (
+                "The exact-text sensitivity population contains one representative per "
+                "combined-text hash; it is not a unique-post or eligible-evidence-unit population."
+            ),
             "Co-occurrence and lift are descriptive of captured records and do not establish direction, sequence, common actors, transactions, or causation.",
             "AML candidates are corpus-derived research hypotheses, not confirmed red flags or monitoring controls.",
             "Service-chain stages are an exploratory descriptive grouping and do not establish a completed service chain.",

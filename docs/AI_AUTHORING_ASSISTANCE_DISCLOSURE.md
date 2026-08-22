@@ -1,6 +1,6 @@
 # AI Authoring Assistance Disclosure
 
-Status as at 25 July 2026: **author-provided repository disclosure**.
+Status as at 22 August 2026: **author-confirmed repository and reproducibility disclosure**.
 
 ## Approved Disclosure
 
@@ -8,4 +8,6 @@ OpenAI Codex was used as an assistive tool to support the development and organi
 
 ## Empirical Boundary
 
-The repository contains deterministic Phase 1–4 empirical analysis and completed human validation. It contains no Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis. The disclosure above concerns assistance with repository development and organisation and with preparation and formatting of the ICR workbook; it does not convert Codex into an empirical coder, adjudicator, analyst, evidence source, or author.
+The repository contains deterministic Phase 1-4 empirical analysis and completed human validation. It contains no Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis. The disclosure above concerns assistance with repository development and organisation and with preparation and formatting of the ICR workbook; it does not convert Codex into an empirical coder, adjudicator, analyst, evidence source, or author.
+
+The repository is a journal-neutral reproducibility supplement. Codex assistance in the 1.3.0 release remained limited to repository and reproducibility documentation, code, testing, claim-boundary controls, and release verification. No manuscript, cover letter, title page, response letter, or journal submission form was drafted or edited for inclusion in this repository.

@@ -1,6 +1,10 @@
 # Bankdrop Financial Crime Paper 1
 
-A public, privacy-clean repository containing the deterministic analysis and human-validation record for Bankdrop Financial Crime Paper 1.
+A public, privacy-clean, journal-neutral reproducibility supplement containing the deterministic analysis and human-validation record for Bankdrop Financial Crime Paper 1.
+
+## Journal Supplement Status
+
+The repository is technically ready for journal integration as a reproducibility supplement. It deliberately contains no manuscript or submission forms. Target-journal requirements, final authorship, declarations, rights, and any archival DOI will be completed after the outlet and paper team are fixed. Reviewers should begin with the [Journal Reproducibility Supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md), [Claim-to-Evidence Register](docs/claim_to_evidence_register.csv), and [Journal Integration Checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md).
 
 ## Scope
 
@@ -40,6 +44,11 @@ The repository also includes publication-safe deterministic derived analyses for
 - [Controlled audit access](docs/CONTROLLED_AUDIT_ACCESS.md)
 - [Ethics and safety](ETHICS_AND_SAFETY.md)
 - [AI authoring-assistance disclosure](docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md)
+- [Journal reproducibility supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md)
+- [Author decisions record](docs/AUTHOR_DECISIONS_RECORD.md)
+- [Journal integration checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md)
+- [Claim-to-evidence register](docs/claim_to_evidence_register.csv)
+- [Google Colab compatibility](docs/GOOGLE_COLAB_COMPATIBILITY.md)
 
 ## Data Boundary
 

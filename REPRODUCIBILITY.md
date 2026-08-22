@@ -45,7 +45,7 @@ python .\code\export_public_release.py `
 
 ## Boundaries
 
-The public checkout cannot reconstruct the controlled corpus or independently reproduce source-level counts. Aggregate human-validation and deterministic derived results can be checked for internal consistency, but the public repository does not include coder-level or note-level data. The 463-record exact-text-unique sensitivity population is not a verified final eligible population.
+The public checkout cannot reconstruct the controlled corpus or independently reproduce source-level counts. Aggregate human-validation and deterministic derived results can be checked for internal consistency, but the public repository does not include coder-level or note-level data. The author-approved primary descriptive population is 980 screened combined note records. The 463-record exact-text population is sensitivity only and is not a verified unique-post or eligible-evidence-unit population.
 
 No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical pathway is included.
 

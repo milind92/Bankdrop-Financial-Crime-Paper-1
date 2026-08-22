@@ -2,7 +2,7 @@
 
 ## Institutional Ethics Approval
 
-This project was approved by Griffith University under Human Ethics Protocol 2025/697. The approval identifier does not expand the controlled-access or public-release boundaries below.
+This project was approved under Griffith University Human Ethics Protocol 2025/697. The approval identifier does not expand the controlled-access or public-release boundaries below.
 
 ## Repository Boundary
 

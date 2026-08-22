@@ -2,6 +2,8 @@
 
 All committed outputs are aggregate and publication-safe. Raw and record-level material is excluded.
 
+The journal-facing interpretation boundary is maintained in `docs/claim_to_evidence_register.csv`; it is a documentation control rather than a new empirical output.
+
 ## Phase 1
 
 `outputs/phase1_aggregate/` contains source totals, keyword totals, entity-like aggregate counts, price summaries, run totals, and a checkpoint summary.
@@ -20,7 +22,7 @@ All committed outputs are aggregate and publication-safe. Raw and record-level m
 
 ## Deterministic Derived Analysis
 
-`outputs/derived_analysis/` contains publication-safe duplicate-sensitivity, source-normalized typology, co-occurrence, co-occurrence source-stability, typology-to-AML-candidate overlap, exploratory functional-grouping, source-concentration, and leave-one-source-out tables. The 463-record exact-text-unique population is explicitly a sensitivity population, not a verified final eligible population. See `DERIVED_ANALYSIS_NOTES.md` for formulas and evidence boundaries.
+`outputs/derived_analysis/` contains publication-safe duplicate-sensitivity, source-normalized typology, co-occurrence, co-occurrence source-stability, typology-to-AML-candidate overlap, exploratory functional-grouping, source-concentration, and leave-one-source-out tables. The 463-record exact-text population is explicitly sensitivity only, not a verified unique-post or eligible-evidence-unit population. See `DERIVED_ANALYSIS_NOTES.md` for formulas and evidence boundaries.
 
 ## Human Validation
 
