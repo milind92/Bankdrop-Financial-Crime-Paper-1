@@ -27,9 +27,9 @@ This record captures author instructions supplied on 22 August 2026 for the publ
 - Ausma Bernot and Milind Tiwari coded independently before comparison and then jointly adjudicated all 51 disagreements. No third adjudicator participated.
 - Milind Tiwari has AML expertise, but he was also a coder and adjudicator. The repository therefore does not claim an independent external AML-domain review. The six AML candidates remain corpus-derived research hypotheses rather than operational red flags or controls.
 
-## Deliberately Pending Journal Integration
+## Journal-Specific Tasks Outside Supplement Scope
 
-The following items will be completed after the target journal and final paper team are confirmed:
+The following items will be completed after the target journal and final paper team are confirmed. They belong to the manuscript, journal portal, or archival handoff rather than the reproducibility supplement itself:
 
 - exact journal and article type;
 - author names, order, affiliations, ORCIDs, and corresponding-author details;
@@ -38,4 +38,4 @@ The following items will be completed after the target journal and final paper t
 - licence choice and any archival DOI;
 - journal-specific repository, data, ethics, anonymity, and AI-disclosure wording.
 
-Until those items are supplied, the repository may be described as **technically ready as a journal-neutral reproducibility supplement**, not as a complete journal submission.
+As of release `v1.3.1`, the repository may be described as **submission-ready as a journal-neutral reproducibility supplement**. This statement applies to the repository artifact only and does not claim that the separate manuscript or journal-portal submission is complete.

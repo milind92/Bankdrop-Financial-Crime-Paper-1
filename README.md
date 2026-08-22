@@ -1,10 +1,16 @@
 # Bankdrop Financial Crime Paper 1
 
+[![Repository integrity](https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1/actions/workflows/repository-integrity.yml/badge.svg)](https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1/actions/workflows/repository-integrity.yml)
+
 A public, privacy-clean, journal-neutral reproducibility supplement containing the deterministic analysis and human-validation record for Bankdrop Financial Crime Paper 1.
 
-## Journal Supplement Status
+## Reproducibility Supplement Status
 
-The repository is technically ready for journal integration as a reproducibility supplement. It deliberately contains no manuscript or submission forms. Target-journal requirements, final authorship, declarations, rights, and any archival DOI will be completed after the outlet and paper team are fixed. Reviewers should begin with the [Journal Reproducibility Supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md), [Claim-to-Evidence Register](docs/claim_to_evidence_register.csv), and [Journal Integration Checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md).
+This repository is **submission-ready as a journal-neutral reproducibility supplement**. Release `v1.3.1` contains the complete public code, aggregate outputs, validation record, interpretation boundaries, privacy safeguards, and reviewer audit route defined for this supplement.
+
+It deliberately contains no manuscript, title page, declarations, or journal-portal forms because those are article-submission materials rather than reproducibility components. Final author metadata, declarations, rights, and any archival DOI are supplied with the manuscript or through the selected journal's submission process; they do not represent missing empirical work in this repository. A submitter must still follow an eventual journal's file-format and review-anonymity rules.
+
+Reviewers should begin with the [Journal Reproducibility Supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md), [Claim-to-Evidence Register](docs/claim_to_evidence_register.csv), and [Supplement Submission Checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md).
 
 ## Scope
 
@@ -46,7 +52,7 @@ The repository also includes publication-safe deterministic derived analyses for
 - [AI authoring-assistance disclosure](docs/AI_AUTHORING_ASSISTANCE_DISCLOSURE.md)
 - [Journal reproducibility supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md)
 - [Author decisions record](docs/AUTHOR_DECISIONS_RECORD.md)
-- [Journal integration checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md)
+- [Supplement submission checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md)
 - [Claim-to-evidence register](docs/claim_to_evidence_register.csv)
 - [Google Colab compatibility](docs/GOOGLE_COLAB_COMPATIBILITY.md)
 

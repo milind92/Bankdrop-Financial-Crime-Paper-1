@@ -1,49 +1,47 @@
-# Journal Integration Checklist
+# Reproducibility Supplement Submission Checklist
 
-## Repository-Technical Gate
+## Supplement Submission Gate
 
 - [x] Repository role fixed as a journal-neutral reproducibility supplement.
 - [x] Deterministic empirical scope limited to Phases 1-4.
 - [x] Primary unit and denominator fixed as 980 screened combined note records.
 - [x] Exact-text sensitivity population separately labelled as 463 representatives.
+- [x] Sixty-five zero-word records retained and their non-match limitation disclosed.
 - [x] Human validation and all 51 adjudications completed and reported in aggregate.
 - [x] Target-level classification performance and uncertainty published.
-- [x] Claim-to-evidence register included.
+- [x] Claim-to-evidence register and reviewer landing page included.
 - [x] Raw and record-level controlled material excluded.
 - [x] Data-free tests and privacy/integrity verifier available on Windows and Ubuntu.
 - [x] Ethics identifier and repository-only AI-assistance boundary recorded.
+- [x] Public-versus-controlled rerun and Google Colab boundaries documented.
+- [x] Release version, changelog, citation metadata, and workflow manifest aligned.
 
-## Target-Journal Gate
+All repository-side items in this gate are complete for release `v1.3.1`.
 
-- [ ] Select the journal and article type.
-- [ ] Check repository, data, code, ethics, AI-assistance, supplementary-file, and archival requirements against the current author instructions.
-- [ ] Confirm the review model. For double-anonymous review, do not cite this identity-bearing public repository unless the editor permits it; prepare a separate anonymised snapshot or defer the repository citation until acceptance.
-- [ ] Check file, table, figure, word-count, reporting-guideline, and reference-style limits.
+## Article And Journal-Portal Handoff
 
-## Author And Declaration Gate
+The following information is supplied outside this reproducibility supplement. These tasks do not indicate missing repository analysis:
 
-- [ ] Replace provisional author metadata with full names, order, affiliations, ORCIDs, and corresponding-author details.
-- [ ] Approve the CRediT contribution statement.
-- [ ] Confirm funding, acknowledgements, and competing interests.
-- [ ] Confirm copyright holders, institutional ownership interests, and the licence decision.
-- [ ] Confirm whether a DOI or archival deposit is required.
+- select the journal and article type;
+- apply the journal's repository, data, code, ethics, AI, supplementary-file, and archival rules;
+- confirm whether the review model permits citation of this identity-bearing public repository or requires an anonymised snapshot or deferred citation;
+- supply final author names, order, affiliations, ORCIDs, and corresponding-author details;
+- approve CRediT contributions, funding, acknowledgements, and competing-interest declarations;
+- confirm copyright holders, institutional ownership interests, licence, and any DOI or archival deposit; and
+- apply the journal's file, table, figure, word-count, reporting-guideline, and reference-style requirements.
 
-## Manuscript Integration Gate
+## Manuscript Use Boundary
 
-- [ ] Map every result claim to `claim_to_evidence_register.csv`.
-- [ ] Use 980 screened combined note records as the descriptive denominator and 463 exact-text representatives as sensitivity only.
-- [ ] Disclose 65 unassessable zero-word records and the limitations of non-matches.
-- [ ] Report target-level validation limitations; do not rely on aggregate agreement alone.
-- [ ] Keep AML candidates exploratory unless a separately documented independent review supports narrower wording.
-- [ ] Do not make external prevalence, rarity, absence, transaction, causal, offender, victim, or operational-detection claims.
-- [ ] Reconcile every number and version with the tagged repository release.
+When the manuscript uses this supplement, it should:
 
-## Final Journal-Linked Release Gate
+- map every result claim to `claim_to_evidence_register.csv`;
+- use 980 screened combined note records as the descriptive denominator and 463 exact-text representatives as sensitivity only;
+- disclose 65 unassessable zero-word records and the limitations of non-matches;
+- report target-level validation limitations rather than relying on aggregate agreement alone;
+- keep AML candidates exploratory unless a separately documented independent review supports narrower wording;
+- avoid external prevalence, rarity, absence, transaction, causal, offender, victim, and operational-detection claims; and
+- reconcile every number with the cited tagged release.
 
-- [ ] Complete journal-specific metadata and declarations.
-- [ ] Run `python -m unittest discover -s tests -v`.
-- [ ] Run `python .\code\verify_repository.py`.
-- [ ] Review the full Git diff and reachable history for controlled material.
-- [ ] Record final author/institutional approval, tag the journal-linked version, push it, and confirm both GitHub Actions jobs pass.
+## Readiness Statement
 
-The repository-technical gate may be complete while target-journal and author-declaration items remain pending. Do not describe the full article submission as ready until every applicable unchecked item is resolved.
+The reproducibility supplement gate is complete. The repository can be submitted or cited as the journal-facing reproducibility artifact. An eventual journal may require different packaging or an anonymised copy; that is a submission-format adaptation, not unfinished reproducibility work.

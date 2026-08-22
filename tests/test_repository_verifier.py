@@ -96,7 +96,14 @@ class JournalSupplementTests(unittest.TestCase):
         manifest = {
             "journal_reproducibility_supplement": {
                 "repository_role": "journal-neutral reproducibility supplement",
-                "repository_status": "technically ready",
+                "repository_status": (
+                    "submission-ready as a journal-neutral reproducibility supplement"
+                ),
+                "supplement_submission_ready": True,
+                "readiness_scope": (
+                    "The repository artifact is complete for submission as a reproducibility "
+                    "supplement; manuscript and journal-portal materials remain outside its scope."
+                ),
                 "manuscript_included": False,
                 "primary_analysis_unit": (
                     "screened combined note record representing one unique post"
@@ -105,11 +112,11 @@ class JournalSupplementTests(unittest.TestCase):
                 "exact_text_sensitivity_denominator_n": 463,
                 "external_prevalence_claims_permitted": False,
                 "author_confirmation_date": "2026-08-22",
-                "pending_journal_integration": [
-                    "target journal",
-                    "authorship metadata",
-                    "declarations",
-                    "rights and archival DOI",
+                "journal_specific_items_outside_supplement_scope": [
+                    "target journal policy and review model",
+                    "final citation and authorship metadata",
+                    "manuscript declarations",
+                    "rights licence and archival DOI",
                 ],
                 "files": {},
             }
@@ -124,6 +131,15 @@ class JournalSupplementTests(unittest.TestCase):
         manifest["validation"]["independent_external_aml_review_claimed"] = True
         verifier.check_journal_reproducibility_supplement(manifest, errors)
         self.assertTrue(any("independent external AML review" in error for error in errors))
+
+    def test_supplement_cannot_be_downgraded_to_technically_ready(self) -> None:
+        errors: list[str] = []
+        manifest = copy.deepcopy(verifier.load_manifest(errors))
+        manifest["journal_reproducibility_supplement"][
+            "repository_status"
+        ] = "technically ready"
+        verifier.check_journal_reproducibility_supplement(manifest, errors)
+        self.assertTrue(any("submission-ready" in error for error in errors))
 
     def test_legacy_unique_eligible_record_claim_is_rejected(self) -> None:
         errors: list[str] = []

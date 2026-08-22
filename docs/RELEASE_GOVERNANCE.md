@@ -13,7 +13,7 @@ The public repository is a journal-neutral reproducibility supplement containing
 5. Keep the all-rights-reserved position unless the copyright holders and relevant institutions approve a change.
 6. Record substantive changes in `CHANGELOG.md` and update `workflow_manifest.json`.
 7. Keep the primary descriptive denominator fixed at 980 screened combined note records and the 463-record exact-text population labelled as sensitivity only unless a new controlled audit and complete rerun are approved.
-8. Do not mark target-journal integration complete while authorship, declarations, rights, journal policy, anonymity, or DOI items remain unresolved.
+8. Distinguish repository readiness from article-submission administration: the supplement may be submission-ready while authorship, declarations, rights, journal policy, anonymity, or DOI information is supplied separately through the manuscript or journal portal.
 
 ## Immutable Releases
 

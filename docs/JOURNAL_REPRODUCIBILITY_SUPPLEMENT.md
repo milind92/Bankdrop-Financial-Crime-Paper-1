@@ -2,9 +2,9 @@
 
 ## Status
 
-This public repository is technically ready for use as a journal-neutral reproducibility supplement. It supports inspection of the deterministic workflow, aggregate results, completed human validation, sensitivity analyses, privacy controls, and release provenance. It does not contain the manuscript or journal submission forms.
+This public repository is **submission-ready as a journal-neutral reproducibility supplement**. It supports inspection of the deterministic workflow, aggregate results, completed human validation, sensitivity analyses, privacy controls, and release provenance. It does not contain the manuscript or journal submission forms because they are outside the supplement's role.
 
-Journal-specific integration remains pending until the authors select the outlet and provide final authorship, declarations, rights, and archival metadata. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Journal Integration Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
+The supplement is complete at release `v1.3.1`. Final authorship, declarations, rights, archival metadata, journal formatting, and review-anonymity choices are supplied through the manuscript or submission system. They are handoff tasks rather than missing reproducibility components. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Supplement Submission Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
 
 ## Reviewer Audit Route
 
@@ -66,4 +66,4 @@ OpenAI Codex assistance is restricted to repository and reproducibility work as 
 
 ## Citation And Versioning
 
-Use [CITATION.cff](../CITATION.cff) for the current software citation. Author metadata, rights, and any archival DOI remain provisional until the journal-integration items are completed. Each tagged release must pass the data-free audit and privacy review before publication.
+Use [CITATION.cff](../CITATION.cff) for the current project-level software citation. Its generic project-author label preserves the authors' decision to finalise names and order later; that metadata decision does not change the supplement's computational completeness. Each tagged release must pass the data-free audit and privacy review before publication.

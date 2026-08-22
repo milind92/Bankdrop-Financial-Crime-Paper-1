@@ -337,7 +337,14 @@ def check_journal_reproducibility_supplement(
     checked = 0
     expected_values = {
         "repository_role": "journal-neutral reproducibility supplement",
-        "repository_status": "technically ready",
+        "repository_status": (
+            "submission-ready as a journal-neutral reproducibility supplement"
+        ),
+        "supplement_submission_ready": True,
+        "readiness_scope": (
+            "The repository artifact is complete for submission as a reproducibility "
+            "supplement; manuscript and journal-portal materials remain outside its scope."
+        ),
         "manuscript_included": False,
         "primary_descriptive_denominator_n": 980,
         "exact_text_sensitivity_denominator_n": 463,
@@ -503,15 +510,20 @@ def check_journal_reproducibility_supplement(
             else:
                 checked += 1
 
-    expected_pending = {
-        "target journal",
-        "authorship metadata",
-        "declarations",
-        "rights and archival DOI",
+    expected_outside_scope = {
+        "target journal policy and review model",
+        "final citation and authorship metadata",
+        "manuscript declarations",
+        "rights licence and archival DOI",
     }
-    pending = section.get("pending_journal_integration", [])
-    if not isinstance(pending, list) or set(pending) != expected_pending:
-        errors.append("Journal supplement pending integration items are incomplete.")
+    outside_scope = section.get(
+        "journal_specific_items_outside_supplement_scope", []
+    )
+    if (
+        not isinstance(outside_scope, list)
+        or set(outside_scope) != expected_outside_scope
+    ):
+        errors.append("Journal supplement outside-scope handoff items are incomplete.")
     else:
         checked += 1
 

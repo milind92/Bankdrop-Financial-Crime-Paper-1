@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.1 - 2026-08-22
+
+- Marked the repository explicitly submission-ready as a journal-neutral reproducibility supplement.
+- Separated completed supplement requirements from manuscript, authorship, declaration, journal-portal, rights, and DOI tasks that sit outside the repository artifact.
+- Added a visible repository-integrity badge and strengthened the verifier so the readiness status cannot regress to “technically ready.”
+- Updated the reviewer landing page, submission checklist, citation metadata, AI disclosure, and Colab instructions for the audited `v1.3.1` release.
+
 ## 1.3.0 - 2026-08-22
 
 - Fixed the repository role as a journal-neutral reproducibility supplement; manuscript and journal submission files remain outside GitHub.
