@@ -4,7 +4,7 @@
 
 **Methodological hold.** The [1 October 2026 post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found collection and researcher notes inside the historical 980-note screen. This repository supports inspection of the historical deterministic workflow and aggregate results, but it is not ready to support final article claims or journal submission.
 
-Version `1.3.5` retains the `v1.3.3` computations as historical outputs, adds aggregate audit results, and supplies a [controlled evidence-screening procedure](../code/evidence_screening/METHODS_EVIDENCE_SCREEN.md). Corpus eligibility, image linkage, OCR quality, reanalysis, and revised validation remain open. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Supplement Submission Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
+Version `1.3.6` retains the `v1.3.3` computations as historical outputs, adds aggregate audit results, and supplies [controlled evidence-screening](../code/evidence_screening/METHODS_EVIDENCE_SCREEN.md) and [OCR-quality](../code/ocr_quality/METHODS_OCR_QUALITY.md) procedures. Corpus eligibility, image linkage, human OCR transcription, reanalysis, and revised validation remain open. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Supplement Submission Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
 
 ## Reviewer Audit Route
 
@@ -62,4 +62,4 @@ The approved repository wording is "Griffith University Human Ethics Protocol 20
 
 ## Citation And Versioning
 
-Use [CITATION.cff](../CITATION.cff) for the current project-level software citation. Its generic project-author label preserves the authors' decision to finalise names and order later. Version `1.3.5` is a historical computational record plus an uncompleted screening procedure, not a final empirical release. Each tagged release must pass the data-free audit and privacy review before publication.
+Use [CITATION.cff](../CITATION.cff) for the current project-level software citation. Its generic project-author label preserves the authors' decision to finalise names and order later. Version `1.3.6` is a historical computational record plus uncompleted screening and OCR-review procedures, not a final empirical release. Each tagged release must pass the data-free audit and privacy review before publication.

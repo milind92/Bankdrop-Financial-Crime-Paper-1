@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.6 - 2026-10-01
+
+- Added a fixed-seed, source-stratified probability sample and blinded two-human OCR transcription workflow for the historical referenced-image frame, with known per-stratum inclusion probabilities and hash-checked screenshot copies.
+- Added a fail-closed scorer for checked gold transcripts, per-image and weighted character/word error diagnostics, and weighted source-coding adequacy judgments. No OCR accuracy result is claimed because the human review is blank.
+- Distinguished the earlier unreviewed, OCR-length-extreme sample as a purposeful diagnostic. The new 50-image sample covers the historical referenced-image frame; final-corpus and novel-orphan OCR coverage still require review.
+
 ## 1.3.5 - 2026-10-01
 
 - Added a controlled, hash-checked evidence-screening gate that requires two recorded reviewer decisions and adjudication for every screened note and image, plus approved source-text spans before an evidence-only corpus can be built.

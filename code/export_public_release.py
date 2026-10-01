@@ -136,6 +136,11 @@ BLOCKED_FILENAMES = {
     "approved_evidence_units.jsonl",
     "evidence_build_manifest.json",
     "review_inventory.json",
+    "ocr_quality_sample.csv",
+    "sample_manifest.json",
+    "review_images_manifest.json",
+    "per_image_ocr_quality_controlled.csv",
+    "ocr_quality_report.json",
 }
 BLOCKED_FIELD_TOKENS = {"path", "text", "snippet", "snippets", "evidence"}
 BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id"}

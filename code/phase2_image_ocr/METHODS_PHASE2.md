@@ -32,3 +32,7 @@ The script can reuse existing successful OCR rows in the controlled output locat
 ## Interpretation Limits
 
 OCR may capture navigation text, repeated interface text, usernames, and noisy fragments. It is evidence support, not final qualitative coding. OCR output can vary with Windows language packs, screenshot rendering, and the installed OCR environment.
+
+The cache's `ok` status records pipeline completion only. The separate
+[controlled OCR-quality procedure](../ocr_quality/METHODS_OCR_QUALITY.md)
+prepares blinded human transcripts and fails until error rates can be measured.

@@ -29,6 +29,8 @@ REQUIRED_FILES = (
     "code/export_public_release.py",
     "code/evidence_screening/build_evidence_corpus.py",
     "code/evidence_screening/METHODS_EVIDENCE_SCREEN.md",
+    "code/ocr_quality/assess_ocr_quality.py",
+    "code/ocr_quality/METHODS_OCR_QUALITY.md",
     "code/derived_analysis/build_derived_analysis.py",
     "code/human_validation/build_public_icr_by_target.py",
     "code/human_validation/summarize_human_validation.py",
@@ -138,6 +140,11 @@ RESTRICTED_FILENAMES = {
     "approved_evidence_units.jsonl",
     "evidence_build_manifest.json",
     "review_inventory.json",
+    "ocr_quality_sample.csv",
+    "sample_manifest.json",
+    "review_images_manifest.json",
+    "per_image_ocr_quality_controlled.csv",
+    "ocr_quality_report.json",
 }
 BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "source_path", "local_path", "absolute_path"}
 BLOCKED_FIELD_TOKENS = {"snippet", "snippets", "raw_text", "ocr_text", "full_text"}
@@ -403,6 +410,23 @@ def check_journal_reproducibility_supplement(
     }.items():
         if not isinstance(evidence_gate, dict) or evidence_gate.get(field) != expected:
             errors.append(f"Revised evidence-screening gate {field} is missing or incorrect.")
+        else:
+            checked += 1
+    ocr_quality = manifest.get("ocr_quality_assessment", {})
+    for field, expected in {
+        "status": "blinded_probability_sample_prepared_human_transcripts_pending",
+        "script": "code/ocr_quality/assess_ocr_quality.py",
+        "method": "code/ocr_quality/METHODS_OCR_QUALITY.md",
+        "historical_referenced_image_hashes": 1037,
+        "source_strata": 15,
+        "probability_sample_images": 50,
+        "human_transcripts_complete": False,
+        "character_word_error_estimates_complete": False,
+        "final_approved_corpus_coverage_confirmed": False,
+        "controlled_review_images_in_repository": False,
+    }.items():
+        if not isinstance(ocr_quality, dict) or ocr_quality.get(field) != expected:
+            errors.append(f"OCR-quality assessment {field} is missing or incorrect.")
         else:
             checked += 1
     if (
