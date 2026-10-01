@@ -83,6 +83,7 @@ def build(phase3_dir: Path, evidence_corpus: Path, output_dir: Path) -> dict[str
     evidence_manifest = json.loads(evidence_manifest_path.read_text(encoding="utf-8"))
     if (metadata.get("evidence_corpus_sha256") != evidence_sha
             or evidence_manifest.get("evidence_jsonl_sha256") != evidence_sha
+            or evidence_manifest.get("schema_version") != 3
             or evidence_manifest.get("status") != "source_screening_complete_target_validation_pending"):
         raise ValueError("Approved evidence corpus hash or screening manifest does not match Phase 3")
     evidence_units = {}
@@ -100,7 +101,7 @@ def build(phase3_dir: Path, evidence_corpus: Path, output_dir: Path) -> dict[str
                     raise ValueError("Approved evidence has missing or duplicate span IDs")
                 evidence_artifacts[key] = (
                     artifact.get("kind"), row.get("source"),
-                    row.get("collection_date"), artifact.get("text_sha256")
+                    artifact.get("collection_date"), artifact.get("text_sha256")
                 )
     if len(evidence_units) != evidence_manifest.get("approved_evidence_units"):
         raise ValueError("Approved evidence unit count differs from screening manifest")

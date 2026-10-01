@@ -28,7 +28,7 @@ NOTE_FIELDS = [
     "filename_date", "reviewer_1", "reviewer_1_decision", "reviewer_2",
     "reviewer_2_decision", "final_decision", "adjudicator",
     "adjudication_reason", "record_type", "approved_source", "capture_date",
-    "capture_date_basis", "markdown_decision", "markdown_decision_reason",
+    "capture_date_basis", "capture_date_record_locator", "markdown_decision", "markdown_decision_reason",
     "decision_reason",
 ]
 IMAGE_FIELDS = [
@@ -37,6 +37,7 @@ IMAGE_FIELDS = [
     "reviewer_1_decision", "reviewer_2", "reviewer_2_decision",
     "final_decision", "adjudicator", "adjudication_reason", "decision_reason",
     "assigned_note_id", "approved_source", "capture_date", "capture_date_basis",
+    "capture_date_record_locator",
 ]
 SEGMENT_FIELDS = [
     "reference_key", "start_char", "end_char", "segment_sha256",
@@ -48,7 +49,7 @@ NOTE_TYPES = {
     "source_capture", "mixed_source_and_researcher", "collection_status",
     "researcher_note", "out_of_scope", "unassessable",
 }
-DATE_BASES = {"source_metadata", "collector_record", "filename_only", "unknown"}
+DATE_BASES = {"collector_record", "capture_system_log", "filename_only", "unknown"}
 
 
 def sha_bytes(value: bytes) -> str:
@@ -240,7 +241,7 @@ def prepare(vault: Path, phase1_index: Path, phase2_joined: Path, review_dir: Pa
     write_csv(review_dir / "source_segments.csv", [], SEGMENT_FIELDS)
     counts = Counter(row["kind"] for row in images.values())
     metadata = {
-        "schema_version": 2,
+        "schema_version": 3,
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "phase1_index_sha256": sha_file(phase1_index),
         "phase2_joined_sha256": sha_file(phase2_joined),
@@ -270,12 +271,17 @@ def check_vote(row: dict[str, str], allowed: set[str], key: str) -> str:
 def check_date(row: dict[str, str], key: str) -> str:
     basis = row.get("capture_date_basis", "").strip()
     raw = row.get("capture_date", "").strip()
+    locator = row.get("capture_date_record_locator", "").strip()
     if basis not in DATE_BASES:
         raise ValueError(f"Capture-date basis is missing or invalid for {key}")
     if basis in {"unknown", "filename_only"}:
-        if raw:
-            raise ValueError(f"Unverified capture date must remain blank for {key}")
+        if raw or locator:
+            raise ValueError(f"Unverified capture date and record locator must remain blank for {key}")
         return ""
+    if not locator:
+        raise ValueError(f"Verified capture date needs a contemporaneous record locator for {key}")
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw) is None:
+        raise ValueError(f"Verified capture date is invalid for {key}")
     try:
         return date.fromisoformat(raw).isoformat()
     except ValueError as exc:
@@ -329,7 +335,7 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
         raise ValueError("Review and evidence output directories must be separate")
     notes, note_texts, images, ocr_texts, referenced_hashes = inventory(vault, phase1_index, phase2_joined)
     frozen = json.loads((review_dir / "review_inventory.json").read_text(encoding="utf-8"))
-    if frozen.get("schema_version") != 2 or frozen.get("phase1_index_sha256") != sha_file(phase1_index) or frozen.get("phase2_joined_sha256") != sha_file(phase2_joined):
+    if frozen.get("schema_version") != 3 or frozen.get("phase1_index_sha256") != sha_file(phase1_index) or frozen.get("phase2_joined_sha256") != sha_file(phase2_joined):
         raise ValueError("Review template does not match current Phase 1/2 inputs")
     note_rows = check_identity(read_csv(review_dir / "note_decisions.csv", NOTE_FIELDS), notes,
                                "note_id", ["note_id", "relative_path", "sha256_text", "source_from_path", "filename_date"])
@@ -367,7 +373,7 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
         units[note_id] = {
             "note_id": note_id, "relative_path": row["relative_path"],
             "source": source, "collection_date": check_date(row, f"note {note_id}"),
-            "date_basis": row["capture_date_basis"], "record_type": record_type,
+            "date_basis": row["capture_date_basis"].strip(), "record_type": record_type,
             "artifacts": [],
         }
 
@@ -386,9 +392,16 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
             unit_id = original["note_id"]
             if unit_id not in units:
                 raise ValueError(f"Included image belongs to excluded note: {key}")
+            if row.get("assigned_note_id", "").strip():
+                raise ValueError(f"Linked image cannot be silently reassigned: {key}")
+            if row.get("approved_source", "").strip() != units[unit_id]["source"]:
+                raise ValueError(f"Included linked image needs confirmed matching source: {key}")
             if original["ocr_status"] != "ok" or not ocr_texts.get(key, "").strip():
                 raise ValueError(f"Included image lacks usable, provenance-checked OCR: {key}")
-            allowed_references[key] = (unit_id, "image_ocr", ocr_texts[key])
+            image_date = check_date(row, key)
+            allowed_references[key] = (unit_id, "image_ocr", ocr_texts[key], image_date,
+                                       row["capture_date_basis"].strip(),
+                                       row["capture_date_record_locator"].strip())
         elif original["kind"] == "orphan":
             if original["image_sha256"] in referenced_hashes:
                 raise ValueError(f"Content-duplicate orphan cannot be included twice: {key}")
@@ -399,6 +412,8 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
                 if assigned not in units:
                     raise ValueError(f"Orphan assigned to unapproved note: {key}")
                 unit_id = assigned
+                if row.get("approved_source", "").strip() != units[unit_id]["source"]:
+                    raise ValueError(f"Assigned orphan needs confirmed matching source: {key}")
             else:
                 unit_id = f"orphan:{original['image_sha256']}"
                 if unit_id in units:
@@ -409,17 +424,24 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
                 units[unit_id] = {
                     "note_id": unit_id, "relative_path": original["image_relative_path"],
                     "source": source, "collection_date": check_date(row, key),
-                    "date_basis": row["capture_date_basis"], "record_type": "orphan_image",
+                    "date_basis": row["capture_date_basis"].strip(), "record_type": "orphan_image",
                     "artifacts": [],
                 }
                 orphan_standalone += 1
             if key not in extra_ocr:
                 raise ValueError(f"Approved orphan needs provenance-matched supplemental OCR: {key}")
-            allowed_references[key] = (unit_id, "image_ocr", extra_ocr[key])
+            image_date = check_date(row, key)
+            allowed_references[key] = (unit_id, "image_ocr", extra_ocr[key], image_date,
+                                       row["capture_date_basis"].strip(),
+                                       row["capture_date_record_locator"].strip())
     for note_id in units:
         if note_id in notes:
             key = f"markdown:{note_id}"
-            allowed_references[key] = (note_id, "markdown_source_span", note_texts[key])
+            allowed_references[key] = (
+                note_id, "markdown_source_span", note_texts[key],
+                units[note_id]["collection_date"], units[note_id]["date_basis"],
+                note_rows[note_id]["capture_date_record_locator"].strip(),
+            )
 
     segment_rows = read_csv(review_dir / "source_segments.csv", SEGMENT_FIELDS)
     spans_by_ref: dict[str, list[tuple[int, int]]] = defaultdict(list)
@@ -433,7 +455,7 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
             if not row.get("decision_reason", "").strip():
                 raise ValueError(f"Excluded segment needs reason at row {index}")
             continue
-        unit_id, kind, source_text = allowed_references[key]
+        unit_id, kind, source_text, capture_date, date_basis, date_locator = allowed_references[key]
         try:
             start, end = int(row["start_char"]), int(row["end_char"])
         except ValueError as exc:
@@ -451,6 +473,8 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
         units[unit_id]["artifacts"].append({
             "artifact_id": f"{key}:{start}:{end}", "kind": kind,
             "text_sha256": sha_text(span), "text": span,
+            "collection_date": capture_date, "date_basis": date_basis,
+            "capture_date_record_locator": date_locator,
         })
         if kind == "image_ocr":
             image_refs_with_text.add(key)
@@ -466,6 +490,14 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
         if not unit["artifacts"]:
             raise ValueError(f"Included unit has no approved source text: {unit_id}")
         unit["artifacts"].sort(key=lambda item: item["artifact_id"])
+        artifact_dates = {item["collection_date"] for item in unit["artifacts"]}
+        if len(artifact_dates) == 1 and "" not in artifact_dates:
+            unit["collection_date"] = next(iter(artifact_dates))
+            bases = {item["date_basis"] for item in unit["artifacts"]}
+            unit["date_basis"] = next(iter(bases)) if len(bases) == 1 else "multiple_verified_bases"
+        else:
+            unit["collection_date"] = ""
+            unit["date_basis"] = "unverified_or_mixed_artifact_dates"
     if not units:
         raise ValueError("No approved evidence units; refusing an empty substantive analysis")
 
@@ -477,7 +509,7 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
     counts = Counter(row["final_decision"] for row in note_rows.values())
     image_counts = Counter((row["kind"], row["final_decision"]) for row in image_rows.values())
     metadata = {
-        "schema_version": 2,
+        "schema_version": 3,
         "status": "source_screening_complete_target_validation_pending",
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "phase1_index_sha256": sha_file(phase1_index),

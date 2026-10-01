@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.15 - 2026-10-01
+
+- Tightened the provisional reviewed-evidence gate to distinguish capture dates from source-displayed publication dates. Verified dates now require a contemporaneous record locator; included images need their own date-basis decision and explicit source matching to their assigned note.
+- Preserved verified dates per approved text span through revised Phase 3 and the pair diagnostic. A unit-level date is blank when its approved spans have unknown or conflicting capture dates. Regenerated the controlled blank review sheets as schema v3 from the same frozen inputs; no human decisions or empirical estimates were created.
+
 ## 1.3.14 - 2026-10-01
 
 - Reconciled the archive's numbered source folders with the historical screen: groups 1-15 and 17 are represented, while folder 16 is empty in the inspected extract. Group 17 contributes six screened notes, including three zero-byte placeholders. A May meeting note identifies the two later candidate sites but does not verify selection or capture dates.

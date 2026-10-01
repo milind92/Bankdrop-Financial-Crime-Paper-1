@@ -129,6 +129,7 @@ def build_frame(
         raise ValueError("A provisional reviewed-evidence Phase 3 run is required")
     if (metadata.get("evidence_corpus_sha256") != hashes["evidence_corpus"]
             or evidence_manifest.get("evidence_jsonl_sha256") != hashes["evidence_corpus"]
+            or evidence_manifest.get("schema_version") != 3
             or evidence_manifest.get("status") != "source_screening_complete_target_validation_pending"):
         raise ValueError("Approved evidence corpus does not match Phase 3 and screening manifest")
     if metadata.get("codebook_sha256") != hashes["phase3_codebook"]:

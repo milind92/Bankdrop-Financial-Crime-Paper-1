@@ -107,6 +107,7 @@ class EvidenceScreeningTests(unittest.TestCase):
         for row in image_rows:
             if row["kind"] == "linked":
                 approve(row, "include")
+                row.update({"approved_source": "Source A", "capture_date_basis": "unknown"})
             else:
                 approve(row, "exclude")
                 row["decision_reason"] = "Provenance not established"
@@ -131,6 +132,146 @@ class EvidenceScreeningTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Two distinct reviewers"):
             screen.build(self.vault, self.index, self.joined, self.review, self.output)
         self.assertFalse(self.output.exists())
+
+    def test_superseded_review_schema_cannot_build(self) -> None:
+        inventory_path = self.review / "review_inventory.json"
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        inventory["schema_version"] = 2
+        inventory_path.write_text(json.dumps(inventory), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "Review template does not match"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output)
+
+    def test_capture_dates_and_image_source_are_checked_per_artifact(self) -> None:
+        self.complete_review()
+        note_rows = screen.read_csv(self.review / "note_decisions.csv", screen.NOTE_FIELDS)
+        included = next(row for row in note_rows if row["note_id"] == "n1")
+        included.update({
+            "capture_date_basis": "source_metadata", "capture_date": "2026-03-01",
+            "capture_date_record_locator": "source post timestamp",
+        })
+        save_csv(self.review / "note_decisions.csv", note_rows, screen.NOTE_FIELDS)
+        with self.assertRaisesRegex(ValueError, "Capture-date basis is missing or invalid"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output)
+
+        included["capture_date_basis"] = "collector_record"
+        included["capture_date_record_locator"] = ""
+        save_csv(self.review / "note_decisions.csv", note_rows, screen.NOTE_FIELDS)
+        with self.assertRaisesRegex(ValueError, "contemporaneous record locator"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output)
+
+        included["capture_date_record_locator"] = "capture log A"
+        save_csv(self.review / "note_decisions.csv", note_rows, screen.NOTE_FIELDS)
+        image_rows = screen.read_csv(self.review / "image_decisions.csv", screen.IMAGE_FIELDS)
+        linked = sorted((row for row in image_rows if row["kind"] == "linked"),
+                        key=lambda row: row["image_relative_path"])
+        linked[0]["approved_source"] = "Different source"
+        save_csv(self.review / "image_decisions.csv", image_rows, screen.IMAGE_FIELDS)
+        with self.assertRaisesRegex(ValueError, "confirmed matching source"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output)
+
+        linked[0]["approved_source"] = "Source A"
+        linked[0]["capture_date_basis"] = ""
+        save_csv(self.review / "image_decisions.csv", image_rows, screen.IMAGE_FIELDS)
+        with self.assertRaisesRegex(ValueError, "Capture-date basis is missing or invalid"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output)
+
+        for row, day in zip(linked, ("2026-03-01", "2026-03-02")):
+            row.update({
+                "approved_source": "Source A", "capture_date_basis": "collector_record",
+                "capture_date": day, "capture_date_record_locator": f"capture log {day}",
+            })
+        save_csv(self.review / "image_decisions.csv", image_rows, screen.IMAGE_FIELDS)
+        screen.build(self.vault, self.index, self.joined, self.review, self.output)
+        unit = json.loads((self.output / "approved_evidence_units.jsonl").read_text())
+        self.assertEqual(unit["collection_date"], "")
+        self.assertEqual(unit["date_basis"], "unverified_or_mixed_artifact_dates")
+        by_kind = {artifact["artifact_id"]: artifact for artifact in unit["artifacts"]}
+        self.assertEqual({artifact["collection_date"] for artifact in by_kind.values()},
+                         {"2026-03-01", "2026-03-02"})
+
+        old_output = phase3.PHASE3_OUTPUT
+        old_env = os.environ.get("BANK_DROP_EVIDENCE_CORPUS")
+        try:
+            phase3.PHASE3_OUTPUT = self.base / "phase3_dates"
+            os.environ["BANK_DROP_EVIDENCE_CORPUS"] = str(self.output / "approved_evidence_units.jsonl")
+            phase3.main()
+        finally:
+            phase3.PHASE3_OUTPUT = old_output
+            if old_env is None:
+                os.environ.pop("BANK_DROP_EVIDENCE_CORPUS", None)
+            else:
+                os.environ["BANK_DROP_EVIDENCE_CORPUS"] = old_env
+        artifact_rows = screen.read_csv(self.base / "phase3_dates" / "artifact_coding_long.csv")
+        observed = {(row["artifact_id"], row["collection_date"]) for row in artifact_rows}
+        self.assertEqual(observed,
+                         {(artifact_id, artifact["collection_date"])
+                          for artifact_id, artifact in by_kind.items()})
+        revised_pairs.build(self.base / "phase3_dates",
+                            self.output / "approved_evidence_units.jsonl",
+                            self.base / "revised_pairs_dates")
+
+        altered = self.base / "altered_dates"
+        altered.mkdir()
+        altered_unit = dict(unit)
+        altered_unit["collection_date"] = "2026-03-01"
+        altered_evidence = altered / "approved_evidence_units.jsonl"
+        altered_evidence.write_text(json.dumps(altered_unit) + "\n", encoding="utf-8")
+        altered_manifest = json.loads((self.output / "evidence_build_manifest.json").read_text())
+        altered_manifest["evidence_jsonl_sha256"] = screen.sha_file(altered_evidence)
+        (altered / "evidence_build_manifest.json").write_text(json.dumps(altered_manifest), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "Unit capture date disagrees"):
+            phase3.load_approved_evidence(altered_evidence)
+
+    def test_novel_orphan_requires_ocr_and_matching_source_when_assigned(self) -> None:
+        self.complete_review()
+        image_rows = screen.read_csv(self.review / "image_decisions.csv", screen.IMAGE_FIELDS)
+        orphan = next(row for row in image_rows if row["kind"] == "orphan")
+        approve(orphan, "include")
+        orphan.update({
+            "decision_reason": "Synthetic provenance confirmation",
+            "assigned_note_id": "n1", "approved_source": "Different source",
+            "capture_date_basis": "unknown",
+        })
+        save_csv(self.review / "image_decisions.csv", image_rows, screen.IMAGE_FIELDS)
+        with self.assertRaisesRegex(ValueError, "Assigned orphan needs confirmed matching source"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output)
+
+        orphan["approved_source"] = "Source A"
+        save_csv(self.review / "image_decisions.csv", image_rows, screen.IMAGE_FIELDS)
+        config = screen.read_csv(self.joined)[0]["ocr_config_sha256"]
+        image_sha = orphan["image_sha256"]
+        extra = self.base / "orphan_ocr.csv"
+        save_csv(extra, [{
+            "image_relative_path": orphan["image_relative_path"],
+            "image_sha256": image_sha, "ocr_config_sha256": config,
+            "ocr_cache_key": screen.sha_text(f"{image_sha}:{config}"),
+            "ocr_status": "ok", "ocr_text": "orphan source text",
+        }], ["image_relative_path", "image_sha256", "ocr_config_sha256",
+            "ocr_cache_key", "ocr_status", "ocr_text"])
+        segments = screen.read_csv(self.review / "source_segments.csv", screen.SEGMENT_FIELDS)
+        segment = {field: "" for field in screen.SEGMENT_FIELDS}
+        segment.update({
+            "reference_key": orphan["reference_key"], "start_char": "0",
+            "end_char": str(len("orphan source text")),
+            "segment_sha256": screen.sha_text("orphan source text"),
+        })
+        approve(segment, "include")
+        segments.append(segment)
+        save_csv(self.review / "source_segments.csv", segments, screen.SEGMENT_FIELDS)
+
+        assigned = screen.build(self.vault, self.index, self.joined,
+                                self.review, self.output, extra)
+        self.assertEqual(assigned["approved_evidence_units"], 1)
+        self.assertEqual(assigned["approved_standalone_orphan_units"], 0)
+        self.assertEqual(assigned["approved_text_segments"], 4)
+
+        orphan["assigned_note_id"] = ""
+        orphan["approved_source"] = "Source B"
+        save_csv(self.review / "image_decisions.csv", image_rows, screen.IMAGE_FIELDS)
+        standalone = screen.build(self.vault, self.index, self.joined,
+                                  self.review, self.base / "standalone_evidence", extra)
+        self.assertEqual(standalone["approved_evidence_units"], 2)
+        self.assertEqual(standalone["approved_standalone_orphan_units"], 1)
 
     def test_revised_holdout_requires_approved_plan_and_keeps_short_negatives(self) -> None:
         self.complete_review()

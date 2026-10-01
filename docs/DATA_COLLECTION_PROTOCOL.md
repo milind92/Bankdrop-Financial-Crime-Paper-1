@@ -74,6 +74,14 @@ assignments.
 These are review prompts, not corrected dates or evidence that the planned
 schedule was carried out; see the [post-release audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md).
 
+The provisional evidence-review gate records a day-level capture date only
+when a contemporaneous collector record or capture-system log is identified.
+It checks each included screenshot separately from its note and does not use
+a source-displayed publication date or filename as capture proof. A revised
+unit has a date only if all its approved source-text spans share the same
+verified capture date. The present gate does not establish time of day or
+support a temporal trend analysis.
+
 ## Current Inclusion Boundary
 
 The corrected release included the 980 Markdown notes located within the named source-folder structure after excluding 19 internal or administrative files outside that structure. The following criteria describe a future evidence-unit refinement and must not be represented as having been applied record by record in the current release:

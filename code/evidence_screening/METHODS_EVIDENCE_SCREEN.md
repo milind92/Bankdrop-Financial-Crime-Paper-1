@@ -36,8 +36,9 @@ python .\code\evidence_screening\build_evidence_corpus.py prepare `
 ```
 
 `prepare` refuses to overwrite a nonempty review directory. Its manifest pins
-the exact Phase 1 and Phase 2 input hashes. The frozen identity columns in
-the sheets must not be edited.
+the exact Phase 1 and Phase 2 input hashes. The current blank controlled
+packet uses review schema v3; the earlier blank schemas are superseded. The
+frozen identity columns in the sheets must not be edited.
 
 ## Human decisions
 
@@ -55,17 +56,30 @@ copied source text from Markdown.
 
 For every linked, unresolved, and orphan image, reviewers independently
 choose `include`, `exclude`, or `unavailable`. Unresolved references cannot
-be included. A linked image belongs only to an included note. An orphan with
+be included. An included linked image belongs only to an included note; its
+`approved_source` must be explicitly confirmed as matching the note's
+approved source. An orphan assigned to a note needs the same source match.
+An orphan with
 novel content may be assigned to a reviewed note or become its own unit after
 source/linkage review; a duplicate of already referenced content cannot be
 included a second time. Every non-inclusion needs a reason. An included
 orphan needs a source/linkage rationale and provenance-matched OCR supplied
 in the documented supplemental CSV schema.
 
-The `capture_date_basis` is `source_metadata`, `collector_record`,
+The `capture_date_basis` is `collector_record`, `capture_system_log`,
 `filename_only`, or `unknown`. Enter an ISO `capture_date` only for the first
-two bases. Filename-derived dates remain inventory metadata and do not become
-verified capture dates in the revised analytical output.
+two bases, and identify the contemporaneous record in
+`capture_date_record_locator`. A source-displayed post or listing date is a
+publication date, not proof of when it was captured. Filename-derived dates
+remain inventory metadata and do not become verified capture dates. An
+included image needs its own date-basis decision, even when linked to a note;
+it does not inherit the note's date. The controlled evidence JSONL preserves
+each approved span's capture-date decision. The unit-level `collection_date`
+is populated only if all its approved spans have the same verified capture
+date; otherwise it remains blank. The Phase 3 artefact coding table carries
+each span's date independently. This prevents a note date from silently
+dating all its screenshots or from supporting a temporal claim about mixed
+captures.
 
 In `source_segments.csv`, each row gives a `reference_key`, zero-based
 `start_char`, exclusive `end_char`, and SHA-256 of the **exact substring**.

@@ -71,6 +71,14 @@ images, gaps over 30 days, and unparseable or blank dates. An image filename
 may reflect pasting or saving rather than capture. Neither the matches nor
 the mismatches certify a source-post date or collection visit.
 
+The current schema-v3 controlled review gate treats capture dates and
+source-displayed publication dates separately. Included images require their
+own source and capture-date-basis decisions; a verified capture date needs a
+contemporaneous record locator. Revised unit dates remain blank if the
+approved spans have unknown or different capture dates. The gate has only
+blank worksheets and synthetic tests so far; it has not verified the actual
+collection schedule.
+
 ## Record provenance and denominator
 
 Among the 980 screened notes, 589 had no usable joined OCR. A preliminary

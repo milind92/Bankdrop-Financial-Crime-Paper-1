@@ -175,7 +175,7 @@ RESTRICTED_FILENAMES = {
     "revised_holdout_performance_controlled.csv",
     "revised_holdout_score_manifest.json",
 }
-BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash", "source_unit_sha256", "packet_file", "packet_sha256", "source_path", "local_path", "absolute_path"}
+BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash", "source_unit_sha256", "packet_file", "packet_sha256", "source_path", "local_path", "absolute_path", "capture_date_record_locator"}
 BLOCKED_FIELD_TOKENS = {"snippet", "snippets", "raw_text", "ocr_text", "full_text"}
 SAFE_AGGREGATE_FIELDS = {"unique_text_count", "positive_unique_evidence_rows", "negative_unique_evidence_rows"}
 ABSOLUTE_PATH_PATTERN = re.compile(r"(?i)(?:\b[A-Z]:\\Users\\|(?<!:)/(?:home|Users)/[^/\s]+/)")
@@ -451,6 +451,7 @@ def check_journal_reproducibility_supplement(
     evidence_gate = manifest.get("revised_evidence_screening_gate", {})
     for field, expected in {
         "status": "review_template_prepared_author_decisions_pending",
+        "review_schema_version": 3,
         "script": "code/evidence_screening/build_evidence_corpus.py",
         "method": "code/evidence_screening/METHODS_EVIDENCE_SCREEN.md",
         "review_templates_controlled_only": True,

@@ -12,6 +12,9 @@ zeroes, with the unit ID, span ID, source, content hash, binary presence, hit
 count, and pattern count. The existing unit-level tables remain available.
 The pair builder checks that every approved unit and span has a complete code
 matrix and that the span hit totals reproduce the unit-level hit totals.
+It also checks each span's capture date against the reviewed evidence rather
+than copying a note-level date onto every screenshot. Pair counts themselves
+make no temporal claim.
 
 Run only on a controlled revised Phase 3 directory:
 

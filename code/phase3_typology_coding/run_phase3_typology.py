@@ -19,7 +19,7 @@ import re
 import shutil
 from collections import Counter, defaultdict
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 
@@ -318,7 +318,8 @@ def load_approved_evidence(path: Path) -> tuple[list[Note], str]:
     if path == REPOSITORY_ROOT or REPOSITORY_ROOT in path.parents:
         raise ValueError("Approved evidence text must remain outside the public repository")
     manifest = json.loads((path.parent / "evidence_build_manifest.json").read_text(encoding="utf-8"))
-    if manifest.get("status") != "source_screening_complete_target_validation_pending":
+    if (manifest.get("schema_version") != 3
+            or manifest.get("status") != "source_screening_complete_target_validation_pending"):
         raise ValueError("The evidence corpus lacks a completed source-screening manifest")
     evidence_sha = hashlib.sha256(path.read_bytes()).hexdigest()
     if manifest.get("evidence_jsonl_sha256") != evidence_sha:
@@ -345,23 +346,39 @@ def load_approved_evidence(path: Path) -> tuple[list[Note], str]:
                 artifact_id = str(artifact.get("artifact_id", ""))
                 kind = artifact.get("kind")
                 text = artifact.get("text")
+                artifact_date = artifact.get("collection_date")
                 if (
                     not artifact_id or artifact_id in artifact_ids
                     or kind not in {"markdown_source_span", "image_ocr"}
                     or not isinstance(text, str) or not text.strip()
                     or sha256_text(text) != artifact.get("text_sha256")
+                    or not isinstance(artifact_date, str)
                 ):
                     raise ValueError(f"Invalid approved source span in unit {note_id}")
+                if artifact_date:
+                    try:
+                        if date.fromisoformat(artifact_date).isoformat() != artifact_date:
+                            raise ValueError("Noncanonical date")
+                    except ValueError as exc:
+                        raise ValueError(f"Invalid artifact capture date in unit {note_id}") from exc
                 artifact_ids.add(artifact_id)
-                checked_artifacts.append({"artifact_id": artifact_id, "kind": kind, "text": text})
+                checked_artifacts.append({
+                    "artifact_id": artifact_id, "kind": kind, "text": text,
+                    "collection_date": artifact_date,
+                })
             source = row.get("source")
             if not isinstance(source, str) or not source.strip():
                 raise ValueError(f"Approved evidence source is missing for {note_id}")
+            unit_date = row.get("collection_date")
+            artifact_dates = {item["collection_date"] for item in checked_artifacts}
+            expected_date = next(iter(artifact_dates)) if len(artifact_dates) == 1 and "" not in artifact_dates else ""
+            if unit_date != expected_date:
+                raise ValueError(f"Unit capture date disagrees with its approved spans: {note_id}")
             notes.append(Note(
                 note_id=note_id,
                 relative_path=str(row.get("relative_path", "")),
                 source=source,
-                collection_date=str(row.get("collection_date", "")),
+                collection_date=unit_date,
                 markdown_text="\n\n".join(item["text"] for item in checked_artifacts if item["kind"] == "markdown_source_span"),
                 ocr_text="\n\n".join(item["text"] for item in checked_artifacts if item["kind"] == "image_ocr"),
                 artifacts=tuple(checked_artifacts),
@@ -510,7 +527,7 @@ def main() -> None:
                             "artifact_id": artifact["artifact_id"],
                             "artifact_kind": artifact["kind"],
                             "source": note.source,
-                            "collection_date": note.collection_date,
+                            "collection_date": artifact["collection_date"],
                             "target_type": target_type,
                             "code": code,
                             "present": int(hits > 0),
