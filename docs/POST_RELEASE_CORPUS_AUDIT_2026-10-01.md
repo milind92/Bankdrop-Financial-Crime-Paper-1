@@ -40,13 +40,26 @@ establish source-post dates or the actual visit schedule. The old July article
 draft's earlier start date came from project material outside the screened
 source-note date range.
 
+The 947 valid note-filename tokens occupy 97 distinct calendar days within
+the inclusive 128-day token span. Thirty-one days have no note filename
+token. These are filename-coverage counts, not evidence of visits on the
+other days or missed collection on the days without a note.
+
 Controlled project notes describe an **intended** 15-source daily-tracing
-procedure, while the historical screen represents 16 source groups. A task
-table's collection-start entry carries a year earlier than the later
+procedure, while the historical screen represents 16 source groups. Groups
+numbered 1-15 have screened notes; folder 16 is empty in the checked extract;
+and group 17 supplies six screened Markdown files, including three zero-byte
+placeholders (one dated and two undated). A 7 May 2026 meeting note discusses
+the sites corresponding to groups 16 and 17 as potentially useful, but does
+not document when either was selected or captured. Four group-17 note
+filenames carry June 2026 date tokens. This
+narrows the source-frame discrepancy without proving that groups 1-15 were
+the original November selection or that group 17 was a planned addition.
+A task table's collection-start entry carries a year earlier than later
 source-selection and equipment-setup entries; whether they concern the same
 collection phase is unresolved. The original preparers must explain the
-chronology and source additions; these records do not verify
-the actual start date or daily visit schedule.
+chronology and source-frame changes. These records do not verify the actual
+start date or daily visit schedule.
 
 A separate controlled filename check found 1,032 resolved note/image
 assignments with parseable note-date and pasted-image filename timestamps.

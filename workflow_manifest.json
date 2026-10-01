@@ -3,7 +3,7 @@
     "title": "Bankdrop Financial Crime Paper 1",
     "repository": "https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1",
     "repository_visibility": "public",
-    "version": "1.3.13",
+    "version": "1.3.14",
     "repository_purpose": "Privacy-clean historical deterministic Phase 1-4 reproducibility supplement with a post-release corpus audit; substantive journal results are on methodological hold.",
     "empirical_scope": "Deterministic Phases 1-4 only. No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis is included.",
     "authorship_status": "Final author names, order, affiliations, identifiers, and contribution statements will be supplied by the authors."

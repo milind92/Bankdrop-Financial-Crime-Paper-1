@@ -66,8 +66,11 @@ For every source group, retain a controlled provenance record with:
 Controlled project notes describe a planned 15-source daily trace, whereas
 the historical screen represents 16 source groups. A task-table start-date
 entry precedes later setup notes; whether it concerns this same collection
-phase remains to be confirmed. Linked note and
-image filename dates also differ in 328 of 1,032 comparable assignments.
+phase remains to be confirmed. The extra represented group is numbered 17;
+folder 16 is empty in the inspected extract, and the May 2026 meeting note
+discusses both sites without establishing when either entered the study.
+Linked note and image filename dates also differ in 328 of 1,032 comparable
+assignments.
 These are review prompts, not corrected dates or evidence that the planned
 schedule was carried out; see the [post-release audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md).
 

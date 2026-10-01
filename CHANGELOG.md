@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.14 - 2026-10-01
+
+- Reconciled the archive's numbered source folders with the historical screen: groups 1-15 and 17 are represented, while folder 16 is empty in the inspected extract. Group 17 contributes six screened notes, including three zero-byte placeholders. A May meeting note identifies the two later candidate sites but does not verify selection or capture dates.
+- Clarified that 947 valid note-filename date tokens cover 97 distinct days in a 128-day token span. This is filename coverage, not verified visit frequency. Historical empirical outputs remain unchanged and the methodological hold remains in force.
+
 ## 1.3.13 - 2026-10-01
 
 - Audited controlled project notes for the intended collection procedure. A 15-source plan, a chronologically ambiguous collection-start entry, and 16 represented source groups now have explicit, unresolved provenance status.
