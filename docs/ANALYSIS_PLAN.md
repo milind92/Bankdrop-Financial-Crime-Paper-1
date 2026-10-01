@@ -2,12 +2,14 @@
 
 ## Status And Scope
 
+**Current image analysis (2 October 2026):** The separate [fixed-screenshot protocol](IMAGE_ARCHIVE_PROTOCOL_2026-10-02.md) and [Methods/Results report](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) now define and fully compute an archive-bounded 1,037-image OCR-rule analysis. The historical combined-note plan below remains an audit record. Five image-based source-claim constructs await the two authors' independent coding and final decision; the other rule counts are exploratory lexical results.
+
 **Post-release status (1 October 2026):** This document describes the historical `v1.3.3` analysis design. A [controlled-corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found that the 980 screened records include collection/status and researcher-authored material. Its substantive results are on hold pending author-reviewed evidence eligibility, image linkage, a revised rerun, and validation. The historical counts remain reproducible but are not final article estimates.
 
 The provisional revised path and its stricter counting boundaries are in the
 [evidence-screening method](../code/evidence_screening/METHODS_EVIDENCE_SCREEN.md)
 and [pair-boundary method](../code/derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md).
-No revised substantive denominator or pair estimate exists yet.
+No author-reviewed revised *combined-note* denominator or within-span pair estimate exists; the separate fixed-screenshot analysis has its own completed 1,037-image denominator.
 
 If the original preparers cannot supply a collection account or logs, the
 revised study will be described as a retrospective analysis of the preserved

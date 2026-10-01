@@ -2,7 +2,11 @@
 
 All committed outputs are aggregate and publication-safe. Raw and record-level material is excluded.
 
-**Status:** Phase 1–4, derived-analysis, and human-validation outputs are historical mixed-record calculations. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) places substantive article use on hold until an evidence-only corpus is approved and reanalysed.
+**Status:** Phase 1-4, derived-analysis, and July human-validation outputs are historical mixed-record calculations. The separate [fixed-screenshot analysis](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) has complete image-level OCR-rule aggregates. Its five source-claim constructs await new independent author validation.
+
+## Fixed screenshot archive (2 October 2026)
+
+`outputs/image_archive_20261002/` contains the 1,037-image flow, 19-rule summary, pattern and within-image overlap diagnostics, exact OCR-text and OCR-length sensitivity, historical modality comparison, anonymised leave-one-group-out ranges, legacy ICR applicability aggregate, and file-level provenance. It contains no screenshot, raw OCR, image/coder row, source-group label, or record-level hash. These percentages describe a fixed archive, not an external market.
 
 The journal-facing interpretation boundary is maintained in `docs/claim_to_evidence_register.csv`; it is a documentation control rather than a new empirical output.
 

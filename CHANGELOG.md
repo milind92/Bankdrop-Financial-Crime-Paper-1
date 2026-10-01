@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 - 2026-10-02
+
+- Completed a retrospective analysis of 1,037 SHA-256-unique, locally referenced archived screenshots. Released 19 OCR-rule aggregates, within-image overlap, pattern diagnostics, exact OCR-text and OCR-length sensitivity, historical-unit comparison, and anonymised leave-one-archive-group-out ranges. Counts remain lexical and do not establish real transactions or source-claim validity.
+- Added a portable controlled reproducer with a public-repository output guard. A full authorised rerun generated all 12 original result files byte for byte identically. Released file-level provenance and expanded public verification.
+- Audited reuse of July's 1,032 paired mixed-record judgments. Only 83 are single-image/OCR-equivalent, and the 83 agreements are dominated by 79 absent judgments; the old ICR is not transferred to the screenshot task.
+- Prepared separate, blank Milind and Ausma sheets for five focused source-claim constructs: 249 judgments each across 205 screenshots. The images, case-level selections, private predictions, coder sheets, and scorer remain controlled. The two authors' independent decisions, final agreement/adjudication, and Milind's publication-scope decision are pending.
+- Explicitly treat missing collection history, verified capture dates, source completeness, and OCR gold accuracy as unknown limits of this fixed archive, rather than filling them with assumptions. The older 980-note computations are preserved as historical outputs.
+
 ## 1.3.21 - 2026-10-01
 
 Local working version; publication to the public repository remains pending.

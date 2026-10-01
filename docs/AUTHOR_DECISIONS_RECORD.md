@@ -4,7 +4,7 @@
 
 This record captures author instructions supplied on 22 August 2026 for the public Bankdrop Financial Crime Paper 1 repository. It applies to the repository as a journal-neutral reproducibility supplement. It is not a substitute for the final manuscript title page, declarations, journal forms, or institutional approvals.
 
-**Current status:** The 1 October 2026 [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) supersedes the earlier submission-readiness decision. The 980-note denominator and 463-hash sensitivity below are preserved as historical computational choices. Authors have not yet confirmed the revised source-evidence boundary or image-coverage decisions.
+**Current status (2 October 2026):** The 1 October [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) supersedes the earlier submission-readiness decision. The 980-note denominator and 463-hash sensitivity below are historical computational choices. The separate [fixed-screenshot analysis](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) is complete for an explicitly defined frame of 1,037 locally referenced, content-unique images; it makes no claim about undocumented collection history or external source coverage. The authors' independent five-construct image coding, adjudication, and Milind's final publication decision remain outstanding.
 
 ## Earlier Decisions For The Historical Screen
 
@@ -44,4 +44,4 @@ The following items will be completed after the target journal and final paper t
 - licence choice and any archival DOI;
 - journal-specific repository, data, ethics, and anonymity wording.
 
-At current version `1.3.21`, the repository remains on methodological hold. The historical `v1.3.3` submission-ready statement has been withdrawn pending the author-reviewed reanalysis and validation described in the post-release audit. The revised holdout sampler and closeout scorer are available, but no real sample or score can exist before the evidence frame, target definitions, author allocation plan, and independent human judgments are locked.
+At version `1.4.0`, the historical `v1.3.3` submission-ready statement remains withdrawn. The fixed-screenshot computation has been executed and checked, while no new human image-level ICR or source-claim validity has been claimed. The two blank controlled author sheets and scoring workflow are prepared. Milind will make the final claim-scope decision after the two independent decisions and adjudication; older mixed-record agreement cannot substitute for them.

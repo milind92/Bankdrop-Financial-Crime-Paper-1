@@ -1,5 +1,7 @@
 # Reproducibility Supplement Submission Checklist
 
+**2 October 2026 update:** The separate [fixed-screenshot analysis](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) and its aggregate sensitivity tables are complete and verified. Its five possible source-claim interpretations still require the two authors' independent screenshot coding, agreement/adjudication, and Milind's final decision. The historical combined-note checklist below remains an audit of that older pathway; its unchecked items are not silently claimed as resolved by the bounded screenshot design.
+
 ## Supplement Submission Gate
 
 - [x] Repository role fixed as a journal-neutral reproducibility supplement.

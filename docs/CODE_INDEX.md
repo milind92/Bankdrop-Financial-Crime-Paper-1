@@ -7,6 +7,7 @@
 | `code/run_reproducible_pipeline.py` | Runs deterministic Phases 1–4 against controlled data and refuses unsafe output locations. |
 | `code/export_public_release.py` | Copies only explicitly allowlisted aggregate outputs and rejects note-level fields and local paths. |
 | `code/verify_repository.py` | Performs the data-free integrity, privacy, manifest, schema, human-ICR, and classification-performance audit. |
+| `code/image_archive/reproduce_controlled.py` | Reproduces the fixed 1,037-screenshot OCR-rule and sensitivity analysis from authorised controlled inputs; refuses output inside the public checkout. |
 | `code/derived_analysis/build_revised_duplicate_sensitivity.py` | Checks exact approved-span signature repeats and target-count sensitivity on a future reviewed corpus; controlled output only. |
 | `code/derived_analysis/build_revised_descriptive_tables.py` | Builds provisional reviewed-corpus flow, source coverage, target, modality, co-occurrence, concentration, and leave-one-source-out tables; controlled output only. |
 | `code/evidence_screening/build_evidence_corpus.py` | Creates blank controlled review sheets and refuses a revised corpus until every note, image, and included text span has adjudicated provenance decisions. |

@@ -1,0 +1,20 @@
+﻿family,code,label,positive_images,denominator_images,percent_of_images,total_regex_hits,interpretation
+typology,bank_log_sale,Compromised bank log sale or discussion,343,1037,33.08,790,OCR lexical rule positive; source claim unverified
+typology,bank_drop_sale,Bank drop sale or bank-drop infrastructure,213,1037,20.54,483,OCR lexical rule positive; source claim unverified
+typology,fullz_identity_package,Fullz or identity package,184,1037,17.74,309,OCR lexical rule positive; source claim unverified
+typology,email_access_takeover,Email-access-enabled account takeover,84,1037,8.10,133,OCR lexical rule positive; source claim unverified
+typology,mule_recruitment,Mule recruitment or account-holder solicitation,10,1037,0.96,10,OCR lexical rule positive; source claim unverified
+typology,cashout_laundering_service,Cash-out or laundering service,178,1037,17.16,291,OCR lexical rule positive; source claim unverified
+typology,crypto_payment_or_conversion,Cryptocurrency payment or conversion reference,183,1037,17.65,394,OCR lexical rule positive; source claim unverified
+typology,telegram_off_platform,Telegram or private-channel coordination reference,121,1037,11.67,163,OCR lexical rule positive; source claim unverified
+typology,escrow_trust_reputation,"Escrow, trust, reputation, or scam-risk discourse",229,1037,22.08,506,OCR lexical rule positive; source claim unverified
+typology,tutorial_training_recruitment,"Tutorial, guide, or training content",156,1037,15.04,306,OCR lexical rule positive; source claim unverified
+typology,jurisdiction_localisation,Jurisdiction-specific bank or account reference,199,1037,19.19,529,OCR lexical rule positive; source claim unverified
+typology,vulnerable_group_exploitation,Vulnerable group or migrant/student exploitation,0,1037,0.00,0,OCR lexical rule positive; source claim unverified
+aml_candidate,bank_log_plus_email_access,Bank log packaged with email/cookie access,19,1037,1.83,25,OCR lexical rule positive; source claim unverified
+aml_candidate,domestic_account_preference,Jurisdiction-specific bank or account reference,199,1037,19.19,529,OCR lexical rule positive; source claim unverified
+aml_candidate,telegram_sales_or_proof,"Telegram used for vendor proof, negotiation, or sales",26,1037,2.51,38,OCR lexical rule positive; source claim unverified
+aml_candidate,crypto_to_bank_cashout,Crypto-to-bank or crypto-to-cash conversion,38,1037,3.66,46,OCR lexical rule positive; source claim unverified
+aml_candidate,escrow_or_exit_scam_risk,Escrow or exit-scam discourse,205,1037,19.77,359,OCR lexical rule positive; source claim unverified
+aml_candidate,mule_or_account_holder_recruitment,Mule or account-holder recruitment,9,1037,0.87,9,OCR lexical rule positive; source claim unverified
+quality_flag,market_access_limitation,"Market access limitation, outage, login wall, or collection barrier",2,1037,0.19,4,OCR lexical rule positive; source claim unverified

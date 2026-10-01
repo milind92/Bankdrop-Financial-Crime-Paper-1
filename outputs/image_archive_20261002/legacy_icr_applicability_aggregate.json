@@ -1,0 +1,21 @@
+{
+  "paired_case_targets": 1032,
+  "packets": 313,
+  "coder_evidence_modalities": {
+    "Milind": {
+      "Both": 841,
+      "Markdown": 191
+    },
+    "Ausma": {
+      "Both": 841,
+      "Markdown": 191
+    }
+  },
+  "single_image_case_targets": 212,
+  "single_image_zero_nonembed_markdown_and_exact_current_ocr_case_targets": 83,
+  "interpretation": "These are July mixed-note task judgments. Single-image and OCR-only attribution may permit a bounded historical sensitivity, but definitions were broad reference targets and coder input included combined Markdown and OCR. They do not become new independent screenshot-coded responses.",
+  "exact_single_image_ocr_equivalent_pairs": 83,
+  "exact_single_image_ocr_equivalent_agreements": 83,
+  "exact_single_image_ocr_equivalent_absent_pairs": 79,
+  "exact_single_image_ocr_equivalent_present_pairs": 4
+}

@@ -1,6 +1,6 @@
 # Reproducibility
 
-**Current status:** A [post-release corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) places substantive Paper 1 results on methodological hold. The commands below reproduce the historical 980-note computation; they do not establish a final evidence-only population.
+**Current status:** The [fixed-screenshot OCR-rule computation](docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) is complete for 1,037 content-unique linked images. Its [portable controlled reproducer](code/image_archive/reproduce_controlled.py) regenerated all 12 original files byte for byte; the public checkout includes only aggregates. The commands below still reproduce the historical 980-note computation. Five source-claim constructs require the two authors' final independent coding before article interpretation.
 
 ## Data-Free Audit
 

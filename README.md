@@ -6,11 +6,13 @@ A public, privacy-clean, journal-neutral reproducibility supplement containing t
 
 ## Reproducibility Supplement Status
 
-**Methodological hold (1 October 2026): this supplement is not ready for journal submission.** A [post-release controlled-corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found that the historical 980-note screen includes collection-status and researcher-written records, 58 unreferenced image paths, and 191 human-validation case-target rows from no-OCR research/status notes. One of its 948 date-like filename tokens is an impossible calendar date; linked image filename times and original ZIP modification times also differ frequently from note filename dates. Version `1.3.21` preserves the reproducible historical calculations and adds a [controlled evidence-screening gate](code/evidence_screening/METHODS_EVIDENCE_SCREEN.md), a [blinded OCR-quality procedure](code/ocr_quality/METHODS_OCR_QUALITY.md), provisional [within-span pair](code/derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md), [exact-span duplicate](code/derived_analysis/METHODS_REVISED_DUPLICATE_SENSITIVITY.md), and [reviewed-corpus descriptive](code/derived_analysis/METHODS_REVISED_DESCRIPTIVES.md) procedures, plus [revised human sampling and scoring](code/human_validation/METHODS_REVISED_HOLDOUT.md). If collection records remain unavailable, the revised study can proceed as a bounded retrospective archive analysis with unknown capture dates and recorded source-attribution rationales. Human review and revised article results remain pending. Do not use the historical substantive percentages or performance metrics as final article results.
+**2 October 2026 status:** The [fixed screenshot analysis](docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) is computationally complete. It verifies and codes 1,037 content-unique, locally referenced archived screenshots and releases [19 OCR-rule aggregate counts and sensitivity checks](outputs/image_archive_20261002/). A [portable controlled reproducer](code/image_archive/reproduce_controlled.py) generated all 12 original result files byte for byte identically in an authorised rerun. The five possible source-claim constructs have a small, blank Milind–Ausma coding packet in controlled storage: 249 decisions per author across 205 screenshots. Independent image-level agreement, adjudication, and Milind's final claim decision have **not occurred**; the repository is therefore not yet a claim-validated journal submission.
+
+The earlier [post-release controlled-corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found that the historical 980-note screen includes research/status records and cannot serve as the substantive article denominator. Its computations and July mixed-record validation remain historical audit material. The new article scope is a bounded retrospective archive analysis: collector identity for each image, capture dates, source completeness, and OCR gold accuracy are unknown. Filename dates are not used as capture dates. No rule-positive count is presented as a completed sale, transaction, victim count, or external market prevalence. See the [image protocol](docs/IMAGE_ARCHIVE_PROTOCOL_2026-10-02.md) for the exact frame, five-construct validation design, and limits.
 
 It deliberately contains no manuscript, title page, declarations, or journal-portal forms because those are article-submission materials rather than reproducibility components. Final author metadata, declarations, rights, and any archival DOI are supplied with the manuscript or through the selected journal's submission process; they do not represent missing empirical work in this repository. A submitter must still follow an eventual journal's file-format and review-anonymity rules.
 
-Reviewers should begin with the [post-release corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md), [Journal Reproducibility Supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md), [Claim-to-Evidence Register](docs/claim_to_evidence_register.csv), and [Supplement Submission Checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md).
+Reviewers should begin with the [fixed screenshot analysis](docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md), [image protocol](docs/IMAGE_ARCHIVE_PROTOCOL_2026-10-02.md), [public aggregates](outputs/image_archive_20261002/), and [post-release corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md). The [Journal Reproducibility Supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md) and [Claim-to-Evidence Register](docs/claim_to_evidence_register.csv) document the historical mixed-record workflow and its hold.
 
 ## Scope
 
@@ -25,6 +27,8 @@ Blinded human inter-coder reliability and subsequent adjudication were completed
 
 The repository also includes publication-safe deterministic derived analyses for exact-text duplicate sensitivity, source-normalized typology reporting, typology co-occurrence with source-stratified and leave-one-source-out stability, AML-candidate overlap, exploratory functional grouping, source concentration, and leave-one-source-out sensitivity. These are descriptive post-processing outputs, not a Phase 5 or LLM-assisted empirical analysis.
 
+The new image-level analysis is a separate retrospective reanalysis of the archived screenshots. Its five source-claim targets were chosen after reviewing earlier error diagnostics, and the other 13 substantive OCR rules remain exploratory lexical results. The previous 1,032 paired July decisions are not reused as current image-level reliability: only 83 judgments map to a single image with equivalent OCR and no extra Markdown, and 79 of those are absent.
+
 ## Repository Contents
 
 - `code/`: deterministic Phase 1–4 scripts, derived-analysis and human-validation summarisation utilities, guarded orchestrator, public-output exporter, and repository verifier.
@@ -36,6 +40,9 @@ The repository also includes publication-safe deterministic derived analyses for
 ## Start Here
 
 - [Analysis plan](docs/ANALYSIS_PLAN.md)
+- [Fixed screenshot Methods and Results](docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md)
+- [Fixed screenshot protocol and validation](docs/IMAGE_ARCHIVE_PROTOCOL_2026-10-02.md)
+- [Fixed screenshot aggregate outputs](outputs/image_archive_20261002/rule_summary.csv)
 - [Post-release corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md)
 - [Data-collection protocol](docs/DATA_COLLECTION_PROTOCOL.md)
 - [Phase 3 codebook](outputs/phase3_aggregate/CODEBOOK_PHASE3.md)

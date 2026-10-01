@@ -1,0 +1,20 @@
+﻿code,historical_mixed_markdown_note_n,historical_mixed_markdown_positive_n,historical_mixed_markdown_percent,new_referenced_image_hash_n,new_image_ocr_positive_n,new_image_ocr_percent,warning
+bank_log_sale,980,178,18.16,1037,343,33.08,Different units and content modalities; percentage difference is not a temporal change
+bank_drop_sale,980,116,11.84,1037,213,20.54,Different units and content modalities; percentage difference is not a temporal change
+fullz_identity_package,980,124,12.65,1037,184,17.74,Different units and content modalities; percentage difference is not a temporal change
+email_access_takeover,980,62,6.33,1037,84,8.10,Different units and content modalities; percentage difference is not a temporal change
+mule_recruitment,980,9,0.92,1037,10,0.96,Different units and content modalities; percentage difference is not a temporal change
+cashout_laundering_service,980,118,12.04,1037,178,17.16,Different units and content modalities; percentage difference is not a temporal change
+crypto_payment_or_conversion,980,126,12.86,1037,183,17.65,Different units and content modalities; percentage difference is not a temporal change
+telegram_off_platform,980,82,8.37,1037,121,11.67,Different units and content modalities; percentage difference is not a temporal change
+escrow_trust_reputation,980,121,12.35,1037,229,22.08,Different units and content modalities; percentage difference is not a temporal change
+tutorial_training_recruitment,980,104,10.61,1037,156,15.04,Different units and content modalities; percentage difference is not a temporal change
+jurisdiction_localisation,980,117,11.94,1037,199,19.19,Different units and content modalities; percentage difference is not a temporal change
+vulnerable_group_exploitation,980,0,0.00,1037,0,0.00,Different units and content modalities; percentage difference is not a temporal change
+bank_log_plus_email_access,980,15,1.53,1037,19,1.83,Different units and content modalities; percentage difference is not a temporal change
+domestic_account_preference,980,117,11.94,1037,199,19.19,Different units and content modalities; percentage difference is not a temporal change
+telegram_sales_or_proof,980,21,2.14,1037,26,2.51,Different units and content modalities; percentage difference is not a temporal change
+crypto_to_bank_cashout,980,34,3.47,1037,38,3.66,Different units and content modalities; percentage difference is not a temporal change
+escrow_or_exit_scam_risk,980,101,10.31,1037,205,19.77,Different units and content modalities; percentage difference is not a temporal change
+mule_or_account_holder_recruitment,980,8,0.82,1037,9,0.87,Different units and content modalities; percentage difference is not a temporal change
+market_access_limitation,980,5,0.51,1037,2,0.19,Different units and content modalities; percentage difference is not a temporal change

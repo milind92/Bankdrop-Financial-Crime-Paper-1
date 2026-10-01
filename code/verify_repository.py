@@ -51,6 +51,12 @@ REQUIRED_FILES = (
     "docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md",
     "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
     "docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md",
+    "docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md",
+    "docs/IMAGE_ARCHIVE_PROTOCOL_2026-10-02.md",
+    "code/image_archive/reproduce_controlled.py",
+    "outputs/image_archive_20261002/flow.json",
+    "outputs/image_archive_20261002/legacy_icr_applicability_aggregate.json",
+    "outputs/image_archive_20261002/release_provenance.json",
     "outputs/human_validation/HUMAN_VALIDATION_STATUS.md",
     "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
     "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
@@ -68,6 +74,15 @@ REQUIRED_FILES = (
 )
 
 CSV_SCHEMAS = {
+    "outputs/image_archive_20261002/rule_summary.csv": "family,code,label,positive_images,denominator_images,percent_of_images,total_regex_hits,interpretation",
+    "outputs/image_archive_20261002/pattern_level_diagnostics.csv": "family,code,pattern_number,pattern,images_matched,total_matches,code_positive_images",
+    "outputs/image_archive_20261002/within_image_cooccurrence.csv": "code_a,code_b,images_with_both,image_denominator",
+    "outputs/image_archive_20261002/rule_overlap_diagnostics.csv": "code_a,code_b,positive_a,positive_b,both,same_binary_vector,a_subset_b,b_subset_a,jaccard",
+    "outputs/image_archive_20261002/ocr_length_sensitivity.csv": "code,all_images,all_positive_images,at_least_30_ocr_words_images,at_least_30_ocr_words_positive",
+    "outputs/image_archive_20261002/exact_ocr_text_sensitivity.csv": "code,image_hash_n,image_hash_positive_n,unique_exact_ocr_text_n,unique_exact_ocr_text_positive_n,base_percent,exact_ocr_dedup_percent",
+    "outputs/image_archive_20261002/linked_note_modality_sensitivity.csv": "code,linked_note_n,old_note_plus_ocr_positive_n,note_joined_ocr_positive_n,any_single_image_ocr_positive_n,old_positive_without_single_image_positive_n,joined_ocr_positive_without_single_image_positive_n",
+    "outputs/image_archive_20261002/historical_mixed_note_vs_image_counts.csv": "code,historical_mixed_markdown_note_n,historical_mixed_markdown_positive_n,historical_mixed_markdown_percent,new_referenced_image_hash_n,new_image_ocr_positive_n,new_image_ocr_percent,warning",
+    "outputs/image_archive_20261002/leave_one_group_out_ranges.csv": "code,omitted_group_count,minimum_remaining_percent,maximum_remaining_percent",
     "outputs/phase1_aggregate/entity_summary_by_source.csv": "source,entity_type,entity,hit_count",
     "outputs/phase1_aggregate/keyword_summary_by_source.csv": "source,keyword,file_count,hit_count",
     "outputs/phase1_aggregate/source_summary.csv": "source,note_count,dated_note_count,first_date,last_date,word_count,image_ref_count",
@@ -194,7 +209,7 @@ PUBLIC_TEXT_SUFFIXES = {".md", ".txt", ".py", ".json", ".yml", ".yaml", ".cff", 
 PUBLIC_EXTENSIONLESS_FILES = {".gitignore", ".gitattributes"}
 BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash", "source_unit_sha256", "packet_file", "packet_sha256", "source_path", "local_path", "absolute_path", "capture_date_record_locator"}
 BLOCKED_FIELD_TOKENS = {"snippet", "snippets", "raw_text", "ocr_text", "full_text"}
-SAFE_AGGREGATE_FIELDS = {"unique_text_count", "positive_unique_evidence_rows", "negative_unique_evidence_rows"}
+SAFE_AGGREGATE_FIELDS = {"unique_text_count", "positive_unique_evidence_rows", "negative_unique_evidence_rows", "unique_exact_ocr_text_n", "unique_exact_ocr_text_positive_n"}
 ABSOLUTE_PATH_PATTERN = re.compile(r"(?i)(?:\b[A-Z]:\\Users\\|(?<!:)/(?:home|Users)/[^/\s]+/)")
 
 
@@ -1393,6 +1408,52 @@ def check_derived_analysis(manifest: dict[str, Any], errors: list[str]) -> int:
     return checked + 2
 
 
+def check_image_archive_release(errors: list[str]) -> int:
+    base = REPOSITORY_ROOT / "outputs" / "image_archive_20261002"
+    try:
+        provenance = json.loads((base / "release_provenance.json").read_text(encoding="utf-8"))
+        flow = json.loads((base / "flow.json").read_text(encoding="utf-8"))
+        legacy = json.loads((base / "legacy_icr_applicability_aggregate.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        errors.append(f"Image archive release metadata missing or invalid: {exc}")
+        return 0
+    if provenance.get("unit_n") != 1037 or flow.get("unique_referenced_local_image_hashes_primary") != 1037:
+        errors.append("Image archive primary denominator must be 1,037")
+    def public_sha(path: Path) -> str:
+        return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+    if provenance.get("public_hash_method") != "SHA-256 of UTF-8 bytes after CRLF-to-LF normalisation":
+        errors.append("Image archive public hash method is missing")
+    if provenance.get("public_reproducer_sha256") != public_sha(
+        REPOSITORY_ROOT / "code" / "image_archive" / "reproduce_controlled.py"
+    ):
+        errors.append("Image archive public reproducer hash is stale")
+    expected = provenance.get("public_output_sha256", {})
+    if not isinstance(expected, dict) or len(expected) != 11:
+        errors.append("Image archive public output hash inventory is incomplete")
+    else:
+        for name, digest in expected.items():
+            path = base / name
+            if not path.is_file() or public_sha(path) != digest:
+                errors.append(f"Image archive released output changed: {name}")
+    rules = _read_rows("outputs/image_archive_20261002/rule_summary.csv", errors)
+    if len(rules) != 19 or any(row.get("denominator_images") != "1037" for row in rules):
+        errors.append("Image archive rule table must have 19 rows over 1,037 images")
+    else:
+        positives = {row["code"]: int(row["positive_images"]) for row in rules}
+        for code, count in {"bank_log_sale": 343, "bank_drop_sale": 213,
+                            "fullz_identity_package": 184, "email_access_takeover": 84,
+                            "bank_log_plus_email_access": 19}.items():
+            if positives.get(code) != count:
+                errors.append(f"Image archive count changed for {code}")
+    if (legacy.get("exact_single_image_ocr_equivalent_pairs") != 83
+        or legacy.get("exact_single_image_ocr_equivalent_agreements") != 83
+        or legacy.get("exact_single_image_ocr_equivalent_absent_pairs") != 79
+        or legacy.get("exact_single_image_ocr_equivalent_present_pairs") != 4):
+        errors.append("Legacy ICR applicability aggregate changed")
+    return len(expected) + len(rules) + 5
+
+
 def main() -> int:
     errors: list[str] = []
     manifest = load_manifest(errors)
@@ -1408,6 +1469,7 @@ def main() -> int:
     icr_target_count = check_human_icr_by_target(manifest, errors)
     performance_count = check_human_validation_performance(manifest, errors)
     derived_count = check_derived_analysis(manifest, errors)
+    image_archive_count = check_image_archive_release(errors)
 
     if errors:
         print("Repository integrity check failed:", file=sys.stderr)
@@ -1429,6 +1491,7 @@ def main() -> int:
     print(f"- Target-level human-validation checks: {icr_target_count}")
     print(f"- Human-validation performance checks: {performance_count}")
     print(f"- Derived-analysis checks: {derived_count}")
+    print(f"- Fixed image-archive release checks: {image_archive_count}")
     return 0
 
 

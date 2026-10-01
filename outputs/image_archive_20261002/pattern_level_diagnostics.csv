@@ -1,0 +1,84 @@
+﻿family,code,pattern_number,pattern,images_matched,total_matches,code_positive_images
+typology,bank_log_sale,1,\bbank\s+logs?\b,244,571,343
+typology,bank_log_sale,2,\baccount\s+logs?\b,5,8,343
+typology,bank_log_sale,3,\blogz\b,0,0,343
+typology,bank_log_sale,4,\bbank\s+logins?\b,111,197,343
+typology,bank_log_sale,5,logs?\s+with\s+(?:email|cookie|cookies|access),13,14,343
+typology,bank_drop_sale,1,\bbank\s+drops?\b,208,451,213
+typology,bank_drop_sale,2,\bbankdrop\b,13,16,213
+typology,bank_drop_sale,3,\bdrop\s+account\b,6,6,213
+typology,bank_drop_sale,4,\bdrop\s+shop\b,2,8,213
+typology,bank_drop_sale,5,\bfresh\s+bank\s+drop\b,2,2,213
+typology,fullz_identity_package,1,\bfullz\b,183,305,184
+typology,fullz_identity_package,2,\bidentity package\b,1,1,184
+typology,fullz_identity_package,3,\bstolen credentials?\b,0,0,184
+typology,fullz_identity_package,4,\bsynthetic id\b,0,0,184
+typology,fullz_identity_package,5,\bpersonal identifiable information\b,0,0,184
+typology,fullz_identity_package,6,\bPII\b,0,0,184
+typology,fullz_identity_package,7,\bcredit report\b,3,3,184
+typology,email_access_takeover,1,\bemail access\b,45,56,84
+typology,email_access_takeover,2,\b(?:bank|account)\s+(?:email|mailbox)\b,1,1,84
+typology,email_access_takeover,3,"\b(?:bank|account|login)\b.{0,120}\b(?:password reset|MFA|OTP|security questions?|session cookies?)\b",38,39,84
+typology,email_access_takeover,4,"\b(?:password reset|MFA|OTP|security questions?|session cookies?)\b.{0,120}\b(?:bank|account|login)\b",37,37,84
+typology,mule_recruitment,1,\bmoney mules?\b,6,6,10
+typology,mule_recruitment,2,"\brecruit(?:ing|ment)?\b.{0,100}\b(?:mules?|account holders?)\b",0,0,10
+typology,mule_recruitment,3,"\baccount holders?\b.{0,100}\b(?:receive|move|transfer|cash out)\b.{0,80}\b(?:funds?|money|payments?)\b",0,0,10
+typology,mule_recruitment,4,"\bdirect owners?\b.{0,80}\b(?:bank|account)\b",1,1,10
+typology,mule_recruitment,5,"\blooking for individuals\b.{0,100}\b(?:bank|account|receive|transfer)\b",1,1,10
+typology,mule_recruitment,6,\breal people with real bank accounts\b,2,2,10
+typology,mule_recruitment,7,"\breceive wires?\b.{0,80}\b(?:fee|commission|percentage|cut)\b",0,0,10
+typology,cashout_laundering_service,1,\bcash[\s-]?out(?:s|ing)?\b,173,277,178
+typology,cashout_laundering_service,2,"\b(?:launder(?:ing)?|wash(?:ing)?)\b.{0,80}\b(?:money|funds?|crypto|service)\b",5,7,178
+typology,cashout_laundering_service,3,"\b(?:dirty crypto|stolen funds?|fraud proceeds?)\b.{0,120}\b(?:clean cash|withdraw|bank transfer|wire|western union|moneygram)\b",2,2,178
+typology,cashout_laundering_service,4,"\b(?:western union|moneygram|bank transfer|wire|ACH)\b.{0,100}\b(?:cash[\s-]?out|fee|commission|service)\b",5,5,178
+typology,crypto_payment_or_conversion,1,\b(?:bitcoin|BTC|monero|XMR|USDT|cryptocurrency|crypto)\b,183,304,183
+typology,crypto_payment_or_conversion,2,"\b(?:bitcoin|BTC|monero|XMR|USDT|cryptocurrency|crypto)\b.{0,100}\b(?:pay|payment|convert|exchange|cash|bank|wire|wallet|mixer|mixing)\b",68,88,183
+typology,crypto_payment_or_conversion,3,\b(?:tornado cash|crypto mixer|coin mixer)\b,2,2,183
+typology,telegram_off_platform,1,\btelegram\b,72,95,121
+typology,telegram_off_platform,2,\bTG\b,9,10,121
+typology,telegram_off_platform,3,\bDMs?\b,51,57,121
+typology,telegram_off_platform,4,\bprivate chat\b,0,0,121
+typology,telegram_off_platform,5,\binvite-only\b,1,1,121
+typology,escrow_trust_reputation,1,\bescrow\b,204,339,229
+typology,escrow_trust_reputation,2,\bmultisig\b,6,14,229
+typology,escrow_trust_reputation,3,\bmulti-signature\b,1,1,229
+typology,escrow_trust_reputation,4,\bfinali[sz]e early\b,2,5,229
+typology,escrow_trust_reputation,5,\bexit scam\b,1,1,229
+typology,escrow_trust_reputation,6,\btrusted vendor\b,0,0,229
+typology,escrow_trust_reputation,7,\bvouch\b,4,4,229
+typology,escrow_trust_reputation,8,\bred flag\b,2,2,229
+typology,escrow_trust_reputation,9,\bscam(?:mer|med|s)?\b,122,140,229
+typology,tutorial_training_recruitment,1,\b(?:tutorial|guide|method|training|course)\b,102,164,156
+typology,tutorial_training_recruitment,2,\bhow[\s-]+to\b,67,115,156
+typology,tutorial_training_recruitment,3,\bbeginners?\b,20,27,156
+typology,jurisdiction_localisation,1,"\b(?:Australia|Australian|New Zealand|USA|United States|Canada)\b.{0,100}\b(?:bank|account|drop|log)\b",175,258,199
+typology,jurisdiction_localisation,2,"\b(?:bank|account|drop|log)\b.{0,100}\b(?:Australia|Australian|New Zealand|USA|United States|Canada)\b",168,271,199
+typology,jurisdiction_localisation,3,\b(?:domestic bank|local financial systems?|region-specific accounts?)\b,0,0,199
+typology,vulnerable_group_exploitation,1,"\b(?:international students?|temporary migrants?|migrants?|vulnerable (?:people|persons?|groups?))\b.{0,120}\b(?:recruit|target|exploit|account|identity|data|cash[\s-]?out|mule)\b",0,0,0
+typology,vulnerable_group_exploitation,2,"\b(?:recruit|target|exploit|account|identity|data|cash[\s-]?out|mule)\b.{0,120}\b(?:international students?|temporary migrants?|migrants?|vulnerable (?:people|persons?|groups?))\b",0,0,0
+aml_candidate,bank_log_plus_email_access,1,"\bbank\s+logs?\b.{0,120}\bemail access\b",17,17,19
+aml_candidate,bank_log_plus_email_access,2,"\bemail access\b.{0,120}\bbank\s+logs?\b",4,5,19
+aml_candidate,bank_log_plus_email_access,3,"\bbank\s+logs?\b.{0,80}\b(?:session )?cookies?\b",3,3,19
+aml_candidate,domestic_account_preference,1,\b(?:domestic bank|local financial systems?|region-specific accounts?)\b,0,0,199
+aml_candidate,domestic_account_preference,2,"\b(?:Australia|Australian|New Zealand|USA|United States|Canada)\b.{0,100}\b(?:bank|account|drop|log)\b",175,258,199
+aml_candidate,domestic_account_preference,3,"\b(?:bank|account|drop|log)\b.{0,100}\b(?:Australia|Australian|New Zealand|USA|United States|Canada)\b",168,271,199
+aml_candidate,telegram_sales_or_proof,1,"\btelegram\b.{0,120}\b(?:proof|vendor|group|media|contact|DMs?)\b",24,26,26
+aml_candidate,telegram_sales_or_proof,2,"\b(?:vendor|proof|contact|DMs?)\b.{0,120}\btelegram\b",8,12,26
+aml_candidate,crypto_to_bank_cashout,1,"\b(?:bitcoin|crypto)\b.{0,120}\b(?:bank|cash|wire|western union)\b",38,44,38
+aml_candidate,crypto_to_bank_cashout,2,"\bdirty crypto\b.{0,120}\bclean cash\b",2,2,38
+aml_candidate,escrow_or_exit_scam_risk,1,\bescrow\b,204,339,205
+aml_candidate,escrow_or_exit_scam_risk,2,\bexit scam\b,1,1,205
+aml_candidate,escrow_or_exit_scam_risk,3,\bfinali[sz]e early\b,2,5,205
+aml_candidate,escrow_or_exit_scam_risk,4,\bmultisig\b,6,14,205
+aml_candidate,mule_or_account_holder_recruitment,1,\bmoney mules?\b,6,6,9
+aml_candidate,mule_or_account_holder_recruitment,2,"\brecruit(?:ing|ment)?\b.{0,100}\b(?:mules?|account holders?)\b",0,0,9
+aml_candidate,mule_or_account_holder_recruitment,3,"\blooking for individuals\b.{0,100}\b(?:bank|account|receive|transfer)\b",1,1,9
+aml_candidate,mule_or_account_holder_recruitment,4,\breal people with real bank accounts\b,2,2,9
+quality_flag,market_access_limitation,1,requires?\s+(?:an?\s+)?account,0,0,2
+quality_flag,market_access_limitation,2,requires?\s+login,0,0,2
+quality_flag,market_access_limitation,3,unable to connect,2,2,2
+quality_flag,market_access_limitation,4,connection was refused,2,2,2
+quality_flag,market_access_limitation,5,taken offline,0,0,2
+quality_flag,market_access_limitation,6,not responding,0,0,2
+quality_flag,market_access_limitation,7,search function,0,0,2
+quality_flag,market_access_limitation,8,no longer active,0,0,2
