@@ -32,6 +32,11 @@ The fresh controlled replay reproduced all historical note-level binary Phase
 repeatable. The methodological concern is which records and text segments
 represent captured source evidence.
 
+Of the 980 screened notes, 948 have filename-derived dates from 17 February
+to 24 June 2026 and 32 are undated. Filename dates do not establish source-post
+dates or the actual visit schedule. The old July article draft's earlier start
+date came from project material outside the screened source-note date range.
+
 ## Record provenance and denominator
 
 Among the 980 screened notes, 589 had no usable joined OCR. A preliminary
@@ -67,6 +72,25 @@ apply to that mixed sample, not to a future evidence-only corpus. The revised
 sampling frame and any changed code definitions require a new validation
 assessment; prior human decisions may be reusable only after their eligibility
 and sampling weights are checked.
+
+A post hoc subset calculation using the frozen independent coder decisions
+found 792/841 exact agreements (94.2%; five-category Cohen's kappa 0.834)
+among OCR-linked candidate case-target rows. The no-OCR subset had 189/191
+agreements (99.0%; kappa 0.828). The all-row calculation reproduces 981/1,032
+and kappa 0.839. Thus the concern is corpus and sampling validity, not a claim
+that the coders failed to agree on the remaining cases. These subset figures
+are diagnostic and are not revised-corpus validation results.
+
+The historical classifier's low target precision persists within that
+OCR-linked subset: among sampled predicted-positive cases, the cash-out
+service rule had 2 true positives and 18 false positives, while the
+crypto-to-bank AML candidate had one true positive and 19 false positives.
+These unweighted diagnostics do not estimate performance on a revised corpus.
+Pattern-level checks show that the generic cash-out-term rule and broad
+crypto-to-bank word-proximity rule account for these sampled false positives.
+The associated labels imply a service or conversion relationship that the
+lexical rules alone do not establish. The targets need refinement or narrower
+interpretation followed by independent validation.
 
 Four compound-rule positives appeared only after text from distinct note or
 image artefacts was concatenated: three `crypto_to_bank_cashout` and one
