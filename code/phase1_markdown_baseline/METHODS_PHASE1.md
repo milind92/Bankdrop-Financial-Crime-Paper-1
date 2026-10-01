@@ -34,3 +34,9 @@ python .\code\phase1_markdown_baseline\run_phase1.py
 ## Interpretation Limits
 
 Phase 1 is descriptive and dictionary-based. Counts indicate where relevant material appears; they are not final typology findings or evidence of completed criminal activity. OCR is deferred to Phase 2.
+
+The historical date field is a filename-pattern extraction, not a verified
+capture or publication date. The post-release audit found one impossible
+calendar token among 948 date-like filenames. The historical output is retained
+for reproducibility; revised collection dates require preparer confirmation or
+contemporaneous records.

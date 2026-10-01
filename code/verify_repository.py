@@ -409,6 +409,13 @@ def check_journal_reproducibility_supplement(
     expected_audit = {
         "status": "methodological_hold_pending_evidence_only_reanalysis",
         "historical_screened_notes": 980,
+        "filename_date_like_notes": 948,
+        "valid_filename_calendar_dates": 947,
+        "invalid_filename_calendar_dates": 1,
+        "filename_date_undated_notes": 32,
+        "filename_dates_capture_verified": False,
+        "controlled_collection_provenance_packet_prepared": True,
+        "collection_provenance_author_confirmed": False,
         "no_ocr_research_or_collection_notes_preliminary": 589,
         "ocr_linked_candidate_notes_pending_review": 391,
         "unreferenced_png_paths": 58,
@@ -499,6 +506,17 @@ def check_journal_reproducibility_supplement(
         != audit.get("historical_screened_notes")
     ):
         errors.append("Post-release audit note counts do not reconcile.")
+    else:
+        checked += 1
+    if (
+        audit.get("valid_filename_calendar_dates", 0)
+        + audit.get("invalid_filename_calendar_dates", 0)
+        != audit.get("filename_date_like_notes")
+        or audit.get("filename_date_like_notes", 0)
+        + audit.get("filename_date_undated_notes", 0)
+        != audit.get("historical_screened_notes")
+    ):
+        errors.append("Post-release audit filename-date counts do not reconcile.")
     else:
         checked += 1
     for field, expected in {

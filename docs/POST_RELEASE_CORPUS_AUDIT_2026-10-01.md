@@ -32,10 +32,13 @@ The fresh controlled replay reproduced all historical note-level binary Phase
 repeatable. The methodological concern is which records and text segments
 represent captured source evidence.
 
-Of the 980 screened notes, 948 have filename-derived dates from 17 February
-to 24 June 2026 and 32 are undated. Filename dates do not establish source-post
-dates or the actual visit schedule. The old July article draft's earlier start
-date came from project material outside the screened source-note date range.
+Of the 980 screened notes, 948 have date-like filename tokens and 32 are
+undated. Only 947 tokens are valid calendar dates (17 February to 24 June
+2026); one token is the impossible date `2026-02-31`. A controlled exception
+sheet now isolates that note for author review. Filename tokens do not
+establish source-post dates or the actual visit schedule. The old July article
+draft's earlier start date came from project material outside the screened
+source-note date range.
 
 ## Record provenance and denominator
 
@@ -143,6 +146,13 @@ adjudicated human decisions before reading deterministic predictions, and
 computes per-target estimates with finite-population uncertainty for a future
 approved holdout. Synthetic tests alone exercise this path. It has not
 produced a revised study result.
+
+A separate controlled, blank collection-provenance packet reconciles the
+historical 980 notes, 948 date-like filename tokens, 391 OCR-linked candidate
+notes, and 1,140 image-reference occurrences across 16 source groups. Its
+questions and per-source fields seek confirmation from the original preparers;
+no collection-process answer or source-specific eligibility decision is yet
+verified.
 
 ## Release gate for a revised analysis
 

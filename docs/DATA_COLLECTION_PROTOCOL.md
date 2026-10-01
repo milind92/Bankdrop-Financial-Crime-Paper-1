@@ -136,6 +136,7 @@ The figures below were derived from the controlled Phase 1-3 aggregate inventory
 | Flow item | Historical aggregate count | Interpretation/status |
 |---|---:|---|
 | Markdown notes inventoried | 980 | Historical source-root screen; not an approved evidence-unit denominator. |
+| Notes with date-like filename tokens | 948 | Of these, 947 parse as calendar dates and one is invalid (`2026-02-31`); 32 notes have no filename date. None is a verified capture date. |
 | Historical source folders represented | 16 | The old structural screen used notes within named `Core Trace/<source folder>/` directories. Folder index 16 contains no Markdown notes; the next represented label is normalized to `17. XmrBazaar`. Folder membership alone does not establish source-evidence eligibility. |
 | Image references | 1,140 | Reference occurrences, not unique screenshots. |
 | Locally resolved image references | 1,048 | Current aggregate count; path-resolution audit required. |

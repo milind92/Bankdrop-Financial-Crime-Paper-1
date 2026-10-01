@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.12 - 2026-10-01
+
+- Corrected date reporting: the historical screen has 948 date-like filename tokens, of which 947 are valid calendar dates and one is impossible. Filename tokens remain unverified capture dates; the historical Phase 1 outputs are unchanged.
+- Documented a controlled, blank 16-source collection-provenance questionnaire and a separate invalid-date exception for the original preparers. No author collection confirmation or revised empirical result is claimed.
+
 ## 1.3.11 - 2026-10-01
 
 - Corrected the collection protocol, analysis plan, and author-decision record so the historical 980-note screen, 463-hash sensitivity, and 1,032 human judgments are consistently labelled as historical mixed-record outputs rather than approved article denominators or revised validation.
