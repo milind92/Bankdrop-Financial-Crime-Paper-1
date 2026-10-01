@@ -433,6 +433,16 @@ def draw(phase3_dir: Path, evidence_corpus: Path, pilot_units: Path,
     write_csv(machine_path, machine_fields, machine)
     for coder_name in ("coder_1_blank.csv", "coder_2_blank.csv"):
         write_csv(output_dir / coder_name, ["case_id", "target_type", "code", "decision", "rationale", "flags"], coder)
+    write_csv(
+        output_dir / "packet_manifest_template.csv",
+        ["case_id", "target_type", "code", "source_unit_sha256", "packet_file", "packet_sha256",
+         "privacy_reviewer", "context_reviewer", "packet_checked"],
+        [{"case_id": row["case_id"], "target_type": row["target_type"],
+          "code": row["code"], "source_unit_sha256": machine[index]["combined_text_sha256"],
+          "packet_file": "", "packet_sha256": "",
+          "privacy_reviewer": "", "context_reviewer": "", "packet_checked": ""}
+         for index, row in enumerate(coder)],
+    )
     report = {
         "status": "holdout_drawn_human_coding_pending", "article_ready": False,
         "frame_sha256": sha_file(frame_path), "plan_sha256": sha_file(plan_path),

@@ -137,6 +137,13 @@ a probability draw. Only synthetic gate tests have run; the real review sheets,
 source-evidence frame, coder work, and revised performance estimates remain
 pending.
 
+Version `1.3.10` adds a controlled closeout scorer. It verifies two locked
+independent coder sheets and privacy-checked evidence packets, locks
+adjudicated human decisions before reading deterministic predictions, and
+computes per-target estimates with finite-population uncertainty for a future
+approved holdout. Synthetic tests alone exercise this path. It has not
+produced a revised study result.
+
 ## Release gate for a revised analysis
 
 Version `1.3.5` adds a [controlled evidence-screening gate](../code/evidence_screening/METHODS_EVIDENCE_SCREEN.md).

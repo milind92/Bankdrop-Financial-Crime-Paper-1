@@ -15,6 +15,7 @@
 | `code/ocr_quality/METHODS_OCR_QUALITY.md` | Documents OCR sampling, human transcription, scoring, and limits for the historical referenced-image frame. |
 | `code/human_validation/summarize_human_validation.py` | Summarises normalized controlled machine, coder, and adjudication tables; only aggregate performance results and file-level provenance hashes may be exported. |
 | `code/human_validation/prepare_revised_holdout.py` | Prepares a controlled revised-evidence frame and draws a blinded probability holdout only after a hash-bound, author-approved allocation plan. |
+| `code/human_validation/close_revised_holdout.py` | Locks two independent coder sheets and a human reference before unblinding, then checks the draw and computes per-target finite-population performance and uncertainty in controlled storage. |
 | `code/human_validation/METHODS_REVISED_HOLDOUT.md` | Specifies the revised sampling unit, strata, weights, blinding, pilot exclusions, and interpretation limits. |
 | `code/human_validation/build_public_icr_by_target.py` | Produces the publication-safe per-target ICR table and report from controlled aggregate reliability and adjudication inputs. |
 

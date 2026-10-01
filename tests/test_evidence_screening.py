@@ -31,6 +31,7 @@ phase4 = load_module("bank_drop_phase4_for_screen_tests", "code/phase4_financial
 derived = load_module("bank_drop_derived_for_screen_tests", "code/derived_analysis/build_derived_analysis.py")
 revised_pairs = load_module("bank_drop_revised_pairs_for_screen_tests", "code/derived_analysis/build_revised_pair_boundaries.py")
 revised_holdout = load_module("bank_drop_revised_holdout_for_screen_tests", "code/human_validation/prepare_revised_holdout.py")
+revised_close = load_module("bank_drop_revised_close_for_screen_tests", "code/human_validation/close_revised_holdout.py")
 
 
 def save_csv(path: Path, rows: list[dict[str, str]], fields: list[str]) -> None:
@@ -192,6 +193,87 @@ class EvidenceScreeningTests(unittest.TestCase):
         self.assertNotIn("predicted_present", coder[0])
         self.assertNotIn("unit_id", coder[0])
         self.assertTrue(all(row["decision"] == "" for row in coder))
+        packet_root = self.base / "packets"
+        packet_root.mkdir()
+        packet_rows = screen.read_csv(self.base / "holdout_sample" / "packet_manifest_template.csv")
+        for row in packet_rows:
+            packet = packet_root / f"{row['case_id']}.txt"
+            packet.write_text("Synthetic approved source evidence only.", encoding="utf-8")
+            row.update({
+                "packet_file": packet.name, "packet_sha256": screen.sha_file(packet),
+                "privacy_reviewer": "Reviewer A", "context_reviewer": "Reviewer B",
+                "packet_checked": "yes",
+            })
+        packet_manifest = self.base / "packet_manifest.csv"
+        save_csv(packet_manifest, packet_rows, revised_close.PACKET_FIELDS)
+        coder_1_rows = [dict(row) for row in coder]
+        coder_2_rows = [dict(row) for row in coder]
+        for left, right in zip(coder_1_rows, coder_2_rows):
+            decision = "present" if left["code"] == "fullz_identity_package" else "absent"
+            left["decision"] = right["decision"] = decision
+            if left["code"] == "crypto_to_bank_cashout":
+                left["decision"] = "present"
+        coder_1_path, coder_2_path = self.base / "coder_1.csv", self.base / "coder_2.csv"
+        save_csv(coder_1_path, coder_1_rows, revised_close.CODER_FIELDS)
+        save_csv(coder_2_path, coder_2_rows, revised_close.CODER_FIELDS)
+        wrong_source_rows = [dict(row) for row in packet_rows]
+        wrong_source_rows[0]["source_unit_sha256"] = "0" * 64
+        wrong_source_manifest = self.base / "wrong_source_packet_manifest.csv"
+        save_csv(wrong_source_manifest, wrong_source_rows, revised_close.PACKET_FIELDS)
+        with self.assertRaisesRegex(ValueError, "Packet source-unit hashes differ"):
+            revised_close.lock_coders(
+                self.base / "holdout_sample", coder_1_path, coder_2_path,
+                wrong_source_manifest, packet_root, "Reviewer A", "Reviewer B",
+                self.base / "wrong_source_lock",
+            )
+        self.assertFalse((self.base / "wrong_source_lock").exists())
+        lock_dir = self.base / "coder_lock"
+        coder_lock = revised_close.lock_coders(
+            self.base / "holdout_sample", coder_1_path, coder_2_path,
+            packet_manifest, packet_root, "Reviewer A", "Reviewer B", lock_dir,
+        )
+        self.assertEqual(coder_lock["pre_adjudication_disagreement_n"], 1)
+        reference_dir = self.base / "reference_template"
+        revised_close.prepare_reference(
+            self.base / "holdout_sample", lock_dir, coder_1_path, coder_2_path,
+            packet_manifest, packet_root, reference_dir,
+        )
+        reference_rows = screen.read_csv(reference_dir / "reference_decisions_template.csv")
+        for row in reference_rows:
+            if not row["final_decision"]:
+                row.update({
+                    "final_decision": "absent", "adjudicator": "Reviewer C",
+                    "rationale": "Separate synthetic spans do not establish this target.",
+                })
+        reference = self.base / "reference_decisions.csv"
+        save_csv(reference, reference_rows, revised_close.REFERENCE_FIELDS)
+        reference_lock_dir = self.base / "reference_lock"
+        revised_close.lock_reference(
+            self.base / "holdout_sample", lock_dir, coder_1_path, coder_2_path,
+            packet_manifest, packet_root, reference, reference_lock_dir,
+        )
+        score_dir = self.base / "holdout_score"
+        score = revised_close.score(
+            self.base / "holdout_sample", frame_dir, plan_path, lock_dir,
+            coder_1_path, coder_2_path, packet_manifest, packet_root,
+            reference, reference_lock_dir, score_dir,
+        )
+        self.assertEqual(score["target_count"], 18)
+        self.assertFalse(score["article_ready"])
+        performance = screen.read_csv(score_dir / "revised_holdout_performance_controlled.csv")
+        fullz = next(row for row in performance if row["code"] == "fullz_identity_package")
+        self.assertEqual(fullz["ppv"], "1.0")
+        self.assertEqual(fullz["sensitivity"], "1.0")
+        self.assertEqual(fullz["ppv_ci95_low"], "1.0")
+        self.assertEqual(fullz["sensitivity_ci95_low"], "1.0")
+        (packet_root / f"{packet_rows[0]['case_id']}.txt").write_text("Changed packet", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "Packet content hash"):
+            revised_close.score(
+                self.base / "holdout_sample", frame_dir, plan_path, lock_dir,
+                coder_1_path, coder_2_path, packet_manifest, packet_root,
+                reference, reference_lock_dir, self.base / "changed_packet_score",
+            )
+        self.assertFalse((self.base / "changed_packet_score").exists())
         human_book.write_text(human_book.read_text(encoding="utf-8") + " changed", encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "frozen approved evidence"):
             revised_holdout.draw(
@@ -212,6 +294,97 @@ class EvidenceScreeningTests(unittest.TestCase):
         self.assertEqual(selected, revised_holdout.select_rows(groups, {key: 2}, 791))
         self.assertEqual(len({row["unit_id"] for row, _, _ in selected}), 2)
         self.assertTrue(all(frame_n == 5 and sample_n == 2 for _, frame_n, sample_n in selected))
+
+    def test_exact_finite_population_bounds_cover_small_populations(self) -> None:
+        from math import comb
+        for population_n in range(1, 11):
+            for draw_n in range(1, population_n + 1):
+                for successes_n in range(population_n + 1):
+                    covered = 0
+                    for observed in range(max(0, draw_n - population_n + successes_n),
+                                          min(draw_n, successes_n) + 1):
+                        lower, upper = revised_close.exact_success_bounds(
+                            population_n, draw_n, observed, 0, 1,
+                        )
+                        if lower <= successes_n <= upper:
+                            covered += comb(successes_n, observed) * comb(
+                                population_n - successes_n, draw_n - observed
+                            )
+                    self.assertGreaterEqual(20 * covered, 19 * comb(population_n, draw_n))
+
+    def test_revised_score_uses_stratum_weights_and_bounds_nonbinary_reference(self) -> None:
+        positive = ("typology", "bank_log_sale", "1", "short")
+        negative = ("typology", "bank_log_sale", "0", "long")
+        rows = [
+            {"target_type": "typology", "code": "bank_log_sale", "stratum": positive,
+             "N": 8, "n": 2, "length_band": "short", "coder_1": "present",
+             "coder_2": "present", "final": "present"},
+            {"target_type": "typology", "code": "bank_log_sale", "stratum": positive,
+             "N": 8, "n": 2, "length_band": "short", "coder_1": "present",
+             "coder_2": "present", "final": "present"},
+            {"target_type": "typology", "code": "bank_log_sale", "stratum": negative,
+             "N": 4, "n": 2, "length_band": "long", "coder_1": "present",
+             "coder_2": "present", "final": "present"},
+            {"target_type": "typology", "code": "bank_log_sale", "stratum": negative,
+             "N": 4, "n": 2, "length_band": "long", "coder_1": "absent",
+             "coder_2": "absent", "final": "absent"},
+        ]
+        result = revised_close.score_target(rows)
+        self.assertEqual(result["estimated_tp"], 8.0)
+        self.assertEqual(result["estimated_fn"], 2.0)
+        self.assertEqual(result["sensitivity"], 0.8)
+        self.assertLess(result["ppv_ci95_low"], 1.0)
+        rows[0]["final"] = "ambiguous"
+        bounded = revised_close.score_target(rows)
+        self.assertEqual(bounded["reference_status"], "nonbinary_bounds_only")
+        self.assertIsNone(bounded["ppv"])
+        self.assertIsNotNone(bounded["ppv_ci95_low"])
+        rows[0]["final"] = "out_of_scope_record"
+        with self.assertRaisesRegex(ValueError, "invalidates"):
+            revised_close.score_target(rows)
+
+    def test_two_stratum_ratio_intervals_cover_small_finite_frames(self) -> None:
+        from math import comb
+        population_n, draw_n = 3, 2
+        total_draws = comb(population_n, draw_n) ** 2
+        for true_positive_n in range(population_n + 1):
+            for false_negative_n in range(population_n + 1):
+                ppv_covered = sensitivity_covered_or_suppressed = 0
+                for observed_tp in range(max(0, draw_n + true_positive_n - population_n),
+                                         min(draw_n, true_positive_n) + 1):
+                    for observed_fn in range(max(0, draw_n + false_negative_n - population_n),
+                                             min(draw_n, false_negative_n) + 1):
+                        weight = (
+                            comb(true_positive_n, observed_tp)
+                            * comb(population_n - true_positive_n, draw_n - observed_tp)
+                            * comb(false_negative_n, observed_fn)
+                            * comb(population_n - false_negative_n, draw_n - observed_fn)
+                        )
+                        rows = []
+                        for machine_status, observed in (("1", observed_tp), ("0", observed_fn)):
+                            for index in range(draw_n):
+                                decision = "present" if index < observed else "absent"
+                                rows.append({
+                                    "target_type": "typology", "code": "bank_log_sale",
+                                    "stratum": ("typology", "bank_log_sale", machine_status, "short"),
+                                    "N": population_n, "n": draw_n, "length_band": "short",
+                                    "coder_1": decision, "coder_2": decision, "final": decision,
+                                })
+                        result = revised_close.score_target(rows)
+                        actual_ppv = true_positive_n / population_n
+                        if result["ppv_ci95_low"] <= actual_ppv <= result["ppv_ci95_high"]:
+                            ppv_covered += weight
+                        if true_positive_n + false_negative_n:
+                            actual_sensitivity = true_positive_n / (true_positive_n + false_negative_n)
+                            if (result["sensitivity_ci95_low"] is None
+                                    or result["sensitivity_ci95_low"] <= actual_sensitivity
+                                    <= result["sensitivity_ci95_high"]):
+                                sensitivity_covered_or_suppressed += weight
+                self.assertGreaterEqual(20 * ppv_covered, 19 * total_draws)
+                if true_positive_n + false_negative_n:
+                    self.assertGreaterEqual(
+                        20 * sensitivity_covered_or_suppressed, 19 * total_draws
+                    )
 
     def test_reviewed_segments_preserve_source_and_image_boundaries(self) -> None:
         self.complete_review()

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.10 - 2026-10-01
+
+- Added a checked packet-manifest template to the revised holdout draw and a controlled closeout tool. It locks two completed independent coder sheets, prepares and locks adjudicated human decisions without opening machine predictions, then verifies the seeded draw before scoring.
+- Added per-target finite-population estimates and conservative at-least-95% intervals from equal-tail hypergeometric inversion with Bonferroni protection across sampling strata. Nonbinary judgments produce bounds without primary point estimates; out-of-scope judgments stop scoring. The intervals concern random selection from approved captures only.
+- Extended privacy blocking, tests, and methods. The new closeout path has only synthetic validation; real source review, OCR gold transcription, revised human judgments, and article results remain pending.
+
 ## 1.3.9 - 2026-10-01
 
 - Added a controlled revised-evidence holdout frame and probability draw. It includes short predicted-negative source units, preserves exact target-by-status-by-length selection probabilities, and separates blinded coder sheets from the coordinator machine key.

@@ -152,6 +152,7 @@ class PublicExporterTests(unittest.TestCase):
         self.assertTrue(exporter.field_is_blocked("combined_text"))
         self.assertTrue(exporter.field_is_blocked("unit_id"))
         self.assertTrue(exporter.field_is_blocked("case_id"))
+        self.assertTrue(exporter.field_is_blocked("packet_file"))
 
     def make_roots(self, temporary: str) -> tuple[Path, Path]:
         root = Path(temporary)
@@ -184,6 +185,10 @@ class PublicExporterTests(unittest.TestCase):
             source = controlled / "phase1_markdown_baseline" / "source_summary.csv"
             source.parent.mkdir()
             source.write_text("source,note_id,note_count\nS01,n1,1\n", encoding="utf-8")
+            with self.assertRaisesRegex(exporter.PublicExportError, "[Nn]ote-level"):
+                exporter.export_public_release(controlled, repository)
+            self.assertFalse((repository / "outputs").exists())
+            source.write_text("source,source_unit_sha256,note_count\nS01,abc,1\n", encoding="utf-8")
             with self.assertRaisesRegex(exporter.PublicExportError, "[Nn]ote-level"):
                 exporter.export_public_release(controlled, repository)
             self.assertFalse((repository / "outputs").exists())

@@ -105,32 +105,108 @@ python .\code\human_validation\prepare_revised_holdout.py draw `
 The draw recomputes the frame, checks all pinned SHA-256 values, verifies the
 complete target matrix and per-span hit reconciliation, and refuses a
 nonempty output directory. It writes a separate coordinator machine key and
-two blank, randomized coder sheets. The coder sheets contain opaque case IDs
+two blank, randomized coder sheets, plus a blank packet-manifest template. The coder sheets contain opaque case IDs
 and target codes, **no machine predictions, weights, sources, unit IDs, or
 text**. The coordinator must create privacy-screened evidence packets keyed
 to the case IDs and check that each packet supplies enough context without
 exposing the machine output. The script does not create these packets.
 
-## After independent coding
+## Lock, adjudicate, and score
 
-Freeze and hash each coder sheet before comparison. Calculate pre-adjudication
-agreement by target; adjudicate only after both sheets are locked, while
-keeping deterministic predictions hidden. Preserve ambiguous, insufficient,
-and out-of-scope judgments as separate outcomes. Do not silently recode them
-as absent or drop them without counts and sensitivity analysis.
+The companion `close_revised_holdout.py` enforces this sequence. Complete the
+two coder sheets independently using only the case IDs, target definitions,
+and privacy-screened packets. Allowed judgments are `present`, `absent`,
+`ambiguous`, `insufficient_evidence`, and `out_of_scope_record`; each
+nonbinary judgment needs a rationale. Fill a copy of
+`packet_manifest_template.csv` with the controlled relative packet file,
+its SHA-256, two distinct reviewers for privacy and context, and
+`packet_checked=yes`. Preserve the prefilled `source_unit_sha256`, which
+binds each case to the selected approved text. The packet manifest is a
+coordinator record and must not be shown to coders. The tool verifies packet
+bytes, source-unit hashes, and case IDs. Reviewers must still check that each
+privacy-screened packet faithfully conveys the approved text and enough
+context; a hash cannot establish the accuracy of that human preparation.
 
-Once human reference decisions lock, compare them to the coordinator key.
-For each target, report raw confusion cells and design-weighted ratios for
-positive predictive value and sensitivity, with finite-population,
-stratification-aware uncertainty. Dependence from repeated capture units
-across targets and exact duplicate content must be considered in pooled or
-cross-target summaries. Do not reuse the historical tool's approximate Kish
-intervals as if they were full design-based confidence intervals. If a quota
-or assessability rate leaves a metric too imprecise, report that limit instead
-of declaring the code validated. A changed target definition or evidence
-frame after the draw requires a fresh holdout for affected claims.
+First run `lock-coders` with the completed sheets, packet manifest/root, two
+distinct coder names, and a fresh controlled lock directory. This stage
+hashes the machine key to check selection integrity but does not parse or
+show its predictions. It records pre-adjudication agreement and disagreement
+counts. Changes to coder sheets or packet bytes invalidate the lock.
+
+Next run `prepare-reference` using the same inputs and coder-lock directory.
+It creates a controlled reference template containing both frozen human
+judgments, with consensus judgments prefilled and disagreements blank. Fill
+each disagreement with a final judgment, named adjudicator, and rationale;
+record a rationale for any override of an agreement. Run `lock-reference`
+with this completed sheet and a fresh reference-lock directory. It verifies
+the coder lock and freezes the human reference **before** prediction
+unblinding.
+
+Finally run `score` with the approved frame and plan, sample directory,
+both locks, completed coder sheets, checked packet files, and completed
+reference sheet. The scorer reconstructs the seeded probability draw and
+rejects altered case IDs, target/status assignments, frame metadata,
+selection probabilities, or weights. Only this final command reads the
+machine predictions.
+
+Each command accepts `--sample-dir`, `--coder-1`, `--coder-2`,
+`--packet-manifest`, `--packet-root`, and a fresh `--output-dir`. Later
+commands also take `--coder-lock-dir`; `lock-reference` and `score` take
+`--reference`; `score` additionally takes `--reference-lock-dir`,
+`--frame-dir`, and `--plan`. The lock command takes `--coder-1-name` and
+`--coder-2-name`. For exact command help:
+
+```powershell
+python .\code\human_validation\close_revised_holdout.py lock-coders --help
+python .\code\human_validation\close_revised_holdout.py prepare-reference --help
+python .\code\human_validation\close_revised_holdout.py lock-reference --help
+python .\code\human_validation\close_revised_holdout.py score --help
+```
+
+The scorer retains all five final-decision categories. A final adjudicated
+`out_of_scope_record` judgment stops performance scoring because it calls the
+approved frame into question. If any target has `ambiguous` or
+`insufficient_evidence` judgments, the tool leaves its primary performance
+point estimates blank and reports conservative bounds instead. It never
+silently treats those judgments as negatives. A changed target definition or
+evidence frame after selection requires a fresh holdout for affected claims.
+
+## Design-based estimates and limits
+
+For a target with complete binary reference decisions, each stratum's
+estimated human-present count is `N_h × observed_present_h / n_h`. Summing
+these counts across machine-positive and machine-negative strata yields
+estimated TP and FN; the known machine-status population counts determine FP
+and TN. PPV, sensitivity, NPV, and specificity follow from those cells. The
+reported weighted Cohen kappa is a **point estimate** for coder agreement in
+the finite target frame; the unweighted agreement count is also retained.
+
+For uncertainty, the tool inverts equal-tail hypergeometric tests separately
+in each nonempty stratum. It divides the 5% error allowance by the number of
+strata within that target and combines the stratum count bounds using the
+Bonferroni inequality. The resulting intervals are conservative, with at
+least 95% random-selection coverage **for each target** under this sampling
+design. They account for sampling without replacement and census strata.
+They are not simultaneous intervals across all target codes. This follows
+the finite-population hypergeometric model described by
+[Bartroff, Lorden and Wang](https://arxiv.org/abs/2109.05624); the tool uses
+simple equal-tail inversion rather than that paper's optimized intervals.
+Where a final decision is nonbinary, the bound allows it to be either present
+or absent. The scorer suppresses a sensitivity interval if the approved
+population might contain no human-positive units, making sensitivity
+undefined.
+
+These intervals address only the random draw from the approved, finite
+capture-unit frame. They do not absorb source-selection bias, missing images,
+OCR errors, uncertain constructs, coder error, or duplication. Repeated units
+across targets and exact duplicate content matter for pooled and comparative
+claims; the tool makes **per-target** estimates and does not supply a pooled
+independence assumption. A wide bound or a target with unresolved human
+decisions must be reported as such. The historical tool's Kish intervals
+are not a substitute for this design analysis.
 
 The public exporter and repository verifier block the frame, plan, machine
-key, coder sheets, and selection manifest. Only reviewed, disclosure-safe
+key, coder sheets, packet manifest, locks, adjudication, and performance
+files. Only reviewed, disclosure-safe
 aggregates may later enter a new release after the methodological hold is
 lifted.

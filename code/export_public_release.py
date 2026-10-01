@@ -154,9 +154,20 @@ BLOCKED_FILENAMES = {
     "coder_1_blank.csv",
     "coder_2_blank.csv",
     "selection_manifest.json",
+    "packet_manifest_template.csv",
+    "packet_manifest.csv",
+    "coder_1.csv",
+    "coder_2.csv",
+    "coder_lock_manifest.json",
+    "reference_decisions_template.csv",
+    "reference_template_manifest.json",
+    "reference_decisions.csv",
+    "reference_lock_manifest.json",
+    "revised_holdout_performance_controlled.csv",
+    "revised_holdout_score_manifest.json",
 }
 BLOCKED_FIELD_TOKENS = {"path", "text", "snippet", "snippets", "evidence"}
-BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash"}
+BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash", "source_unit_sha256", "packet_file", "packet_sha256"}
 SAFE_AGGREGATE_FIELDS = {
     "unique_text_count",
     "positive_unique_evidence_rows",

@@ -284,6 +284,11 @@ The authors confirmed that a sample-size plan existed, but the public record doe
 
 ## Executable Aggregate Analysis
 
+The command below summarizes the **historical mixed-record validation** and
+uses approximate weighted intervals. Revised approved-source holdouts use the
+separate [lock, adjudication, and finite-population scoring procedure](../code/human_validation/METHODS_REVISED_HOLDOUT.md).
+No revised human decisions or estimates have been completed.
+
 Use `code/human_validation/summarize_human_validation.py` after both coder
 files are locked and, when applicable, adjudication is complete. The tool uses
 only the Python standard library and writes aggregate CSV and Markdown files.

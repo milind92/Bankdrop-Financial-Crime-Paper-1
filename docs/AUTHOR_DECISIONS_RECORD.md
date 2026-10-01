@@ -39,4 +39,4 @@ The following items will be completed after the target journal and final paper t
 - licence choice and any archival DOI;
 - journal-specific repository, data, ethics, and anonymity wording.
 
-At current version `1.3.9`, the repository remains on methodological hold. The historical `v1.3.3` submission-ready statement has been withdrawn pending the author-reviewed reanalysis and validation described in the post-release audit. The revised holdout sampler is available but cannot draw a real sample before the evidence frame, target definitions, and author allocation plan are locked.
+At current version `1.3.10`, the repository remains on methodological hold. The historical `v1.3.3` submission-ready statement has been withdrawn pending the author-reviewed reanalysis and validation described in the post-release audit. The revised holdout sampler and closeout scorer are available, but no real sample or score can exist before the evidence frame, target definitions, author allocation plan, and independent human judgments are locked.

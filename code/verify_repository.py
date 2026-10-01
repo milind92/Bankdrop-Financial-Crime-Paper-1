@@ -37,6 +37,7 @@ REQUIRED_FILES = (
     "code/human_validation/build_public_icr_by_target.py",
     "code/human_validation/summarize_human_validation.py",
     "code/human_validation/prepare_revised_holdout.py",
+    "code/human_validation/close_revised_holdout.py",
     "code/human_validation/METHODS_REVISED_HOLDOUT.md",
     "docs/ANALYSIS_PLAN.md",
     "docs/DATA_COLLECTION_PROTOCOL.md",
@@ -162,8 +163,19 @@ RESTRICTED_FILENAMES = {
     "coder_1_blank.csv",
     "coder_2_blank.csv",
     "selection_manifest.json",
+    "packet_manifest_template.csv",
+    "packet_manifest.csv",
+    "coder_1.csv",
+    "coder_2.csv",
+    "coder_lock_manifest.json",
+    "reference_decisions_template.csv",
+    "reference_template_manifest.json",
+    "reference_decisions.csv",
+    "reference_lock_manifest.json",
+    "revised_holdout_performance_controlled.csv",
+    "revised_holdout_score_manifest.json",
 }
-BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash", "source_path", "local_path", "absolute_path"}
+BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash", "source_unit_sha256", "packet_file", "packet_sha256", "source_path", "local_path", "absolute_path"}
 BLOCKED_FIELD_TOKENS = {"snippet", "snippets", "raw_text", "ocr_text", "full_text"}
 SAFE_AGGREGATE_FIELDS = {"unique_text_count", "positive_unique_evidence_rows", "negative_unique_evidence_rows"}
 ABSOLUTE_PATH_PATTERN = re.compile(r"(?i)(?:\b[A-Z]:\\Users\\|(?<!:)/(?:home|Users)/[^/\s]+/)")
@@ -445,14 +457,17 @@ def check_journal_reproducibility_supplement(
             checked += 1
     revised_holdout = manifest.get("revised_human_holdout", {})
     for field, expected in {
-        "status": "sampler_available_author_reviewed_evidence_and_target_definitions_pending",
+        "status": "sampler_and_scorer_available_author_reviewed_evidence_and_target_definitions_pending",
         "script": "code/human_validation/prepare_revised_holdout.py",
+        "scorer": "code/human_validation/close_revised_holdout.py",
         "method": "code/human_validation/METHODS_REVISED_HOLDOUT.md",
         "short_predicted_negative_records_eligible": True,
         "hash_bound_author_approved_plan_required": True,
         "controlled_frame_and_coder_sheets_in_repository": False,
         "revised_holdout_drawn": False,
+        "human_decision_and_reference_locks_complete": False,
         "revised_human_decisions_complete": False,
+        "revised_performance_estimates_complete": False,
         "article_ready": False,
     }.items():
         if not isinstance(revised_holdout, dict) or revised_holdout.get(field) != expected:
