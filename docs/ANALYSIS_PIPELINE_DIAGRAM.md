@@ -1,5 +1,7 @@
 # Analysis Pipeline
 
+**Historical pipeline:** The diagram reproduces the `v1.3.3` computation. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) identified a missing source-evidence eligibility and text-provenance decision before substantive coding. It also identified unreferenced images outside the note-linked OCR path. A revised pipeline and results require author-reviewed screening and validation.
+
 ```mermaid
 flowchart LR
     A["Controlled Markdown notes"] --> B["Phase 1: deterministic baseline extraction"]

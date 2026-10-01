@@ -1,4 +1,6 @@
-> **Status update (26 July 2026):** The corrected-corpus validation is complete. The earlier 23 July release remains withdrawn because 14 ineligible internal project documents contributed 59 paired case-target units. Ausma Bernot and Milind Tiwari independently coded the fresh sample drawn from the corrected 980-note corpus and jointly adjudicated every disagreement. See `outputs/human_validation/HUMAN_VALIDATION_STATUS.md`.
+> **Post-release status (1 October 2026):** The [corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found 191 of the 1,032 historical case-target rows came from 15 no-OCR research/status notes. The completed 26 July validation remains authentic for its historical mixed-record design, but it does not validate a revised evidence-only corpus.
+
+> **Historical status (26 July 2026):** The corrected-corpus validation was completed after the earlier 23 July release was withdrawn because 14 ineligible internal project documents contributed 59 paired case-target units. Ausma Bernot and Milind Tiwari independently coded the fresh sample drawn from the 980-note source-folder screen and jointly adjudicated every disagreement. See `outputs/human_validation/HUMAN_VALIDATION_STATUS.md`.
 
 # Human Validation Protocol
 
