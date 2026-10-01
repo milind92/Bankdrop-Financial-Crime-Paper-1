@@ -78,6 +78,19 @@ decoded text. The scan checked chunk structure rather than pixel decoding
 or every possible proprietary metadata convention. It supplied no verified
 capture date; the original preparers' records remain necessary.
 
+A read-only audit of the original master ZIP's central-directory metadata
+found a Unix **file-modification** timestamp for each of its 999 Markdown
+and 1,101 PNG entries, but no creation-time field. Among the 947 screened
+notes with valid filename-date tokens, the ZIP DOS calendar date is later than
+the filename date for 912, the same for 30, and earlier for five; 423 have
+an absolute gap over 30 days. Among 1,083 PNG names with parseable
+14-digit timestamps, the ZIP DOS calendar date is later for 566, the same for
+511, and earlier for six. This metadata can reflect edits, saves, syncing,
+or export; it does not verify capture, source-publication, or note-creation
+dates. The DOS/UTC timestamp difference does not establish the collector's
+timezone. The controlled diagnostic and original preparer questions document
+this unresolved chronology; no ZIP timestamp was assigned as a capture date.
+
 The current schema-v3 controlled review gate treats capture dates and
 source-displayed publication dates separately. Included images require their
 own source and capture-date-basis decisions; a verified capture date needs a

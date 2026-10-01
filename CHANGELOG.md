@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.19 - 2026-10-01
+
+- Audited the original master ZIP's entry metadata against the historical note and image filename dates. All 2,100 Markdown/PNG entries have Unix modification times but no ZIP creation-time field. Among 947 comparable screened notes, 912 ZIP DOS calendar dates are later than their filename dates; 423 differ by more than 30 days. These modification times do not verify when source material was captured.
+- Added the aggregate diagnostic to the post-release audit while retaining the methodological hold, historical calculations, and all controlled-data boundaries.
+
 ## 1.3.18 - 2026-10-01
 
 - Recorded a controlled embedded-PNG-metadata diagnostic across all 1,101 frozen images. The scan found 1,096 `Software` text chunks, no PNG time or EXIF chunks, and no conventional numeric date candidate in decoded text. This does not establish capture dates; author provenance review remains open.
