@@ -463,6 +463,7 @@ def main() -> None:
     snippet_rows = []
     aml_rows = []
     combined_rows = []
+    artifact_rows = []
 
     for note in notes:
         combined_text = (
@@ -492,6 +493,32 @@ def main() -> None:
         if evidence_mode:
             hit_counts, pattern_counts, snippets = code_artifacts(note.artifacts, CODEBOOK)
             aml_hit_counts, aml_pattern_counts, aml_snippets = code_artifacts(note.artifacts, AML_INDICATORS)
+            artifact_hit_totals = Counter()
+            for artifact in note.artifacts:
+                artifact_text = artifact["text"]
+                for target_type, book in (("typology", CODEBOOK), ("aml_candidate", AML_INDICATORS)):
+                    per_code_hits, per_code_patterns, _ = code_text(artifact_text, book)
+                    for code in book:
+                        hits = per_code_hits[code]
+                        artifact_hit_totals[(target_type, code)] += hits
+                        artifact_rows.append({
+                            "unit_id": note.note_id,
+                            "artifact_id": artifact["artifact_id"],
+                            "artifact_kind": artifact["kind"],
+                            "source": note.source,
+                            "collection_date": note.collection_date,
+                            "target_type": target_type,
+                            "code": code,
+                            "present": int(hits > 0),
+                            "hit_count": hits,
+                            "pattern_count": per_code_patterns[code],
+                            "artifact_word_count": len(re.findall(r"\b\w+\b", artifact_text)),
+                            "artifact_text_sha256": sha256_text(artifact_text),
+                        })
+            if any(artifact_hit_totals[("typology", code)] != hit_counts[code] for code in CODEBOOK):
+                raise ValueError(f"Artifact typology hits do not reconcile for unit {note.note_id}")
+            if any(artifact_hit_totals[("aml_candidate", code)] != aml_hit_counts[code] for code in AML_INDICATORS):
+                raise ValueError(f"Artifact AML hits do not reconcile for unit {note.note_id}")
         else:
             hit_counts, pattern_counts, snippets = code_text(combined_text, CODEBOOK)
             aml_hit_counts, aml_pattern_counts, aml_snippets = code_text(combined_text, AML_INDICATORS)
@@ -605,6 +632,17 @@ def main() -> None:
             "rule_match_intensity",
         ],
     )
+    if evidence_mode:
+        write_csv(
+            PHASE3_OUTPUT / "artifact_coding_long.csv",
+            artifact_rows,
+            [
+                "unit_id", "artifact_id", "artifact_kind", "source",
+                "collection_date", "target_type", "code", "present",
+                "hit_count", "pattern_count", "artifact_word_count",
+                "artifact_text_sha256",
+            ],
+        )
 
     summary_by_code = {code: Counter() for code in CODEBOOK}
     sources = sorted({row["source"] or "(no_source)" for row in coding_rows})
@@ -748,6 +786,9 @@ def main() -> None:
         metadata.update({
             "analysis_mode": "author_reviewed_artifact_bounded_source_text",
             "evidence_corpus_sha256": evidence_sha,
+            "approved_source_artifacts": sum(len(note.artifacts) for note in notes),
+            "artifact_coding_rows": len(artifact_rows),
+            "artifact_coding_schema_version": 1,
             "historical_human_validation_applicable": False,
             "article_ready": False,
             "note_count_field_semantics": "approved evidence unit count; includes any separately approved orphan-image units, not unique posts",

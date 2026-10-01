@@ -32,6 +32,8 @@ REQUIRED_FILES = (
     "code/ocr_quality/assess_ocr_quality.py",
     "code/ocr_quality/METHODS_OCR_QUALITY.md",
     "code/derived_analysis/build_derived_analysis.py",
+    "code/derived_analysis/build_revised_pair_boundaries.py",
+    "code/derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md",
     "code/human_validation/build_public_icr_by_target.py",
     "code/human_validation/summarize_human_validation.py",
     "docs/ANALYSIS_PLAN.md",
@@ -139,6 +141,9 @@ RESTRICTED_FILENAMES = {
     "source_segments.csv",
     "approved_evidence_units.jsonl",
     "evidence_build_manifest.json",
+    "artifact_coding_long.csv",
+    "revised_typology_pair_boundaries.csv",
+    "revised_typology_pair_manifest.json",
     "review_inventory.json",
     "ocr_quality_sample.csv",
     "sample_manifest.json",
@@ -411,6 +416,20 @@ def check_journal_reproducibility_supplement(
     }.items():
         if not isinstance(evidence_gate, dict) or evidence_gate.get(field) != expected:
             errors.append(f"Revised evidence-screening gate {field} is missing or incorrect.")
+        else:
+            checked += 1
+    revised_pairs = manifest.get("revised_pair_boundary_diagnostic", {})
+    for field, expected in {
+        "status": "code_available_author_reviewed_evidence_pending",
+        "script": "code/derived_analysis/build_revised_pair_boundaries.py",
+        "method": "code/derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md",
+        "span_coding_output_controlled_only": True,
+        "historical_outputs_modified": False,
+        "revised_pair_counts_complete": False,
+        "article_ready": False,
+    }.items():
+        if not isinstance(revised_pairs, dict) or revised_pairs.get(field) != expected:
+            errors.append(f"Revised pair-boundary diagnostic {field} is missing or incorrect.")
         else:
             checked += 1
     ocr_quality = manifest.get("ocr_quality_assessment", {})

@@ -29,6 +29,7 @@ phase3 = load_module("bank_drop_phase3_for_screen_tests", "code/phase3_typology_
 overview = load_module("bank_drop_overview_for_screen_tests", "code/phase3_typology_coding/make_phase3_overview.py")
 phase4 = load_module("bank_drop_phase4_for_screen_tests", "code/phase4_financial_crime_analysis/run_phase4_analysis.py")
 derived = load_module("bank_drop_derived_for_screen_tests", "code/derived_analysis/build_derived_analysis.py")
+revised_pairs = load_module("bank_drop_revised_pairs_for_screen_tests", "code/derived_analysis/build_revised_pair_boundaries.py")
 
 
 def save_csv(path: Path, rows: list[dict[str, str]], fields: list[str]) -> None:
@@ -158,7 +159,33 @@ class EvidenceScreeningTests(unittest.TestCase):
         aml_rows = screen.read_csv(self.base / "phase3" / "aml_indicator_coding_long.csv")
         crypto_row = next(row for row in aml_rows if row["aml_indicator"] == "crypto_to_bank_cashout")
         self.assertEqual(crypto_row["present"], "0")
-        self.assertEqual(json.loads((self.base / "phase3" / "run_metadata.json").read_text())["analysis_mode"], "author_reviewed_artifact_bounded_source_text")
+        artifact_rows = screen.read_csv(self.base / "phase3" / "artifact_coding_long.csv")
+        self.assertEqual(len(artifact_rows), 3 * (len(phase3.CODEBOOK) + len(phase3.AML_INDICATORS)))
+        self.assertEqual(sum(int(row["present"]) for row in artifact_rows
+                             if row["target_type"] == "typology" and row["code"] == "fullz_identity_package"), 1)
+        self.assertEqual(sum(int(row["present"]) for row in artifact_rows
+                             if row["target_type"] == "aml_candidate" and row["code"] == "crypto_to_bank_cashout"), 0)
+        metadata = json.loads((self.base / "phase3" / "run_metadata.json").read_text())
+        self.assertEqual(metadata["analysis_mode"], "author_reviewed_artifact_bounded_source_text")
+        self.assertEqual(metadata["approved_source_artifacts"], 3)
+        self.assertEqual(metadata["artifact_coding_rows"], len(artifact_rows))
+        pair_report = revised_pairs.build(self.base / "phase3", self.output / "approved_evidence_units.jsonl", self.base / "revised_pairs")
+        self.assertFalse(pair_report["article_ready"])
+        pair_rows = screen.read_csv(self.base / "revised_pairs" / "revised_typology_pair_boundaries.csv")
+        separated = next(row for row in pair_rows if row["scope"] == "all" and
+                         {row["code_a"], row["code_b"]} ==
+                         {"fullz_identity_package", "crypto_payment_or_conversion"})
+        self.assertEqual(separated["units_with_both_codes_n"], "1")
+        self.assertEqual(separated["units_with_both_in_same_artifact_n"], "0")
+        self.assertEqual(separated["cross_artifact_only_units_n"], "1")
+        altered_dir = self.base / "altered_evidence"
+        altered_dir.mkdir()
+        altered_evidence = altered_dir / "approved_evidence_units.jsonl"
+        altered_evidence.write_bytes((self.output / "approved_evidence_units.jsonl").read_bytes() + b"\n")
+        shutil.copyfile(self.output / "evidence_build_manifest.json", altered_dir / "evidence_build_manifest.json")
+        with self.assertRaisesRegex(ValueError, "evidence corpus hash"):
+            revised_pairs.build(self.base / "phase3", altered_evidence, self.base / "tampered_pairs")
+        self.assertFalse((self.base / "tampered_pairs").exists())
         old_overview_base = overview.BASE
         old_phase4_input, old_phase4_output = phase4.PHASE3_OUTPUT, phase4.PHASE4_OUTPUT
         try:

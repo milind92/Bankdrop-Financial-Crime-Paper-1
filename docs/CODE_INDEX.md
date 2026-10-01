@@ -9,6 +9,8 @@
 | `code/verify_repository.py` | Performs the data-free integrity, privacy, manifest, schema, human-ICR, and classification-performance audit. |
 | `code/evidence_screening/build_evidence_corpus.py` | Creates blank controlled review sheets and refuses a revised corpus until every note, image, and included text span has adjudicated provenance decisions. |
 | `code/evidence_screening/METHODS_EVIDENCE_SCREEN.md` | Documents the revised screening gate, privacy boundary, and provisional Phase 3 path. |
+| `code/derived_analysis/build_revised_pair_boundaries.py` | Checks revised span and unit coding consistency, then counts typology pairs within approved spans and across spans of one capture unit. Outputs remain controlled and provisional. |
+| `code/derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md` | Defines the provisional pair counts and their unit, source, and interpretation limits. |
 | `code/ocr_quality/assess_ocr_quality.py` | Prepares a blinded probability sample, locks checked human transcripts before OCR is revealed, and scores complete reviews only when the locked material is unchanged. |
 | `code/ocr_quality/METHODS_OCR_QUALITY.md` | Documents OCR sampling, human transcription, scoring, and limits for the historical referenced-image frame. |
 | `code/human_validation/summarize_human_validation.py` | Summarises normalized controlled machine, coder, and adjudication tables; only aggregate performance results and file-level provenance hashes may be exported. |

@@ -39,4 +39,4 @@ The following items will be completed after the target journal and final paper t
 - licence choice and any archival DOI;
 - journal-specific repository, data, ethics, and anonymity wording.
 
-At release `v1.3.4`, the repository is on methodological hold. The historical `v1.3.3` submission-ready statement has been withdrawn pending the author-reviewed reanalysis and validation described in the post-release audit.
+At current version `1.3.8`, the repository remains on methodological hold. The historical `v1.3.3` submission-ready statement has been withdrawn pending the author-reviewed reanalysis and validation described in the post-release audit.

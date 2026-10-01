@@ -126,6 +126,14 @@ The historical derived-analysis script also refuses it until its population
 and duplicate-sensitivity definitions are revised for approved evidence
 units. The Phase 3 overview labels revised results as provisional.
 
+Revised Phase 3 additionally writes controlled `artifact_coding_long.csv`,
+one row for every approved text span and target code. A separate
+[pair-boundary diagnostic](../derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md)
+reconciles those span hits with the unit-level results and distinguishes
+within-span co-occurrence from codes found only in different spans of one
+capture unit. This diagnostic is provisional and does not replace the blocked
+historical derived-analysis tables.
+
 No revised counts are approved for publication until OCR transcription
 quality, low-precision target definitions, sampling and two-coder validation,
 source dependence, duplicates, all downstream tables, and manuscript claims

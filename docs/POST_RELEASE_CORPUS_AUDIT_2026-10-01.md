@@ -123,6 +123,13 @@ would not justify an unweighted population-wide accuracy estimate. The new
 sample still requires a coverage check against the future approved corpus and
 any novel orphan images it includes.
 
+Version `1.3.8` adds controlled per-span Phase 3 coding and a
+[pair-boundary diagnostic](../code/derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md).
+The diagnostic can separate codes found in one approved text span from codes
+found only in different spans of a capture unit. No revised pair counts exist
+for the unreviewed real corpus, and this does not resolve duplicate, source,
+OCR, or target-validation concerns.
+
 ## Release gate for a revised analysis
 
 Version `1.3.5` adds a [controlled evidence-screening gate](../code/evidence_screening/METHODS_EVIDENCE_SCREEN.md).

@@ -4,6 +4,11 @@
 
 **Post-release status (1 October 2026):** This document describes the historical `v1.3.3` analysis design. A [controlled-corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found that the 980 screened records include collection/status and researcher-authored material. Its substantive results are on hold pending author-reviewed evidence eligibility, image linkage, a revised rerun, and validation. The historical counts remain reproducible but are not final article estimates.
 
+The provisional revised path and its stricter counting boundaries are in the
+[evidence-screening method](../code/evidence_screening/METHODS_EVIDENCE_SCREEN.md)
+and [pair-boundary method](../code/derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md).
+No revised substantive denominator or pair estimate exists yet.
+
 The study analyses observed online content in a captured corpus. It does not estimate offender, victim, transaction, financial-loss, or external market prevalence. It does not establish that advertised goods or services existed, were delivered, or were used.
 
 ## Analysis Questions

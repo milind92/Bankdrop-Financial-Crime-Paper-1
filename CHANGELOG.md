@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.8 - 2026-10-01
+
+- Added controlled span-by-target coding rows to the revised evidence-only Phase 3 path. Unit-level hit totals are checked against the span rows; the historical default path and aggregate files remain unchanged.
+- Added a guarded provisional pair-boundary diagnostic that distinguishes two typology codes in one approved span from codes found only across different spans of one capture unit. Its controlled outputs are blocked from public export. No revised corpus, target validation, or article result is claimed.
+
 ## 1.3.7 - 2026-10-01
 
 - Added a one-time, pre-reveal lock for checked OCR gold transcripts and human legibility decisions. The scorer now rejects missing locks and changed locked fields or transcript files; the controlled lock manifest is blocked from public export.

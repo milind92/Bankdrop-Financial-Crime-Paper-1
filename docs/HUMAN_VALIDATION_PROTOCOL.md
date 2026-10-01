@@ -1,5 +1,14 @@
 > **Post-release status (1 October 2026):** The [corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found 191 of the 1,032 historical case-target rows came from 15 no-OCR research/status notes. The completed 26 July validation remains authentic for its historical mixed-record design, but it does not validate a revised evidence-only corpus.
 
+> **Revised holdout requirement:** After author-reviewed source units, target
+> definitions, and the versioned codebook are frozen, draw a new blinded
+> probability-documented holdout from the entire assessable revised unit frame,
+> including short approved source spans. Do not reuse the old 30-word
+> predicted-negative eligibility rule or treat old pooled coder agreement as
+> performance for the new frame. Preserve source, modality, duplicate, and
+> target-specific sampling information, then calculate design-aware
+> uncertainty before article claims.
+
 > **Historical status (26 July 2026):** The corrected-corpus validation was completed after the earlier 23 July release was withdrawn because 14 ineligible internal project documents contributed 59 paired case-target units. Ausma Bernot and Milind Tiwari independently coded the fresh sample drawn from the 980-note source-folder screen and jointly adjudicated every disagreement. See `outputs/human_validation/HUMAN_VALIDATION_STATUS.md`.
 
 # Human Validation Protocol
