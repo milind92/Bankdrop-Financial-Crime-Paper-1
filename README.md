@@ -6,11 +6,11 @@ A public, privacy-clean, journal-neutral reproducibility supplement containing t
 
 ## Reproducibility Supplement Status
 
-This repository is **submission-ready as a journal-neutral reproducibility supplement**. Release `v1.3.3` contains the complete public code, aggregate outputs, validation record, interpretation boundaries, privacy safeguards, and reviewer audit route defined for this supplement.
+**Methodological hold (1 October 2026): this supplement is not ready for journal submission.** A [post-release controlled-corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found that the historical 980-note screen includes collection-status and researcher-written records, 58 unreferenced image paths, and 191 human-validation case-target rows from no-OCR research/status notes. Release `v1.3.4` preserves the reproducible historical calculations and publishes privacy-safe aggregate diagnostics while a revised evidence corpus and validation are prepared. Do not use the historical substantive percentages or performance metrics as final article results.
 
 It deliberately contains no manuscript, title page, declarations, or journal-portal forms because those are article-submission materials rather than reproducibility components. Final author metadata, declarations, rights, and any archival DOI are supplied with the manuscript or through the selected journal's submission process; they do not represent missing empirical work in this repository. A submitter must still follow an eventual journal's file-format and review-anonymity rules.
 
-Reviewers should begin with the [Journal Reproducibility Supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md), [Claim-to-Evidence Register](docs/claim_to_evidence_register.csv), and [Supplement Submission Checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md).
+Reviewers should begin with the [post-release corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md), [Journal Reproducibility Supplement](docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md), [Claim-to-Evidence Register](docs/claim_to_evidence_register.csv), and [Supplement Submission Checklist](docs/JOURNAL_INTEGRATION_CHECKLIST.md).
 
 ## Scope
 
@@ -21,7 +21,7 @@ The empirical workflow contains four deterministic phases:
 3. Phase 3: deterministic typology coding.
 4. Phase 4: deterministic financial-crime analysis.
 
-Blinded human inter-coder reliability and subsequent adjudication were completed by Ausma Bernot and Milind Tiwari on 26 July 2026 under Griffith University Human Ethics Protocol 2025/697. Publication-safe overall results are available in [Human ICR Completion](outputs/human_validation/HUMAN_ICR_COMPLETION.md), with agreement intervals, kappa, binary Gwet AC1, and adjudication totals by target in [Human ICR Results by Target](outputs/human_validation/HUMAN_ICR_BY_TARGET.md). The separate [Human Validation Performance](outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md) report compares the deterministic classifications with the final human decisions using both sample and sampling-weighted estimates. Coder workbooks, evidence packets, rationales, and record-level adjudication material remain controlled and are not published.
+Blinded human inter-coder reliability and subsequent adjudication were completed by Ausma Bernot and Milind Tiwari on 26 July 2026 under Griffith University Human Ethics Protocol 2025/697. Publication-safe historical results are available in [Human ICR Completion](outputs/human_validation/HUMAN_ICR_COMPLETION.md), [Human ICR Results by Target](outputs/human_validation/HUMAN_ICR_BY_TARGET.md), and [Human Validation Performance](outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md). These metrics apply to the historical mixed-record sample, not a revised evidence-only corpus. Coder workbooks, evidence packets, rationales, and record-level adjudication material remain controlled and are not published.
 
 The repository also includes publication-safe deterministic derived analyses for exact-text duplicate sensitivity, source-normalized typology reporting, typology co-occurrence with source-stratified and leave-one-source-out stability, AML-candidate overlap, exploratory functional grouping, source concentration, and leave-one-source-out sensitivity. These are descriptive post-processing outputs, not a Phase 5 or LLM-assisted empirical analysis.
 
@@ -36,6 +36,7 @@ The repository also includes publication-safe deterministic derived analyses for
 ## Start Here
 
 - [Analysis plan](docs/ANALYSIS_PLAN.md)
+- [Post-release corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md)
 - [Data-collection protocol](docs/DATA_COLLECTION_PROTOCOL.md)
 - [Phase 3 codebook](outputs/phase3_aggregate/CODEBOOK_PHASE3.md)
 - [Human-validation protocol](docs/HUMAN_VALIDATION_PROTOCOL.md)

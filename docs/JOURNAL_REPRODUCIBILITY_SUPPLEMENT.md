@@ -2,9 +2,9 @@
 
 ## Status
 
-This public repository is **submission-ready as a journal-neutral reproducibility supplement**. It supports inspection of the deterministic workflow, aggregate results, completed human validation, sensitivity analyses, privacy controls, and release provenance. It does not contain the manuscript or journal submission forms because they are outside the supplement's role.
+**Methodological hold.** The [1 October 2026 post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found collection and researcher notes inside the historical 980-note screen. This repository supports inspection of the historical deterministic workflow and aggregate results, but it is not ready to support final article claims or journal submission.
 
-The supplement is complete at release `v1.3.3`. Final authorship, declarations, rights, archival metadata, journal formatting, and review-anonymity choices are supplied through the manuscript or submission system. They are handoff tasks rather than missing reproducibility components. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Supplement Submission Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
+Release `v1.3.4` retains the `v1.3.3` computations as historical outputs and adds aggregate audit results. Corpus eligibility, image linkage, OCR quality, reanalysis, and revised validation remain open. See [Author Decisions Record](AUTHOR_DECISIONS_RECORD.md) and [Supplement Submission Checklist](JOURNAL_INTEGRATION_CHECKLIST.md).
 
 ## Reviewer Audit Route
 
@@ -24,9 +24,9 @@ A source-level rerun requires authorised access to the controlled vault and the 
 - Design: deterministic, computer-assisted content analysis.
 - Included phases: Markdown inventory, local Windows OCR, deterministic multi-label coding, and deterministic aggregate synthesis.
 - Primary computational unit: one screened combined note record, consisting of one Markdown note plus validly linked and content-deduplicated OCR text where available.
-- Primary descriptive denominator: 980 screened combined note records.
-- Exact-text sensitivity denominator: 463 representatives, one per combined-text hash.
-- Human validation: 1,032 case-target units drawn from 313 evidence packets across 18 targets.
+- Historical screened denominator: 980 combined note records; a final evidence-only denominator is pending.
+- Historical exact-text sensitivity denominator: 463 representatives, one per combined-text hash; 74 represent no-OCR research/status text.
+- Historical human validation: 1,032 case-target units drawn from 313 packets across 18 targets; 191 rows came from no-OCR research/status notes.
 - External inference: not permitted. Counts do not estimate market prevalence and do not establish transactions, service delivery, actors, offenders, victims, causation, or criminal liability.
 
 The 463-record population is a duplicate-sensitivity construction, not a verified count of unique posts, listings, actors, transactions, or evidence units. Sixty-five records contained neither assessable Markdown nor joined OCR; their non-matches cannot support absence claims.
@@ -35,13 +35,13 @@ The 463-record population is a duplicate-sensitivity construction, not a verifie
 
 Ausma Bernot and Milind Tiwari independently completed the controlled coding exercise and jointly adjudicated all disagreements. Aggregate exact agreement was 981/1,032 (95.1%); five-category Cohen's kappa was 0.839378, and binary Present/Absent kappa was 0.933155.
 
-Reliability was strong in aggregate, but deterministic classification performance varied materially by target. Authors and reviewers should use the target rows in [Human Validation Performance](../outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md), not the pooled result alone. Categories with few or no human-positive cases do not support rarity or absence claims.
+Reliability was strong in the historical mixed-record sample, but deterministic classification performance varied materially by target. These numbers cannot validate a revised evidence-only corpus. Authors and reviewers should use the target rows in [Human Validation Performance](../outputs/human_validation/HUMAN_VALIDATION_PERFORMANCE.md) only to diagnose the historical screen. Categories with few or no human-positive cases do not support rarity or absence claims.
 
 The sample followed a planned fixed-seed stratified design. Predicted-negative sampling excluded records with fewer than 30 combined-text words, legacy provenance labels were visible in frozen packets, the two coders jointly adjudicated disagreements, and no separate independent AML reviewer is claimed. These limitations are preserved in [Human Validation Protocol](HUMAN_VALIDATION_PROTOCOL.md).
 
 ## Claim Control
 
-The machine-readable [Claim-to-Evidence Register](claim_to_evidence_register.csv) identifies approved journal-neutral wording, supporting aggregate files, validation and sensitivity boundaries, and prohibited inferences. It distinguishes:
+The machine-readable [Claim-to-Evidence Register](claim_to_evidence_register.csv) records historical claims and their current hold status, supporting aggregate files, validation and sensitivity boundaries, and prohibited inferences. It distinguishes:
 
 - supported descriptive statements;
 - qualified descriptive results;
@@ -62,4 +62,4 @@ The approved repository wording is "Griffith University Human Ethics Protocol 20
 
 ## Citation And Versioning
 
-Use [CITATION.cff](../CITATION.cff) for the current project-level software citation. Its generic project-author label preserves the authors' decision to finalise names and order later; that metadata decision does not change the supplement's computational completeness. Each tagged release must pass the data-free audit and privacy review before publication.
+Use [CITATION.cff](../CITATION.cff) for the current project-level software citation. Its generic project-author label preserves the authors' decision to finalise names and order later. Version `v1.3.4` is a historical computational and audit record, not a final empirical release. Each tagged release must pass the data-free audit and privacy review before publication.

@@ -37,6 +37,7 @@ REQUIRED_FILES = (
     "docs/AUTHOR_DECISIONS_RECORD.md",
     "docs/JOURNAL_REPRODUCIBILITY_SUPPLEMENT.md",
     "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
+    "docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md",
     "outputs/human_validation/HUMAN_VALIDATION_STATUS.md",
     "outputs/human_validation/HUMAN_ICR_COMPLETION.md",
     "outputs/human_validation/HUMAN_ICR_BY_TARGET.md",
@@ -49,6 +50,8 @@ REQUIRED_FILES = (
     "outputs/derived_analysis/DERIVED_ANALYSIS_NOTES.md",
     "outputs/derived_analysis/derived_analysis_metadata.json",
     "outputs/analysis_audit/corpus_screening_audit_summary.csv",
+    "outputs/analysis_audit/image_coverage_20261001.csv",
+    "outputs/analysis_audit/record_type_sensitivity_20261001.csv",
 )
 
 CSV_SCHEMAS = {
@@ -68,6 +71,8 @@ CSV_SCHEMAS = {
     "outputs/human_validation/human_icr_aggregate_summary.csv": "completion_date,coder_count,coordinator_count,evidence_packet_count,assessed_target_count,decision_category_count,paired_units,exact_agreements,disagreements,agreement_percent,cohen_kappa,krippendorff_alpha_nominal,binary_subset_units,binary_subset_exact_agreements,binary_subset_agreement_percent,binary_subset_cohen_kappa,adjudicated_disagreements,consensus_cases,no_consensus_cases,final_present,final_absent,final_ambiguous,final_insufficient_evidence,final_out_of_scope",
     "outputs/human_validation/human_icr_by_target.csv": "code,target_group,paired_units,exact_agreements,disagreements,agreement_percent,agreement_ci95_low_percent,agreement_ci95_high_percent,cohen_kappa,cohen_kappa_bootstrap_ci95_low,cohen_kappa_bootstrap_ci95_high,krippendorff_alpha_nominal,binary_subset_units,binary_subset_exact_agreements,binary_subset_agreement_percent,binary_subset_cohen_kappa,binary_subset_gwet_ac1,binary_subset_gwet_ac1_bootstrap_ci95_low,binary_subset_gwet_ac1_bootstrap_ci95_high,adjudicated_disagreements,final_present,final_absent,final_ambiguous,final_insufficient_evidence,final_out_of_scope_record",
     "outputs/analysis_audit/corpus_screening_audit_summary.csv": "screened_combined_records,unique_combined_text_hashes,exact_duplicate_groups,exact_duplicate_excess,maximum_duplicate_group_size,zero_combined_word_records,markdown_only_records,markdown_and_ocr_records,ocr_only_records,neither_assessable_records,explicit_exclusion_log_available,pre_analysis_deduplication_applied,eligible_unique_analytic_records",
+    "outputs/analysis_audit/image_coverage_20261001.csv": "historical_screened_notes,image_reference_occurrences,resolved_reference_occurrences,missing_reference_occurrences,external_reference_occurrences,referenced_local_png_paths,referenced_local_png_hashes,all_png_paths,unreferenced_png_paths,unreferenced_paths_duplicate_referenced_content,unreferenced_novel_content_files,unreferenced_novel_content_hashes",
+    "outputs/analysis_audit/record_type_sensitivity_20261001.csv": "target_group,target_code,full_screened_positive_n,no_ocr_record_positive_n,ocr_linked_candidate_positive_n,joined_ocr_positive_n,markdown_exclusive_candidate_positive_n,cross_modality_only_candidate_positive_n",
     "outputs/derived_analysis/duplicate_sensitivity.csv": "code,label,full_screened_denominator_n,full_screened_present_n,full_screened_percent,full_screened_rank,exact_text_unique_denominator_n,exact_text_unique_present_n,exact_text_unique_percent,exact_duplicate_excess_positive_records_n,positive_count_reduction_percent,percentage_point_difference,exact_text_unique_rank,rank_change",
     "outputs/derived_analysis/service_chain_grouping.csv": "population,population_definition,mapping_status,stage,label,definition,included_codes,denominator_n,unique_records_present_n,records_present_percent",
     "outputs/derived_analysis/source_concentration.csv": "population,population_definition,denominator_n,code,label,positive_records_n,source_groups_with_positive_records_n,top_source,top_source_positive_records_n,top_source_share,top_three_source_share,source_hhi,full_rank_by_record_count",
@@ -335,13 +340,12 @@ def check_journal_reproducibility_supplement(
     checked = 0
     expected_values = {
         "repository_role": "journal-neutral reproducibility supplement",
-        "repository_status": (
-            "submission-ready as a journal-neutral reproducibility supplement"
-        ),
-        "supplement_submission_ready": True,
+        "repository_status": "methodological hold pending evidence-only reanalysis",
+        "supplement_submission_ready": False,
         "readiness_scope": (
-            "The repository artifact is complete for submission as a reproducibility "
-            "supplement; manuscript and journal-portal materials remain outside its scope."
+            "Historical computations are retained for audit; substantive article use "
+            "requires author-reviewed corpus eligibility, image linkage, OCR quality, "
+            "revised analyses, and validation."
         ),
         "manuscript_included": False,
         "primary_descriptive_denominator_n": 980,
@@ -354,6 +358,89 @@ def check_journal_reproducibility_supplement(
             errors.append(
                 f"Journal supplement field {field} must be {expected!r}."
             )
+        else:
+            checked += 1
+
+    audit = manifest.get("post_release_corpus_audit", {})
+    expected_audit = {
+        "status": "methodological_hold_pending_evidence_only_reanalysis",
+        "historical_screened_notes": 980,
+        "no_ocr_research_or_collection_notes_preliminary": 589,
+        "ocr_linked_candidate_notes_pending_review": 391,
+        "unreferenced_png_paths": 58,
+        "unreferenced_novel_content_hashes": 35,
+        "historical_validation_case_target_rows_from_no_ocr_notes": 191,
+        "final_evidence_only_denominator": None,
+        "author_eligibility_adjudication_complete": False,
+        "ocr_accuracy_gold_set_complete": False,
+        "revised_human_validation_complete": False,
+    }
+    if not isinstance(audit, dict):
+        errors.append("Post-release corpus audit must be an object.")
+        audit = {}
+    for field, expected in expected_audit.items():
+        if audit.get(field) != expected:
+            errors.append(f"Post-release audit field {field} must be {expected!r}.")
+        else:
+            checked += 1
+    if (
+        audit.get("no_ocr_research_or_collection_notes_preliminary", 0)
+        + audit.get("ocr_linked_candidate_notes_pending_review", 0)
+        != audit.get("historical_screened_notes")
+    ):
+        errors.append("Post-release audit note counts do not reconcile.")
+    else:
+        checked += 1
+    for field, expected in {
+        "public_report": "docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md",
+        "image_coverage_aggregate": "outputs/analysis_audit/image_coverage_20261001.csv",
+        "record_type_sensitivity_aggregate": "outputs/analysis_audit/record_type_sensitivity_20261001.csv",
+    }.items():
+        if audit.get(field) != expected:
+            errors.append(f"Post-release audit file {field} is missing or incorrect.")
+        else:
+            checked += 1
+    image_rows = _read_rows("outputs/analysis_audit/image_coverage_20261001.csv", errors)
+    if len(image_rows) != 1:
+        errors.append("Post-release image coverage audit must have one row.")
+    else:
+        image_row = image_rows[0]
+        for field, expected in {
+            "historical_screened_notes": "980",
+            "image_reference_occurrences": "1140",
+            "resolved_reference_occurrences": "1048",
+            "missing_reference_occurrences": "7",
+            "external_reference_occurrences": "85",
+            "referenced_local_png_paths": "1043",
+            "referenced_local_png_hashes": "1037",
+            "all_png_paths": "1101",
+            "unreferenced_png_paths": "58",
+            "unreferenced_paths_duplicate_referenced_content": "22",
+            "unreferenced_novel_content_files": "36",
+            "unreferenced_novel_content_hashes": "35",
+        }.items():
+            if image_row.get(field) != expected:
+                errors.append(f"Post-release image audit {field} must be {expected}.")
+            else:
+                checked += 1
+    impact_rows = _read_rows("outputs/analysis_audit/record_type_sensitivity_20261001.csv", errors)
+    if len(impact_rows) != 18:
+        errors.append("Post-release record-type sensitivity must include 18 historically positive targets.")
+    else:
+        for row in impact_rows:
+            try:
+                full_n = int(row["full_screened_positive_n"])
+                no_ocr_n = int(row["no_ocr_record_positive_n"])
+                candidate_n = int(row["ocr_linked_candidate_positive_n"])
+                joined_n = int(row["joined_ocr_positive_n"])
+                markdown_only_n = int(row["markdown_exclusive_candidate_positive_n"])
+                cross_n = int(row["cross_modality_only_candidate_positive_n"])
+            except (KeyError, TypeError, ValueError):
+                errors.append("Post-release record-type sensitivity has non-integer counts.")
+                break
+            if full_n != no_ocr_n + candidate_n or candidate_n != joined_n + markdown_only_n + cross_n:
+                errors.append("Post-release record-type sensitivity counts do not reconcile.")
+                break
         else:
             checked += 1
 

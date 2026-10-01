@@ -4,6 +4,8 @@
 
 This record captures author instructions supplied on 22 August 2026 for the public Bankdrop Financial Crime Paper 1 repository. It applies to the repository as a journal-neutral reproducibility supplement. It is not a substitute for the final manuscript title page, declarations, journal forms, or institutional approvals.
 
+**Current status:** The 1 October 2026 [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) supersedes the earlier submission-readiness decision. The 980-note denominator and 463-hash sensitivity below are preserved as historical computational choices. Authors have not yet confirmed the revised source-evidence boundary or image-coverage decisions.
+
 ## Confirmed Decisions
 
 | Topic | Confirmed decision | Repository effect |
@@ -37,4 +39,4 @@ The following items will be completed after the target journal and final paper t
 - licence choice and any archival DOI;
 - journal-specific repository, data, ethics, and anonymity wording.
 
-As of release `v1.3.3`, the repository may be described as **submission-ready as a journal-neutral reproducibility supplement**. This statement applies to the repository artifact only and does not claim that the separate manuscript or journal-portal submission is complete.
+At release `v1.3.4`, the repository is on methodological hold. The historical `v1.3.3` submission-ready statement has been withdrawn pending the author-reviewed reanalysis and validation described in the post-release audit.

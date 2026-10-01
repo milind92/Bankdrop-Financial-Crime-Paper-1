@@ -2,7 +2,7 @@
 
 ## Status And Scope
 
-This plan records the completed deterministic, no-LLM analysis and the reporting boundaries approved for the journal-neutral reproducibility supplement. The primary results are descriptive screening results for 980 combined note records. They are final for this repository release, but they are not estimates for an external population and are not results for 980 unique posts or evidence units.
+**Post-release status (1 October 2026):** This document describes the historical `v1.3.3` analysis design. A [controlled-corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found that the 980 screened records include collection/status and researcher-authored material. Its substantive results are on hold pending author-reviewed evidence eligibility, image linkage, a revised rerun, and validation. The historical counts remain reproducible but are not final article estimates.
 
 The study analyses observed online content in a captured corpus. It does not estimate offender, victim, transaction, financial-loss, or external market prevalence. It does not establish that advertised goods or services existed, were delivered, or were used.
 
@@ -32,7 +32,7 @@ If human validation changes a definition or pattern, rerun the entire determinis
 
 ## Primary Analytic Denominator
 
-The author-approved primary descriptive denominator is **980 screened combined note records**. One record consists of one Markdown note plus validly linked, content-deduplicated OCR text where available. The record may be composite and is not assumed to represent one unique post, listing, actor, transaction, offender, or victim.
+The **historical** author-approved descriptive denominator was 980 screened combined note records. One record consists of one Markdown note plus validly linked, content-deduplicated OCR text where available. The record may be composite and is not assumed to represent one unique post, listing, actor, transaction, offender, or victim. The revised evidence-only denominator is pending.
 
 The denominator is not:
 
@@ -308,4 +308,4 @@ The final release should include deterministic analysis code, aggregate inputs s
 
 The repository analysis unit, 980-record denominator, duplicate-sensitivity role, ethics identifier, coder expertise, and sampling-plan existence are author confirmed in `docs/AUTHOR_DECISIONS_RECORD.md`.
 
-The reproducibility supplement is submission-ready. When the manuscript cites its tagged release, the authors still supply the target-journal, authorship, declaration, rights, DOI, and review-anonymity information identified in `docs/JOURNAL_INTEGRATION_CHECKLIST.md`; those are external submission tasks rather than missing repository analyses. Any new theoretical grouping, near-duplicate rule, evidence-unit reconstruction, claim-performance threshold, or inferential model is a new or post hoc analysis and requires separate justification, versioning, and rerun where it changes the coded population or claims.
+The historical supplement is on methodological hold. The revised eligibility, text-provenance, OCR-quality, and validation work listed in `docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md` must be completed and versioned before the repository can support a journal-facing substantive analysis. Any new theoretical grouping, near-duplicate rule, evidence-unit reconstruction, claim-performance threshold, or inferential model is a new or post hoc analysis and requires separate justification, versioning, and rerun where it changes the coded population or claims.

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.4 - 2026-10-01
+
+- Placed the supplement on methodological hold after a controlled audit distinguished captured source evidence from collection-status and researcher-written Markdown records.
+- Disclosed aggregate image coverage, preliminary record-type counts, historical code-count impact, human-validation sample impact, and cross-artefact compound-match sensitivity without releasing controlled evidence.
+- Preserved the `v1.3.3` calculations as historical, reproducible outputs and withdrew the prior submission-ready claim pending author-reviewed eligibility, image linkage, OCR quality, and revised validation.
+
 ## 1.3.3 - 2026-08-22
 
 - Simplified environment and reviewer documentation at author direction.

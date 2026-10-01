@@ -4,11 +4,12 @@
 
 - [x] Repository role fixed as a journal-neutral reproducibility supplement.
 - [x] Deterministic empirical scope limited to Phases 1-4.
-- [x] Primary unit and denominator fixed as 980 screened combined note records.
-- [x] Exact-text sensitivity population separately labelled as 463 representatives.
-- [x] Sixty-five zero-word records retained and their non-match limitation disclosed.
-- [x] Human validation and all 51 adjudications completed and reported in aggregate.
-- [x] Target-level classification performance and uncertainty published.
+- [x] Historical 980-note computational screen and 463-hash sensitivity preserved for audit.
+- [x] Historical human validation and all 51 adjudications reported in aggregate.
+- [ ] Author-reviewed substantive record and text-provenance eligibility locked.
+- [ ] Unreferenced images reviewed and linked, excluded, or separately unitised.
+- [ ] OCR accuracy measured from a human-transcribed sample.
+- [ ] Revised source-evidence analysis and target-level validation completed.
 - [x] Claim-to-evidence register and reviewer landing page included.
 - [x] Raw and record-level controlled material excluded.
 - [x] Data-free tests and privacy/integrity verifier available on Windows and Ubuntu.
@@ -16,11 +17,11 @@
 - [x] Public-versus-controlled rerun boundaries documented.
 - [x] Release version, changelog, citation metadata, and workflow manifest aligned.
 
-All repository-side items in this gate are complete for release `v1.3.3`.
+The gate is **open** at release `v1.3.4`. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates.
 
 ## Article And Journal-Portal Handoff
 
-The following information is supplied outside this reproducibility supplement. These tasks do not indicate missing repository analysis:
+The following information is also supplied outside this reproducibility supplement:
 
 - select the journal and article type;
 - apply the journal's repository, data, code, ethics, supplementary-file, and archival rules;
@@ -32,11 +33,11 @@ The following information is supplied outside this reproducibility supplement. T
 
 ## Manuscript Use Boundary
 
-When the manuscript uses this supplement, it should:
+After the methodological hold is lifted, the manuscript should:
 
 - map every result claim to `claim_to_evidence_register.csv`;
-- use 980 screened combined note records as the descriptive denominator and 463 exact-text representatives as sensitivity only;
-- disclose 65 unassessable zero-word records and the limitations of non-matches;
+- use the newly locked source-evidence denominator, with the historical 980-note screen and 463-hash sensitivity identified as superseded exploratory outputs;
+- disclose access/status records, unlinked images, and OCR uncertainty as coverage and measurement limitations;
 - report target-level validation limitations rather than relying on aggregate agreement alone;
 - keep AML candidates exploratory unless a separately documented independent review supports narrower wording;
 - avoid external prevalence, rarity, absence, transaction, causal, offender, victim, and operational-detection claims; and
@@ -44,4 +45,4 @@ When the manuscript uses this supplement, it should:
 
 ## Readiness Statement
 
-The reproducibility supplement gate is complete. The repository can be submitted or cited as the journal-facing reproducibility artifact. An eventual journal may require different packaging or an anonymised copy; that is a submission-format adaptation, not unfinished reproducibility work.
+The reproducibility supplement is **not ready for journal-facing substantive use**. Complete the author-reviewed corpus and validation gates above, then reconcile the revised repository and manuscript before submission.

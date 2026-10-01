@@ -96,13 +96,12 @@ class JournalSupplementTests(unittest.TestCase):
         manifest = {
             "journal_reproducibility_supplement": {
                 "repository_role": "journal-neutral reproducibility supplement",
-                "repository_status": (
-                    "submission-ready as a journal-neutral reproducibility supplement"
-                ),
-                "supplement_submission_ready": True,
+                "repository_status": "methodological hold pending evidence-only reanalysis",
+                "supplement_submission_ready": False,
                 "readiness_scope": (
-                    "The repository artifact is complete for submission as a reproducibility "
-                    "supplement; manuscript and journal-portal materials remain outside its scope."
+                    "Historical computations are retained for audit; substantive article use "
+                    "requires author-reviewed corpus eligibility, image linkage, OCR quality, "
+                    "revised analyses, and validation."
                 ),
                 "manuscript_included": False,
                 "primary_analysis_unit": (
@@ -132,14 +131,22 @@ class JournalSupplementTests(unittest.TestCase):
         verifier.check_journal_reproducibility_supplement(manifest, errors)
         self.assertTrue(any("independent external AML review" in error for error in errors))
 
-    def test_supplement_cannot_be_downgraded_to_technically_ready(self) -> None:
+    def test_supplement_cannot_be_marked_ready_during_corpus_hold(self) -> None:
         errors: list[str] = []
         manifest = copy.deepcopy(verifier.load_manifest(errors))
         manifest["journal_reproducibility_supplement"][
             "repository_status"
-        ] = "technically ready"
+        ] = "submission-ready as a journal-neutral reproducibility supplement"
+        manifest["journal_reproducibility_supplement"]["supplement_submission_ready"] = True
         verifier.check_journal_reproducibility_supplement(manifest, errors)
-        self.assertTrue(any("submission-ready" in error for error in errors))
+        self.assertTrue(any("methodological hold" in error for error in errors))
+
+    def test_revised_denominator_cannot_be_claimed_without_author_review(self) -> None:
+        errors: list[str] = []
+        manifest = copy.deepcopy(verifier.load_manifest(errors))
+        manifest["post_release_corpus_audit"]["final_evidence_only_denominator"] = 391
+        verifier.check_journal_reproducibility_supplement(manifest, errors)
+        self.assertTrue(any("final_evidence_only_denominator" in error for error in errors))
 
     def test_legacy_unique_eligible_record_claim_is_rejected(self) -> None:
         errors: list[str] = []

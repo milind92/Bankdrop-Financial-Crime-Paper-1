@@ -4,6 +4,8 @@
 
 This protocol records the completed repository-level corpus boundary and the additional provenance, sampling, and ethics information required when the supplement is integrated with a journal article. It distinguishes author-confirmed decisions from collection facts that remain outside the public archive.
 
+**Post-release audit notice (1 October 2026):** The source-folder boundary screened 980 notes but did not distinguish source evidence from collection-status or researcher-written records. The 980 is a historical computational count, not an approved substantive denominator. See [Post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) before using the historical flow table or human-validation figures below.
+
 Items marked **AUTHOR CONFIRMATION REQUIRED** must be completed from contemporaneous collection records or direct author knowledge. They must not be inferred from filenames, aggregate tables, repository history, or automated output.
 
 The study concerns observed online material. It does not provide transaction data and cannot establish that an advertised product or service existed, was purchased, was delivered, or caused financial harm.

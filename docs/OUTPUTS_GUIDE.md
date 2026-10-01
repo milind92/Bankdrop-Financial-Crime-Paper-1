@@ -2,6 +2,8 @@
 
 All committed outputs are aggregate and publication-safe. Raw and record-level material is excluded.
 
+**Status:** Phase 1–4, derived-analysis, and human-validation outputs are historical mixed-record calculations. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) places substantive article use on hold until an evidence-only corpus is approved and reanalysed.
+
 The journal-facing interpretation boundary is maintained in `docs/claim_to_evidence_register.csv`; it is a documentation control rather than a new empirical output.
 
 ## Phase 1
@@ -30,7 +32,7 @@ The journal-facing interpretation boundary is maintained in `docs/claim_to_evide
 
 ## Screening Audit
 
-`outputs/analysis_audit/` contains aggregate screening and exact-text duplicate-audit totals. Text hashes are used only for sensitivity accounting and are not released.
+`outputs/analysis_audit/` contains aggregate historical screening totals and the 1 October 2026 image-coverage and record-type sensitivity diagnostics. Text hashes are used only in controlled sensitivity accounting and are not released.
 
 ## Excluded Outputs
 

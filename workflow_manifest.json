@@ -3,8 +3,8 @@
     "title": "Bankdrop Financial Crime Paper 1",
     "repository": "https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1",
     "repository_visibility": "public",
-    "version": "1.3.3",
-    "repository_purpose": "Submission-ready, journal-neutral, privacy-clean reproducibility supplement for corrected deterministic Phase 1-4 analysis, publication-safe derived aggregates, and completed human validation.",
+    "version": "1.3.4",
+    "repository_purpose": "Privacy-clean historical deterministic Phase 1-4 reproducibility supplement with a post-release corpus audit; substantive journal results are on methodological hold.",
     "empirical_scope": "Deterministic Phases 1-4 only. No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis is included.",
     "authorship_status": "Final author names, order, affiliations, identifiers, and contribution statements will be supplied by the authors."
   },
@@ -112,10 +112,27 @@
     "explicit_exclusion_log_available": false,
     "pre_analysis_deduplication_applied": false,
     "eligible_unique_analytic_records": null,
-    "interpretation": "The 980 screened combined note records are the primary descriptive denominator. The 463 unique combined-text hashes support duplicate sensitivity only and are not a verified unique-post or eligible-evidence-unit denominator."
+    "interpretation": "Historical screen only: the 980 combined notes include collection and researcher records. The 463 exact-text representatives are historical duplicate sensitivity, not a final evidence-only or unique-post denominator. See the post-release corpus audit."
+  },
+  "post_release_corpus_audit": {
+    "date": "2026-10-01",
+    "status": "methodological_hold_pending_evidence_only_reanalysis",
+    "public_report": "docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md",
+    "image_coverage_aggregate": "outputs/analysis_audit/image_coverage_20261001.csv",
+    "record_type_sensitivity_aggregate": "outputs/analysis_audit/record_type_sensitivity_20261001.csv",
+    "historical_screened_notes": 980,
+    "no_ocr_research_or_collection_notes_preliminary": 589,
+    "ocr_linked_candidate_notes_pending_review": 391,
+    "unreferenced_png_paths": 58,
+    "unreferenced_novel_content_hashes": 35,
+    "historical_validation_case_target_rows_from_no_ocr_notes": 191,
+    "final_evidence_only_denominator": null,
+    "author_eligibility_adjudication_complete": false,
+    "ocr_accuracy_gold_set_complete": false,
+    "revised_human_validation_complete": false
   },
   "validation": {
-    "status": "Corrected eligible-corpus human revalidation completed",
+    "status": "Historical mixed-record sample completed; revised evidence-only validation pending",
     "completion_date": "2026-07-26",
     "coder_count": 2,
     "coders": [
@@ -219,9 +236,9 @@
   },
   "journal_reproducibility_supplement": {
     "repository_role": "journal-neutral reproducibility supplement",
-    "repository_status": "submission-ready as a journal-neutral reproducibility supplement",
-    "supplement_submission_ready": true,
-    "readiness_scope": "The repository artifact is complete for submission as a reproducibility supplement; manuscript and journal-portal materials remain outside its scope.",
+    "repository_status": "methodological hold pending evidence-only reanalysis",
+    "supplement_submission_ready": false,
+    "readiness_scope": "Historical computations are retained for audit; substantive article use requires author-reviewed corpus eligibility, image linkage, OCR quality, revised analyses, and validation.",
     "manuscript_included": false,
     "primary_analysis_unit": "screened combined note record: one Markdown note plus validly linked and content-deduplicated OCR text where available",
     "primary_descriptive_denominator_n": 980,

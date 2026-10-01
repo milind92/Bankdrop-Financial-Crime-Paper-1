@@ -1,5 +1,7 @@
 # Reproducibility
 
+**Current status:** A [post-release corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) places substantive Paper 1 results on methodological hold. The commands below reproduce the historical 980-note computation; they do not establish a final evidence-only population.
+
 ## Data-Free Audit
 
 A checkout can be audited without the controlled corpus and without third-party packages:
@@ -45,7 +47,7 @@ python .\code\export_public_release.py `
 
 ## Boundaries
 
-The public checkout cannot reconstruct the controlled corpus or independently reproduce source-level counts. Aggregate human-validation and deterministic derived results can be checked for internal consistency, but the public repository does not include coder-level or note-level data. The author-approved primary descriptive population is 980 screened combined note records. The 463-record exact-text population is sensitivity only and is not a verified unique-post or eligible-evidence-unit population.
+The public checkout cannot reconstruct the controlled corpus or independently reproduce source-level counts. Aggregate human-validation and deterministic derived results can be checked for internal consistency, but the public repository does not include coder-level or note-level data. The historical screen used 980 combined notes; 463 exact-text representatives were a historical sensitivity population. Neither is the approved denominator for a revised evidence-only analysis.
 
 No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical pathway is included.
 
