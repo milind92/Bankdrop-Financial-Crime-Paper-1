@@ -36,6 +36,8 @@ REQUIRED_FILES = (
     "code/derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md",
     "code/derived_analysis/build_revised_duplicate_sensitivity.py",
     "code/derived_analysis/METHODS_REVISED_DUPLICATE_SENSITIVITY.md",
+    "code/derived_analysis/build_revised_descriptive_tables.py",
+    "code/derived_analysis/METHODS_REVISED_DESCRIPTIVES.md",
     "code/human_validation/build_public_icr_by_target.py",
     "code/human_validation/summarize_human_validation.py",
     "code/human_validation/prepare_revised_holdout.py",
@@ -179,6 +181,14 @@ RESTRICTED_FILENAMES = {
     "revised_duplicate_sensitivity_controlled.csv",
     "revised_source_signature_summary_controlled.csv",
     "revised_duplicate_manifest.json",
+    "revised_screen_flow_controlled.csv",
+    "revised_source_coverage_controlled.csv",
+    "revised_target_prevalence_controlled.csv",
+    "revised_modality_contribution_controlled.csv",
+    "revised_typology_cooccurrence_controlled.csv",
+    "revised_source_concentration_controlled.csv",
+    "revised_leave_one_source_out_controlled.csv",
+    "revised_descriptive_manifest.json",
 }
 BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash", "source_unit_sha256", "packet_file", "packet_sha256", "source_path", "local_path", "absolute_path", "capture_date_record_locator"}
 BLOCKED_FIELD_TOKENS = {"snippet", "snippets", "raw_text", "ocr_text", "full_text"}
@@ -494,6 +504,20 @@ def check_journal_reproducibility_supplement(
     }.items():
         if not isinstance(revised_duplicates, dict) or revised_duplicates.get(field) != expected:
             errors.append(f"Revised duplicate-sensitivity {field} is missing or incorrect.")
+        else:
+            checked += 1
+    revised_descriptives = manifest.get("revised_descriptive_tables", {})
+    for field, expected in {
+        "status": "code_available_author_reviewed_evidence_and_target_validation_pending",
+        "script": "code/derived_analysis/build_revised_descriptive_tables.py",
+        "method": "code/derived_analysis/METHODS_REVISED_DESCRIPTIVES.md",
+        "outputs_controlled_only": True,
+        "historical_outputs_modified": False,
+        "revised_study_tables_complete": False,
+        "article_ready": False,
+    }.items():
+        if not isinstance(revised_descriptives, dict) or revised_descriptives.get(field) != expected:
+            errors.append(f"Revised descriptive tables {field} is missing or incorrect.")
         else:
             checked += 1
     revised_holdout = manifest.get("revised_human_holdout", {})

@@ -31,6 +31,8 @@ phase4 = load_module("bank_drop_phase4_for_screen_tests", "code/phase4_financial
 derived = load_module("bank_drop_derived_for_screen_tests", "code/derived_analysis/build_derived_analysis.py")
 revised_pairs = load_module("bank_drop_revised_pairs_for_screen_tests", "code/derived_analysis/build_revised_pair_boundaries.py")
 revised_duplicates = load_module("bank_drop_revised_duplicates_for_screen_tests", "code/derived_analysis/build_revised_duplicate_sensitivity.py")
+sys.modules["build_revised_duplicate_sensitivity"] = revised_duplicates
+revised_descriptives = load_module("bank_drop_revised_descriptives_for_screen_tests", "code/derived_analysis/build_revised_descriptive_tables.py")
 revised_holdout = load_module("bank_drop_revised_holdout_for_screen_tests", "code/human_validation/prepare_revised_holdout.py")
 revised_close = load_module("bank_drop_revised_close_for_screen_tests", "code/human_validation/close_revised_holdout.py")
 
@@ -173,6 +175,60 @@ class EvidenceScreeningTests(unittest.TestCase):
                 units, predictions,
                 {"typology": {"bank_drop_sale"}, "aml_candidate": {"crypto_to_bank_cashout"}},
             )
+
+    def test_revised_descriptive_source_denominators_and_zero_marginals(self) -> None:
+        units = {
+            "u1": {"source": "A", "collection_date": "", "artifacts": [
+                {"artifact_id": "a1", "kind": "markdown_source_span"}]},
+            "u2": {"source": "A", "collection_date": "2026-03-01", "artifacts": [
+                {"artifact_id": "a2", "kind": "image_ocr"}]},
+            "u3": {"source": "B", "collection_date": "", "artifacts": [
+                {"artifact_id": "a3", "kind": "markdown_source_span"}]},
+        }
+        target_values = {
+            ("typology", "a"): {"u1": 1, "u2": 0, "u3": 1},
+            ("typology", "b"): {"u1": 1, "u2": 0, "u3": 0},
+            ("typology", revised_duplicates.QUALITY_FLAG): {"u1": 0, "u2": 0, "u3": 0},
+            ("aml_candidate", "candidate"): {"u1": 0, "u2": 1, "u3": 0},
+        }
+        run = revised_duplicates.CheckedRun(
+            units=units,
+            predictions={(unit_id, target_type, code): value
+                         for (target_type, code), values in target_values.items()
+                         for unit_id, value in values.items()},
+            artifact_predictions={(unit_id, unit["artifacts"][0]["artifact_id"],
+                                   target_type, code): values[unit_id]
+                                  for unit_id, unit in units.items()
+                                  for (target_type, code), values in target_values.items()},
+            targets={"typology": {"a", "b", revised_duplicates.QUALITY_FLAG},
+                     "aml_candidate": {"candidate"}},
+            labels={(target_type, code): code for target_type, code in target_values},
+            input_sha256={},
+            evidence_manifest={"screened_notes": 3,
+                               "note_decisions": {"include": 3, "exclude": 0},
+                               "approved_standalone_orphan_units": 0,
+                               "approved_text_segments": 3,
+                               "image_decisions": {}},
+            phase3_metadata={},
+        )
+        tables = revised_descriptives.compute_tables(run)
+        coverage = tables["revised_source_coverage_controlled.csv"]
+        self.assertEqual(next(row for row in coverage if row["scope"] == "all")
+                         ["unknown_or_mixed_unit_date_n"], 2)
+        prevalence = tables["revised_target_prevalence_controlled.csv"]
+        self.assertEqual(next(row for row in prevalence if row["scope"] == "source"
+                              and row["source"] == "A" and row["code"] == "a")
+                         ["rule_positive_percent"], "50.000")
+        pairs = tables["revised_typology_cooccurrence_controlled.csv"]
+        overall = next(row for row in pairs if row["scope"] == "all")
+        self.assertEqual((overall["n11_both_n"], overall["n10_a_only_n"],
+                          overall["n01_b_only_n"], overall["n00_neither_n"]),
+                         (1, 1, 0, 1))
+        self.assertEqual(overall["lift"], "1.500000")
+        omitted_a = next(row for row in pairs if row["removed_source"] == "A")
+        self.assertEqual(omitted_a["jaccard"], "0.000000")
+        self.assertEqual(omitted_a["lift"], "")
+        self.assertEqual(len(tables["revised_target_prevalence_controlled.csv"]), 9)
 
     def test_superseded_review_schema_cannot_build(self) -> None:
         inventory_path = self.review / "review_inventory.json"
@@ -620,6 +676,32 @@ class EvidenceScreeningTests(unittest.TestCase):
             self.base / "revised_duplicates" / "revised_duplicate_sensitivity_controlled.csv"
         )
         self.assertEqual(len(duplicate_rows), 18)
+        descriptive_report = revised_descriptives.build(
+            self.base / "phase3", self.output / "approved_evidence_units.jsonl",
+            self.base / "revised_descriptives",
+        )
+        self.assertFalse(descriptive_report["article_ready"])
+        self.assertEqual(descriptive_report["approved_capture_units_n"], 1)
+        coverage_rows = screen.read_csv(
+            self.base / "revised_descriptives" / "revised_source_coverage_controlled.csv"
+        )
+        self.assertEqual(len(coverage_rows), 2)
+        self.assertEqual(coverage_rows[0]["unknown_or_mixed_unit_date_n"], "1")
+        modality_rows = screen.read_csv(
+            self.base / "revised_descriptives" / "revised_modality_contribution_controlled.csv"
+        )
+        fullz = next(row for row in modality_rows if row["code"] == "fullz_identity_package")
+        self.assertEqual(fullz["markdown_only_positive_units_n"], "1")
+        altered_phase3 = self.base / "phase3_changed_label"
+        shutil.copytree(self.base / "phase3", altered_phase3)
+        changed_rows = screen.read_csv(altered_phase3 / "typology_coding_long.csv")
+        changed_rows[0]["label"] = "Changed label"
+        save_csv(altered_phase3 / "typology_coding_long.csv", changed_rows, list(changed_rows[0]))
+        with self.assertRaisesRegex(ValueError, "generated codebook"):
+            revised_descriptives.build(altered_phase3,
+                                       self.output / "approved_evidence_units.jsonl",
+                                       self.base / "changed_label_descriptives")
+        self.assertFalse((self.base / "changed_label_descriptives").exists())
         pair_rows = screen.read_csv(self.base / "revised_pairs" / "revised_typology_pair_boundaries.csv")
         separated = next(row for row in pair_rows if row["scope"] == "all" and
                          {row["code_a"], row["code_b"]} ==
@@ -635,6 +717,10 @@ class EvidenceScreeningTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "evidence corpus hash"):
             revised_pairs.build(self.base / "phase3", altered_evidence, self.base / "tampered_pairs")
         self.assertFalse((self.base / "tampered_pairs").exists())
+        with self.assertRaisesRegex(ValueError, "hash-matched"):
+            revised_descriptives.build(self.base / "phase3", altered_evidence,
+                                       self.base / "tampered_descriptives")
+        self.assertFalse((self.base / "tampered_descriptives").exists())
         old_overview_base = overview.BASE
         old_phase4_input, old_phase4_output = phase4.PHASE3_OUTPUT, phase4.PHASE4_OUTPUT
         try:

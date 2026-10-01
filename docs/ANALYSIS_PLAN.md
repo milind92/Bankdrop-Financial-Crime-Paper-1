@@ -77,6 +77,14 @@ Records may belong to more than one modality population. Missing or unavailable 
 
 ## Descriptive Corpus Reporting
 
+For a future author-approved evidence corpus, the controlled
+[revised descriptive procedure](../code/derived_analysis/METHODS_REVISED_DESCRIPTIVES.md)
+builds reconciled flow, source and modality coverage, target counts,
+co-occurrence, concentration, and leave-one-source-out diagnostics. It is
+provisional until the evidence frame, target definitions, OCR assessment,
+and fresh blinded validation are complete. The historical Phase 4 narratives
+do not automatically apply to these outputs.
+
 Report the following before typology results:
 
 - identified, screened, excluded, duplicate-clustered, eligible, validated, and analysed counts;

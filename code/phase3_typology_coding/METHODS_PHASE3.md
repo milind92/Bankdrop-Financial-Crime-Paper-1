@@ -11,6 +11,8 @@ is on methodological hold. A revised, author-reviewed input is supported via
 The author-reviewed provisional path also writes a controlled per-span target
 matrix and supports the separate
 [pair-boundary diagnostic](../derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md).
+The revised [descriptive-table builder](../derived_analysis/METHODS_REVISED_DESCRIPTIVES.md)
+uses the same reviewed-evidence matrix after the screening gate is complete.
 In that mode, each approved Markdown or OCR source span is coded separately,
 then binary results are aggregated to the approved note/image unit. Compound
 patterns cannot join terms across separate spans. The historical human

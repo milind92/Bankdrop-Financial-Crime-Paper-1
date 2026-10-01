@@ -191,6 +191,14 @@ computes per-target estimates with finite-population uncertainty for a future
 approved holdout. Synthetic tests alone exercise this path. It has not
 produced a revised study result.
 
+Version `1.3.17` adds a [controlled revised descriptive-table procedure](../code/derived_analysis/METHODS_REVISED_DESCRIPTIVES.md).
+It will calculate screening flow, source and modality coverage, target counts,
+co-occurrence, source concentration, and leave-one-source-out sensitivity
+from a future approved evidence corpus. The revised Phase 3 matrix is checked
+against the approved source spans before these tables are written. Only
+synthetic gate tests have run; the script has not produced real revised study
+counts or validated article estimates.
+
 A separate controlled, blank collection-provenance packet reconciles the
 historical 980 notes, 948 date-like filename tokens, 391 OCR-linked candidate
 notes, and 1,140 image-reference occurrences across 16 source groups. Its

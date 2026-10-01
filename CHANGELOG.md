@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.17 - 2026-10-01
+
+- Added a controlled descriptive builder for a future author-approved source-evidence corpus. It produces screening flow, source and modality coverage, target counts, co-occurrence, source concentration, and leave-one-source-out tables, with a hash manifest.
+- The builder reuses the checked revised-evidence and span-bounded Phase 3 matrix gate. Its outputs remain provisional rule diagnostics until the real source review, OCR assessment, target-definition lock, fresh blinded validation, and interpretation are complete; no revised study table was produced.
+
 ## 1.3.16 - 2026-10-01
 
 - Added a guarded, controlled exact-span duplicate-sensitivity procedure for the future author-approved evidence corpus. It compares capture-unit counts with deterministic representatives of identical approved-span signatures, while preserving span modality and boundaries.

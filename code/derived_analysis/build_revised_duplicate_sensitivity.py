@@ -12,6 +12,7 @@ import hashlib
 import json
 import sys
 from collections import Counter, defaultdict
+from dataclasses import dataclass
 from pathlib import Path
 
 
@@ -27,6 +28,18 @@ SOURCE_FIELDS = [
     "source", "approved_units_n", "exact_span_signature_groups_n",
     "exact_repeat_excess_units_n",
 ]
+
+
+@dataclass
+class CheckedRun:
+    units: dict[str, dict[str, object]]
+    predictions: dict[tuple[str, str, str], int]
+    artifact_predictions: dict[tuple[str, str, str, str], int]
+    targets: dict[str, set[str]]
+    labels: dict[tuple[str, str], str]
+    input_sha256: dict[str, str]
+    evidence_manifest: dict[str, object]
+    phase3_metadata: dict[str, object]
 
 
 def sha_file(path: Path) -> str:
@@ -69,6 +82,28 @@ def count(value: str) -> int:
     if result < 0:
         raise ValueError("Negative hit count")
     return result
+
+
+def codebook_labels(path: Path) -> dict[tuple[str, str], str]:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    section = "typology"
+    labels: dict[tuple[str, str], str] = {}
+    for index, line in enumerate(lines):
+        if line == "# AML Indicator Candidates":
+            section = "aml_candidate"
+        elif line.startswith("## "):
+            code = line[3:].strip()
+            if (not code or index + 1 >= len(lines)
+                    or not lines[index + 1].startswith("- Label: ")):
+                raise ValueError("Revised Phase 3 codebook has an invalid target definition")
+            label = lines[index + 1][len("- Label: "):].strip()
+            key = (section, code)
+            if not label or key in labels:
+                raise ValueError("Revised Phase 3 codebook has a duplicate or blank target")
+            labels[key] = label
+    if not labels:
+        raise ValueError("Revised Phase 3 codebook has no target definitions")
+    return labels
 
 
 def signature(artifacts: list[dict[str, object]]) -> str:
@@ -135,17 +170,9 @@ def sensitivity_rows(
     return result, by_source, report
 
 
-def build(phase3_dir: Path, evidence_corpus: Path, output_dir: Path) -> dict[str, object]:
+def load_checked_run(phase3_dir: Path, evidence_corpus: Path) -> CheckedRun:
     phase3_dir = outside_public(phase3_dir)
     evidence_corpus = outside_public(evidence_corpus)
-    output_dir = outside_public(output_dir)
-    if (output_dir == phase3_dir or output_dir in phase3_dir.parents
-            or phase3_dir in output_dir.parents or output_dir == evidence_corpus.parent
-            or output_dir in evidence_corpus.parents
-            or evidence_corpus.parent in output_dir.parents):
-        raise ValueError("Sensitivity output must be separate from controlled inputs")
-    if output_dir.exists() and any(output_dir.iterdir()):
-        raise ValueError("Sensitivity output directory is not empty")
     paths = {
         "evidence_corpus": evidence_corpus,
         "evidence_manifest": evidence_corpus.parent / "evidence_build_manifest.json",
@@ -164,6 +191,7 @@ def build(phase3_dir: Path, evidence_corpus: Path, output_dir: Path) -> dict[str
     if (evidence_manifest.get("schema_version") != 3
             or evidence_manifest.get("evidence_jsonl_sha256") != hashes["evidence_corpus"]
             or evidence_manifest.get("status") != "source_screening_complete_target_validation_pending"
+            or evidence_manifest.get("article_ready") is not False
             or metadata.get("analysis_mode") != "author_reviewed_artifact_bounded_source_text"
             or metadata.get("evidence_corpus_sha256") != hashes["evidence_corpus"]
             or metadata.get("codebook_sha256") != hashes["phase3_codebook"]
@@ -234,21 +262,25 @@ def build(phase3_dir: Path, evidence_corpus: Path, output_dir: Path) -> dict[str
     predictions: dict[tuple[str, str, str], int] = {}
     hits: dict[tuple[str, str, str], int] = {}
     targets: dict[str, set[str]] = defaultdict(set)
+    labels: dict[tuple[str, str], str] = {}
     for target_type, path, code_field in (
         ("typology", paths["phase3_typology"], "code"),
         ("aml_candidate", paths["phase3_aml"], "aml_indicator"),
     ):
-        for row in read_csv(path, {"note_id", "source", "collection_date", code_field, "present", "hit_count"}):
+        for row in read_csv(path, {"note_id", "source", "collection_date", code_field, "label", "present", "hit_count"}):
             unit_id, code = row["note_id"], row[code_field]
             key = (unit_id, target_type, code)
             n = count(row["hit_count"])
+            label_key = (target_type, code)
             if (unit_id not in units or row["source"] != units[unit_id]["source"]
                     or row["collection_date"] != units[unit_id]["collection_date"]
                     or not code or key in predictions or row["present"] not in {"0", "1"}
-                    or int(row["present"]) != int(n > 0)):
+                    or int(row["present"]) != int(n > 0) or not row["label"].strip()
+                    or (label_key in labels and labels[label_key] != row["label"])):
                 raise ValueError("Revised target matrix has invalid unit, source, date, or prediction")
             predictions[key], hits[key] = int(row["present"]), n
             targets[target_type].add(code)
+            labels[label_key] = row["label"]
     if (len(targets["typology"]) != metadata.get("typology_code_count")
             or len(targets["aml_candidate"]) != metadata.get("aml_indicator_count")
             or QUALITY_FLAG not in targets["typology"]):
@@ -259,8 +291,11 @@ def build(phase3_dir: Path, evidence_corpus: Path, output_dir: Path) -> dict[str
     }
     if set(predictions) != expected:
         raise ValueError("Revised target matrix omits an approved unit-target row")
+    if labels != codebook_labels(paths["phase3_codebook"]):
+        raise ValueError("Revised target labels or inventory disagree with the generated codebook")
 
     artifact_hits: Counter[tuple[str, str, str]] = Counter()
+    artifact_predictions: dict[tuple[str, str, str, str], int] = {}
     seen_artifact_targets = set()
     for row in read_csv(paths["phase3_artifacts"], {
         "unit_id", "artifact_id", "artifact_kind", "source", "collection_date",
@@ -277,24 +312,42 @@ def build(phase3_dir: Path, evidence_corpus: Path, output_dir: Path) -> dict[str
                 or row["present"] not in {"0", "1"} or int(row["present"]) != int(n > 0)):
             raise ValueError("Revised artefact matrix has invalid identity or prediction")
         seen_artifact_targets.add(key)
+        artifact_predictions[key] = int(row["present"])
         artifact_hits[(unit_id, target_type, code)] += n
     if (len(seen_artifact_targets) != metadata.get("artifact_coding_rows")
             or len(seen_artifact_targets) != len(artifact_identity) * sum(map(len, targets.values()))
             or any(artifact_hits[key] != value for key, value in hits.items())):
         raise ValueError("Revised artefact hits do not reconcile to unit coding")
 
+    return CheckedRun(units, predictions, artifact_predictions, dict(targets), labels,
+                      hashes, evidence_manifest, metadata)
+
+
+def build(phase3_dir: Path, evidence_corpus: Path, output_dir: Path) -> dict[str, object]:
+    phase3_dir = outside_public(phase3_dir)
+    evidence_corpus = outside_public(evidence_corpus)
+    output_dir = outside_public(output_dir)
+    if (output_dir == phase3_dir or output_dir in phase3_dir.parents
+            or phase3_dir in output_dir.parents or output_dir == evidence_corpus.parent
+            or output_dir in evidence_corpus.parents
+            or evidence_corpus.parent in output_dir.parents):
+        raise ValueError("Sensitivity output must be separate from controlled inputs")
+    if output_dir.exists() and any(output_dir.iterdir()):
+        raise ValueError("Sensitivity output directory is not empty")
+    checked = load_checked_run(phase3_dir, evidence_corpus)
+
     substantive_targets = {
-        "typology": targets["typology"] - {QUALITY_FLAG},
-        "aml_candidate": targets["aml_candidate"],
+        "typology": checked.targets["typology"] - {QUALITY_FLAG},
+        "aml_candidate": checked.targets["aml_candidate"],
     }
-    rows, sources, report = sensitivity_rows(units, predictions, substantive_targets)
+    rows, sources, report = sensitivity_rows(checked.units, checked.predictions, substantive_targets)
     report.update({
         "status": "provisional_exact_span_signature_sensitivity",
         "method": "exact multiset of approved (modality, text SHA-256) spans per capture unit",
         "analysis_script_sha256": sha_file(Path(__file__)),
         "method_document_sha256": sha_file(Path(__file__).with_name("METHODS_REVISED_DUPLICATE_SENSITIVITY.md")),
         "historical_mixed_note_duplicate_count_comparable": False,
-        "input_sha256": hashes,
+        "input_sha256": checked.input_sha256,
     })
     output_dir.mkdir(parents=True, exist_ok=True)
     sensitivity_path = output_dir / "revised_duplicate_sensitivity_controlled.csv"
