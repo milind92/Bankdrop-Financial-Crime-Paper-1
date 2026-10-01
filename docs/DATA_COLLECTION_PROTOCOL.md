@@ -63,6 +63,14 @@ For every source group, retain a controlled provenance record with:
 
 **AUTHOR CONFIRMATION REQUIRED:** Provide the original source-selection rationale, collection/search procedure, collection personnel, language scope, geographical scope, collection schedule, stopping rule, and any deviations. The current source-folder inventory alone does not establish these facts.
 
+Controlled project notes describe a planned 15-source daily trace, whereas
+the historical screen represents 16 source groups. A task-table start-date
+entry precedes later setup notes; whether it concerns this same collection
+phase remains to be confirmed. Linked note and
+image filename dates also differ in 328 of 1,032 comparable assignments.
+These are review prompts, not corrected dates or evidence that the planned
+schedule was carried out; see the [post-release audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md).
+
 ## Current Inclusion Boundary
 
 The corrected release included the 980 Markdown notes located within the named source-folder structure after excluding 19 internal or administrative files outside that structure. The following criteria describe a future evidence-unit refinement and must not be represented as having been applied record by record in the current release:

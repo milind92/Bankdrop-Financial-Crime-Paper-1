@@ -20,7 +20,7 @@
 - [x] Public-versus-controlled rerun boundaries documented.
 - [x] Release version, changelog, citation metadata, and workflow manifest aligned.
 
-The gate is **open** at version `1.3.12`. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates. The revised holdout sampler and scorer have only synthetic gate tests; no real frame, coder decisions, or performance estimates are complete.
+The gate is **open** at version `1.3.13`. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates. The revised holdout sampler and scorer have only synthetic gate tests; no real frame, coder decisions, or performance estimates are complete.
 
 ## Article And Journal-Portal Handoff
 

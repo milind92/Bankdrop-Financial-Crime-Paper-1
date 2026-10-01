@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.13 - 2026-10-01
+
+- Audited controlled project notes for the intended collection procedure. A 15-source plan, a chronologically ambiguous collection-start entry, and 16 represented source groups now have explicit, unresolved provenance status.
+- Added a controlled linked-image filename-time check. Of 1,032 comparable note/image assignments, 704 share a filename calendar day and 328 differ; a 41-case priority queue awaits preparer review. These timestamps are not verified capture dates. Historical empirical outputs remain unchanged.
+
 ## 1.3.12 - 2026-10-01
 
 - Corrected date reporting: the historical screen has 948 date-like filename tokens, of which 947 are valid calendar dates and one is impossible. Filename tokens remain unverified capture dates; the historical Phase 1 outputs are unchanged.

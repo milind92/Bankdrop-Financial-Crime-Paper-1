@@ -40,6 +40,24 @@ establish source-post dates or the actual visit schedule. The old July article
 draft's earlier start date came from project material outside the screened
 source-note date range.
 
+Controlled project notes describe an **intended** 15-source daily-tracing
+procedure, while the historical screen represents 16 source groups. A task
+table's collection-start entry carries a year earlier than the later
+source-selection and equipment-setup entries; whether they concern the same
+collection phase is unresolved. The original preparers must explain the
+chronology and source additions; these records do not verify
+the actual start date or daily visit schedule.
+
+A separate controlled filename check found 1,032 resolved note/image
+assignments with parseable note-date and pasted-image filename timestamps.
+Their calendar days match in 704 cases and differ in 328: nine image-name
+dates are earlier than the note token and 319 are later. Fifteen resolved
+image filenames were not parseable by the expected timestamp pattern; one
+linked note has a blank date token. A 41-row priority queue isolates earlier
+images, gaps over 30 days, and unparseable or blank dates. An image filename
+may reflect pasting or saving rather than capture. Neither the matches nor
+the mismatches certify a source-post date or collection visit.
+
 ## Record provenance and denominator
 
 Among the 980 screened notes, 589 had no usable joined OCR. A preliminary

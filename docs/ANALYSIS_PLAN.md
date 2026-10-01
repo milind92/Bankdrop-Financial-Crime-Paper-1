@@ -83,7 +83,8 @@ Report the following before typology results:
 - exclusions by prespecified reason;
 - named source groups plus the source-unknown group;
 - notes and eligible analytic records per source;
-- dated and undated records, distinguishing collection date from source-displayed date;
+- valid, invalid, and absent filename date tokens, distinguishing each from
+  verified capture dates and source-displayed dates;
 - Markdown words, image references, resolved references, unique screenshot hashes, missing references, OCR successes, OCR empty results, and OCR errors;
 - record type, language, text modality, and length distribution;
 - exact duplicate clusters by source and cross-source status;

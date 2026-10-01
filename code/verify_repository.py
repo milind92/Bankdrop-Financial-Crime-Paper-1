@@ -416,6 +416,20 @@ def check_journal_reproducibility_supplement(
         "filename_dates_capture_verified": False,
         "controlled_collection_provenance_packet_prepared": True,
         "collection_provenance_author_confirmed": False,
+        "planned_source_groups_in_internal_protocol": 15,
+        "historical_source_groups_represented": 16,
+        "actual_collection_start_verified": False,
+        "actual_daily_visit_schedule_verified": False,
+        "comparable_note_image_filename_date_pairs": 1032,
+        "same_day_note_image_filename_pairs": 704,
+        "different_day_note_image_filename_pairs": 328,
+        "image_filename_earlier_pairs": 9,
+        "image_filename_later_pairs": 319,
+        "image_filename_later_over_30_days_pairs": 16,
+        "unparseable_linked_image_filename_times": 15,
+        "blank_linked_note_filename_date_assignments": 1,
+        "timestamp_priority_review_rows": 41,
+        "filename_timestamp_meaning_author_confirmed": False,
         "no_ocr_research_or_collection_notes_preliminary": 589,
         "ocr_linked_candidate_notes_pending_review": 391,
         "unreferenced_png_paths": 58,
@@ -506,6 +520,26 @@ def check_journal_reproducibility_supplement(
         != audit.get("historical_screened_notes")
     ):
         errors.append("Post-release audit note counts do not reconcile.")
+    else:
+        checked += 1
+    if (
+        audit.get("same_day_note_image_filename_pairs", 0)
+        + audit.get("different_day_note_image_filename_pairs", 0)
+        != audit.get("comparable_note_image_filename_date_pairs")
+        or audit.get("image_filename_earlier_pairs", 0)
+        + audit.get("image_filename_later_pairs", 0)
+        != audit.get("different_day_note_image_filename_pairs")
+        or audit.get("comparable_note_image_filename_date_pairs", 0)
+        + audit.get("unparseable_linked_image_filename_times", 0)
+        + audit.get("blank_linked_note_filename_date_assignments", 0)
+        != 1048
+        or audit.get("image_filename_earlier_pairs", 0)
+        + audit.get("image_filename_later_over_30_days_pairs", 0)
+        + audit.get("unparseable_linked_image_filename_times", 0)
+        + audit.get("blank_linked_note_filename_date_assignments", 0)
+        != audit.get("timestamp_priority_review_rows")
+    ):
+        errors.append("Post-release audit filename-concordance counts do not reconcile.")
     else:
         checked += 1
     if (
