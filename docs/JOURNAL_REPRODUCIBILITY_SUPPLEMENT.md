@@ -2,7 +2,7 @@
 
 ## Status
 
-**2 October 2026 update:** A separate [fixed-screenshot analysis](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) has fully computed and verified OCR-rule results over 1,037 content-unique, locally referenced images. The archive-bounded rule counts are available, but the five proposed source-claim constructs require new independent Milind–Ausma image coding and Milind's final decision. The historical 980-note pathway below remains on hold and must not be merged into the new denominator.
+**2 October 2026 update:** The separate [fixed-screenshot analysis](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) has completed archive calculations and [focused author assessment](../outputs/image_validation_20261002/). These bounded results can support article drafting, with final interpretation remaining with Milind. The historical 980-note pathway below is inactive for the current article and retains its methodological hold; its denominator and unresolved alternative-design gates must not be applied to the screenshot study.
 
 **Methodological hold.** The [1 October 2026 post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found collection and researcher notes inside the historical 980-note screen. This repository supports inspection of the historical deterministic workflow and aggregate results, but it is not ready to support final article claims or journal submission.
 
@@ -64,4 +64,4 @@ The approved repository wording is "Griffith University Human Ethics Protocol 20
 
 ## Citation And Versioning
 
-Use [CITATION.cff](../CITATION.cff) for the current project-level software citation. Its generic project-author label preserves the authors' decision to finalise names and order later. Version `1.4.0` includes the completed fixed-screenshot OCR-rule computation alongside the historical record; it is not a final source-claim-validated empirical release. Each tagged release must pass the data-free audit and privacy review before publication.
+Use [CITATION.cff](../CITATION.cff) for the current project-level software citation. Its generic project-author label preserves the authors' decision to finalise names and order later. Version `1.4.1` includes the fixed-screenshot computation and completed five-construct author assessment alongside the historical record. Final interpretation remains with the authors. Each tagged release must pass the data-free audit and privacy review before publication.

@@ -3,8 +3,8 @@
     "title": "Bankdrop Financial Crime Paper 1",
     "repository": "https://github.com/milind92/Bankdrop-Financial-Crime-Paper-1",
     "repository_visibility": "public",
-    "version": "1.4.0",
-    "repository_purpose": "Privacy-clean historical Phase 1-4 audit plus completed fixed-screenshot OCR-rule analysis; focused author source-claim validation remains pending.",
+    "version": "1.4.1",
+    "repository_purpose": "Privacy-clean historical audit plus completed fixed-screenshot calculation and five-construct author assessment, supporting bounded article drafting.",
     "empirical_scope": "Deterministic Phases 1-4 only. No Phase 3b, Phase 4b, Phase 5, or LLM-assisted empirical analysis is included.",
     "authorship_status": "Final author names, order, affiliations, identifiers, and contribution statements will be supplied by the authors."
   },
@@ -348,7 +348,8 @@
       "author_decisions": "docs/AUTHOR_DECISIONS_RECORD.md",
       "integration_checklist": "docs/JOURNAL_INTEGRATION_CHECKLIST.md",
       "claim_register": "docs/claim_to_evidence_register.csv"
-    }
+    },
+    "scope": "Historical mixed-record pathway; inactive for the current screenshot article analysis."
   },
   "derived_analysis": {
     "status": "Completed deterministic descriptive post-processing of controlled Phase 3 outputs; not a Phase 5 or LLM-assisted empirical stage.",
@@ -376,7 +377,7 @@
     "interpretation_boundary": "Co-occurrence, source concentration, AML-candidate overlap, and exploratory functional groupings are descriptive of captured records and do not establish sequence, common actors, transactions, causation, a completed service chain, or market prevalence."
   },
   "image_archive_analysis_20261002": {
-    "status": "complete deterministic image-level calculation; five-construct independent author validity pending",
+    "status": "complete fixed-image calculation, author assessment and verified adjudicated validity; final interpretation retained by authors",
     "primary_unit": "SHA-256-unique locally referenced archived PNG content",
     "primary_denominator_n": 1037,
     "portable_reproducer": "code/image_archive/reproduce_controlled.py",
@@ -397,6 +398,15 @@
       "outputs/image_archive_20261002/legacy_icr_applicability_aggregate.json"
     ],
     "controlled_author_packet_in_repository": false,
-    "external_prevalence_claims_permitted": false
-  }
+    "external_prevalence_claims_permitted": false,
+    "assessment_scorer": "code/image_archive/score_author_validation.py",
+    "assessment_exporter": "code/image_archive/export_validation.py",
+    "assessment_metadata": "outputs/image_validation_20261002/validation_metadata.json",
+    "agreement_results": "outputs/image_validation_20261002/intercoder_agreement.csv",
+    "validity_results": "outputs/image_validation_20261002/rule_validity.csv",
+    "claim_register": "docs/image_claim_to_evidence_register.csv",
+    "empirical_analysis_complete": true,
+    "final_author_interpretation_approved_by_agent": false
+  },
+  "active_article_analysis": "image_archive_analysis_20261002"
 }

@@ -6,7 +6,7 @@ A public, privacy-clean, journal-neutral reproducibility supplement containing t
 
 ## Reproducibility Supplement Status
 
-**2 October 2026 status:** The [fixed screenshot analysis](docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) is computationally complete. It verifies and codes 1,037 content-unique, locally referenced archived screenshots and releases [19 OCR-rule aggregate counts and sensitivity checks](outputs/image_archive_20261002/). A [portable controlled reproducer](code/image_archive/reproduce_controlled.py) generated all 12 original result files byte for byte identically in an authorised rerun. The five possible source-claim constructs have a small, blank Milind–Ausma coding packet in controlled storage: 249 decisions per author across 205 screenshots. Independent image-level agreement, adjudication, and Milind's final claim decision have **not occurred**; the repository is therefore not yet a claim-validated journal submission.
+**2 October 2026 status:** The [fixed screenshot analysis and completed author assessment](docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) are ready to support article drafting. The calculation covers 1,037 content-unique linked screenshots; two authors returned 249 paired judgments over 205 images, with 243 agreements (97.6%) and pooled five-category kappa 0.955 before final adjudication. [Five target-specific weighted PPVs and their uncertainty](outputs/image_validation_20261002/) accompany the [archive rule aggregates](outputs/image_archive_20261002/). A fresh archive replay matches all 12 original result files byte for byte. No further coding is required for this scope; Milind retains final interpretation and article wording. See the [end-to-end audit](docs/END_TO_END_AUDIT_2026-10-02.md) and [current claim register](docs/image_claim_to_evidence_register.csv).
 
 The earlier [post-release controlled-corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) found that the historical 980-note screen includes research/status records and cannot serve as the substantive article denominator. Its computations and July mixed-record validation remain historical audit material. The new article scope is a bounded retrospective archive analysis: collector identity for each image, capture dates, source completeness, and OCR gold accuracy are unknown. Filename dates are not used as capture dates. No rule-positive count is presented as a completed sale, transaction, victim count, or external market prevalence. See the [image protocol](docs/IMAGE_ARCHIVE_PROTOCOL_2026-10-02.md) for the exact frame, five-construct validation design, and limits.
 
@@ -43,6 +43,9 @@ The new image-level analysis is a separate retrospective reanalysis of the archi
 - [Fixed screenshot Methods and Results](docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md)
 - [Fixed screenshot protocol and validation](docs/IMAGE_ARCHIVE_PROTOCOL_2026-10-02.md)
 - [Fixed screenshot aggregate outputs](outputs/image_archive_20261002/rule_summary.csv)
+- [Completed screenshot author assessment](outputs/image_validation_20261002/)
+- [Current screenshot claim register](docs/image_claim_to_evidence_register.csv)
+- [End-to-end audit](docs/END_TO_END_AUDIT_2026-10-02.md)
 - [Post-release corpus audit](docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md)
 - [Data-collection protocol](docs/DATA_COLLECTION_PROTOCOL.md)
 - [Phase 3 codebook](outputs/phase3_aggregate/CODEBOOK_PHASE3.md)

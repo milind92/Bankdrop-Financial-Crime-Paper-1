@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.4.1 - 2026-10-02
+
+- Integrated the supplied two-author assessment: 249 paired judgments over 205 screenshots, 243 exact agreements (97.6%), pooled five-category kappa 0.955, and complete final adjudication.
+- Released five target-specific weighted PPVs, raw review classifications, descriptive uncertainty and whole-file provenance. Reported the 16/19 positive census precisely and retained nonbinary negative outcomes; no perfect-recall or blanket codebook-validity claim is made.
+- Added a portable controlled author scorer and an allowlisted aggregate exporter. Strengthened complete adjudication metadata/reason checking before writes, protected scoring inputs, cleared stale pending-run validity output, and froze draft/scoring provenance.
+- Replayed the full fixed archive after audit corrections: all 12 original result files remained byte-identical. Extended input hashes to all loaded old matrices, orphan audit and both legacy coder workbooks.
+- Updated the Methods/Results, protocol, current claim register and status pages. Distinguished the current completed screenshot design from the inactive historical mixed-note gate; unknown collection/OCR facts remain stated limits.
+- Added regression checks and completed-assessment integrity reconciliation. Original author answers and archive rule counts are unchanged; final interpretation remains with Milind.
+- Updated the checkout and Python setup workflow actions to Node.js 24 versions to address the previous CI deprecation warnings.
+
 ## 1.4.0 - 2026-10-02
 
 - Completed a retrospective analysis of 1,037 SHA-256-unique, locally referenced archived screenshots. Released 19 OCR-rule aggregates, within-image overlap, pattern diagnostics, exact OCR-text and OCR-length sensitivity, historical-unit comparison, and anonymised leave-one-archive-group-out ranges. Counts remain lexical and do not establish real transactions or source-claim validity.

@@ -1,0 +1,7 @@
+target,paired_items,five_category_agreements,five_category_percent_agreement,five_category_cohens_kappa
+all_five_targets,249,243,0.975904,0.955039
+bank_drop_sale,50,47,0.94,0.89719
+bank_log_plus_email_access,49,49,1.0,1.0
+bank_log_sale,50,47,0.94,0.892319
+email_access_takeover,50,50,1.0,1.0
+fullz_identity_package,50,50,1.0,1.0

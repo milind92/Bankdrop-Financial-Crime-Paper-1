@@ -2,7 +2,7 @@
 
 All committed outputs are aggregate and publication-safe. Raw and record-level material is excluded.
 
-**Status:** Phase 1-4, derived-analysis, and July human-validation outputs are historical mixed-record calculations. The separate [fixed-screenshot analysis](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) has complete image-level OCR-rule aggregates. Its five source-claim constructs await new independent author validation.
+**Status:** Historical Phase 1-4, derived and July validation outputs document the mixed-record pathway. The current [screenshot Methods and Results](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) uses `outputs/image_archive_20261002/` for archive calculations and `outputs/image_validation_20261002/` for completed agreement, five weighted PPVs, raw review classifications and provenance. Its final article interpretation remains with the authors.
 
 ## Fixed screenshot archive (2 October 2026)
 

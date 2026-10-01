@@ -1,6 +1,6 @@
 # Reproducibility
 
-**Current status:** The [fixed-screenshot OCR-rule computation](docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) is complete for 1,037 content-unique linked images. Its [portable controlled reproducer](code/image_archive/reproduce_controlled.py) regenerated all 12 original files byte for byte; the public checkout includes only aggregates. The commands below still reproduce the historical 980-note computation. Five source-claim constructs require the two authors' final independent coding before article interpretation.
+**Current status:** The [fixed-screenshot analysis and focused author assessment](docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) are complete for the defined 1,037-image frame. A fresh [portable controlled replay](code/image_archive/reproduce_controlled.py) reproduced all 12 original files; the [author scorer](code/image_archive/score_author_validation.py) reproduces the completed results with strengthened provenance checks. Follow the [current image protocol](docs/IMAGE_ARCHIVE_PROTOCOL_2026-10-02.md) for those two workflows. Commands below document the historical mixed-note computation; its article-use hold remains specific to that older pathway.
 
 ## Data-Free Audit
 

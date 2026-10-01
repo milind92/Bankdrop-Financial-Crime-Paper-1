@@ -1,0 +1,51 @@
+{
+  "status": "completed author assessment; independent arithmetic and fixed-archive replay verified",
+  "primary_image_frame_n": 1037,
+  "paired_judgments": 249,
+  "distinct_reviewed_images": 205,
+  "assessed_targets_n": 5,
+  "substantive_rules_without_human_validity_assessment_n": 13,
+  "exact_agreements": 243,
+  "disagreements": 6,
+  "adjudication_rows": 18,
+  "final_category_counts": {
+    "present": 94,
+    "absent": 142,
+    "out_of_scope": 12,
+    "unreadable": 1
+  },
+  "prior_packet_exposed_assignments": 143,
+  "assignments_not_mapped_to_prior_packet": 106,
+  "author_process_basis": "Author-reported independent coding; packet masking verified. CSV contents alone do not establish coding conduct.",
+  "uncertainty": "1,000 seeded within-stratum resamples; 2.5th/97.5th percentile descriptive ranges. Census strata fixed; not calibrated intervals for external populations or human-label error.",
+  "positive_census_target": "bank_log_plus_email_access",
+  "positive_census_human_present_n": 16,
+  "positive_census_n": 19,
+  "construct_boundary": "Package or explicit linkage of bank-log/account access with email, cookie, recovery or session access; includes tutorials, requests and recommendations as well as listings.",
+  "all_reviewed_rule_positives_have_binary_final_labels": true,
+  "negative_sample_boundary": "Nonbinary outcomes are retained. Sampled negatives, including zero observed misses for one target, do not establish perfect archive recall or NPV.",
+  "controlled_input_file_sha256": {
+    "Milind": "60601547e94e421cac5cc486fdcbae07ddb765e242e7ba1117d7b127650b61a3",
+    "Ausma": "4dec2d815e4dcc0872f624325ad89d877ec0d39f8015b48090a285aba43c6fe9",
+    "adjudication": "a0441a9d7b9eada9d5caeaca0b2a9f8b748e7929cebc6d87e3b58232b3d56aed",
+    "private_key": "46b9c00e22144fad81d1fab62d6ce40f619af6520734e821143aa2b2aaa92ff0"
+  },
+  "controlled_scoring_output_sha256": {
+    "intercoder_agreement.csv": "3da99a2c189a401b44deffcbf0bd22d6fd42639207629aaa2bb53e996bf2dc79",
+    "adjudication_template.csv": "7a6c000cbfd2fc247dfff54488ccdcd625d9e0b585b0a5b4f154695639423386",
+    "weighted_rule_validation.csv": "2d546c444a3f66406f37a579dbc472aa0aeeefb8af4cc2c285627c3b1360f804",
+    "scoring_manifest.json": "579dbea976a9ebc73f121029ccc217304d32bf64b1f8cf37bec865905114d4d5"
+  },
+  "controlled_audit_script_sha256": "58602a52bfbb7fdacc0b63360b8516183d51d3aa0bd3ac4115b7675bf7fc933c",
+  "controlled_independent_audit_sha256": "ddcf72285df1a834469621571e1c55e6a6bc27adee458c3ff1426a981b88650d",
+  "public_scorer_sha256": "4dc468e917f240b8731d63ad37219245df6ee34575932e2c0eeada272e4d2766",
+  "public_exporter_sha256": "6490bbbd108d88f736edcad1fe2fd3c5e9075f275c00c050757f317e74c78986",
+  "public_output_sha256": {
+    "intercoder_agreement.csv": "808716a929d748a1943ea572fb2a11951bc028bfb08d07da5ee3640bd572f445",
+    "rule_validity.csv": "5c38f5f98cc2d1c6e3a630fff4121965044dbd2921f7e26bf555e2fa929b1ab1"
+  },
+  "public_report_sha256": "c8ba0df78e1b56e2aec5e03c251d080510e433dbeef845c317342162de9719a7",
+  "public_hash_method": "SHA-256 of UTF-8 bytes after CRLF-to-LF normalisation",
+  "record_level_data_released": false,
+  "interpretation_decision": "Final author interpretation and article wording remain with Milind."
+}

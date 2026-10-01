@@ -1,8 +1,8 @@
 # Reproducibility Supplement Submission Checklist
 
-**2 October 2026 update:** The separate [fixed-screenshot analysis](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md) and its aggregate sensitivity tables are complete and verified. Its five possible source-claim interpretations still require the two authors' independent screenshot coding, agreement/adjudication, and Milind's final decision. The historical combined-note checklist below remains an audit of that older pathway; its unchecked items are not silently claimed as resolved by the bounded screenshot design.
+**2 October 2026 update:** The [fixed-screenshot Methods/Results](IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md), archive sensitivities and five-construct author assessment are complete. They can support the article's analysis section; final interpretation and wording remain with Milind. The historical checklist below is inactive for this screenshot design and preserved for audit. Its unresolved alternative-design gates are not additional author tasks for the current analysis.
 
-## Supplement Submission Gate
+## Historical combined-note gate (inactive; audit record)
 
 - [x] Repository role fixed as a journal-neutral reproducibility supplement.
 - [x] Deterministic empirical scope limited to Phases 1-4.
@@ -24,7 +24,7 @@
 - [x] Public-versus-controlled rerun boundaries documented.
 - [x] Release version, changelog, citation metadata, and workflow manifest aligned.
 
-The checklist remains open and the journal-use gate is **closed**. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates. The revised descriptive builder and holdout sampler/scorer have only synthetic gate tests; no real revised tables, coder decisions, or performance estimates are complete.
+For the historical combined-note pathway, this checklist remains open and its journal-use gate is **closed**. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates. The revised descriptive builder and holdout sampler/scorer have only synthetic gate tests; no real revised tables, coder decisions, or performance estimates are complete.
 
 ## Article And Journal-Portal Handoff
 
@@ -38,7 +38,7 @@ The following information is also supplied outside this reproducibility suppleme
 - confirm copyright holders, institutional ownership interests, licence, and any DOI or archival deposit; and
 - apply the journal's file, table, figure, word-count, reporting-guideline, and reference-style requirements.
 
-## Manuscript Use Boundary
+## Historical combined-note manuscript boundary
 
 After the methodological hold is lifted, the manuscript should:
 
@@ -52,4 +52,4 @@ After the methodological hold is lifted, the manuscript should:
 
 ## Readiness Statement
 
-The reproducibility supplement is **not ready for journal-facing substantive use**. Complete the author-reviewed corpus and validation gates above, then reconcile the revised repository and manuscript before submission.
+The historical combined-note outputs are **not ready for journal-facing substantive use** under that inactive design. The completed screenshot analysis and focused assessment are ready for drafting within their stated bounds. See the current Methods/Results and image claim register; ordinary article, author and journal requirements remain separate from analysis completion.

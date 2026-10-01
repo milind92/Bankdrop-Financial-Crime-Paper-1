@@ -54,6 +54,12 @@ REQUIRED_FILES = (
     "docs/IMAGE_ARCHIVE_ANALYSIS_2026-10-02.md",
     "docs/IMAGE_ARCHIVE_PROTOCOL_2026-10-02.md",
     "code/image_archive/reproduce_controlled.py",
+    "code/image_archive/score_author_validation.py",
+    "code/image_archive/export_validation.py",
+    "code/image_archive/verify_validation.py",
+    "outputs/image_validation_20261002/intercoder_agreement.csv",
+    "outputs/image_validation_20261002/rule_validity.csv",
+    "outputs/image_validation_20261002/validation_metadata.json",
     "outputs/image_archive_20261002/flow.json",
     "outputs/image_archive_20261002/legacy_icr_applicability_aggregate.json",
     "outputs/image_archive_20261002/release_provenance.json",
@@ -74,6 +80,9 @@ REQUIRED_FILES = (
 )
 
 CSV_SCHEMAS = {
+    "outputs/image_validation_20261002/intercoder_agreement.csv": "target,paired_items,five_category_agreements,five_category_percent_agreement,five_category_cohens_kappa",
+    "outputs/image_validation_20261002/rule_validity.csv": "target,paired_judgments,reviewed_rule_positive_n,archive_rule_positive_n,reviewed_rule_negative_n,archive_rule_negative_n,sample_tp,sample_fp,sample_fn,sample_tn,sample_nonbinary_n,weighted_tp,weighted_fp,weighted_positive_predictive_value,ppv_descriptive_bootstrap_low,ppv_descriptive_bootstrap_high,uncertainty_basis",
+    "docs/image_claim_to_evidence_register.csv": "claim_id,draft_wording,denominator_n,evidence_files,boundary",
     "outputs/image_archive_20261002/rule_summary.csv": "family,code,label,positive_images,denominator_images,percent_of_images,total_regex_hits,interpretation",
     "outputs/image_archive_20261002/pattern_level_diagnostics.csv": "family,code,pattern_number,pattern,images_matched,total_matches,code_positive_images",
     "outputs/image_archive_20261002/within_image_cooccurrence.csv": "code_a,code_b,images_with_both,image_denominator",
@@ -1470,6 +1479,12 @@ def main() -> int:
     performance_count = check_human_validation_performance(manifest, errors)
     derived_count = check_derived_analysis(manifest, errors)
     image_archive_count = check_image_archive_release(errors)
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("completed_image_validation_audit",
+            REPOSITORY_ROOT / "code" / "image_archive" / "verify_validation.py")
+    validation_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(validation_module)
+    image_validation_count = validation_module.check(REPOSITORY_ROOT, errors)
 
     if errors:
         print("Repository integrity check failed:", file=sys.stderr)
@@ -1492,6 +1507,7 @@ def main() -> int:
     print(f"- Human-validation performance checks: {performance_count}")
     print(f"- Derived-analysis checks: {derived_count}")
     print(f"- Fixed image-archive release checks: {image_archive_count}")
+    print(f"- Completed image author-validation checks: {image_validation_count}")
     return 0
 
 
