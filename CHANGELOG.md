@@ -7,6 +7,7 @@
 - Audited reuse of July's 1,032 paired mixed-record judgments. Only 83 are single-image/OCR-equivalent, and the 83 agreements are dominated by 79 absent judgments; the old ICR is not transferred to the screenshot task.
 - Prepared separate, blank Milind and Ausma sheets for five focused source-claim constructs: 249 judgments each across 205 screenshots. The images, case-level selections, private predictions, coder sheets, and scorer remain controlled. The two authors' independent decisions, final agreement/adjudication, and Milind's publication-scope decision are pending.
 - Explicitly treat missing collection history, verified capture dates, source completeness, and OCR gold accuracy as unknown limits of this fixed archive, rather than filling them with assumptions. The older 980-note computations are preserved as historical outputs.
+- Corrected the two data-free fixture suites to create their external test parent directories on clean GitHub runners; this changes no empirical result.
 
 ## 1.3.21 - 2026-10-01
 

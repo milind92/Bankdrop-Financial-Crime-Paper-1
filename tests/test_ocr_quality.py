@@ -30,7 +30,7 @@ def save_csv(path: Path, rows: list[dict[str, str]], fields: list[str]) -> None:
 class OcrQualityTests(unittest.TestCase):
     def setUp(self) -> None:
         self.base = ROOT.parents[1] / "outputs" / "paper1_audit_20261001" / f"test_ocr_{uuid.uuid4().hex}"
-        self.base.mkdir()
+        self.base.mkdir(parents=True)
         self.vault = self.base / "vault"
         self.vault.mkdir()
         self.review = self.base / "review"

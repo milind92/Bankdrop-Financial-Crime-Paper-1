@@ -56,7 +56,7 @@ class EvidenceScreeningTests(unittest.TestCase):
     def setUp(self) -> None:
         # Outside the public checkout, matching the production privacy gate.
         self.base = ROOT.parents[1] / "outputs" / "paper1_audit_20261001" / f"test_evidence_{uuid.uuid4().hex}"
-        self.base.mkdir()
+        self.base.mkdir(parents=True)
         self.vault = self.base / "vault"
         self.vault.mkdir()
         self.review = self.base / "review"
