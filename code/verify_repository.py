@@ -27,6 +27,8 @@ REQUIRED_FILES = (
     ".github/workflows/repository-integrity.yml",
     "code/run_reproducible_pipeline.py",
     "code/export_public_release.py",
+    "code/evidence_screening/build_evidence_corpus.py",
+    "code/evidence_screening/METHODS_EVIDENCE_SCREEN.md",
     "code/derived_analysis/build_derived_analysis.py",
     "code/human_validation/build_public_icr_by_target.py",
     "code/human_validation/summarize_human_validation.py",
@@ -130,6 +132,12 @@ RESTRICTED_FILENAMES = {
     "validation_sample_index.csv",
     "blinded_coder_sheet_template.csv",
     "adjudication_sheet_template.csv",
+    "note_decisions.csv",
+    "image_decisions.csv",
+    "source_segments.csv",
+    "approved_evidence_units.jsonl",
+    "evidence_build_manifest.json",
+    "review_inventory.json",
 }
 BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "source_path", "local_path", "absolute_path"}
 BLOCKED_FIELD_TOKENS = {"snippet", "snippets", "raw_text", "ocr_text", "full_text"}
@@ -381,6 +389,20 @@ def check_journal_reproducibility_supplement(
     for field, expected in expected_audit.items():
         if audit.get(field) != expected:
             errors.append(f"Post-release audit field {field} must be {expected!r}.")
+        else:
+            checked += 1
+    evidence_gate = manifest.get("revised_evidence_screening_gate", {})
+    for field, expected in {
+        "status": "review_template_prepared_author_decisions_pending",
+        "script": "code/evidence_screening/build_evidence_corpus.py",
+        "method": "code/evidence_screening/METHODS_EVIDENCE_SCREEN.md",
+        "review_templates_controlled_only": True,
+        "historical_outputs_modified": False,
+        "revised_evidence_units_approved": None,
+        "article_ready": False,
+    }.items():
+        if not isinstance(evidence_gate, dict) or evidence_gate.get(field) != expected:
+            errors.append(f"Revised evidence-screening gate {field} is missing or incorrect.")
         else:
             checked += 1
     if (

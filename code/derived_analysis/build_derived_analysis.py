@@ -660,6 +660,18 @@ def build_source_concentration(
 
 
 def build_analysis(source_dir: Path, output_dir: Path) -> dict[str, object]:
+    phase3_metadata = source_dir / "run_metadata.json"
+    if phase3_metadata.exists():
+        try:
+            mode = json.loads(phase3_metadata.read_text(encoding="utf-8-sig")).get("analysis_mode")
+        except (OSError, ValueError, AttributeError) as exc:
+            raise DerivedAnalysisError("Cannot verify Phase 3 analysis mode") from exc
+        if mode == "author_reviewed_artifact_bounded_source_text":
+            raise DerivedAnalysisError(
+                "Historical duplicate and population definitions do not yet apply to "
+                "the reviewed-evidence corpus; revise the derived analysis after the "
+                "evidence frame and target definitions are approved"
+            )
     source_files = {
         "combined_corpus_with_ocr.csv": source_dir / "combined_corpus_with_ocr.csv",
         "typology_coding_long.csv": source_dir / "typology_coding_long.csv",

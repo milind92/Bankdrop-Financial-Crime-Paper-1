@@ -22,7 +22,7 @@ from typing import Any, Sequence
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
-EXPORTER_VERSION = "1.1.0"
+EXPORTER_VERSION = "1.1.1"
 
 
 @dataclass(frozen=True)
@@ -130,6 +130,12 @@ BLOCKED_FILENAMES = {
     "adjudication_sheet_template.csv",
     "file_inventory.csv",
     "phase_inventory.csv",
+    "note_decisions.csv",
+    "image_decisions.csv",
+    "source_segments.csv",
+    "approved_evidence_units.jsonl",
+    "evidence_build_manifest.json",
+    "review_inventory.json",
 }
 BLOCKED_FIELD_TOKENS = {"path", "text", "snippet", "snippets", "evidence"}
 BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id"}
@@ -275,6 +281,17 @@ def export_public_release(
         raise PublicExportError(f"Repository root does not exist: {repository_root}")
     if source_output_root == repository_root or is_within(source_output_root, repository_root):
         raise PublicExportError("Controlled output root must be outside the public repository")
+    phase3_metadata = source_output_root / "phase3_typology_coding" / "run_metadata.json"
+    if phase3_metadata.exists():
+        try:
+            phase3_mode = json.loads(phase3_metadata.read_text(encoding="utf-8-sig")).get("analysis_mode")
+        except (OSError, ValueError, AttributeError) as exc:
+            raise PublicExportError("Cannot verify controlled Phase 3 analysis mode") from exc
+        if phase3_mode == "author_reviewed_artifact_bounded_source_text":
+            raise PublicExportError(
+                "Revised source-evidence aggregates cannot be exported until their "
+                "OCR quality, target validation, downstream analysis, and release manifest are approved"
+            )
 
     candidates: list[tuple[PublicExport, Path, Path]] = []
     for item in PUBLIC_EXPORTS:

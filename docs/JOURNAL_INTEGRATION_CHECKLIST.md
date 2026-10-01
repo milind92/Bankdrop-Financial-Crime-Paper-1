@@ -6,6 +6,7 @@
 - [x] Deterministic empirical scope limited to Phases 1-4.
 - [x] Historical 980-note computational screen and 463-hash sensitivity preserved for audit.
 - [x] Historical human validation and all 51 adjudications reported in aggregate.
+- [x] Controlled evidence-screening gate and blank author-review worksheets prepared.
 - [ ] Author-reviewed substantive record and text-provenance eligibility locked.
 - [ ] Unreferenced images reviewed and linked, excluded, or separately unitised.
 - [ ] OCR accuracy measured from a human-transcribed sample.
@@ -17,7 +18,7 @@
 - [x] Public-versus-controlled rerun boundaries documented.
 - [x] Release version, changelog, citation metadata, and workflow manifest aligned.
 
-The gate is **open** at release `v1.3.4`. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates.
+The gate is **open** at version `1.3.5`. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates.
 
 ## Article And Journal-Portal Handoff
 

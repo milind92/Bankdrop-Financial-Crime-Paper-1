@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.5 - 2026-10-01
+
+- Added a controlled, hash-checked evidence-screening gate that requires two recorded reviewer decisions and adjudication for every screened note and image, plus approved source-text spans before an evidence-only corpus can be built.
+- Added an optional Phase 3 path that codes approved Markdown/OCR spans within artefact boundaries. The default historical replay and all previously published aggregate result files remain unchanged.
+- Blocked the old Phase 4 narrative from treating a revised evidence corpus as covered by the historical human validation. The revised denominator, OCR accuracy, target validity, and article tables remain pending.
+- Prevented the public exporter from replacing historical aggregate files with provisional revised-evidence outputs.
+- Blocked the historical derived-analysis definitions for revised evidence units and corrected the Phase 3 overview's revised-mode validation wording.
+- Added a provisional OCR-only sensitivity explanation to the public audit. All new record-level review sheets and source text remain controlled.
+
 ## 1.3.4 - 2026-10-01
 
 - Placed the supplement on methodological hold after a controlled audit distinguished captured source evidence from collection-status and researcher-written Markdown records.

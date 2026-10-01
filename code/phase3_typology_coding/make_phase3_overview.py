@@ -30,13 +30,14 @@ def main() -> None:
     objectives = read_csv("criminal_objective_summary.csv")
     aml = read_csv("aml_indicator_summary_by_source.csv")
     metadata = json.loads((BASE / "run_metadata.json").read_text(encoding="utf-8"))
+    revised = metadata.get("analysis_mode") == "author_reviewed_artifact_bounded_source_text"
 
     lines = [
         "# Phase 3 Analytic Overview",
         "",
         "## Scope",
         "",
-        f"- Notes coded: {metadata['note_count']}",
+        f"- {'Approved evidence units' if revised else 'Notes'} coded: {metadata['note_count']}",
         f"- Substantive typology codes: {len(substantive_typology)}",
         f"- Collection-quality flags: {len(collection_quality)}",
         f"- AML indicator candidates: {metadata['aml_indicator_count']}",
@@ -44,7 +45,7 @@ def main() -> None:
         "",
         "## Top Typologies",
         "",
-        "| Rank | Code | Label | Notes | Hits |",
+        f"| Rank | Code | Label | {'Units' if revised else 'Notes'} | Hits |",
         "|---:|---|---|---:|---:|",
     ]
     for index, row in enumerate(substantive_typology, 1):
@@ -54,7 +55,7 @@ def main() -> None:
         "",
         "## Collection-Quality Flags",
         "",
-        "| Code | Label | Notes | Hits |",
+        f"| Code | Label | {'Units' if revised else 'Notes'} | Hits |",
         "|---|---|---:|---:|",
     ])
     for row in collection_quality:
@@ -66,7 +67,7 @@ def main() -> None:
         "",
         "## Criminal Objective Summary",
         "",
-        "| Rank | Criminal objective | Notes | Hits |",
+        f"| Rank | Criminal objective | {'Units' if revised else 'Notes'} | Hits |",
         "|---:|---|---:|---:|",
     ])
     for index, row in enumerate(objectives, 1):
@@ -76,7 +77,7 @@ def main() -> None:
         "",
         "## Highest Source-Level AML Indicator Signals",
         "",
-        "| Rank | Indicator | Source | Notes | Hits |",
+        f"| Rank | Indicator | Source | {'Units' if revised else 'Notes'} | Hits |",
         "|---:|---|---|---:|---:|",
     ])
     for index, row in enumerate(sorted(aml, key=lambda item: int(item["note_count"]), reverse=True)[:20], 1):
@@ -86,7 +87,11 @@ def main() -> None:
         "",
         "## Use And Limits",
         "",
-        "This is deterministic baseline coding over Markdown plus OCR text; it is not final qualitative coding by itself. Ausma Bernot and Milind Tiwari completed blinded human validation and adjudication. Interpretive claims must remain within the published target-level performance, duplicate-sensitivity, source-dependence, and contextual-evidence boundaries.",
+        (
+            "This is provisional, artefact-bounded coding over reviewed source-text spans. The historical human validation does not validate this revised frame. OCR quality, target-level validation, duplicate/source sensitivity, and contextual interpretation remain pending."
+            if revised else
+            "This is deterministic baseline coding over Markdown plus OCR text; it is not final qualitative coding by itself. Ausma Bernot and Milind Tiwari completed blinded human validation and adjudication for the historical sample. Interpretive claims must remain within its target-level performance, duplicate-sensitivity, source-dependence, and contextual-evidence boundaries."
+        ),
     ])
     output = BASE / "PHASE3_ANALYTIC_OVERVIEW.md"
     output.write_text("\n".join(lines) + "\n", encoding="utf-8")

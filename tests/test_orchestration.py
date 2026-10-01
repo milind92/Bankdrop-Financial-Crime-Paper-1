@@ -51,6 +51,11 @@ def make_repository(root: Path) -> Path:
 
 
 class PipelineGuardrailTests(unittest.TestCase):
+    def test_historical_runner_does_not_inherit_revised_corpus(self) -> None:
+        with mock.patch.dict("os.environ", {"BANK_DROP_EVIDENCE_CORPUS": "controlled.jsonl"}):
+            environment = orchestrator.build_environment(Path("vault"), Path("outputs"), REPOSITORY_ROOT)
+        self.assertNotIn("BANK_DROP_EVIDENCE_CORPUS", environment)
+
     def test_missing_vault_is_refused(self) -> None:
         with temporary_workspace() as temporary:
             root = Path(temporary)
@@ -119,6 +124,20 @@ class PipelineGuardrailTests(unittest.TestCase):
 
 
 class PublicExporterTests(unittest.TestCase):
+    def test_revised_evidence_run_cannot_replace_historical_public_aggregates(self) -> None:
+        with temporary_workspace() as temporary:
+            controlled, repository = self.make_roots(temporary)
+            phase3 = controlled / "phase3_typology_coding"
+            phase3.mkdir()
+            (phase3 / "run_metadata.json").write_text(
+                json.dumps({"analysis_mode": "author_reviewed_artifact_bounded_source_text"}),
+                encoding="utf-8",
+            )
+            (phase3 / "typology_summary.csv").write_text("code,note_count\nexample,1\n", encoding="utf-8")
+            with self.assertRaisesRegex(exporter.PublicExportError, "cannot be exported"):
+                exporter.export_public_release(controlled, repository)
+            self.assertFalse((repository / "outputs").exists())
+
     def test_phase4_recommendations_are_in_the_public_allowlist(self) -> None:
         destinations = {item.destination for item in exporter.PUBLIC_EXPORTS}
         self.assertIn(

@@ -237,6 +237,7 @@ class Note:
     collection_date: str
     markdown_text: str
     ocr_text: str
+    artifacts: tuple[dict[str, str], ...] = ()
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -307,6 +308,65 @@ def load_notes() -> list[Note]:
     return notes
 
 
+def load_approved_evidence(path: Path) -> tuple[list[Note], str]:
+    """Read the reviewed corpus emitted by the controlled screening gate."""
+    path = path.resolve()
+    if path == REPOSITORY_ROOT or REPOSITORY_ROOT in path.parents:
+        raise ValueError("Approved evidence text must remain outside the public repository")
+    manifest = json.loads((path.parent / "evidence_build_manifest.json").read_text(encoding="utf-8"))
+    if manifest.get("status") != "source_screening_complete_target_validation_pending":
+        raise ValueError("The evidence corpus lacks a completed source-screening manifest")
+    evidence_sha = hashlib.sha256(path.read_bytes()).hexdigest()
+    if manifest.get("evidence_jsonl_sha256") != evidence_sha:
+        raise ValueError("Approved evidence corpus hash does not match screening manifest")
+    notes: list[Note] = []
+    seen_ids: set[str] = set()
+    with path.open("r", encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, start=1):
+            if not line.strip():
+                raise ValueError(f"Blank approved-evidence row at line {line_number}")
+            row = json.loads(line)
+            note_id = str(row.get("note_id", ""))
+            if not note_id or note_id in seen_ids:
+                raise ValueError("Approved evidence contains missing or duplicate unit IDs")
+            seen_ids.add(note_id)
+            artifacts = row.get("artifacts")
+            if not isinstance(artifacts, list) or not artifacts:
+                raise ValueError(f"Approved evidence unit has no source spans: {note_id}")
+            checked_artifacts = []
+            artifact_ids = set()
+            for artifact in artifacts:
+                if not isinstance(artifact, dict):
+                    raise ValueError("Invalid approved evidence artifact")
+                artifact_id = str(artifact.get("artifact_id", ""))
+                kind = artifact.get("kind")
+                text = artifact.get("text")
+                if (
+                    not artifact_id or artifact_id in artifact_ids
+                    or kind not in {"markdown_source_span", "image_ocr"}
+                    or not isinstance(text, str) or not text.strip()
+                    or sha256_text(text) != artifact.get("text_sha256")
+                ):
+                    raise ValueError(f"Invalid approved source span in unit {note_id}")
+                artifact_ids.add(artifact_id)
+                checked_artifacts.append({"artifact_id": artifact_id, "kind": kind, "text": text})
+            source = row.get("source")
+            if not isinstance(source, str) or not source.strip():
+                raise ValueError(f"Approved evidence source is missing for {note_id}")
+            notes.append(Note(
+                note_id=note_id,
+                relative_path=str(row.get("relative_path", "")),
+                source=source,
+                collection_date=str(row.get("collection_date", "")),
+                markdown_text="\n\n".join(item["text"] for item in checked_artifacts if item["kind"] == "markdown_source_span"),
+                ocr_text="\n\n".join(item["text"] for item in checked_artifacts if item["kind"] == "image_ocr"),
+                artifacts=tuple(checked_artifacts),
+            ))
+    if len(notes) != manifest.get("approved_evidence_units"):
+        raise ValueError("Approved evidence unit count does not match screening manifest")
+    return notes, evidence_sha
+
+
 def compile_patterns(patterns: list[str]) -> list[re.Pattern[str]]:
     return [re.compile(pattern, flags=re.IGNORECASE | re.DOTALL) for pattern in patterns]
 
@@ -345,6 +405,35 @@ def code_text(text: str, codebook: dict) -> tuple[dict[str, int], dict[str, int]
     return hit_counts, pattern_counts, snippets
 
 
+def code_artifacts(artifacts: tuple[dict[str, str], ...], codebook: dict) -> tuple[dict[str, int], dict[str, int], list[dict[str, object]]]:
+    """Apply every compound rule within one approved span, never across spans."""
+    hit_counts = {}
+    pattern_counts = {}
+    snippets = []
+    for code, entry in codebook.items():
+        matches_total = 0
+        matched_patterns = set()
+        code_snippets = []
+        for pattern_number, pattern in enumerate(compile_patterns(entry["patterns"])):
+            for artifact in artifacts:
+                text = artifact["text"]
+                matches = list(pattern.finditer(text))
+                if matches:
+                    matched_patterns.add(pattern_number)
+                    matches_total += len(matches)
+                for match in matches:
+                    if len(code_snippets) < 3:
+                        code_snippets.append({
+                            "code": code,
+                            "matched_text": match.group(0)[:120],
+                            "snippet": short_snippet(text, match.start(), match.end()),
+                        })
+        hit_counts[code] = matches_total
+        pattern_counts[code] = len(matched_patterns)
+        snippets.extend(code_snippets)
+    return hit_counts, pattern_counts, snippets
+
+
 def rule_match_intensity_from_counts(hit_count: int, pattern_count: int, text_sources: int) -> str:
     if hit_count >= 5 and pattern_count >= 2 and text_sources >= 1:
         return "high"
@@ -356,20 +445,31 @@ def rule_match_intensity_from_counts(hit_count: int, pattern_count: int, text_so
 
 
 def main() -> None:
+    evidence_path = os.environ.get("BANK_DROP_EVIDENCE_CORPUS", "").strip()
+    evidence_mode = bool(evidence_path)
+    if evidence_mode and (PHASE3_OUTPUT.resolve() == REPOSITORY_ROOT or REPOSITORY_ROOT in PHASE3_OUTPUT.resolve().parents):
+        raise ValueError("Approved evidence outputs must remain outside the public repository")
+    if evidence_mode:
+        notes, evidence_sha = load_approved_evidence(Path(evidence_path))
+    else:
+        if not VAULT.exists():
+            raise FileNotFoundError(f"Missing vault: {VAULT}")
+        if not (PHASE2_OUTPUT / "ocr_text_by_note.csv").exists():
+            raise FileNotFoundError("Phase 2 OCR output not found. Run Phase 2 first.")
+        notes = load_notes()
+        evidence_sha = None
     PHASE3_OUTPUT.mkdir(parents=True, exist_ok=True)
-    if not VAULT.exists():
-        raise FileNotFoundError(f"Missing vault: {VAULT}")
-    if not (PHASE2_OUTPUT / "ocr_text_by_note.csv").exists():
-        raise FileNotFoundError("Phase 2 OCR output not found. Run Phase 2 first.")
-
-    notes = load_notes()
     coding_rows = []
     snippet_rows = []
     aml_rows = []
     combined_rows = []
 
     for note in notes:
-        combined_text = "\n\n".join(part for part in [note.markdown_text, note.ocr_text] if part.strip())
+        combined_text = (
+            "\n\n".join(artifact["text"] for artifact in note.artifacts)
+            if evidence_mode else
+            "\n\n".join(part for part in [note.markdown_text, note.ocr_text] if part.strip())
+        )
         markdown_present = 1 if note.markdown_text.strip() else 0
         ocr_present = 1 if note.ocr_text.strip() else 0
         text_sources = markdown_present + ocr_present
@@ -389,8 +489,12 @@ def main() -> None:
             }
         )
 
-        hit_counts, pattern_counts, snippets = code_text(combined_text, CODEBOOK)
-        aml_hit_counts, aml_pattern_counts, aml_snippets = code_text(combined_text, AML_INDICATORS)
+        if evidence_mode:
+            hit_counts, pattern_counts, snippets = code_artifacts(note.artifacts, CODEBOOK)
+            aml_hit_counts, aml_pattern_counts, aml_snippets = code_artifacts(note.artifacts, AML_INDICATORS)
+        else:
+            hit_counts, pattern_counts, snippets = code_text(combined_text, CODEBOOK)
+            aml_hit_counts, aml_pattern_counts, aml_snippets = code_text(combined_text, AML_INDICATORS)
 
         for code, entry in CODEBOOK.items():
             rule_match_intensity = rule_match_intensity_from_counts(hit_counts[code], pattern_counts[code], text_sources)
@@ -628,8 +732,8 @@ def main() -> None:
     metadata = {
         "phase": "phase3_typology_coding",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "vault_path": str(VAULT),
-        "phase2_output_path": str(PHASE2_OUTPUT),
+        "vault_path": "[HASH_CHECKED_AT_EVIDENCE_BUILD]" if evidence_mode else str(VAULT),
+        "phase2_output_path": "[OCR_PROVENANCE_IN_EVIDENCE_BUILD]" if evidence_mode else str(PHASE2_OUTPUT),
         "phase3_output_path": str(PHASE3_OUTPUT),
         "note_count": len(notes),
         "typology_code_count": len(CODEBOOK),
@@ -640,13 +744,21 @@ def main() -> None:
         "evidence_snippet_rows": len(snippet_rows),
         "aml_coding_rows": len(aml_rows),
     }
+    if evidence_mode:
+        metadata.update({
+            "analysis_mode": "author_reviewed_artifact_bounded_source_text",
+            "evidence_corpus_sha256": evidence_sha,
+            "historical_human_validation_applicable": False,
+            "article_ready": False,
+            "note_count_field_semantics": "approved evidence unit count; includes any separately approved orphan-image units, not unique posts",
+        })
     (PHASE3_OUTPUT / "run_metadata.json").write_text(json.dumps(metadata, indent=2), encoding="utf-8")
 
     checkpoint = f"""# Phase 3 Typology Coding Checkpoint
 
 ## What Was Produced
 
-Phase 3 combined Markdown text with Phase 2 OCR text and applied a deterministic typology codebook for financial-crime analysis.
+Phase 3 {'coded author-reviewed source-text spans separately by artefact' if evidence_mode else 'combined Markdown text with Phase 2 OCR text'} and applied a deterministic typology codebook for financial-crime analysis.
 
 ## Key Counts
 
@@ -673,7 +785,7 @@ Phase 3 combined Markdown text with Phase 2 OCR text and applied a deterministic
 
 ## Interpretation Limits
 
-This is an auditable deterministic baseline, not a final qualitative interpretation. The completed Ausma Bernot–Milind Tiwari human validation quantifies agreement and rule-classification performance for the sampled case-target units. Regex rules can still produce false positives and false negatives, especially in noisy OCR text, so substantive claims must respect the published validation and interpretation boundaries.
+This is an auditable deterministic baseline, not a final qualitative interpretation. {'The historical human validation does not validate this revised evidence frame. New target-level assessment and OCR-quality review remain required.' if evidence_mode else 'The completed Ausma Bernot-Milind Tiwari human validation quantifies agreement and rule-classification performance for the historical sampled case-target units.'} Regex rules can still produce false positives and false negatives, especially in noisy OCR text.
 """
     (PHASE3_OUTPUT / "PHASE3_CHECKPOINT_SUMMARY.md").write_text(checkpoint, encoding="utf-8")
 

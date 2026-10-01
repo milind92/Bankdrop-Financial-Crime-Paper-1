@@ -4,6 +4,15 @@
 
 Phase 3 creates an auditable deterministic typology-coding baseline. It combines Markdown-note text with Phase 2 OCR text and applies explicit regular-expression codebook rules. No LLM or external API is used.
 
+The default command reproduces the **historical mixed-record screen**, which
+is on methodological hold. A revised, author-reviewed input is supported via
+`BANK_DROP_EVIDENCE_CORPUS`; see
+[`METHODS_EVIDENCE_SCREEN.md`](../evidence_screening/METHODS_EVIDENCE_SCREEN.md).
+In that mode, each approved Markdown or OCR source span is coded separately,
+then binary results are aggregated to the approved note/image unit. Compound
+patterns cannot join terms across separate spans. The historical human
+validation does not validate the revised population or target definitions.
+
 ## Inputs
 
 - Controlled vault selected by `BANK_DROP_VAULT`.

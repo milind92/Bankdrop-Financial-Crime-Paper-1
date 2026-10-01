@@ -57,6 +57,16 @@ researcher text. An OCR-only analysis would discard some copied source text;
 a combined-text analysis without segment provenance can code research notes
 as source observations. Both channels require provenance review.
 
+A provisional 391-note modality sensitivity confirms that switching to OCR
+alone would lose candidate signals: `fullz_identity_package` falls from 120
+combined-note positives to 106 OCR-only positives. In the historical
+OCR-linked validation subset, the OCR-only rule retained 12 of 19 true
+positives for that target, with zero false positives under either modality.
+These are post hoc diagnostics on unadjudicated candidates, not final article
+estimates. The revised method should retain Markdown passages only when their
+source provenance is confirmed and screen separate images within justified
+artefact boundaries.
+
 The historical exact-text sensitivity set has 463 representatives. Only 389
 are from OCR-linked candidate records; 74 are distinct no-OCR research/status
 texts. Accordingly, the reported 517 duplicate excess records are not a
@@ -104,6 +114,15 @@ source/date/eligibility decision. Neither gap can be closed by rewording the
 Methods section alone.
 
 ## Release gate for a revised analysis
+
+Version `1.3.5` adds a [controlled evidence-screening gate](../code/evidence_screening/METHODS_EVIDENCE_SCREEN.md).
+It has generated blank, hash-bound review sheets for all 980 notes, 1,048
+linked note/image assignments, 92 unresolved references, and 58 unlinked PNG
+paths. No author decisions or approved source-text spans have been entered;
+the gate currently refuses to build a revised corpus. A future approved run
+will code each source span within its own artefact boundary. The current
+Phase 4 interpretations and historical human validation cannot automatically
+carry over to that run.
 
 1. Confirm the collection and note-creation procedure from contemporaneous
    records and responsible authors, including source/date attribution and

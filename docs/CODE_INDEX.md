@@ -7,6 +7,8 @@
 | `code/run_reproducible_pipeline.py` | Runs deterministic Phases 1–4 against controlled data and refuses unsafe output locations. |
 | `code/export_public_release.py` | Copies only explicitly allowlisted aggregate outputs and rejects note-level fields and local paths. |
 | `code/verify_repository.py` | Performs the data-free integrity, privacy, manifest, schema, human-ICR, and classification-performance audit. |
+| `code/evidence_screening/build_evidence_corpus.py` | Creates blank controlled review sheets and refuses a revised corpus until every note, image, and included text span has adjudicated provenance decisions. |
+| `code/evidence_screening/METHODS_EVIDENCE_SCREEN.md` | Documents the revised screening gate, privacy boundary, and provisional Phase 3 path. |
 | `code/human_validation/summarize_human_validation.py` | Summarises normalized controlled machine, coder, and adjudication tables; only aggregate performance results and file-level provenance hashes may be exported. |
 | `code/human_validation/build_public_icr_by_target.py` | Produces the publication-safe per-target ICR table and report from controlled aggregate reliability and adjudication inputs. |
 

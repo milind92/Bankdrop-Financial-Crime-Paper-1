@@ -107,6 +107,9 @@ def redacted_command(step: PipelineStep) -> list[str]:
 
 def build_environment(vault: Path, output_root: Path, repository_root: Path) -> dict[str, str]:
     environment = os.environ.copy()
+    # This orchestrator reproduces the historical Phase 1-4 screen. The
+    # author-reviewed evidence path runs Phase 3 separately after screening.
+    environment.pop("BANK_DROP_EVIDENCE_CORPUS", None)
     environment.update(
         {
             "BANK_DROP_WORKSPACE": str(repository_root),

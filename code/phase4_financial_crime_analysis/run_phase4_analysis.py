@@ -212,6 +212,12 @@ def main() -> None:
     aml = read_csv(PHASE3_OUTPUT / "aml_indicator_summary_by_source.csv")
     snippets = read_csv(PHASE3_OUTPUT / "evidence_snippets.csv")
     phase3_meta = json.loads((PHASE3_OUTPUT / "run_metadata.json").read_text(encoding="utf-8"))
+    if phase3_meta.get("analysis_mode") == "author_reviewed_artifact_bounded_source_text":
+        raise RuntimeError(
+            "The existing Phase 4 narratives and human-validation language apply to the "
+            "historical mixed-record analysis. Review target validity and write a revised "
+            "interpretation before producing a Phase 4 report for the evidence-only corpus."
+        )
 
     findings_rows = []
     for rank, row in enumerate(typology, start=1):
