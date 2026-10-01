@@ -114,6 +114,11 @@ are from OCR-linked candidate records; 74 are distinct no-OCR research/status
 texts. Accordingly, the reported 517 duplicate excess records are not a
 measure of repeated marketplace posts.
 
+A [controlled revised duplicate-sensitivity procedure](../code/derived_analysis/METHODS_REVISED_DUPLICATE_SENSITIVITY.md)
+is available for a future author-approved evidence corpus. It preserves
+approved span boundaries and counts identical span-content signatures, not
+verified identical posts. No revised duplicate count has been produced.
+
 ## Validation and joined-text limitation
 
 The historical human exercise remains documented: 1,032 paired case-target
@@ -121,9 +126,9 @@ rows from 313 packets, 981 exact agreements, and 51 jointly adjudicated
 disagreements. Its sample contains 191 rows from 15 no-OCR research/status
 notes. The historical pooled agreement and per-target classifier performance
 apply to that mixed sample, not to a future evidence-only corpus. The revised
-sampling frame and any changed code definitions require a new validation
-assessment; prior human decisions may be reusable only after their eligibility
-and sampling weights are checked.
+sampling frame and any changed code definitions require a fresh blinded
+validation holdout. The prior decisions can inform an error-diagnosis pilot;
+they cannot replace validation of the new frame or changed constructs.
 
 A post hoc subset calculation using the frozen independent coder decisions
 found 792/841 exact agreements (94.2%; five-category Cohen's kappa 0.834)

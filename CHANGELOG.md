@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.16 - 2026-10-01
+
+- Added a guarded, controlled exact-span duplicate-sensitivity procedure for the future author-approved evidence corpus. It compares capture-unit counts with deterministic representatives of identical approved-span signatures, while preserving span modality and boundaries.
+- The script checks the source-evidence and revised Phase 3 hashes, complete unit and span target matrices, and hit reconciliation. Its outputs remain provisional and controlled; no real revised duplicate counts or article estimates were produced.
+
 ## 1.3.15 - 2026-10-01
 
 - Tightened the provisional reviewed-evidence gate to distinguish capture dates from source-displayed publication dates. Verified dates now require a contemporaneous record locator; included images need their own date-basis decision and explicit source matching to their assigned note.

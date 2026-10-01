@@ -201,7 +201,7 @@ Milind Tiwari has author-confirmed AML expertise but was also a coder and adjudi
 
 ## Exact-Duplicate Sensitivity
 
-The completed sensitivity analysis uses exact combined-text hashes. Main typology, source, functional-group, and co-occurrence results are reported on:
+The completed **historical** sensitivity analysis uses exact combined-text hashes. Its typology, source, functional-group, and co-occurrence results are reported on:
 
 1. the primary 980-record full screen; and
 2. the 463-record exact-text sensitivity population.
@@ -217,6 +217,15 @@ For each result, report:
 Where the same screenshot hash is linked repeatedly, OCR text should contribute once to the relevant evidence unit. Cross-source duplicate clusters should be separately flagged because they may represent copied listings or shared page material rather than independent observations.
 
 Near-duplicate analysis may be exploratory, but its method and threshold must be documented and its results kept separate from exact-hash deduplication.
+
+For the future **approved source-evidence corpus**, use the separate
+[revised exact-span method](../code/derived_analysis/METHODS_REVISED_DUPLICATE_SENSITIVITY.md).
+It groups capture units only when their multisets of approved span text hashes
+and modalities match. This preserves the revised artefact boundaries and
+cannot be equated with the historical 463 combined-note hashes. The code has
+synthetic tests, but no real revised duplicate table exists until source
+review and the revised Phase 3 rerun are complete. Neither convention proves
+which captures represent the same underlying post or listing.
 
 ## Future Modality And OCR Sensitivity
 

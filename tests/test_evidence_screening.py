@@ -30,6 +30,7 @@ overview = load_module("bank_drop_overview_for_screen_tests", "code/phase3_typol
 phase4 = load_module("bank_drop_phase4_for_screen_tests", "code/phase4_financial_crime_analysis/run_phase4_analysis.py")
 derived = load_module("bank_drop_derived_for_screen_tests", "code/derived_analysis/build_derived_analysis.py")
 revised_pairs = load_module("bank_drop_revised_pairs_for_screen_tests", "code/derived_analysis/build_revised_pair_boundaries.py")
+revised_duplicates = load_module("bank_drop_revised_duplicates_for_screen_tests", "code/derived_analysis/build_revised_duplicate_sensitivity.py")
 revised_holdout = load_module("bank_drop_revised_holdout_for_screen_tests", "code/human_validation/prepare_revised_holdout.py")
 revised_close = load_module("bank_drop_revised_close_for_screen_tests", "code/human_validation/close_revised_holdout.py")
 
@@ -132,6 +133,46 @@ class EvidenceScreeningTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Two distinct reviewers"):
             screen.build(self.vault, self.index, self.joined, self.review, self.output)
         self.assertFalse(self.output.exists())
+
+    def test_exact_span_signature_sensitivity_preserves_boundaries(self) -> None:
+        first = [{"kind": "image_ocr", "text_sha256": screen.sha_text("a\n\nb")}]
+        split = [
+            {"kind": "image_ocr", "text_sha256": screen.sha_text("a")},
+            {"kind": "image_ocr", "text_sha256": screen.sha_text("b")},
+        ]
+        self.assertNotEqual(revised_duplicates.signature(first),
+                            revised_duplicates.signature(split))
+        units = {
+            "u1": {"source": "Source A", "signature": revised_duplicates.signature(first), "artifacts": first},
+            "u2": {"source": "Source B", "signature": revised_duplicates.signature(first), "artifacts": first},
+            "u3": {"source": "Source A", "signature": revised_duplicates.signature(split), "artifacts": split},
+        }
+        predictions = {
+            (unit_id, target_type, code): value
+            for unit_id, pair in {"u1": (1, 0), "u2": (1, 0), "u3": (0, 1)}.items()
+            for target_type, code, value in (
+                ("typology", "bank_drop_sale", pair[0]),
+                ("aml_candidate", "crypto_to_bank_cashout", pair[1]),
+            )
+        }
+        rows, sources, report = revised_duplicates.sensitivity_rows(
+            units, predictions,
+            {"typology": {"bank_drop_sale"}, "aml_candidate": {"crypto_to_bank_cashout"}},
+        )
+        typology = next(row for row in rows if row["target_type"] == "typology")
+        self.assertEqual(typology["approved_positive_units_n"], 2)
+        self.assertEqual(typology["positive_signature_groups_n"], 1)
+        self.assertEqual(typology["positive_excess_from_exact_repeats_n"], 1)
+        self.assertEqual(report["exact_span_signature_groups_n"], 2)
+        self.assertEqual(report["cross_source_repeat_signature_groups_n"], 1)
+        self.assertEqual(report["approved_span_assignments_n"], 4)
+        self.assertEqual(len(sources), 2)
+        predictions[("u2", "typology", "bank_drop_sale")] = 0
+        with self.assertRaisesRegex(ValueError, "conflicting deterministic predictions"):
+            revised_duplicates.sensitivity_rows(
+                units, predictions,
+                {"typology": {"bank_drop_sale"}, "aml_candidate": {"crypto_to_bank_cashout"}},
+            )
 
     def test_superseded_review_schema_cannot_build(self) -> None:
         inventory_path = self.review / "review_inventory.json"
@@ -568,6 +609,17 @@ class EvidenceScreeningTests(unittest.TestCase):
         self.assertEqual(metadata["artifact_coding_rows"], len(artifact_rows))
         pair_report = revised_pairs.build(self.base / "phase3", self.output / "approved_evidence_units.jsonl", self.base / "revised_pairs")
         self.assertFalse(pair_report["article_ready"])
+        duplicate_report = revised_duplicates.build(
+            self.base / "phase3", self.output / "approved_evidence_units.jsonl",
+            self.base / "revised_duplicates",
+        )
+        self.assertFalse(duplicate_report["article_ready"])
+        self.assertEqual(duplicate_report["approved_units_n"], 1)
+        self.assertEqual(duplicate_report["exact_span_signature_groups_n"], 1)
+        duplicate_rows = screen.read_csv(
+            self.base / "revised_duplicates" / "revised_duplicate_sensitivity_controlled.csv"
+        )
+        self.assertEqual(len(duplicate_rows), 18)
         pair_rows = screen.read_csv(self.base / "revised_pairs" / "revised_typology_pair_boundaries.csv")
         separated = next(row for row in pair_rows if row["scope"] == "all" and
                          {row["code_a"], row["code_b"]} ==

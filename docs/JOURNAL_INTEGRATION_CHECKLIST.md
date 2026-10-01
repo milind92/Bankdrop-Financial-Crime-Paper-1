@@ -9,6 +9,7 @@
 - [x] Controlled evidence-screening gate and blank author-review worksheets prepared.
 - [x] Blinded, fixed-seed OCR-quality probability sample and controlled screenshot copies prepared.
 - [x] Provisional revised within-span versus cross-span pair diagnostic prepared.
+- [x] Provisional exact-span duplicate-sensitivity procedure prepared; no real revised counts yet.
 - [ ] Author-reviewed substantive record and text-provenance eligibility locked.
 - [ ] Unreferenced images reviewed and linked, excluded, or separately unitised.
 - [ ] OCR accuracy measured from a human-transcribed sample.
@@ -20,7 +21,7 @@
 - [x] Public-versus-controlled rerun boundaries documented.
 - [x] Release version, changelog, citation metadata, and workflow manifest aligned.
 
-The gate is **open** at version `1.3.15`. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates. The revised holdout sampler and scorer have only synthetic gate tests; no real frame, coder decisions, or performance estimates are complete.
+The gate is **open** at version `1.3.16`. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates. The revised holdout sampler and scorer have only synthetic gate tests; no real frame, coder decisions, or performance estimates are complete.
 
 ## Article And Journal-Portal Handoff
 
