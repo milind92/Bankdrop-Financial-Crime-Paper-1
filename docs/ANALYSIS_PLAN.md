@@ -9,6 +9,16 @@ The provisional revised path and its stricter counting boundaries are in the
 and [pair-boundary method](../code/derived_analysis/METHODS_REVISED_PAIR_BOUNDARIES.md).
 No revised substantive denominator or pair estimate exists yet.
 
+If the original preparers cannot supply a collection account or logs, the
+revised study will be described as a retrospective analysis of the preserved
+project archive. Reviewers may establish source-text provenance from the
+preserved artefacts, with a recorded observable marker or corroborating-record
+locator; folder labels alone are insufficient. Capture dates without such
+records remain unknown. The article must not claim that the planned sampling
+schedule was implemented, or infer temporal coverage or external-market
+prevalence. The controlled author response form records a request with no reply
+separately from an affirmative statement that records are unavailable.
+
 The study analyses observed online content in a captured corpus. It does not estimate offender, victim, transaction, financial-loss, or external market prevalence. It does not establish that advertised goods or services existed, were delivered, or were used.
 
 ## Analysis Questions
@@ -24,7 +34,8 @@ The analysis is descriptive and exploratory. Co-occurrence is not evidence of te
 
 The historical release records file-level provenance for:
 
-- the then-approved data-collection protocol;
+- the protocol recorded in the historical release, whose implementation is
+  not established by the current archive audit;
 - the historical rule codebook;
 - the historical human-validation results and adjudication log;
 - the historical deterministic coding output;

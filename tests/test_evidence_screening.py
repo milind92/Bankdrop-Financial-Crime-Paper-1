@@ -100,7 +100,7 @@ class EvidenceScreeningTests(unittest.TestCase):
         for row in note_rows:
             if row["note_id"] == "n1":
                 approve(row, "include")
-                row.update({"record_type": "mixed_source_and_researcher", "approved_source": "Source A", "capture_date_basis": "filename_only", "markdown_decision": "source_spans"})
+                row.update({"record_type": "mixed_source_and_researcher", "approved_source": "Source A", "capture_date_basis": "filename_only", "markdown_decision": "source_spans", "decision_reason": "Source marker in synthetic preserved note"})
             else:
                 approve(row, "exclude")
                 row.update({"record_type": "collection_status", "decision_reason": "Collector access log"})
@@ -110,7 +110,7 @@ class EvidenceScreeningTests(unittest.TestCase):
         for row in image_rows:
             if row["kind"] == "linked":
                 approve(row, "include")
-                row.update({"approved_source": "Source A", "capture_date_basis": "unknown"})
+                row.update({"approved_source": "Source A", "capture_date_basis": "unknown", "decision_reason": "Visible marker matches synthetic preserved note"})
             else:
                 approve(row, "exclude")
                 row["decision_reason"] = "Provenance not established"
@@ -761,6 +761,24 @@ class EvidenceScreeningTests(unittest.TestCase):
         rows[0]["markdown_decision_reason"] = "Reviewer rejected note prose"
         save_csv(self.review / "note_decisions.csv", rows, screen.NOTE_FIELDS)
         with self.assertRaisesRegex(ValueError, "Markdown spans do not match"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output)
+
+    def test_included_source_attribution_needs_recorded_rationale(self) -> None:
+        self.complete_review()
+        notes = screen.read_csv(self.review / "note_decisions.csv", screen.NOTE_FIELDS)
+        included_note = next(row for row in notes if row["final_decision"] == "include")
+        included_note["decision_reason"] = ""
+        save_csv(self.review / "note_decisions.csv", notes, screen.NOTE_FIELDS)
+        with self.assertRaisesRegex(ValueError, "source-attribution rationale"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output)
+
+        included_note["decision_reason"] = "Visible source marker"
+        save_csv(self.review / "note_decisions.csv", notes, screen.NOTE_FIELDS)
+        images = screen.read_csv(self.review / "image_decisions.csv", screen.IMAGE_FIELDS)
+        included_image = next(row for row in images if row["final_decision"] == "include")
+        included_image["decision_reason"] = ""
+        save_csv(self.review / "image_decisions.csv", images, screen.IMAGE_FIELDS)
+        with self.assertRaisesRegex(ValueError, "source-match rationale"):
             screen.build(self.vault, self.index, self.joined, self.review, self.output)
 
     def test_controlled_output_cannot_enter_public_repository(self) -> None:

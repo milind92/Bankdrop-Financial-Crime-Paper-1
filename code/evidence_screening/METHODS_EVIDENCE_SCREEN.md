@@ -48,6 +48,11 @@ reason. A note can enter substantive coding only as `source_capture` or
 `mixed_source_and_researcher`. Collection-status, researcher-only,
 out-of-scope, and unassessable notes remain in the inventory but outside the
 substantive denominator. A reviewer must confirm the included note's source.
+For an included note, write the observable source marker or the locator of a
+reviewable corroborating record in `decision_reason`. For an included linked
+image, use that field to explain why its source matches the note. The builder
+requires a nonblank rationale; it cannot independently verify the truth of a
+human source attribution. A folder label on its own is insufficient.
 For each included note, set `markdown_decision` to `source_spans`,
 `no_source_text`, or `unassessable`. The first requires at least one approved
 Markdown span; the other two require a reason and prohibit an approved
@@ -80,6 +85,16 @@ date; otherwise it remains blank. The Phase 3 artefact coding table carries
 each span's date independently. This prevents a note date from silently
 dating all its screenshots or from supporting a temporal claim about mixed
 captures.
+
+If no original preparer answers or collection logs are available, record that
+status without claiming the records do not exist. The archive may still support
+a bounded retrospective content analysis: independently review the preserved
+material, include only source text with defensible provenance and linkage,
+leave unverified capture dates blank with `filename_only` or `unknown` basis,
+and report exclusions. Do not turn a proposed collection plan into an executed
+schedule or infer temporal coverage, market prevalence, actors, or transactions
+from the archive. The project's ethics and data-use conditions still require
+separate confirmation before journal submission.
 
 In `source_segments.csv`, each row gives a `reference_key`, zero-based
 `start_char`, exclusive `end_char`, and SHA-256 of the **exact substring**.

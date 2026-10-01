@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.20 - 2026-10-01
+
+- Added a bounded retrospective-archive method when the original preparers cannot supply a collection account or contemporaneous capture logs. Unverified capture dates remain blank; the proposed collection schedule is not treated as executed, and the analysis makes no temporal-coverage or external-prevalence claim.
+- The reviewed-evidence builder now requires a recorded source-attribution rationale for every included note and a source-match rationale for every included linked image. Existing review schema v3 already has the `decision_reason` field; no controlled review decisions or substantive estimates were generated.
+- Created a short controlled author response form for reply status, reviewer assignments, and ethics-record checking. It is outside the public repository and does not replace record-level review or OCR transcripts.
+
 ## 1.3.19 - 2026-10-01
 
 - Audited the original master ZIP's entry metadata against the historical note and image filename dates. All 2,100 Markdown/PNG entries have Unix modification times but no ZIP creation-time field. Among 947 comparable screened notes, 912 ZIP DOS calendar dates are later than their filename dates; 423 differ by more than 30 days. These modification times do not verify when source material was captured.

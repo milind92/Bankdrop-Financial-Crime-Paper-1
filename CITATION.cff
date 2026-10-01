@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this repository, please cite it using the metadata below."
 title: "Bankdrop Financial Crime Paper 1"
 abstract: "Public, privacy-clean reproducibility supplement containing historical deterministic Phase 1-4 code, aggregate outputs, human-validation summaries, a post-release corpus audit, and guarded procedures for evidence screening, OCR quality, revised human sampling and design-aware scoring. Substantive article results are on methodological hold pending author-reviewed reanalysis and validation."
-version: "1.3.19"
+version: "1.3.20"
 date-released: 2026-10-01
 type: software
 license: "LicenseRef-All-Rights-Reserved"

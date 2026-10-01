@@ -57,9 +57,10 @@ narrows the source-frame discrepancy without proving that groups 1-15 were
 the original November selection or that group 17 was a planned addition.
 A task table's collection-start entry carries a year earlier than later
 source-selection and equipment-setup entries; whether they concern the same
-collection phase is unresolved. The original preparers must explain the
-chronology and source-frame changes. These records do not verify the actual
-start date or daily visit schedule.
+collection phase is unresolved. An original-preparer account could resolve the
+chronology and source-frame changes. Without it, these facts remain unknown;
+the available records do not verify the actual start date or daily visit
+schedule.
 
 A separate controlled filename check found 1,032 resolved note/image
 assignments with parseable note-date and pasted-image filename timestamps.
@@ -76,7 +77,8 @@ PNG paths. It found 1,096 `tEXt` chunks, all labelled `Software`, but no
 `tIME` or `eXIf` chunks and no conventional numeric date candidate in
 decoded text. The scan checked chunk structure rather than pixel decoding
 or every possible proprietary metadata convention. It supplied no verified
-capture date; the original preparers' records remain necessary.
+capture date; a contemporaneous record or capture-system log would be needed
+to verify one. The analysis can leave capture dates unknown.
 
 A read-only audit of the original master ZIP's central-directory metadata
 found a Unix **file-modification** timestamp for each of its 999 Markdown
@@ -226,6 +228,15 @@ questions and per-source fields seek confirmation from the original preparers;
 no collection-process answer or source-specific eligibility decision is yet
 verified.
 
+If no preparer answer arrives, the revised study can still proceed as a
+retrospective analysis of the preserved archive. Reviewers must record the
+observable source marker or corroborating-record locator for each included
+note and explain source matching for each included linked image. Folder labels
+alone do not authenticate source identity. Unverified capture dates remain
+blank, and uncertain source or linkage cases are excluded from named-source
+primary results. This route does not establish a sampling schedule, external
+coverage, or permission to publish identifiable material.
+
 ## Release gate for a revised analysis
 
 Version `1.3.5` adds a [controlled evidence-screening gate](../code/evidence_screening/METHODS_EVIDENCE_SCREEN.md).
@@ -237,10 +248,10 @@ will code each source span within its own artefact boundary. The current
 Phase 4 interpretations and historical human validation cannot automatically
 carry over to that run.
 
-1. Confirm the collection and note-creation procedure from contemporaneous
-   records and responsible authors, including source/date attribution and
-   whether Markdown passages are copied content, paraphrase, or collector
-   commentary.
+1. Request the collection and note-creation procedure from contemporaneous
+   records and responsible authors. If no answer is available, record that
+   status, retain the unknowns, and apply the bounded retrospective route
+   above. Check the institutional ethics/data-use record before submission.
 2. Independently review the 391 OCR-linked candidate notes and the 58
    unreferenced PNG paths, documenting exclusions, missingness, image links,
    and any separate image-level evidence units. Keep collection-status notes

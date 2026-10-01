@@ -365,6 +365,8 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
         source = row.get("approved_source", "").strip()
         if not source:
             raise ValueError(f"Approved source attribution is required for note {note_id}")
+        if not row.get("decision_reason", "").strip():
+            raise ValueError(f"Included note needs a source-attribution rationale: {note_id}")
         markdown_decision = row.get("markdown_decision", "").strip()
         if markdown_decision not in {"source_spans", "no_source_text", "unassessable"}:
             raise ValueError(f"Markdown provenance decision is required for note {note_id}")
@@ -396,6 +398,8 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
                 raise ValueError(f"Linked image cannot be silently reassigned: {key}")
             if row.get("approved_source", "").strip() != units[unit_id]["source"]:
                 raise ValueError(f"Included linked image needs confirmed matching source: {key}")
+            if not row.get("decision_reason", "").strip():
+                raise ValueError(f"Included linked image needs a source-match rationale: {key}")
             if original["ocr_status"] != "ok" or not ocr_texts.get(key, "").strip():
                 raise ValueError(f"Included image lacks usable, provenance-checked OCR: {key}")
             image_date = check_date(row, key)
