@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.9 - 2026-10-01
+
+- Added a controlled revised-evidence holdout frame and probability draw. It includes short predicted-negative source units, preserves exact target-by-status-by-length selection probabilities, and separates blinded coder sheets from the coordinator machine key.
+- Bound the draw to the reviewed-evidence and Phase 3 hashes, generated rule codebook, separate human decision codebook, pilot exclusions, and an author-approved target-specific allocation and precision plan. Synthetic tests pass; no real revised corpus, sample, human decisions, or performance estimates are claimed.
+- Extended public privacy guards and repository metadata for the controlled frame, plan, key, and coder sheets. Historical aggregate outputs and the July human validation remain unchanged.
+
 ## 1.3.8 - 2026-10-01
 
 - Added controlled span-by-target coding rows to the revised evidence-only Phase 3 path. Unit-level hit totals are checked against the span rows; the historical default path and aggregate files remain unchanged.

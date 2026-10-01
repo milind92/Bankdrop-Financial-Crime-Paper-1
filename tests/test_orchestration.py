@@ -150,6 +150,8 @@ class PublicExporterTests(unittest.TestCase):
         self.assertFalse(exporter.field_is_blocked("exact_text_unique_sensitivity"))
         self.assertFalse(exporter.field_is_blocked("final_insufficient_evidence"))
         self.assertTrue(exporter.field_is_blocked("combined_text"))
+        self.assertTrue(exporter.field_is_blocked("unit_id"))
+        self.assertTrue(exporter.field_is_blocked("case_id"))
 
     def make_roots(self, temporary: str) -> tuple[Path, Path]:
         root = Path(temporary)

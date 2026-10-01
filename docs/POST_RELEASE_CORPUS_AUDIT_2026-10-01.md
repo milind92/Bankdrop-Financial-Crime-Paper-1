@@ -130,6 +130,13 @@ found only in different spans of a capture unit. No revised pair counts exist
 for the unreviewed real corpus, and this does not resolve duplicate, source,
 OCR, or target-validation concerns.
 
+Version `1.3.9` adds a [guarded revised holdout procedure](../code/human_validation/METHODS_REVISED_HOLDOUT.md).
+It includes short approved source units in the predicted-negative frame and
+requires a hash-bound, author-approved allocation and precision plan before
+a probability draw. Only synthetic gate tests have run; the real review sheets,
+source-evidence frame, coder work, and revised performance estimates remain
+pending.
+
 ## Release gate for a revised analysis
 
 Version `1.3.5` adds a [controlled evidence-screening gate](../code/evidence_screening/METHODS_EVIDENCE_SCREEN.md).

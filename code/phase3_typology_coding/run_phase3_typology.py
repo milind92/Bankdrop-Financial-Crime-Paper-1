@@ -257,6 +257,10 @@ def sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8", errors="replace")).hexdigest()
 
 
+def sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def normalise_text(text: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     text = re.sub(r"[ \t]+", " ", text)
@@ -786,6 +790,7 @@ def main() -> None:
         metadata.update({
             "analysis_mode": "author_reviewed_artifact_bounded_source_text",
             "evidence_corpus_sha256": evidence_sha,
+            "codebook_sha256": sha256_file(PHASE3_OUTPUT / "CODEBOOK_PHASE3.md"),
             "approved_source_artifacts": sum(len(note.artifacts) for note in notes),
             "artifact_coding_rows": len(artifact_rows),
             "artifact_coding_schema_version": 1,

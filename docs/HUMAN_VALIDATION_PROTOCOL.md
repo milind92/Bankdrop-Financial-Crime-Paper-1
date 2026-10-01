@@ -7,7 +7,9 @@
 > predicted-negative eligibility rule or treat old pooled coder agreement as
 > performance for the new frame. Preserve source, modality, duplicate, and
 > target-specific sampling information, then calculate design-aware
-> uncertainty before article claims.
+> uncertainty before article claims. The guarded frame and draw procedure is
+> [documented here](../code/human_validation/METHODS_REVISED_HOLDOUT.md); no
+> real revised sample or validation result exists yet.
 
 > **Historical status (26 July 2026):** The corrected-corpus validation was completed after the earlier 23 July release was withdrawn because 14 ineligible internal project documents contributed 59 paired case-target units. Ausma Bernot and Milind Tiwari independently coded the fresh sample drawn from the 980-note source-folder screen and jointly adjudicated every disagreement. See `outputs/human_validation/HUMAN_VALIDATION_STATUS.md`.
 

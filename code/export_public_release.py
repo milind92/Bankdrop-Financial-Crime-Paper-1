@@ -145,9 +145,18 @@ BLOCKED_FILENAMES = {
     "transcript_lock_manifest.json",
     "per_image_ocr_quality_controlled.csv",
     "ocr_quality_report.json",
+    "pilot_units.csv",
+    "validation_frame.csv",
+    "frame_manifest.json",
+    "allocation_plan_template.json",
+    "approved_allocation_plan.json",
+    "coordinator_machine_key.csv",
+    "coder_1_blank.csv",
+    "coder_2_blank.csv",
+    "selection_manifest.json",
 }
 BLOCKED_FIELD_TOKENS = {"path", "text", "snippet", "snippets", "evidence"}
-BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id"}
+BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash"}
 SAFE_AGGREGATE_FIELDS = {
     "unique_text_count",
     "positive_unique_evidence_rows",

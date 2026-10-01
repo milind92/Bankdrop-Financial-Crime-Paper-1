@@ -30,6 +30,7 @@ overview = load_module("bank_drop_overview_for_screen_tests", "code/phase3_typol
 phase4 = load_module("bank_drop_phase4_for_screen_tests", "code/phase4_financial_crime_analysis/run_phase4_analysis.py")
 derived = load_module("bank_drop_derived_for_screen_tests", "code/derived_analysis/build_derived_analysis.py")
 revised_pairs = load_module("bank_drop_revised_pairs_for_screen_tests", "code/derived_analysis/build_revised_pair_boundaries.py")
+revised_holdout = load_module("bank_drop_revised_holdout_for_screen_tests", "code/human_validation/prepare_revised_holdout.py")
 
 
 def save_csv(path: Path, rows: list[dict[str, str]], fields: list[str]) -> None:
@@ -129,6 +130,88 @@ class EvidenceScreeningTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Two distinct reviewers"):
             screen.build(self.vault, self.index, self.joined, self.review, self.output)
         self.assertFalse(self.output.exists())
+
+    def test_revised_holdout_requires_approved_plan_and_keeps_short_negatives(self) -> None:
+        self.complete_review()
+        screen.build(self.vault, self.index, self.joined, self.review, self.output)
+        old_output = phase3.PHASE3_OUTPUT
+        old_env = os.environ.get("BANK_DROP_EVIDENCE_CORPUS")
+        try:
+            phase3.PHASE3_OUTPUT = self.base / "phase3"
+            os.environ["BANK_DROP_EVIDENCE_CORPUS"] = str(self.output / "approved_evidence_units.jsonl")
+            phase3.main()
+        finally:
+            phase3.PHASE3_OUTPUT = old_output
+            if old_env is None:
+                os.environ.pop("BANK_DROP_EVIDENCE_CORPUS", None)
+            else:
+                os.environ["BANK_DROP_EVIDENCE_CORPUS"] = old_env
+        human_book = self.base / "human_codebook.md"
+        human_book.write_text("Synthetic inclusion and exclusion rules for every target", encoding="utf-8")
+        pilot = self.base / "pilot_units.csv"
+        save_csv(pilot, [], ["unit_id"])
+        frame_dir = self.base / "holdout_frame"
+        frame_report = revised_holdout.prepare(
+            self.base / "phase3", self.output / "approved_evidence_units.jsonl",
+            pilot, human_book, frame_dir,
+        )
+        self.assertEqual(frame_report["diagnostics"]["short_units"], 1)
+        self.assertEqual(frame_report["case_target_frame_n"], 18)
+        plan_path = frame_dir / "allocation_plan_template.json"
+        with self.assertRaisesRegex(ValueError, "approval date"):
+            revised_holdout.draw(
+                self.base / "phase3", self.output / "approved_evidence_units.jsonl",
+                pilot, human_book, frame_dir, plan_path, self.base / "premature_draw",
+            )
+        self.assertFalse((self.base / "premature_draw").exists())
+        plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        plan.update({
+            "status": "approved", "precision_rationale": "Synthetic complete-frame census for a gate test.",
+            "pilot_exclusions_finalized": True, "target_definitions_frozen": True,
+            "approved_by": ["Ausma Bernot", "Milind Tiwari"],
+            "approval_date": "2026-10-01", "selection_seed": 12345,
+        })
+        plan["target_precision_rationale"] = {
+            key: "Synthetic census removes sampling variance for this target."
+            for key in plan["target_precision_rationale"]
+        }
+        for allocation in plan["allocations"]:
+            allocation["sample_n"] = allocation["frame_n"]
+        plan_path.write_text(json.dumps(plan), encoding="utf-8")
+        report = revised_holdout.draw(
+            self.base / "phase3", self.output / "approved_evidence_units.jsonl",
+            pilot, human_book, frame_dir, plan_path, self.base / "holdout_sample",
+        )
+        self.assertEqual(report["sampled_case_target_n"], 18)
+        self.assertEqual(report["sampled_short_case_target_n"], 18)
+        self.assertFalse(report["article_ready"])
+        machine = screen.read_csv(self.base / "holdout_sample" / "coordinator_machine_key.csv")
+        coder = screen.read_csv(self.base / "holdout_sample" / "coder_1_blank.csv")
+        self.assertEqual({row["inclusion_probability"] for row in machine}, {"1"})
+        self.assertTrue(any(row["predicted_present"] == "0" and row["length_band"] == "short" for row in machine))
+        self.assertNotIn("predicted_present", coder[0])
+        self.assertNotIn("unit_id", coder[0])
+        self.assertTrue(all(row["decision"] == "" for row in coder))
+        human_book.write_text(human_book.read_text(encoding="utf-8") + " changed", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "frozen approved evidence"):
+            revised_holdout.draw(
+                self.base / "phase3", self.output / "approved_evidence_units.jsonl",
+                pilot, human_book, frame_dir, plan_path, self.base / "stale_draw",
+            )
+        self.assertFalse((self.base / "stale_draw").exists())
+
+    def test_revised_holdout_probability_sample_is_reproducible(self) -> None:
+        frame = [
+            {"unit_id": f"n{i}", "target_type": "typology", "code": "bank_log_sale",
+             "predicted_present": "0", "length_band": "short"}
+            for i in range(5)
+        ]
+        groups = revised_holdout.frame_strata(frame)
+        key = ("typology", "bank_log_sale", "0", "short")
+        selected = revised_holdout.select_rows(groups, {key: 2}, 791)
+        self.assertEqual(selected, revised_holdout.select_rows(groups, {key: 2}, 791))
+        self.assertEqual(len({row["unit_id"] for row, _, _ in selected}), 2)
+        self.assertTrue(all(frame_n == 5 and sample_n == 2 for _, frame_n, sample_n in selected))
 
     def test_reviewed_segments_preserve_source_and_image_boundaries(self) -> None:
         self.complete_review()

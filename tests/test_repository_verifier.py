@@ -27,6 +27,7 @@ class PrivacyBoundaryTests(unittest.TestCase):
 
     def test_public_csv_note_level_field_is_rejected(self) -> None:
         self.assertEqual(verifier.blocked_public_fields(["source", "note_id", "note_count"]), ["note_id"])
+        self.assertEqual(verifier.blocked_public_fields(["unit_id", "case_id", "duplicate_cluster_hash"]), ["unit_id", "case_id", "duplicate_cluster_hash"])
         self.assertEqual(verifier.blocked_public_fields(["code", "unique_text_count"]), [])
         self.assertEqual(verifier.blocked_public_fields(["code", "positive_unique_evidence_rows"]), [])
 
