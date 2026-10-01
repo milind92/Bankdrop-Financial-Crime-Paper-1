@@ -1,5 +1,5 @@
 {
-  "status": "complete aggregate computation; five-target author agreement pending",
+  "status": "complete aggregate computation; completed focused author assessment reported separately",
   "unit": "content-unique locally referenced archived PNG",
   "unit_n": 1037,
   "controlled_input_file_sha256": {
@@ -12,7 +12,7 @@
     "phase3_rule_source": "078e129de27308ddc5767fec281bfb477096b05b90dd18e120bb24cf8246b196"
   },
   "controlled_analysis_script_sha256": "ba39da80178d9bd62c0b2cbea289326b159ea6fd1b017720a0ab1c26725f92e6",
-  "public_reproducer_sha256": "06237a067f4ecff05d91cfd6e77b35c60916265ea94c2bd3ed2b9963d1765189",
+  "public_reproducer_sha256": "f868e80f6dd44530b967db79667deb6be682f0ec36a3e320f6e8a16d69fe23cd",
   "public_output_sha256": {
     "exact_ocr_text_sensitivity.csv": "49884f96454e5d314f99201f99b384871d37b6341321a6507a80f39a3b6393a5",
     "flow.json": "b37dbbabd34af67bbdcd9f007054412b067f1ee47686dcc928c43b665d886c38",
@@ -26,5 +26,20 @@
     "rule_summary.csv": "4ce215d5eb7f7b7602dfc832d3ce1c90649de31c952babb92e854e8c5442b7e3",
     "within_image_cooccurrence.csv": "eff2503578a76f277ba5db8217ac8dd5db9512dfe0c1170f0c600a67dff6dd0f"
   },
-  "public_hash_method": "SHA-256 of UTF-8 bytes after CRLF-to-LF normalisation"
+  "public_hash_method": "SHA-256 of UTF-8 bytes after CRLF-to-LF normalisation",
+  "latest_replay_input_file_sha256": {
+    "frozen_source_zip": "f1f6dc25f3a00dacec0c70609e1d31d383f714280f8e354d8ba3352198060a13",
+    "phase1_corpus_index": "8f03fc6b076b4c6f4d3acd7e15ea075cfeabc2e8d933c647e7ab4b5716437e2f",
+    "phase1_image_references": "e1df2e5c141eaabd07650a076d159941149a1ca95b4f0241ec60c8a49d7dd19b",
+    "phase2_image_ocr": "23595157aa6a83297f34918feccc6e7625940f21bc5f2137e9704f254994189c",
+    "phase2_joined_refs": "db42242cd25b5cd29de3f553de74c8e6fb63b2aec9c54a1872fc488843078285",
+    "phase2_note_ocr": "41c5913e91f2460afab6681cedae1feb4879d4102d7df1451396c2c40d14935e",
+    "phase3_rule_source": "078e129de27308ddc5767fec281bfb477096b05b90dd18e120bb24cf8246b196",
+    "phase3_typology_matrix": "c9d505c952fc0b925708ae2b7795e26ed2c1d3258545838261149c20b6f4307f",
+    "phase3_aml_matrix": "5c1bb8f57a9d6ed8c2b9e839a847a6294f08683efe9a05f39a382a4a60fdea61",
+    "unreferenced_image_audit": "28e9aaeceb8e198b8eefc575f64920e5920f7f7b68a29e46b132b0975488ea09",
+    "legacy_coder_workbook_1": "57f200a6c95cbff324236f1da3040c9a573182554b76434fe18c938165449c6e",
+    "legacy_coder_workbook_2": "75cf00df9ae0ebe7b1a3384b2c66bb3a0bc6bdc0939c6533238078f218db5609"
+  },
+  "latest_replay_original_result_files_byte_identical": 12
 }

@@ -176,6 +176,9 @@ def main() -> None:
         "phase2_joined_refs": sha_file(PHASE2 / "ocr_joined_image_references.csv"),
         "phase2_note_ocr": sha_file(PHASE2 / "ocr_text_by_note.csv"),
         "phase3_rule_source": sha_file(CODER),
+        "phase3_typology_matrix": sha_file(PHASE3 / "typology_coding_long.csv"),
+        "phase3_aml_matrix": sha_file(PHASE3 / "aml_indicator_coding_long.csv"),
+        "unreferenced_image_audit": sha_file(AUDIT / "unreferenced_png_controlled.csv"),
     }
     with zipfile.ZipFile(SOURCE_ZIP) as frozen:
         archive_names = set(frozen.namelist())
@@ -226,6 +229,8 @@ def main() -> None:
             image_rows.append(row)
 
     prior_names, prior_summary = load_prior_exposure()
+    manifest_input.update({f"legacy_coder_workbook_{i}": details["sha256"]
+                           for i, details in enumerate(prior_summary.values(), 1)})
     name_to_hashes: dict[str, set[str]] = defaultdict(set)
     for digest, linked in references_by_hash.items():
         for row in linked:
