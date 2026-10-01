@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.18 - 2026-10-01
+
+- Recorded a controlled embedded-PNG-metadata diagnostic across all 1,101 frozen images. The scan found 1,096 `Software` text chunks, no PNG time or EXIF chunks, and no conventional numeric date candidate in decoded text. This does not establish capture dates; author provenance review remains open.
+
 ## 1.3.17 - 2026-10-01
 
 - Added a controlled descriptive builder for a future author-approved source-evidence corpus. It produces screening flow, source and modality coverage, target counts, co-occurrence, source concentration, and leave-one-source-out tables, with a hash manifest.

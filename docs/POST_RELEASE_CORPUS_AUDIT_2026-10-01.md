@@ -71,6 +71,13 @@ images, gaps over 30 days, and unparseable or blank dates. An image filename
 may reflect pasting or saving rather than capture. Neither the matches nor
 the mismatches certify a source-post date or collection visit.
 
+A controlled standard PNG metadata-chunk scan inspected all 1,101 frozen
+PNG paths. It found 1,096 `tEXt` chunks, all labelled `Software`, but no
+`tIME` or `eXIf` chunks and no conventional numeric date candidate in
+decoded text. The scan checked chunk structure rather than pixel decoding
+or every possible proprietary metadata convention. It supplied no verified
+capture date; the original preparers' records remain necessary.
+
 The current schema-v3 controlled review gate treats capture dates and
 source-displayed publication dates separately. Included images require their
 own source and capture-date-basis decisions; a verified capture date needs a
