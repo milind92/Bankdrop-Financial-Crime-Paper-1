@@ -22,12 +22,12 @@ The analysis is descriptive and exploratory. Co-occurrence is not evidence of te
 
 ## Data And Version Lock
 
-The current release locks and records file-level provenance for:
+The historical release records file-level provenance for:
 
-- the approved data-collection protocol;
-- the final codebook;
-- the human-validation results and adjudication log;
-- the deterministic coding output produced with the validated rules;
+- the then-approved data-collection protocol;
+- the historical rule codebook;
+- the historical human-validation results and adjudication log;
+- the historical deterministic coding output;
 - the analysis code, software environment, and random seeds;
 - a claim register mapping permissible result statements to source tables and validation boundaries.
 
@@ -48,27 +48,27 @@ The denominator is not:
 - the total number of files before eligibility screening;
 - an estimate of the size of any external market.
 
-Where one Markdown note contains multiple underlying posts or listings, it remains one composite computational record. This limitation must be stated in the manuscript. The 463 exact-combined-text-hash representatives are reported separately as sensitivity analysis and are not substituted for the primary denominator.
+Where one Markdown note contains multiple underlying posts or listings, it remains one composite computational record. This limitation must be stated if the historical analysis is discussed in the manuscript. The 463 exact-combined-text-hash representatives were a separate historical sensitivity population, not a substitute for an approved substantive denominator.
 
 ### Current Implementation Audit
 
 The completed deterministic screen evaluated all 980 combined note records. The controlled aggregate audit found 463 unique combined-text hashes, 34 exact duplicate groups, 517 exact duplicate excess records, and 65 zero-word combined records. No locked inclusion/exclusion log or pre-analysis deduplication was applied before Phase 3 coding. Consequently:
 
-- existing Phase 3 and 4 counts are the primary full-screened-record descriptive results, not unique-post or external-prevalence results;
+- existing Phase 3 and 4 counts are historical mixed-record diagnostics, not final substantive article estimates;
 - 463 unique hashes are a duplicate-sensitivity denominator, not a verified count of unique posts, listings, actors, transactions, or evidence units;
 - zero-word and otherwise unassessable records must not be treated as substantive negatives in a prevalence or classifier-performance claim;
-- the final manuscript must disclose this combined-note-record boundary and may not present the 980 records as unique posts, listings, actors, or transactions;
+- any manuscript discussion of the historical screen must disclose its combined-note boundary and may not present the 980 records as eligible source observations, unique posts, listings, actors, or transactions;
 - any later eligibility or evidence-unit audit that changes the denominator requires a complete deterministic rerun and a documented deviation.
 
-Publication-safe deterministic post-processing reports the primary 980-record screen beside a 463-record exact-combined-text-hash sensitivity population. The added tables cover source-normalized typology reporting, typology co-occurrence, source-stratified and leave-one-source-out co-occurrence stability, AML-candidate overlap, duplicate sensitivity, exploratory functional unions, source concentration, and leave-one-source-out counts. Near-duplicate treatment, evidence-unit reconstruction, record-level eligibility logging, and a complete modality sensitivity analysis remain outside the completed design and cannot be implied.
+Publication-safe deterministic post-processing reports the historical 980-record screen beside a 463-record exact-combined-text-hash sensitivity population. These tables are reproducibility artefacts, not final article results. They cover source-normalized typology reporting, typology co-occurrence, source-stratified and leave-one-source-out co-occurrence stability, AML-candidate overlap, duplicate sensitivity, exploratory functional unions, source concentration, and leave-one-source-out counts. Near-duplicate treatment, evidence-unit reconstruction, record-level eligibility logging, and a complete modality sensitivity analysis remain outside the historical design and cannot be implied.
 
 ## Analysis Populations
 
 | Population | Definition | Purpose |
 |---|---|---|
-| Primary full-screen population | All 980 screened combined note records. | Main descriptive results. |
-| Exact-text sensitivity population | One deterministic representative per combined-text hash, n = 463. | Duplicate sensitivity only; not a unique-post denominator. |
-| Human-validation holdout | Locked, probability-documented validation sample. | Reliability and deterministic-code performance only. |
+| Historical full-screen population | All 980 screened combined note records, including researcher and collection material. | Historical calculation only; not the revised article denominator. |
+| Historical exact-text sensitivity population | One deterministic representative per combined-text hash, n = 463. | Historical duplicate diagnostic only; not a unique-post denominator. |
+| Historical human-validation holdout | Locked, probability-documented mixed-record validation sample. | Historical reliability and rule-performance assessment only. |
 | Markdown-assessable population | Eligible records containing assessable Markdown text. | Markdown-only sensitivity. |
 | OCR-assessable population | Eligible records containing assessable, validly linked OCR text. | OCR contribution and error sensitivity. |
 | Combined-text population | Eligible records with normalized Markdown plus deduplicated OCR text. | Main rule application where both modalities are permitted. |
@@ -311,6 +311,6 @@ The final release should include deterministic analysis code, aggregate inputs s
 
 ## Journal Integration And Future-Analysis Decisions
 
-The repository analysis unit, 980-record denominator, duplicate-sensitivity role, ethics identifier, coder expertise, and sampling-plan existence are author confirmed in `docs/AUTHOR_DECISIONS_RECORD.md`.
+The earlier computational analysis unit, 980-record screen, duplicate-sensitivity role, ethics identifier, coder expertise, and sampling-plan existence were confirmed in `docs/AUTHOR_DECISIONS_RECORD.md`. The first three are historical design choices, not approval of the revised source-evidence population.
 
 The historical supplement is on methodological hold. The revised eligibility, text-provenance, OCR-quality, and validation work listed in `docs/POST_RELEASE_CORPUS_AUDIT_2026-10-01.md` must be completed and versioned before the repository can support a journal-facing substantive analysis. Any new theoretical grouping, near-duplicate rule, evidence-unit reconstruction, claim-performance threshold, or inferential model is a new or post hoc analysis and requires separate justification, versioning, and rerun where it changes the coded population or claims.

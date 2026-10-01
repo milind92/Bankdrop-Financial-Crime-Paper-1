@@ -6,14 +6,19 @@ This record captures author instructions supplied on 22 August 2026 for the publ
 
 **Current status:** The 1 October 2026 [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) supersedes the earlier submission-readiness decision. The 980-note denominator and 463-hash sensitivity below are preserved as historical computational choices. Authors have not yet confirmed the revised source-evidence boundary or image-coverage decisions.
 
-## Confirmed Decisions
+## Earlier Decisions For The Historical Screen
 
-| Topic | Confirmed decision | Repository effect |
+These decisions document the released calculation. The source-evidence audit
+supersedes the computational unit, denominator, and duplicate-sensitivity
+choices for substantive article analysis; it does not erase their value as a
+record of what the historical pipeline computed.
+
+| Topic | Earlier decision | Historical repository effect |
 |---|---|---|
 | Target outlet | A quality journal will be selected later. | The repository uses journal-neutral reporting and does not claim compliance with an unnamed journal's instructions. |
 | Repository role | Reproducibility supplement only. | No manuscript, cover letter, title page, or submission form is included. |
 | Primary computational unit | One screened combined note record: one Markdown note plus validly linked, content-deduplicated OCR text where available. | Results are reported at the combined-note-record level, not as unique posts, listings, actors, transactions, offenders, or victims. |
-| Primary descriptive denominator | All 980 screened combined note records. | The full-screened corpus is the primary descriptive population. It is not presented as a deduplicated external-population sample. |
+| Primary descriptive denominator | All 980 screened combined note records. | Historical mixed-record denominator only; not an approved substantive article population. |
 | Duplicate sensitivity | One representative per exact combined-text hash, n = 463. | This is a sensitivity population only and is not called the number of eligible unique posts or evidence units. |
 | Zero-word records | Retain and disclose 65 records with neither assessable Markdown nor joined OCR. | Non-matches cannot be interpreted as substantive absence, and denominators are stated explicitly. |
 | Ethics wording | Use “Griffith University Human Ethics Protocol 2025/697.” | The identifier is reported without inferring consent, waiver, copyright, access, or release permissions that it does not itself establish. |
@@ -39,4 +44,4 @@ The following items will be completed after the target journal and final paper t
 - licence choice and any archival DOI;
 - journal-specific repository, data, ethics, and anonymity wording.
 
-At current version `1.3.10`, the repository remains on methodological hold. The historical `v1.3.3` submission-ready statement has been withdrawn pending the author-reviewed reanalysis and validation described in the post-release audit. The revised holdout sampler and closeout scorer are available, but no real sample or score can exist before the evidence frame, target definitions, author allocation plan, and independent human judgments are locked.
+At current version `1.3.11`, the repository remains on methodological hold. The historical `v1.3.3` submission-ready statement has been withdrawn pending the author-reviewed reanalysis and validation described in the post-release audit. The revised holdout sampler and closeout scorer are available, but no real sample or score can exist before the evidence frame, target definitions, author allocation plan, and independent human judgments are locked.

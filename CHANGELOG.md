@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.11 - 2026-10-01
+
+- Corrected the collection protocol, analysis plan, and author-decision record so the historical 980-note screen, 463-hash sensitivity, and 1,032 human judgments are consistently labelled as historical mixed-record outputs rather than approved article denominators or revised validation.
+- Clarified that source-only substantive eligibility and the collection dates/procedure still require author or contemporaneous-record confirmation. No empirical result changed.
+
 ## 1.3.10 - 2026-10-01
 
 - Added a checked packet-manifest template to the revised holdout draw and a controlled closeout tool. It locks two completed independent coder sheets, prepares and locks adjudicated human decisions without opening machine predictions, then verifies the seeded draw before scoring.
