@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.7 - 2026-10-01
+
+- Added a one-time, pre-reveal lock for checked OCR gold transcripts and human legibility decisions. The scorer now rejects missing locks and changed locked fields or transcript files; the controlled lock manifest is blocked from public export.
+- Added design-weighted legibility percentages alongside raw sample counts. The 50-image human review remains blank, so no OCR accuracy or adequacy estimate is claimed.
+
 ## 1.3.6 - 2026-10-01
 
 - Added a fixed-seed, source-stratified probability sample and blinded two-human OCR transcription workflow for the historical referenced-image frame, with known per-stratum inclusion probabilities and hash-checked screenshot copies.

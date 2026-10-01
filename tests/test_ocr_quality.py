@@ -67,7 +67,7 @@ class OcrQualityTests(unittest.TestCase):
         if self.base.resolve().is_relative_to(ROOT.parents[1].resolve()):
             shutil.rmtree(self.base)
 
-    def complete_review(self) -> None:
+    def complete_review(self, create_lock: bool = True) -> None:
         rows = quality.read_csv(self.review / "ocr_quality_sample.csv", quality.SAMPLE_FIELDS)
         gold_by_image = {"image-1.png": "bank drop", "image-2.png": "cash out", "image-3.png": "hello", "image-4.png": "transfer"}
         for row in rows:
@@ -79,9 +79,14 @@ class OcrQualityTests(unittest.TestCase):
                 "transcriber": "Reviewer A", "transcriber_blind_to_ocr": "yes",
                 "checker": "Reviewer B", "checker_blind_to_ocr": "yes",
                 "transcript_check_status": "agreed", "image_text_legible": "full",
-                "ocr_extraction_adequate": "yes", "transcription_scope": "all_visible_text",
-                "review_status": "complete",
+                "transcription_scope": "all_visible_text",
             })
+        save_csv(self.review / "ocr_quality_sample.csv", rows, quality.SAMPLE_FIELDS)
+        if create_lock:
+            quality.lock_transcripts(self.vault, self.ocr_csv, self.joined_csv, self.review)
+        for row in rows:
+            row["ocr_extraction_adequate"] = "yes"
+            row["review_status"] = "complete"
         save_csv(self.review / "ocr_quality_sample.csv", rows, quality.SAMPLE_FIELDS)
 
     def test_sample_has_known_stratum_probabilities_and_blank_review(self) -> None:
@@ -92,9 +97,23 @@ class OcrQualityTests(unittest.TestCase):
         self.assertTrue(all(row["transcriber"] == "" and row["review_status"] == "pending" for row in rows))
 
     def test_incomplete_review_fails_without_report(self) -> None:
-        with self.assertRaisesRegex(ValueError, "review incomplete"):
+        with self.assertRaisesRegex(ValueError, "lock is missing"):
             quality.score(self.vault, self.ocr_csv, self.joined_csv, self.review, self.output)
         self.assertFalse(self.output.exists())
+
+    def test_completed_sheet_without_pre_unblinding_lock_fails(self) -> None:
+        self.complete_review(create_lock=False)
+        with self.assertRaisesRegex(ValueError, "lock is missing"):
+            quality.score(self.vault, self.ocr_csv, self.joined_csv, self.review, self.output)
+        self.assertFalse(self.output.exists())
+
+    def test_lock_rejects_ocr_adequacy_filled_before_transcript_freeze(self) -> None:
+        rows = quality.read_csv(self.review / "ocr_quality_sample.csv", quality.SAMPLE_FIELDS)
+        rows[0]["ocr_extraction_adequate"] = "yes"
+        save_csv(self.review / "ocr_quality_sample.csv", rows, quality.SAMPLE_FIELDS)
+        with self.assertRaisesRegex(ValueError, "adequacy must remain blank"):
+            quality.lock_transcripts(self.vault, self.ocr_csv, self.joined_csv, self.review)
+        self.assertFalse((self.review / "transcript_lock_manifest.json").exists())
 
     def test_checked_transcripts_produce_bounded_diagnostic(self) -> None:
         self.complete_review()
@@ -102,6 +121,8 @@ class OcrQualityTests(unittest.TestCase):
         self.assertEqual(report["sample_size"], 3)
         self.assertEqual(report["population_unique_image_hashes"], 4)
         self.assertEqual(report["ocr_extraction_adequacy_weighted_percent"]["yes"], 100.0)
+        self.assertEqual(report["image_legibility_weighted_percent"]["full"], 100.0)
+        self.assertEqual(len(report["transcript_lock_manifest_sha256"]), 64)
         self.assertIsNotNone(report["word_error_rate_full_legible_weighted"])
         self.assertGreaterEqual(report["word_error_rate_full_legible_weighted"], 0)
         self.assertTrue((self.output / "per_image_ocr_quality_controlled.csv").exists())
@@ -120,6 +141,24 @@ class OcrQualityTests(unittest.TestCase):
         (self.review / "images" / "sample_001.png").write_bytes(b"tampered")
         with self.assertRaisesRegex(ValueError, "review image changed"):
             quality.score(self.vault, self.ocr_csv, self.joined_csv, self.review, self.output)
+
+    def test_changed_transcript_after_lock_fails_closed(self) -> None:
+        self.complete_review()
+        rows = quality.read_csv(self.review / "ocr_quality_sample.csv", quality.SAMPLE_FIELDS)
+        transcript = self.review / rows[0]["transcript_relative_path"]
+        transcript.write_text("changed after reveal", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "locked transcript changed"):
+            quality.score(self.vault, self.ocr_csv, self.joined_csv, self.review, self.output)
+        self.assertFalse(self.output.exists())
+
+    def test_changed_human_review_field_after_lock_fails_closed(self) -> None:
+        self.complete_review()
+        rows = quality.read_csv(self.review / "ocr_quality_sample.csv", quality.SAMPLE_FIELDS)
+        rows[0]["checker"] = "Reviewer C"
+        save_csv(self.review / "ocr_quality_sample.csv", rows, quality.SAMPLE_FIELDS)
+        with self.assertRaisesRegex(ValueError, "Pre-unblinding review"):
+            quality.score(self.vault, self.ocr_csv, self.joined_csv, self.review, self.output)
+        self.assertFalse(self.output.exists())
 
 
 if __name__ == "__main__":

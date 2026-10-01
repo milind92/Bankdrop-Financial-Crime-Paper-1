@@ -34,6 +34,12 @@ SAMPLE_FIELDS = [
     "transcription_scope", "review_reason", "review_status",
 ]
 IDENTITY_FIELDS = SAMPLE_FIELDS[:7]
+PRE_UNBLIND_FIELDS = IDENTITY_FIELDS + [
+    "transcript_relative_path", "transcriber", "transcriber_blind_to_ocr",
+    "checker", "checker_blind_to_ocr", "transcript_check_status",
+    "transcript_resolution_reason", "image_text_legible",
+    "transcription_scope", "review_reason",
+]
 PER_IMAGE_FIELDS = [
     "sample_number", "image_relative_path", "image_sha256", "source_stratum",
     "design_weight", "image_text_legible", "ocr_extraction_adequate",
@@ -96,6 +102,12 @@ def image_path(vault: Path, relative: str) -> Path:
 def canonical_identity(rows: list[dict[str, str]]) -> str:
     selected = [{key: row[key] for key in IDENTITY_FIELDS} for row in rows]
     encoded = json.dumps(selected, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return text_sha(encoded)
+
+
+def pre_unblind_identity(rows: list[dict[str, str]]) -> str:
+    checked = [{key: row[key] for key in PRE_UNBLIND_FIELDS} for row in rows]
+    encoded = json.dumps(checked, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return text_sha(encoded)
 
 
@@ -302,6 +314,88 @@ def transcript_path(review_dir: Path, relative: str) -> Path:
     return path
 
 
+def checked_transcripts(review_dir: Path, rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
+    """Validate human-only review fields and hash each checked full transcript."""
+    transcripts = {}
+    for row in rows:
+        number = row["sample_number"]
+        transcriber = row["transcriber"].strip()
+        checker = row["checker"].strip()
+        if not transcriber or not checker or transcriber.casefold() == checker.casefold():
+            raise ValueError(f"Two distinct human reviewers are required for sample {number}")
+        if row["transcriber_blind_to_ocr"] != "yes" or row["checker_blind_to_ocr"] != "yes":
+            raise ValueError(f"Blinded transcription and checking are required for sample {number}")
+        status = row["transcript_check_status"]
+        if status not in {"agreed", "corrected", "not_applicable"}:
+            raise ValueError(f"Transcript-check status is invalid for sample {number}")
+        if status == "corrected" and not row["transcript_resolution_reason"].strip():
+            raise ValueError(f"Transcript correction needs a reason for sample {number}")
+        legibility = row["image_text_legible"]
+        if legibility not in {"full", "partial", "none", "no_text", "unassessable"}:
+            raise ValueError(f"Legibility decision is invalid for sample {number}")
+        relative = row["transcript_relative_path"].strip()
+        if legibility == "full":
+            if status == "not_applicable" or row["transcription_scope"] != "all_visible_text" or not relative:
+                raise ValueError(f"Full image needs a checked all-text transcript for sample {number}")
+            path = transcript_path(review_dir, relative)
+            if not normalise_text(path.read_text(encoding="utf-8-sig")):
+                raise ValueError(f"Gold transcript is empty for sample {number}")
+            transcripts[number] = {"relative_path": relative, "sha256": file_sha(path)}
+        else:
+            if status != "not_applicable" or relative or row["transcription_scope"].strip():
+                raise ValueError(f"Non-full image cannot have a full-image transcript at sample {number}")
+            if not row["review_reason"].strip():
+                raise ValueError(f"Non-full legibility needs a reason for sample {number}")
+    return transcripts
+
+
+def lock_transcripts(vault: Path, ocr_csv: Path, joined_csv: Path,
+                     review_dir: Path) -> dict[str, object]:
+    """Record a checked transcript checkpoint before any OCR is revealed."""
+    review_dir = outside_public_and_vault(review_dir, vault)
+    lock_path = review_dir / "transcript_lock_manifest.json"
+    if lock_path.exists():
+        raise ValueError("Transcript lock already exists; it cannot be overwritten")
+    manifest = json.loads((review_dir / "sample_manifest.json").read_text(encoding="utf-8"))
+    if (manifest.get("schema_version") != 1 or manifest.get("ocr_csv_sha256") != file_sha(ocr_csv)
+            or manifest.get("joined_csv_sha256") != file_sha(joined_csv)):
+        raise ValueError("OCR review does not match the frozen OCR inputs")
+    rows = read_csv(review_dir / "ocr_quality_sample.csv", SAMPLE_FIELDS)
+    if len(rows) != manifest.get("sample_size") or canonical_identity(rows) != manifest.get("sample_identity_sha256"):
+        raise ValueError("OCR sample identity changed before transcript lock")
+    review_images = json.loads((review_dir / "review_images_manifest.json").read_text(encoding="utf-8"))
+    if (review_images.get("sample_identity_sha256") != manifest.get("sample_identity_sha256")
+            or review_images.get("review_image_count") != len(rows)):
+        raise ValueError("Blinded review images do not match the frozen sample")
+    for row in rows:
+        number = row["sample_number"]
+        digest = row["image_sha256"]
+        copied = review_dir / "images" / f"sample_{int(number):03d}.png"
+        original = image_path(vault, row["image_relative_path"])
+        if copied.is_symlink() or not copied.is_file() or file_sha(copied) != digest:
+            raise ValueError(f"Blinded review image changed for sample {number}")
+        if not original.is_file() or file_sha(original) != digest:
+            raise ValueError(f"Source image changed for sample {number}")
+        if row["ocr_extraction_adequate"].strip() or row["review_status"] != "pending":
+            raise ValueError(f"OCR adequacy must remain blank before transcript lock at sample {number}")
+    transcripts = checked_transcripts(review_dir, rows)
+    locked = {
+        "schema_version": 1,
+        "status": "checked_human_transcripts_locked_before_ocr_review",
+        "locked_at_utc": datetime.now(timezone.utc).isoformat(),
+        "sample_identity_sha256": manifest["sample_identity_sha256"],
+        "pre_unblind_review_sha256": pre_unblind_identity(rows),
+        "pre_unblind_sheet_file_sha256": file_sha(review_dir / "ocr_quality_sample.csv"),
+        "transcript_file_sha256_by_sample": transcripts,
+        "reviewed_images": len(rows),
+        "full_transcripts": len(transcripts),
+    }
+    with lock_path.open("x", encoding="utf-8") as handle:
+        json.dump(locked, handle, indent=2)
+        handle.write("\n")
+    return locked
+
+
 def score(vault: Path, ocr_csv: Path, joined_csv: Path,
           review_dir: Path, output_dir: Path) -> dict[str, object]:
     review_dir = outside_public_and_vault(review_dir, vault)
@@ -323,9 +417,20 @@ def score(vault: Path, ocr_csv: Path, joined_csv: Path,
         copied = review_dir / "images" / f"sample_{int(row['sample_number']):03d}.png"
         if copied.is_symlink() or not copied.is_file() or file_sha(copied) != row["image_sha256"]:
             raise ValueError(f"Blinded review image changed for sample {row['sample_number']}")
+    lock_path = review_dir / "transcript_lock_manifest.json"
+    if not lock_path.is_file():
+        raise ValueError("Checked transcript lock is missing; score cannot proceed")
+    locked = json.loads(lock_path.read_text(encoding="utf-8"))
+    transcripts = checked_transcripts(review_dir, rows)
+    if (locked.get("schema_version") != 1
+            or locked.get("sample_identity_sha256") != manifest.get("sample_identity_sha256")
+            or locked.get("pre_unblind_review_sha256") != pre_unblind_identity(rows)
+            or locked.get("transcript_file_sha256_by_sample") != transcripts):
+        raise ValueError("Pre-unblinding review or locked transcript changed")
     ocr_by_hash, _, _ = image_population(ocr_csv, joined_csv)
     per_image = []
     status_counts: Counter[str] = Counter()
+    legibility_weights: dict[str, float] = defaultdict(float)
     adequacy_weights: dict[str, float] = defaultdict(float)
     total_weight = 0.0
     weighted_char_edits = weighted_gold_chars = 0.0
@@ -365,6 +470,7 @@ def score(vault: Path, ocr_csv: Path, joined_csv: Path,
         total_weight += weight
         adequacy_weights[adequate] += weight
         status_counts[legibility] += 1
+        legibility_weights[legibility] += weight
         result: dict[str, object] = {
             "sample_number": number,
             "image_relative_path": row["image_relative_path"],
@@ -413,6 +519,10 @@ def score(vault: Path, ocr_csv: Path, joined_csv: Path,
         "population_unique_image_hashes": expected_population,
         "source_strata": manifest["population_source_strata"],
         "image_legibility_counts": dict(sorted(status_counts.items())),
+        "image_legibility_weighted_percent": {
+            answer: round(100 * legibility_weights[answer] / total_weight, 3)
+            for answer in ("full", "partial", "none", "no_text", "unassessable")
+        },
         "full_legibility_sources_with_scored_transcripts": len(full_by_stratum),
         "ocr_extraction_adequacy_weighted_percent": {
             answer: round(100 * adequacy_weights[answer] / total_weight, 3)
@@ -423,6 +533,7 @@ def score(vault: Path, ocr_csv: Path, joined_csv: Path,
         "normalisation": "Unicode NFC, casefold, and collapsed whitespace; punctuation retained",
         "accuracy_boundary": "CER/WER describe the fully legible reviewed subset; partial, unreadable, and text-free images are reported separately. They are not proof that study-relevant content was fully recovered.",
         "sample_identity_sha256": manifest["sample_identity_sha256"],
+        "transcript_lock_manifest_sha256": file_sha(lock_path),
         "review_sheet_sha256": file_sha(review_dir / "ocr_quality_sample.csv"),
     }
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -434,7 +545,7 @@ def score(vault: Path, ocr_csv: Path, joined_csv: Path,
 def parser() -> argparse.ArgumentParser:
     top = argparse.ArgumentParser(description=__doc__)
     sub = top.add_subparsers(dest="command", required=True)
-    for name in ("prepare", "score", "materialize"):
+    for name in ("prepare", "lock", "score", "materialize"):
         command = sub.add_parser(name)
         command.add_argument("--vault", type=Path, required=True)
         command.add_argument("--review-dir", type=Path, required=True)
@@ -457,6 +568,9 @@ def main() -> int:
                              args.review_dir, args.sample_size, args.min_per_source)
         elif args.command == "materialize":
             result = materialize_images(args.vault, args.review_dir)
+        elif args.command == "lock":
+            result = lock_transcripts(args.vault, args.ocr_by_image,
+                                      args.joined_references, args.review_dir)
         else:
             result = score(args.vault, args.ocr_by_image, args.joined_references,
                            args.review_dir, args.output_dir)

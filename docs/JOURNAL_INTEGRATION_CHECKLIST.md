@@ -19,7 +19,7 @@
 - [x] Public-versus-controlled rerun boundaries documented.
 - [x] Release version, changelog, citation metadata, and workflow manifest aligned.
 
-The gate is **open** at version `1.3.6`. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates.
+The gate is **open** at version `1.3.7`. The [post-release corpus audit](POST_RELEASE_CORPUS_AUDIT_2026-10-01.md) explains the required work. The historical results must not be supplied as final journal estimates.
 
 ## Article And Journal-Portal Handoff
 

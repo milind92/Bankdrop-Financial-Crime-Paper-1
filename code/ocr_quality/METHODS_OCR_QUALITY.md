@@ -56,13 +56,19 @@ For every `sample_001.png` through `sample_050.png`:
    without seeing OCR. Save the agreed or corrected final transcript in the
    same file. Record both names, blinding confirmations, check status, and a
    correction rationale when relevant.
-3. Lock the final transcript and legibility decision **before revealing
-   OCR**. The checker can then compare OCR with the image and record whether
-   extraction would be adequate for source-content coding (`yes`, `no`, or
-   `uncertain`). Record legibility as `full`, `partial`, `none`, `no_text`, or
+3. Record legibility as `full`, `partial`, `none`, `no_text`, or
    `unassessable`. For non-full images, record a reason and leave the
-   full-image transcript field blank.
-4. Mark `review_status=complete` only when both human checks are recorded.
+   full-image transcript field blank. Keep `ocr_extraction_adequate` blank
+   and `review_status=pending` at this stage.
+4. Before revealing OCR, the project coordinator runs `lock` below. It
+   verifies the checked human fields and images, then creates a one-time
+   `transcript_lock_manifest.json` with the human-review and transcript file
+   hashes. It refuses an already existing lock. Retain this manifest in
+   controlled storage; a hash checkpoint documents the recorded sequence,
+   while the team remains responsible for actual blinding and independence.
+5. The checker can then compare OCR with the image and record whether
+   extraction would be adequate for source-content coding (`yes`, `no`, or
+   `uncertain`). Mark `review_status=complete` only after that judgment.
 
 For fully legible images, `transcript_relative_path` must point inside the
 review folder's `transcripts/` directory, `transcription_scope` must be
@@ -70,6 +76,14 @@ review folder's `transcripts/` directory, `transcription_scope` must be
 `corrected`. For all other images, use `not_applicable` as the check status.
 The script verifies names and fields; the researchers must verify that the
 reviews were in fact independent and blinded.
+
+```powershell
+python .\code\ocr_quality\assess_ocr_quality.py lock `
+  --vault $env:BANK_DROP_VAULT `
+  --ocr-by-image $env:BANK_DROP_OCR_BY_IMAGE `
+  --joined-references $env:BANK_DROP_PHASE2_JOINED `
+  --review-dir $env:BANK_DROP_OCR_REVIEW_DIR
+```
 
 ## Scoring and reporting
 
@@ -82,15 +96,19 @@ python .\code\ocr_quality\assess_ocr_quality.py score `
   --output-dir $env:BANK_DROP_OCR_SCORE_DIR
 ```
 
-The scorer fails before writing output if any image, cache, selection identity,
-review copy, transcript, or review decision is missing or altered. It compares
+The scorer fails before writing output if the pre-reveal lock is absent or if
+any locked human field, transcript, image, cache, selection identity, review
+copy, or final review decision is missing or altered. It compares
 the checked human transcript to the original OCR text after Unicode NFC,
 case-folding, and whitespace collapse; punctuation remains. Character error
 rate is Levenshtein character edits divided by gold characters, and word
 error rate is token edits divided by gold words. Pooled scores use the known
 source-stratum design weights. They are **conditional on fully legible images**;
-partial, unreadable, and text-free images are counted separately. Human
-adequacy judgments are tabulated with the same design weights. CER/WER can
+partial, unreadable, and text-free images are counted separately. The report
+gives both unweighted sample counts and design-weighted population
+percentages for legibility; human adequacy judgments use the same design
+weights. These 50-image figures are descriptive estimates with sampling
+uncertainty, not exact frame parameters. CER/WER can
 exceed 1 when OCR inserts enough extra text.
 
 The current sample describes the historical referenced-image OCR frame. It

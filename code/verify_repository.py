@@ -143,6 +143,7 @@ RESTRICTED_FILENAMES = {
     "ocr_quality_sample.csv",
     "sample_manifest.json",
     "review_images_manifest.json",
+    "transcript_lock_manifest.json",
     "per_image_ocr_quality_controlled.csv",
     "ocr_quality_report.json",
 }
@@ -420,6 +421,8 @@ def check_journal_reproducibility_supplement(
         "historical_referenced_image_hashes": 1037,
         "source_strata": 15,
         "probability_sample_images": 50,
+        "transcript_lock_required": True,
+        "human_transcripts_locked": False,
         "human_transcripts_complete": False,
         "character_word_error_estimates_complete": False,
         "final_approved_corpus_coverage_confirmed": False,

@@ -139,6 +139,7 @@ BLOCKED_FILENAMES = {
     "ocr_quality_sample.csv",
     "sample_manifest.json",
     "review_images_manifest.json",
+    "transcript_lock_manifest.json",
     "per_image_ocr_quality_controlled.csv",
     "ocr_quality_report.json",
 }

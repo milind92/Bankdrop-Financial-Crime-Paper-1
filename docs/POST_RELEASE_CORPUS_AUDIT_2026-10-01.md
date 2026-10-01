@@ -113,7 +113,7 @@ rate has yet been verified. The 58 unreferenced images also lack an approved
 source/date/eligibility decision. Neither gap can be closed by rewording the
 Methods section alone.
 
-Version `1.3.6` adds a [blinded OCR-quality procedure](../code/ocr_quality/METHODS_OCR_QUALITY.md).
+Version `1.3.7` adds a pre-reveal transcript lock to the [blinded OCR-quality procedure](../code/ocr_quality/METHODS_OCR_QUALITY.md).
 Its controlled, fixed-seed probability sample selects 50 distinct image
 hashes from the 1,037-hash historical referenced-image frame across 15 source
 strata, with recorded selection probabilities and hash-checked screenshot
