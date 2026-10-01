@@ -311,16 +311,15 @@ def export_public_release(
     if source_output_root == repository_root or is_within(source_output_root, repository_root):
         raise PublicExportError("Controlled output root must be outside the public repository")
     phase3_metadata = source_output_root / "phase3_typology_coding" / "run_metadata.json"
-    if phase3_metadata.exists():
-        try:
-            phase3_mode = json.loads(phase3_metadata.read_text(encoding="utf-8-sig")).get("analysis_mode")
-        except (OSError, ValueError, AttributeError) as exc:
-            raise PublicExportError("Cannot verify controlled Phase 3 analysis mode") from exc
-        if phase3_mode == "author_reviewed_artifact_bounded_source_text":
-            raise PublicExportError(
-                "Revised source-evidence aggregates cannot be exported until their "
-                "OCR quality, target validation, downstream analysis, and release manifest are approved"
-            )
+    try:
+        phase3_mode = json.loads(phase3_metadata.read_text(encoding="utf-8-sig")).get("analysis_mode")
+    except (OSError, ValueError, AttributeError) as exc:
+        raise PublicExportError("Cannot verify controlled Phase 3 analysis mode") from exc
+    if phase3_mode != "historical_combined_note_screen":
+        raise PublicExportError(
+            "Only the explicitly identified historical analysis may use this public export; "
+            "revised or unidentified outputs require a separate approved release"
+        )
 
     candidates: list[tuple[PublicExport, Path, Path]] = []
     for item in PUBLIC_EXPORTS:

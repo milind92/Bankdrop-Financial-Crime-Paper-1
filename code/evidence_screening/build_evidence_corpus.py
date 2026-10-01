@@ -381,6 +381,7 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
 
     allowed_references = {}
     orphan_standalone = 0
+    included_orphan_hashes: set[str] = set()
     for key, row in image_rows.items():
         decision = check_vote(row, {"include", "exclude", "unavailable"}, f"image {key}")
         original = images[key]
@@ -409,6 +410,8 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
         elif original["kind"] == "orphan":
             if original["image_sha256"] in referenced_hashes:
                 raise ValueError(f"Content-duplicate orphan cannot be included twice: {key}")
+            if original["image_sha256"] in included_orphan_hashes:
+                raise ValueError(f"Duplicate orphan content cannot be included twice: {key}")
             if not row.get("decision_reason", "").strip():
                 raise ValueError(f"Included orphan needs a source/linkage rationale: {key}")
             assigned = row.get("assigned_note_id", "").strip()
@@ -438,6 +441,7 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
             allowed_references[key] = (unit_id, "image_ocr", extra_ocr[key], image_date,
                                        row["capture_date_basis"].strip(),
                                        row["capture_date_record_locator"].strip())
+            included_orphan_hashes.add(original["image_sha256"])
     for note_id in units:
         if note_id in notes:
             key = f"markdown:{note_id}"
@@ -459,6 +463,8 @@ def build(vault: Path, phase1_index: Path, phase2_joined: Path,
             if not row.get("decision_reason", "").strip():
                 raise ValueError(f"Excluded segment needs reason at row {index}")
             continue
+        if not row.get("decision_reason", "").strip():
+            raise ValueError(f"Included segment needs a source-text provenance rationale at row {index}")
         unit_id, kind, source_text, capture_date, date_basis, date_locator = allowed_references[key]
         try:
             start, end = int(row["start_char"]), int(row["end_char"])

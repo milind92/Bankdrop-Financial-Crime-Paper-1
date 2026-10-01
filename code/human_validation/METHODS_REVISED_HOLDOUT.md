@@ -25,13 +25,17 @@ transactions, actors, or a probability sample of an outside market.
    controlled human decision codebook. Rerun revised Phase 3 with the matching
    deterministic codebook. The Phase 3 metadata records the generated rule
    codebook SHA-256; the holdout pins both that file and the human codebook.
-3. Use a development pilot to resolve coder instructions. Record its approved
-   unit IDs in a controlled CSV with header `unit_id`. An empty file with that
-   header is valid only if the authors affirm that no pilot units need
-   exclusion. The tool removes listed pilot units **and any units with exactly
-   the same approved combined-text hash**, preventing an identical capture
-   from entering both pilot and holdout. Near duplicates require human review
-   and may require additional exclusions before the frame is locked.
+3. Inventory **all** prior development exposure, including July validation
+   packets, examples used to tune the rules, and the new pilot. Map each
+   exposed case to an approved unit ID where possible; preserve an exposure
+   ledger and record unmappable cases. Record all mapped IDs in a controlled
+   CSV with header `unit_id`. An empty file is valid only after both authors
+   document that no approved unit was previously exposed. The tool removes
+   listed units **and any units with exactly the same approved combined-text
+   hash**. The authors must review near duplicates and possible cross-unit
+   matches before locking the frame. If prior exposure cannot be excluded or
+   ruled out, describe the sample as a new probability draw from the approved
+   frame, **not** as an independent, previously unseen holdout.
 4. Write a target-specific precision and feasibility rationale. State the
    intended positive predictive value and sensitivity precision, expected
    non-assessable fraction, any rare-code census, and the coding budget. The
@@ -88,7 +92,11 @@ This writes `validation_frame.csv`, `frame_manifest.json`, and
 `allocation_plan_template.json`. The template is **draft** and has blank
 quotas and approvals. Fill every quota, the overall and per-target precision
 rationales, a precommitted integer seed, two distinct author names, ISO
-approval date, and the two frozen/exclusions-final flags. Save a separate
+approval date, the frozen/exclusions-final flags, and the prior-exposure audit.
+Set `prior_exposure_overlap_status` to `mapped_and_excluded` only when all
+known exposed cases have been checked against the revised units and overlaps
+removed; otherwise use `cannot_establish` and explain why in
+`prior_exposure_audit_rationale`. Save a separate
 approved plan; do not overwrite the draft without preserving its history.
 
 ```powershell
@@ -167,7 +175,11 @@ The scorer retains all five final-decision categories. A final adjudicated
 `out_of_scope_record` judgment stops performance scoring because it calls the
 approved frame into question. If any target has `ambiguous` or
 `insufficient_evidence` judgments, the tool leaves its primary performance
-point estimates blank and reports conservative bounds instead. It never
+point estimates and `*_ci95` fields blank. It reports separate
+`*_compatible95` envelopes spanning admissible binary resolutions and
+finite-frame sampling uncertainty. For a census, an envelope such as [0, 1]
+can arise entirely from an unresolved human label; it is not a 95% confidence
+interval for a known binary reference. It never
 silently treats those judgments as negatives. A changed target definition or
 evidence frame after selection requires a fresh holdout for affected claims.
 
@@ -191,8 +203,9 @@ They are not simultaneous intervals across all target codes. This follows
 the finite-population hypergeometric model described by
 [Bartroff, Lorden and Wang](https://arxiv.org/abs/2109.05624); the tool uses
 simple equal-tail inversion rather than that paper's optimized intervals.
-Where a final decision is nonbinary, the bound allows it to be either present
-or absent. The scorer suppresses a sensitivity interval if the approved
+Where a final decision is nonbinary, the separate compatibility envelope
+allows it to be either present or absent. The scorer suppresses sensitivity
+endpoints if the approved
 population might contain no human-positive units, making sensitivity
 undefined.
 

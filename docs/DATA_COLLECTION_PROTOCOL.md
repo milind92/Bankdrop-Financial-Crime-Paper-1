@@ -86,8 +86,8 @@ support a temporal trend analysis.
 
 The corrected release included the 980 Markdown notes located within the named source-folder structure after excluding 19 internal or administrative files outside that structure. The following criteria describe a future evidence-unit refinement and must not be represented as having been applied record by record in the current release:
 
-1. It falls within the documented collection period and source scope.
-2. Its provenance can be linked to a controlled source record; uncertain provenance is recorded as pending rather than silently treated as confirmed source evidence.
+1. It belongs to the preserved archive and the topic and source scope approved by the authors and locked before revised coding. Apply a collection-period restriction only if a contemporaneous record independently establishes that period; otherwise report capture dates as unknown and do not analyse time trends.
+2. Its source provenance has an observable marker in the preserved record or a reviewable corroborating record. If neither exists, retain the item in the inventory with uncertain provenance and exclude it from the source-evidence denominator.
 3. It contains assessable source material, such as attributable copied source text or a valid screenshot. Researcher-only notes remain available for coverage reporting, not substantive coding.
 4. It relates to the prespecified study scope rather than solely to a collection-system test, navigation page, access failure, or unrelated material.
 5. It can be assigned a stable privacy-safe record identifier and integrity hash.
@@ -102,7 +102,7 @@ A future evidence-unit analysis should exclude or separately classify a record, 
 - an exact duplicate of another retained analytic record under the prespecified duplicate rule;
 - a collection-system test, empty placeholder, or corrupted file;
 - only an access error, login wall, loading screen, or unrelated navigation artefact;
-- outside the documented source, date, language, or topic scope;
+- outside the approved source, language, or topic scope, or outside a collection period established independently from contemporaneous records;
 - missing enough provenance or content to support assessment;
 - prohibited from analysis under the approved ethics or legal conditions.
 

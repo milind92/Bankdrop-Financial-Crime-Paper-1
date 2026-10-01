@@ -58,7 +58,7 @@ class DerivedAnalysisTests(unittest.TestCase):
         self.assertEqual(no_match["dominant_typology_notes"], "0")
         self.assertIn("no rule-positive", no_match["top_typologies"])
 
-    def test_phase4_outputs_recognise_completed_validation(self) -> None:
+    def test_phase4_report_distinguishes_historical_from_revised_validation(self) -> None:
         report = (
             ROOT / "outputs" / "phase4_aggregate" / "FINANCIAL_CRIME_ANALYSIS_REPORT.md"
         ).read_text(encoding="utf-8-sig")
@@ -66,7 +66,9 @@ class DerivedAnalysisTests(unittest.TestCase):
             ROOT / "outputs" / "phase4_aggregate" / "phase4_recommendations.csv"
         ).read_text(encoding="utf-8-sig")
         self.assertNotIn("draw a stratified validation sample", report)
-        self.assertIn("completed human-validation performance", report)
+        self.assertIn("does not validate a revised source-evidence corpus", report)
+        self.assertIn("new source-evidence human-validation performance", report)
+        self.assertNotIn("Likely result that can be drawn", report)
         self.assertIn("No explicit deterministic match", recommendations)
 
     def test_phase_reports_separate_typologies_from_collection_quality(self) -> None:

@@ -128,13 +128,12 @@ class PublicExporterTests(unittest.TestCase):
         with temporary_workspace() as temporary:
             controlled, repository = self.make_roots(temporary)
             phase3 = controlled / "phase3_typology_coding"
-            phase3.mkdir()
             (phase3 / "run_metadata.json").write_text(
                 json.dumps({"analysis_mode": "author_reviewed_artifact_bounded_source_text"}),
                 encoding="utf-8",
             )
             (phase3 / "typology_summary.csv").write_text("code,note_count\nexample,1\n", encoding="utf-8")
-            with self.assertRaisesRegex(exporter.PublicExportError, "cannot be exported"):
+            with self.assertRaisesRegex(exporter.PublicExportError, "Only the explicitly identified historical"):
                 exporter.export_public_release(controlled, repository)
             self.assertFalse((repository / "outputs").exists())
 
@@ -160,6 +159,11 @@ class PublicExporterTests(unittest.TestCase):
         repository = root / "repository"
         controlled.mkdir()
         repository.mkdir()
+        phase3 = controlled / "phase3_typology_coding"
+        phase3.mkdir()
+        (phase3 / "run_metadata.json").write_text(
+            json.dumps({"analysis_mode": "historical_combined_note_screen"}), encoding="utf-8"
+        )
         return controlled, repository
 
     def test_only_existing_allowlisted_aggregate_is_copied(self) -> None:
@@ -178,6 +182,21 @@ class PublicExporterTests(unittest.TestCase):
             self.assertEqual(destination.read_bytes(), safe.read_bytes())
             self.assertFalse((repository / "outputs" / "phase1_aggregate" / blocked.name).exists())
             self.assertEqual(len(records), 1)
+
+    def test_export_rejects_missing_or_unidentified_phase3_mode(self) -> None:
+        with temporary_workspace() as temporary:
+            controlled, repository = self.make_roots(temporary)
+            source = controlled / "phase1_markdown_baseline" / "source_summary.csv"
+            source.parent.mkdir()
+            source.write_text("source,note_count\nS01,3\n", encoding="utf-8")
+            phase3 = controlled / "phase3_typology_coding"
+            (phase3 / "run_metadata.json").unlink()
+            with self.assertRaisesRegex(exporter.PublicExportError, "Cannot verify"):
+                exporter.export_public_release(controlled, repository)
+            (phase3 / "run_metadata.json").write_text("{}", encoding="utf-8")
+            with self.assertRaisesRegex(exporter.PublicExportError, "Only the explicitly identified historical"):
+                exporter.export_public_release(controlled, repository)
+            self.assertFalse((repository / "outputs").exists())
 
     def test_allowlisted_csv_with_note_level_field_is_rejected_before_copy(self) -> None:
         with temporary_workspace() as temporary:

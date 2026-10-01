@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.3.21 - 2026-10-01
+
+Local working version; publication to the public repository remains pending.
+
+- Applied independent quantitative, provenance and repository review corrections. The historical article-use hold remains in force.
+- Required source-text span rationales, prevented duplicate orphan-image content from entering twice, and removed an unsupported collection-period restriction from the no-answer protocol.
+- Required an explicit historical Phase 3 mode for public aggregate export, guarded public file types, labelled the historical Phase 3 overview, and withheld interpretive narratives from the historical Phase 4 report pending revised evidence and validation.
+- Qualified the public historical human-validation status so its coder agreement is not mistaken for revised rule validity.
+- Separated nonbinary-reference compatibility envelopes from binary-reference 95% confidence intervals and required a prior-development-exposure assessment before a revised holdout draw.
+- Replayed current historical code in controlled storage: Phase 1 inventory and Phase 2 OCR content/provenance match the frozen analysis; Phase 3 has zero binary disagreements, while 13 typology and 10 AML hit-count rows differ. No revised empirical result was generated.
+
 ## 1.3.20 - 2026-10-01
 
 - Added a bounded retrospective-archive method when the original preparers cannot supply a collection account or contemporaneous capture logs. Unverified capture dates remain blank; the proposed collection schedule is not treated as executed, and the analysis makes no temporal-coverage or external-prevalence claim.

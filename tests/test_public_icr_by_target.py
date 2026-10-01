@@ -41,7 +41,8 @@ class PublicICRByTargetTests(unittest.TestCase):
     def test_corrected_revalidation_status_is_committed(self) -> None:
         path = ROOT / "outputs" / "human_validation" / "HUMAN_VALIDATION_STATUS.md"
         text = path.read_text(encoding="utf-8")
-        self.assertIn("corrected revalidation complete", text.casefold())
+        self.assertIn("july revalidation complete", text.casefold())
+        self.assertIn("do not validate an author-approved source-evidence corpus", text)
         self.assertIn("1,032 paired", text)
         self.assertIn("Human Ethics Protocol 2025/697", text)
         self.assertIn("Ausma Bernot", text)

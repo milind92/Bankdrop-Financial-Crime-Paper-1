@@ -35,6 +35,9 @@ def main() -> None:
     lines = [
         "# Phase 3 Analytic Overview",
         "",
+        ("**Revised source-evidence output — validation and journal-use hold.**" if revised else
+         "**Historical exploratory output — journal-use hold.** The 980-note structural screen includes researcher and collection-status records. These rule counts are not approved source-evidence or article estimates."),
+        "",
         "## Scope",
         "",
         f"- {'Approved evidence units' if revised else 'Notes'} coded: {metadata['note_count']}",

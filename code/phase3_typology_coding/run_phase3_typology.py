@@ -790,6 +790,7 @@ def main() -> None:
 
     metadata = {
         "phase": "phase3_typology_coding",
+        "analysis_mode": "historical_combined_note_screen",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "vault_path": "[HASH_CHECKED_AT_EVIDENCE_BUILD]" if evidence_mode else str(VAULT),
         "phase2_output_path": "[OCR_PROVENANCE_IN_EVIDENCE_BUILD]" if evidence_mode else str(PHASE2_OUTPUT),

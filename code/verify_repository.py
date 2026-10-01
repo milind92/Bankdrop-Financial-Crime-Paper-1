@@ -190,6 +190,8 @@ RESTRICTED_FILENAMES = {
     "revised_leave_one_source_out_controlled.csv",
     "revised_descriptive_manifest.json",
 }
+PUBLIC_TEXT_SUFFIXES = {".md", ".txt", ".py", ".json", ".yml", ".yaml", ".cff", ".csv"}
+PUBLIC_EXTENSIONLESS_FILES = {".gitignore", ".gitattributes"}
 BLOCKED_EXACT_FIELDS = {"note_id", "legacy_note_id", "record_id", "unit_id", "case_id", "duplicate_cluster_hash", "source_unit_sha256", "packet_file", "packet_sha256", "source_path", "local_path", "absolute_path", "capture_date_record_locator"}
 BLOCKED_FIELD_TOKENS = {"snippet", "snippets", "raw_text", "ocr_text", "full_text"}
 SAFE_AGGREGATE_FIELDS = {"unique_text_count", "positive_unique_evidence_rows", "negative_unique_evidence_rows"}
@@ -322,6 +324,8 @@ def check_excluded_material(errors: list[str]) -> int:
         parts = set(relative.parts)
         if parts & EXCLUDED_PATH_PARTS:
             errors.append(f"Excluded repository path is present: {relative.as_posix()}")
+        elif file_path.suffix.casefold() not in PUBLIC_TEXT_SUFFIXES and file_path.name not in PUBLIC_EXTENSIONLESS_FILES:
+            errors.append(f"Unapproved public file type is present: {relative.as_posix()}")
         elif file_path.name in EXCLUDED_FILENAMES:
             errors.append(f"Excluded repository file is present: {relative.as_posix()}")
         elif file_path.name in RESTRICTED_FILENAMES:

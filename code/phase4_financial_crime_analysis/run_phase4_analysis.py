@@ -412,6 +412,8 @@ def build_report(typology, objectives, aml_rows, source_profiles, snippets, phas
     lines = []
     lines.append("# Financial Crime Analysis Report")
     lines.append("")
+    lines.append("**Historical exploratory output — journal-use hold.** This analysis used the 980-note structural screen, which includes researcher and collection-status material. The source-evidence denominator, image and Markdown provenance, OCR quality, and revised target validation have not been approved. Counts and narratives below are archived hypotheses from this mixed-record analysis, not article findings or evidence of services, transactions, or market prevalence.")
+    lines.append("")
     lines.append("## Executive Summary")
     lines.append("")
     lines.append(
@@ -422,9 +424,9 @@ def build_report(typology, objectives, aml_rows, source_profiles, snippets, phas
     )
     lines.append("")
     lines.append(
-        "This report is based on deterministic Phase 3 coding over Markdown notes plus OCR text. It should be read as a "
-        "structured interpretation rather than a final qualitative conclusion. Blinded human validation and adjudication were completed by "
-        "Ausma Bernot and Milind Tiwari; publication claims must still follow the target-level performance and evidence boundaries."
+        "This report is based on deterministic Phase 3 coding over Markdown notes plus OCR text. A separate July human "
+        "validation exercise covered the historical mixed-record sample; it does not validate a revised source-evidence corpus. "
+        "The text below is a computational audit record, not a final qualitative conclusion."
     )
     lines.append("")
 
@@ -438,12 +440,12 @@ def build_report(typology, objectives, aml_rows, source_profiles, snippets, phas
     )
     lines.append("")
     lines.append(
-        "The method is deliberately conservative: Phase 1 indexed Markdown, Phase 2 OCR'd screenshots, Phase 3 applied a "
+        "The pipeline is deterministic: Phase 1 indexed Markdown, Phase 2 OCR'd screenshots, Phase 3 applied a "
         "deterministic codebook, and Phase 4 synthesises those outputs. No external LLM or external API was used in Phase 4."
     )
     lines.append("")
 
-    lines.append("## Ranked Typology Findings")
+    lines.append("## Historical Typology Rule Counts")
     lines.append("")
     lines.append(md_table(["Rank", "Typology", "Notes", "Hits"], [[i, row["label"], row["note_count"], row["hit_count"]] for i, row in enumerate(typology, 1)]))
     lines.append("")
@@ -453,25 +455,10 @@ def build_report(typology, objectives, aml_rows, source_profiles, snippets, phas
     lines.append(md_table(["Rank", "Criminal objective", "Notes", "Hits"], [[i, row["criminal_objective"], row["note_count"], row["hit_count"]] for i, row in enumerate(objectives, 1)]))
     lines.append("")
 
-    lines.append("## Interpretation Of Main Typologies")
+    lines.append("## Interpretation Hold")
     lines.append("")
-    for i, row in enumerate(typology[:10], 1):
-        code = row["code"]
-        narrative = FINDING_NARRATIVES.get(code)
-        if not narrative:
-            continue
-        lines.append(f"### {i}. {narrative['finding']}")
-        lines.append("")
-        lines.append(f"Signal strength: {row['note_count']} notes; {row['hit_count']} pattern hits.")
-        lines.append("")
-        lines.append(narrative["analysis"])
-        lines.append("")
-        lines.append(f"Likely result that can be drawn: {narrative['result_type']}")
-        lines.append("")
-        lines.append(f"AML or detection relevance: {narrative['controls']}")
-        lines.append("")
-        lines.append("Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.")
-        lines.append("")
+    lines.append("The historical rule counts below are retained for audit. Typology narratives and detection advice are withheld from this report until the authors review attributable source passages, OCR quality and target-specific validation on the revised frame.")
+    lines.append("")
 
     lines.append("## AML Indicator Candidates")
     lines.append("")
@@ -483,13 +470,9 @@ def build_report(typology, objectives, aml_rows, source_profiles, snippets, phas
     lines.append(md_table(["Source", "Dominant typology", "Notes", "Top typologies"], [[row["source"], row["dominant_typology"], row["dominant_typology_notes"], row["top_typologies"]] for row in source_profiles]))
     lines.append("")
 
-    lines.append("## Candidate Findings And Evidence Boundaries")
+    lines.append("## Evidence Boundaries")
     lines.append("")
-    lines.append("1. The dataset is strongest for account-access, bank-drop, cash-out, crypto-conversion, and trust/reputation typologies.")
-    lines.append("2. Forum/market evidence appears to capture both commodity supply and downstream monetisation infrastructure.")
-    lines.append("3. Telegram/private-channel references are observable signals, but the captured material does not establish migration or transaction coordination.")
-    lines.append("4. No explicit migrant/student exploitation rule match was detected; this does not support an absence, rarity, or prevalence claim.")
-    lines.append("5. Marketplace scam and escrow discourse should be analysed as part of the criminal ecology, not just as noise.")
+    lines.append("The present tables count lexical signals in a mixed-record archive. They do not establish services, transactions, unique posts, source coverage, or market prevalence. The zero match for a target is not evidence of absence.")
     lines.append("")
 
     lines.append("## Limitations")
@@ -504,7 +487,7 @@ def build_report(typology, objectives, aml_rows, source_profiles, snippets, phas
     lines.append("## Recommended Next Step")
     lines.append("")
     lines.append(
-        "Before journal submission, reconcile every proposed claim with the completed human-validation performance table, "
+        "Before journal submission, reconcile every proposed claim with a new source-evidence human-validation performance table, "
         "target-level uncertainty, duplicate and source-sensitivity outputs, and controlled contextual review. Obtain the "
         "separate AML-domain review and do not make an absence or rarity claim for vulnerable-group exploitation from the "
         "zero deterministic match."

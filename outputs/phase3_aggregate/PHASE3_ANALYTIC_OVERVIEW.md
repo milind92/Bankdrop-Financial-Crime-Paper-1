@@ -1,5 +1,7 @@
 # Phase 3 Analytic Overview
 
+**Historical exploratory output — journal-use hold.** The 980-note structural screen includes researcher and collection-status records. These rule counts are not approved source-evidence or article estimates.
+
 ## Scope
 
 - Notes coded: 980

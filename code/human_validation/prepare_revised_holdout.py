@@ -329,6 +329,8 @@ def prepare(phase3_dir: Path, evidence_corpus: Path, pilot_units: Path,
         "precision_rationale": "",
         "target_precision_rationale": {f"{target_type}:{code}": "" for target_type, code in targets},
         "pilot_exclusions_finalized": False,
+        "prior_exposure_overlap_status": "",
+        "prior_exposure_audit_rationale": "",
         "target_definitions_frozen": False, "approved_by": [], "approval_date": "",
         "selection_seed": None, "allocations": allocations,
     }
@@ -384,6 +386,9 @@ def draw(phase3_dir: Path, evidence_corpus: Path, pilot_units: Path,
             or any(not isinstance(value, str) or len(value.strip()) < 20
                    for value in target_rationales.values())
             or plan.get("pilot_exclusions_finalized") is not True
+            or plan.get("prior_exposure_overlap_status") not in {"mapped_and_excluded", "cannot_establish"}
+            or not isinstance(plan.get("prior_exposure_audit_rationale"), str)
+            or len(plan["prior_exposure_audit_rationale"].strip()) < 30
             or plan.get("target_definitions_frozen") is not True
             or not isinstance(approvals, list) or len(approvals) < 2
             or len({name.strip() for name in approvals if isinstance(name, str) and name.strip()}) < 2
@@ -449,6 +454,7 @@ def draw(phase3_dir: Path, evidence_corpus: Path, pilot_units: Path,
         "frame_sha256": sha_file(frame_path), "plan_sha256": sha_file(plan_path),
         "input_sha256": hashes, "selection_seed": seed,
         "approved_by": approvals, "approval_date": plan["approval_date"],
+        "prior_exposure_overlap_status": plan["prior_exposure_overlap_status"],
         "frame_diagnostics": diagnostics, "case_target_frame_n": len(frame),
         "sampled_case_target_n": len(machine),
         "sampled_unique_units_n": len({row["unit_id"] for row in machine}),

@@ -8,6 +8,8 @@ This document explains how a qualified reviewer may request limited audit access
 
 Controlled material includes raw notes, screenshots, OCR text, source identifiers, record-level coding, evidence packets, coder workbooks, rationales, adjudication rows, signatures, record- or evidence-level hashes, and local inventories. Public metadata may retain only file-level SHA-256 values for version verification of controlled aggregate-generation inputs.
 
+Historical aggregate files contain source-group labels. Their treatment as approved public pseudonyms has not been confirmed from the institutional ethics/data-use record in this post-release audit. The authors must decide whether these labels can remain public or need replacement before the next release; the repository's automated field and file-type checks cannot make that ethics determination.
+
 ## Access Process
 
 Requests must be directed to the corresponding author once appointed. The authorised project and institutional decision-makers must consider ethics, law, platform terms, privacy, security, and misuse risks case by case. Access is not guaranteed.

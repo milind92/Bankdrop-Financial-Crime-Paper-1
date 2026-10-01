@@ -70,6 +70,8 @@ source/linkage review; a duplicate of already referenced content cannot be
 included a second time. Every non-inclusion needs a reason. An included
 orphan needs a source/linkage rationale and provenance-matched OCR supplied
 in the documented supplemental CSV schema.
+Only one orphan path per image-content SHA-256 may enter the approved evidence,
+including when duplicate paths would otherwise be assigned to the same note.
 
 The `capture_date_basis` is `collector_record`, `capture_system_log`,
 `filename_only`, or `unknown`. Enter an ISO `capture_date` only for the first
@@ -107,6 +109,16 @@ them to satisfy a compound rule. Overlapping spans, edited text, and
 included images without an approved span are rejected. Where a screenshot
 has no assessable text, record an exclusion or unavailable decision with a
 reason instead of entering it as a substantive negative.
+
+Before populating the final span sheet, both reviewers should independently
+mark candidate source passages in their own controlled copies and check the
+whole eligible note or OCR transcript for omitted source text. Reconcile
+different boundaries or omissions, then enter the agreed offsets and a
+`decision_reason` describing the visible source marker or corroborating
+record for **each included span**. Preserve the independent nominations and
+reconciliation record outside the public repository. The builder verifies
+the final offsets, hashes, votes, and nonblank rationale; it cannot verify
+that the reviewers found every source passage or that an attribution is true.
 
 The code checks that two reviewers, their decisions, a final decision, and
 an adjudicator are recorded for every row. Disagreements and adjudicator

@@ -1,18 +1,20 @@
 # Financial Crime Analysis Report
 
+**Historical exploratory output — journal-use hold.** This analysis used the 980-note structural screen, which includes researcher and collection-status material. The source-evidence denominator, image and Markdown provenance, OCR quality, and revised target validation have not been approved. Counts and narratives below are archived hypotheses from this mixed-record analysis, not article findings or evidence of services, transactions, or market prevalence.
+
 ## Executive Summary
 
 The rule-based analysis identifies a range of content signals around bank logs, bank drops, identity packages, cash-out services, crypto conversion, Telegram/private-channel references, and criminal-market trust terms. These lexical patterns motivate hypotheses about account access and conversion, but they do not establish genuine services or movement of value.
 
-This report is based on deterministic Phase 3 coding over Markdown notes plus OCR text. It should be read as a structured interpretation rather than a final qualitative conclusion. Blinded human validation and adjudication were completed by Ausma Bernot and Milind Tiwari; publication claims must still follow the target-level performance and evidence boundaries.
+This report is based on deterministic Phase 3 coding over Markdown notes plus OCR text. A separate July human validation exercise covered the historical mixed-record sample; it does not validate a revised source-evidence corpus. The text below is a computational audit record, not a final qualitative conclusion.
 
 ## Data And Method Boundary
 
 Phase 3 coded 980 notes using 12 substantive typologies and 1 collection-quality flag, alongside 6 AML indicator candidates. Evidence snippets available for audit: 2707.
 
-The method is deliberately conservative: Phase 1 indexed Markdown, Phase 2 OCR'd screenshots, Phase 3 applied a deterministic codebook, and Phase 4 synthesises those outputs. No external LLM or external API was used in Phase 4.
+The pipeline is deterministic: Phase 1 indexed Markdown, Phase 2 OCR'd screenshots, Phase 3 applied a deterministic codebook, and Phase 4 synthesises those outputs. No external LLM or external API was used in Phase 4.
 
-## Ranked Typology Findings
+## Historical Typology Rule Counts
 
 | Rank | Typology | Notes | Hits |
 | --- | --- | --- | --- |
@@ -46,127 +48,9 @@ The method is deliberately conservative: Phase 1 indexed Markdown, Phase 2 OCR'd
 | 11 | Reference mule or account-holder recruitment and solicitation | 9 | 14 |
 | 12 | Reference possible exploitation of financially or migration-vulnerable people | 0 | 0 |
 
-## Interpretation Of Main Typologies
+## Interpretation Hold
 
-### 1. Bank-log sale or discussion terms are the most frequent provisional typology.
-
-Signal strength: 178 notes; 1090 pattern hits.
-
-Bank-log material indicates demand for access to existing accounts rather than only newly opened accounts. The operational risk is account takeover followed by rapid monetisation, especially where logs are bundled with recovery-channel access.
-
-Likely result that can be drawn: Can support a typology of account-takeover commodity markets.
-
-AML or detection relevance: Prioritise unusual device/session, geolocation, cookie/session reuse, and recovery-channel changes.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
-
-### 2. Cryptocurrency payment and conversion terms appear in the provisional coding.
-
-Signal strength: 126 notes; 594 pattern hits.
-
-Crypto references occur alongside cash-out, escrow, and market-payment language. This suggests crypto is not just a payment method in the captured discourse; whether funds were converted, obfuscated, or settled remains a hypothesis requiring direct contextual evidence.
-
-Likely result that can be drawn: Can support analysis of crypto-to-fiat conversion points and settlement rails.
-
-AML or detection relevance: Focus on fiat off-ramp points, exchange account misuse, rapid movement after crypto conversion, and mule account inflows.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
-
-### 3. Fullz and identity-package terms appear frequently in the provisional coding.
-
-Signal strength: 124 notes; 485 pattern hits.
-
-Fullz/identity signals connect bank drops and account takeover to KYC bypass, impersonation, account opening, and recovery-channel control. This is a key bridge between data theft and financial crime.
-
-Likely result that can be drawn: Can support analysis of identity-enabled financial-crime workflows.
-
-AML or detection relevance: Monitor identity-document reuse, abnormal KYC metadata, email/phone changes, and synthetic identity patterns.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
-
-### 4. Escrow, trust, reputation, and scam-risk discourse are prominent.
-
-Signal strength: 121 notes; 640 pattern hits.
-
-A large trust-risk signal means the dataset also captures criminal-market governance problems. This is analytically important because some listings may be scams against other offenders, copied listings, or reputation-building content.
-
-Likely result that can be drawn: Can support assessment of marketplace reliability and deception within illicit markets.
-
-AML or detection relevance: Avoid treating all listings as real inventory; code credibility, repetition, escrow claims, and scam warnings separately.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
-
-### 5. Cash-out and laundering-service terms appear in the provisional rule-based coding.
-
-Signal strength: 118 notes; 418 pattern hits.
-
-The rule-based coding identifies terms concerning cash-out, laundering, and conversion services. These lexical matches are consistent with a downstream-monetisation hypothesis, but they do not show that a service was genuine, supplied, or used. The completed ICR supports coder consistency, but direct contextual evidence and close reading remain required before making a substantive movement-of-value claim.
-
-Likely result that can be drawn: Can support a typology of conversion services and post-compromise monetisation.
-
-AML or detection relevance: Monitor abrupt inbound/outbound movement, beneficiary changes, mule-like receiving behaviour, and crypto-to-bank conversion narratives.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
-
-### 6. Jurisdiction and domestic-account terms appear across sources.
-
-Signal strength: 117 notes; 693 pattern hits.
-
-The rule-based coding records country and local-bank terms near bank, account, drop, or log terms. It does not establish actor preference, reduced scrutiny, or completed domestic or cross-border money movement.
-
-Likely result that can be drawn: Can support analysis of localised mule/drop demand and geography-specific bank targeting.
-
-AML or detection relevance: Assess domestic receiving-account patterns, especially where victim geography and receiving-account geography align.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
-
-### 7. Bank-drop terms appear frequently in the provisional coding.
-
-Signal strength: 116 notes; 719 pattern hits.
-
-Bank-drop signals indicate demand for accounts that can receive, hold, or move funds. This aligns with mule/drop account misuse and may include both compromised accounts and accounts opened or controlled for criminal use.
-
-Likely result that can be drawn: Can support a bank-drop/mule-account typology.
-
-AML or detection relevance: Look for newly active dormant accounts, inbound third-party funds, rapid onward transfer, and mismatch between customer profile and transaction behaviour.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
-
-### 8. Tutorial/method/training material is substantial.
-
-Signal strength: 104 notes; 484 pattern hits.
-
-The dataset includes content that appears to lower barriers to entry or package criminal knowledge. This supports analysis of capability diffusion, recruitment, and monetisation of know-how, not just commodity sales.
-
-Likely result that can be drawn: Can support a typology of criminal learning and recruitment infrastructure.
-
-AML or detection relevance: Consider education-style material as a risk amplifier that can expand participation and standardise methods.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
-
-### 9. Telegram and private-channel references appear in market-related records.
-
-Signal strength: 82 notes; 243 pattern hits.
-
-The rule identifies Telegram or private-channel terms in market-related text. It does not by itself show that negotiation, proof, or transaction coordination moved elsewhere. Human review is required before interpreting off-platform migration; captured forum material may omit context outside the retained record.
-
-Likely result that can be drawn: Can support descriptive analysis of private-channel references; any coordination hypothesis requires direct contextual evidence.
-
-AML or detection relevance: Treat open-forum posts as lead generation; do not assume the whole transaction is visible in the captured page.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
-
-### 10. Email access is a recurring enhancer of bank-log/account-takeover risk.
-
-Signal strength: 62 notes; 218 pattern hits.
-
-Email access can strengthen persistence and allow control over password resets, notifications, and recovery paths. Where bank access and email access appear together, the account-takeover risk is materially higher.
-
-Likely result that can be drawn: Can support an enhanced-risk sub-typology of bank log plus recovery-channel compromise.
-
-AML or detection relevance: Treat email-change, inbox-rule, recovery-channel, and MFA-reset events as linked financial-crime risk indicators.
-
-Evidence boundary: supporting snippets are retained in the separate Phase 3 `evidence_snippets.csv` audit file and are not reproduced in the narrative report.
+The historical rule counts below are retained for audit. Typology narratives and detection advice are withheld from this report until the authors review attributable source passages, OCR quality and target-specific validation on the revised frame.
 
 ## AML Indicator Candidates
 
@@ -200,13 +84,9 @@ Evidence boundary: supporting snippets are retained in the separate Phase 3 `evi
 | 8. Secure ccSeller | fullz_identity_package | 6 | fullz_identity_package (6 notes); jurisdiction_localisation (5 notes); bank_log_sale (4 notes); email_access_takeover (4 notes); tutorial_training_recruitment (4 notes) |
 | 9. Deep Shop | bank_log_sale | 15 | bank_log_sale (15 notes); crypto_payment_or_conversion (10 notes); escrow_trust_reputation (7 notes); cashout_laundering_service (4 notes); tutorial_training_recruitment (4 notes) |
 
-## Candidate Findings And Evidence Boundaries
+## Evidence Boundaries
 
-1. The dataset is strongest for account-access, bank-drop, cash-out, crypto-conversion, and trust/reputation typologies.
-2. Forum/market evidence appears to capture both commodity supply and downstream monetisation infrastructure.
-3. Telegram/private-channel references are observable signals, but the captured material does not establish migration or transaction coordination.
-4. No explicit migrant/student exploitation rule match was detected; this does not support an absence, rarity, or prevalence claim.
-5. Marketplace scam and escrow discourse should be analysed as part of the criminal ecology, not just as noise.
+The present tables count lexical signals in a mixed-record archive. They do not establish services, transactions, unique posts, source coverage, or market prevalence. The zero match for a target is not evidence of absence.
 
 ## Limitations
 
@@ -218,4 +98,4 @@ Evidence boundary: supporting snippets are retained in the separate Phase 3 `evi
 
 ## Recommended Next Step
 
-Before journal submission, reconcile every proposed claim with the completed human-validation performance table, target-level uncertainty, duplicate and source-sensitivity outputs, and controlled contextual review. Obtain the separate AML-domain review and do not make an absence or rarity claim for vulnerable-group exploitation from the zero deterministic match.
+Before journal submission, reconcile every proposed claim with a new source-evidence human-validation performance table, target-level uncertainty, duplicate and source-sensitivity outputs, and controlled contextual review. Obtain the separate AML-domain review and do not make an absence or rarity claim for vulnerable-group exploitation from the zero deterministic match.

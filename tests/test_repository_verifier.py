@@ -19,6 +19,13 @@ SPEC.loader.exec_module(verifier)
 
 
 class PrivacyBoundaryTests(unittest.TestCase):
+    def test_binary_attachment_in_public_repository_is_rejected(self) -> None:
+        path = REPOSITORY_ROOT / "outputs" / "phase4_aggregate" / "unapproved.png"
+        errors: list[str] = []
+        with mock.patch.object(verifier, "repository_files", return_value=[path]):
+            verifier.check_excluded_material(errors)
+        self.assertTrue(any("Unapproved public file type" in error for error in errors))
+
     def test_https_urls_are_not_mistaken_for_windows_paths(self) -> None:
         self.assertIsNone(verifier.ABSOLUTE_PATH_PATTERN.search("https://doi.org/10.1000/test"))
         windows_path = "controlled: " + "C:" + "\\Users\\analyst\\vault"

@@ -126,7 +126,7 @@ class EvidenceScreeningTests(unittest.TestCase):
                 segments.append((image_row["reference_key"], 0, len(text), text))
         for key, first, last, source_text in segments:
             row = {field: "" for field in screen.SEGMENT_FIELDS}
-            row.update({"reference_key": key, "start_char": str(first), "end_char": str(last), "segment_sha256": screen.sha_text(source_text[first:last])})
+            row.update({"reference_key": key, "start_char": str(first), "end_char": str(last), "segment_sha256": screen.sha_text(source_text[first:last]), "decision_reason": "Visible source text in synthetic record"})
             approve(row, "include")
             segment_rows.append(row)
         save_csv(self.review / "source_segments.csv", segment_rows, screen.SEGMENT_FIELDS)
@@ -351,6 +351,7 @@ class EvidenceScreeningTests(unittest.TestCase):
             "reference_key": orphan["reference_key"], "start_char": "0",
             "end_char": str(len("orphan source text")),
             "segment_sha256": screen.sha_text("orphan source text"),
+            "decision_reason": "Visible source text in synthetic screenshot",
         })
         approve(segment, "include")
         segments.append(segment)
@@ -369,6 +370,31 @@ class EvidenceScreeningTests(unittest.TestCase):
                                   self.review, self.base / "standalone_evidence", extra)
         self.assertEqual(standalone["approved_evidence_units"], 2)
         self.assertEqual(standalone["approved_standalone_orphan_units"], 1)
+
+    def test_assigned_duplicate_orphan_content_cannot_enter_twice(self) -> None:
+        (self.vault / "unlinked-copy.png").write_bytes(self.orphan.read_bytes())
+        self.review = self.base / "duplicate_review"
+        screen.prepare(self.vault, self.index, self.joined, self.review)
+        self.complete_review()
+        images = screen.read_csv(self.review / "image_decisions.csv", screen.IMAGE_FIELDS)
+        orphans = [row for row in images if row["kind"] == "orphan"]
+        self.assertEqual(len(orphans), 2)
+        config = screen.read_csv(self.joined)[0]["ocr_config_sha256"]
+        supplemental = []
+        for orphan in orphans:
+            approve(orphan, "include")
+            orphan.update({"assigned_note_id": "n1", "approved_source": "Source A",
+                           "capture_date_basis": "unknown", "decision_reason": "Synthetic source marker"})
+            image_sha = orphan["image_sha256"]
+            supplemental.append({"image_relative_path": orphan["image_relative_path"],
+                                 "image_sha256": image_sha, "ocr_config_sha256": config,
+                                 "ocr_cache_key": screen.sha_text(f"{image_sha}:{config}"),
+                                 "ocr_status": "ok", "ocr_text": "same source text"})
+        save_csv(self.review / "image_decisions.csv", images, screen.IMAGE_FIELDS)
+        extra = self.base / "duplicate_orphan_ocr.csv"
+        save_csv(extra, supplemental, list(supplemental[0]))
+        with self.assertRaisesRegex(ValueError, "Duplicate orphan content"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output, extra)
 
     def test_revised_holdout_requires_approved_plan_and_keeps_short_negatives(self) -> None:
         self.complete_review()
@@ -407,6 +433,8 @@ class EvidenceScreeningTests(unittest.TestCase):
         plan.update({
             "status": "approved", "precision_rationale": "Synthetic complete-frame census for a gate test.",
             "pilot_exclusions_finalized": True, "target_definitions_frozen": True,
+            "prior_exposure_overlap_status": "cannot_establish",
+            "prior_exposure_audit_rationale": "Synthetic test does not establish any historical exposure mapping.",
             "approved_by": ["Ausma Bernot", "Milind Tiwari"],
             "approval_date": "2026-10-01", "selection_seed": 12345,
         })
@@ -576,7 +604,9 @@ class EvidenceScreeningTests(unittest.TestCase):
         bounded = revised_close.score_target(rows)
         self.assertEqual(bounded["reference_status"], "nonbinary_bounds_only")
         self.assertIsNone(bounded["ppv"])
-        self.assertIsNotNone(bounded["ppv_ci95_low"])
+        self.assertIsNone(bounded["ppv_ci95_low"])
+        self.assertIsNotNone(bounded["ppv_compatible95_low"])
+        self.assertEqual(bounded["sensitivity_interval_status"], "compatible95_only")
         rows[0]["final"] = "out_of_scope_record"
         with self.assertRaisesRegex(ValueError, "invalidates"):
             revised_close.score_target(rows)
@@ -779,6 +809,14 @@ class EvidenceScreeningTests(unittest.TestCase):
         included_image["decision_reason"] = ""
         save_csv(self.review / "image_decisions.csv", images, screen.IMAGE_FIELDS)
         with self.assertRaisesRegex(ValueError, "source-match rationale"):
+            screen.build(self.vault, self.index, self.joined, self.review, self.output)
+
+        included_image["decision_reason"] = "Visible source marker matches note"
+        save_csv(self.review / "image_decisions.csv", images, screen.IMAGE_FIELDS)
+        segments = screen.read_csv(self.review / "source_segments.csv", screen.SEGMENT_FIELDS)
+        segments[0]["decision_reason"] = ""
+        save_csv(self.review / "source_segments.csv", segments, screen.SEGMENT_FIELDS)
+        with self.assertRaisesRegex(ValueError, "source-text provenance rationale"):
             screen.build(self.vault, self.index, self.joined, self.review, self.output)
 
     def test_controlled_output_cannot_enter_public_repository(self) -> None:
